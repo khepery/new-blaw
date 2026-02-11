@@ -306,7 +306,175 @@
         // Initialize header animation when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             setupHeaderAnimation();
+            initializeInteractiveFeatures();
         });
+        
+        // Interactive Features (same as unit9)
+        function initializeInteractiveFeatures() {
+            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
+            contentDivs.forEach((div, index) => {
+                if (div.querySelector('h4')) {
+                    makeCollapsible(div, index);
+                }
+            });
+            addProgressTracker();
+            addHoverEffects();
+        }
+        
+        function makeCollapsible(element, index) {
+            const header = element.querySelector('h4');
+            if (!header) return;
+            
+            const content = Array.from(element.children).slice(1);
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'collapsible-content';
+            contentWrapper.style.maxHeight = '2000px';
+            contentWrapper.style.overflow = 'hidden';
+            contentWrapper.style.transition = 'max-height 0.4s ease';
+            
+            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
+            content.forEach(child => child.remove());
+            element.appendChild(contentWrapper);
+            
+            header.style.cursor = 'pointer';
+            header.style.userSelect = 'none';
+            header.style.position = 'relative';
+            header.style.paddingRight = '30px';
+            header.style.transition = 'all 0.3s';
+            
+            const icon = document.createElement('span');
+            icon.innerHTML = '▼';
+            icon.style.position = 'absolute';
+            icon.style.right = '0';
+            icon.style.top = '50%';
+            icon.style.transform = 'translateY(-50%)';
+            icon.style.transition = 'transform 0.3s';
+            icon.style.fontSize = '0.8em';
+            header.appendChild(icon);
+            
+            header.addEventListener('click', function() {
+                const isCollapsed = contentWrapper.style.maxHeight === '0px';
+                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
+                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
+                header.style.color = isCollapsed ? '#4527a0' : '#666';
+            });
+            
+            header.addEventListener('mouseenter', function() {
+                header.style.color = '#4527a0';
+                header.style.transform = 'translateX(5px)';
+            });
+            
+            header.addEventListener('mouseleave', function() {
+                if (contentWrapper.style.maxHeight !== '0px') {
+                    header.style.color = '#333';
+                }
+                header.style.transform = 'translateX(0)';
+            });
+        }
+        
+        function addProgressTracker() {
+            const progressBar = document.createElement('div');
+            progressBar.id = 'reading-progress';
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(90deg, #4527a0, #7e57c2);
+                z-index: 9999;
+                transition: width 0.2s ease;
+            `;
+            document.body.appendChild(progressBar);
+            
+            window.addEventListener('scroll', function() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressBar.style.width = progress + '%';
+            });
+            
+            const backToTop = document.createElement('button');
+            backToTop.innerHTML = '↑';
+            backToTop.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #4527a0, #7e57c2);
+                color: white;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(69, 39, 160, 0.3);
+            `;
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            document.body.appendChild(backToTop);
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.style.opacity = '1';
+                    backToTop.style.transform = 'scale(1)';
+                } else {
+                    backToTop.style.opacity = '0';
+                    backToTop.style.transform = 'scale(0.8)';
+                }
+            });
+            
+            backToTop.addEventListener('mouseenter', function() {
+                backToTop.style.transform = 'scale(1.1)';
+            });
+            
+            backToTop.addEventListener('mouseleave', function() {
+                backToTop.style.transform = 'scale(1)';
+            });
+        }
+        
+        function addHoverEffects() {
+            const listItems = document.querySelectorAll('ul li, ol li');
+            listItems.forEach(item => {
+                item.style.transition = 'all 0.2s';
+                item.style.paddingLeft = '0';
+                
+                item.addEventListener('mouseenter', function() {
+                    item.style.paddingLeft = '10px';
+                    item.style.color = '#4527a0';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    item.style.paddingLeft = '0';
+                    item.style.color = '';
+                });
+            });
+            
+            const contentCard = document.querySelector('.content-card');
+            if (contentCard) {
+                const strongElements = contentCard.querySelectorAll('strong');
+                strongElements.forEach(strong => {
+                    strong.style.cursor = 'help';
+                    strong.style.transition = 'all 0.2s';
+                    strong.style.position = 'relative';
+                    
+                    strong.addEventListener('mouseenter', function() {
+                        strong.style.color = '#4527a0';
+                        strong.style.textShadow = '0 0 10px rgba(69, 39, 160, 0.3)';
+                    });
+                    
+                    strong.addEventListener('mouseleave', function() {
+                        strong.style.color = '';
+                        strong.style.textShadow = '';
+                    });
+                });
+            }
+        }
     </script>
 </body>
 </html>
