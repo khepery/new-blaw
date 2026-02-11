@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 6: Negligence Part 1 - Business Environments</title>
+    <style>
+        :root {
+            --primary-color: #e65100;
+            --secondary-color: #f57c00;
+            --accent-color: #ff9800;
+            --light-accent: #fff3e0;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .intro-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-banner {
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .card-icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Increased space for the icon */
+            margin-bottom: 20px; /* More space below icon */
+            position: relative;
+        }
+        
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--light-accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .card-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--primary-color);
+        }
+        
+        .card-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .card-link {
+            display: block;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .card-link:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .chinese {
+            font-size: 0.9rem;
+            color: var(--med-text);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .back-to-main:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .animate-rotate {
+            animation: rotate 12s linear infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 3s ease-in-out infinite;
+        }
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+    /* Better spacing for smaller screens */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Adjust header text size */
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* Make cards more compact */
+    .card-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+    
+    /* Slightly smaller icons for mobile */
+    .card-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Adjust intro section padding */
+    .intro-section {
+        padding: 1.5rem;
+    }
+    
+    /* Improve tap targets */
+    .card-link {
+        padding: 1rem;
+    }
+    
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    /* Further adjust spacing */
+    main {
+        padding: 1rem 0.75rem;
+    }
+    
+    .card {
+        border-radius: 6px;
+    }
+    
+    /* Make text more readable */
+    .card h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Optimized buttons for touch */
+    .card-link {
+        padding: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+    
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Unit 6: Negligence Part 1</h1>
+            <p>Business Environments - FS2025</p>
+        </div>
+    </header>
+    
+    <main>
+        <section class="intro-section">
+            <h2>Welcome to Unit 6: Negligence Part 1</h2>
+            <p>This unit covers the fundamentals of negligence law, including duty of care, breach of duty, causation, remoteness of damage, and the neighbor principle. Navigate through the topics below.</p>
+        </section>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Tort of Negligence - Interactive Hub</span>
+                        <span class="chinese">侵权法之疏忽 - 互动中心</span>
+                    </h3>
+                    <p>Explore the complete interactive learning resource for the Tort of Negligence, including duty of care, breach, causation, and defenses.</p>
+                    <a href="unit4a.html" class="card-link">Explore Full Content</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Donoghue v Stevenson</span>
+                        <span class="chinese">多诺霍诉史蒂文森</span>
+                    </h3>
+                    <p>Study the landmark case that established the neighbor principle and modern duty of care concept.</p>
+                    <a href="unit4a.html#unit4-1" class="card-link">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Elements of Negligence</span>
+                        <span class="chinese">疏忽的要素</span>
+                    </h3>
+                    <p>Understand the four essential elements: duty of care, breach of duty, causation, and remoteness of damage.</p>
+                    <a href="unit4a.html#unit4-1" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Defenses to Negligence</span>
+                        <span class="chinese">疏忽的抗辩</span>
+                    </h3>
+                    <p>Learn about contributory negligence, voluntary assumption of risk, and other defenses available.</p>
+                    <a href="unit4a.html#unit4-2" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    
+    <footer>
+        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+        });
+    </script>
+</body>
+</html>

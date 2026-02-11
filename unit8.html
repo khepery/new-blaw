@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 8: Consumer Protection - Business Environments</title>
+    <style>
+        :root {
+            --primary-color: #00838f;
+            --secondary-color: #0097a7;
+            --accent-color: #00acc1;
+            --light-accent: #e0f7fa;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .back-to-main:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .back-to-main {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-to-main svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+    
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Unit 8: Consumer Protection</h1>
+            <p>Business Environments - FS2025</p>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content-card">
+            <h2>Content Coming Soon</h2>
+            <p>This page is under development. The content for Unit 8: Consumer Protection will be available soon.</p>
+            <p>Topics to be covered will include:</p>
+            <ul>
+                <li>Australian Consumer Law (ACL)</li>
+                <li>Misleading and Deceptive Conduct</li>
+                <li>Consumer Guarantees</li>
+                <li>Unfair Contract Terms</li>
+                <li>Product Safety and Recalls</li>
+                <li>Consumer Rights and Remedies</li>
+                <li>Enforcement and Penalties</li>
+                <li>ACCC Role and Functions</li>
+            </ul>
+            <p>Please check back later for complete content.</p>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Animation keyframes
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes float {
+                    0% { transform: translateY(0px); }
+                    50% { transform: translateY(-10px); }
+                    100% { transform: translateY(0px); }
+                }
+            </style>
+        `);
+        
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+        });
+    </script>
+</body>
+</html>
