@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Legal System - Course Units</title>
+    <!-- Google Font for Retro Look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #3b82f6;
+            --light-accent: #e8eaf6;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+            /* Unit specific colors */
+            --unit1-color: #1a237e;
+            --unit1-light: #e8eaf6;
+            --unit2-color: #2c3e50;
+            --unit2-light: #f9f2cc;
+            --unit3-color: #1b5e20;
+            --unit3-light: #e8f5e9;
+            --unit4-color: #b71c1c;
+            --unit4-light: #ffebee;
+            --unit5-color: #4a148c;
+            --unit5-light: #f3e5f5;
+
+            /* IPAC Tool Specific Colors */
+            --ipac-tool-color: #00695c;
+            --ipac-tool-light: #e0f2f1;
+            --ipac-tool-accent: #004d40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* --- Video Intro Styles --- */
+        #video-intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        #intro-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #enter-text {
+            position: absolute;
+            bottom: 30px;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            text-shadow: 0 0 10px black;
+            animation: pulse-text 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+        #sound-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid white;
+            padding: 8px 16px;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #sound-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        #sound-toggle.muted .icon-unmuted,
+        #sound-toggle:not(.muted) .icon-muted {
+            display: none;
+        }
+        #sound-toggle svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+        }
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+        }
+
+        /* --- Main Content & Other Styles --- */
+        header { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--light-text); text-align: center; padding: 3rem 1rem; position: relative; overflow: hidden; }
+        .header-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        header p { font-size: 1.2rem; opacity: 0.9; }
+        .header-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.3; }
+        main { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        .intro-section, .tool-section { background-color: white; border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow); }
+        .tool-section h2 { color: var(--ipac-tool-color); margin-bottom: 1.5rem; border-bottom: 2px solid var(--ipac-tool-light); padding-bottom: 0.5rem; }
+        .tool-tile { background-color: var(--ipac-tool-light); border-left: 5px solid var(--ipac-tool-color); border-radius: 8px; padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .tool-tile:hover { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); transform: translateY(-3px); }
+        .tool-icon-ipac { background-color: var(--ipac-tool-color); color: white; min-width: 60px; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .tool-icon-ipac svg { width: 30px; height: 30px; }
+        .tool-content h3 { color: var(--ipac-tool-color); font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .tool-content .bilingual { display: flex; flex-direction: column; gap: 0.2rem; }
+        .tool-content .bilingual .chinese { font-size: 0.85rem; color: var(--med-text); font-weight: normal; }
+        .tool-content p { color: var(--med-text); margin-bottom: 1rem; font-size: 0.95rem; }
+        .tool-link { display: inline-block; background-color: var(--ipac-tool-color); color: white; padding: 0.7rem 1.2rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; }
+        .tool-link:hover { background-color: var(--ipac-tool-accent); }
+        .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .unit-card { background-color: white; border-radius: 8px; overflow: hidden; box-shadow: var(--box-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; height: 100%; display: flex; flex-direction: column; }
+        .unit-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        .unit-card.unit1 .unit-banner { background: linear-gradient(90deg, var(--unit1-color), var(--accent-color)); }
+        .unit-card.unit2 .unit-banner { background: linear-gradient(90deg, var(--unit2-color), var(--accent-color)); }
+        .unit-card.unit3 .unit-banner { background: linear-gradient(90deg, var(--unit3-color), var(--accent-color)); }
+        .unit-card.unit4 .unit-banner { background: linear-gradient(90deg, var(--unit4-color), var(--accent-color)); }
+        .unit-card.unit5 .unit-banner { background: linear-gradient(90deg, var(--unit5-color), var(--accent-color)); }
+        .unit-banner { height: 8px; }
+        .unit-icon-container { display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px; position: relative; }
+        .unit-card.unit1 .unit-icon { background-color: var(--unit1-light); }
+        .unit-card.unit2 .unit-icon { background-color: var(--unit2-light); }
+        .unit-card.unit3 .unit-icon { background-color: var(--unit3-light); }
+        .unit-card.unit4 .unit-icon { background-color: var(--unit4-light); }
+        .unit-card.unit5 .unit-icon { background-color: var(--unit5-light); }
+        .unit-card.unit1 .unit-icon svg { fill: var(--unit1-color); }
+        .unit-card.unit2 .unit-icon svg { fill: var(--unit2-color); }
+        .unit-card.unit3 .unit-icon svg { fill: var(--unit3-color); }
+        .unit-card.unit4 .unit-icon svg { fill: var(--unit4-color); }
+        .unit-card.unit5 .unit-icon svg { fill: var(--unit5-color); }
+        .unit-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: relative; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 1; }
+        .unit-icon svg { width: 35px; height: 35px; }
+        .unit-content { padding: 0 2rem 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .unit-card h3 { font-size: 1.5rem; margin-bottom: 1rem; text-align: center; }
+        .unit-card.unit1 h3 { color: var(--unit1-color); }
+        .unit-card.unit2 h3 { color: var(--unit2-color); }
+        .unit-card.unit3 h3 { color: var(--unit3-color); }
+        .unit-card.unit4 h3 { color: var(--unit4-color); }
+        .unit-card.unit5 h3 { color: var(--unit5-color); }
+        .unit-card p { margin-bottom: 1.5rem; flex-grow: 1; }
+        .unit-link { display: block; background-color: var(--accent-color); color: white; text-align: center; padding: 0.8rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; margin-bottom: 0.75rem; }
+        .unit-card.unit1 .unit-link:hover { background-color: var(--unit1-color); }
+        .unit-card.unit2 .unit-link:hover { background-color: var(--unit2-color); }
+        .unit-card.unit3 .unit-link:hover { background-color: var(--unit3-color); }
+        .unit-card.unit4 .unit-link:hover { background-color: var(--unit4-color); }
+        .unit-card.unit5 .unit-link:hover { background-color: var(--unit5-color); }
+        .bilingual { display: flex; flex-direction: column; gap: 0.5rem; }
+        .chinese { font-size: 0.9rem; color: var(--med-text); }
+        footer { text-align: center; padding: 2rem; background-color: var(--primary-color); color: var(--light-text); margin-top: 3rem; }
+        @media (max-width: 768px) {
+            .unit-grid { grid-template-columns: 1fr; }
+            .tool-tile { flex-direction: column; align-items: flex-start; text-align: center; }
+            .tool-icon-ipac { margin: 0 auto 1rem auto; }
+            .tool-content { width: 100%; }
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1rem; }
+        }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse { animation: pulse 4s ease-in-out infinite; }
+        .animate-rotate { animation: rotate 12s linear infinite; }
+        .animate-bounce { animation: bounce 3s ease-in-out infinite; }
+        .hidden { display: none; }
+    </style>
+</head>
+
+<body>
+    <!-- Video Intro Overlay -->
+    <div id="video-intro-overlay">
+        <video id="intro-video" autoplay muted loop playsinline>
+            <source src="Retro_Game_Intro_Plan_Complete.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button id="sound-toggle" class="muted">
+            <span id="sound-text">SOUND</span>
+            <!-- Unmuted Icon (Sound ON) -->
+            <svg class="icon-unmuted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+            </svg>
+            <!-- Muted Icon (Sound OFF) -->
+            <svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+        </button>
+        <p id="enter-text">Click anywhere to enter</p>
+    </div>
+
+    <!-- Main Page Content (Initially Hidden) -->
+    <div id="main-content" class="hidden">
+        <header>
+            <div class="header-animation" id="header-animation"></div>
+            <div class="header-content">
+                <h1>Australian Legal System</h1>
+                <p>Comprehensive Learning Resource</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="intro-section">
+                <h2>Welcome to the Australian Legal System Course</h2>
+                <p>This comprehensive course covers the Australian legal system, business law, and related legal principles.
+                    Navigate through the five units below to explore different aspects of Australian law. You can also find
+                    helpful tools below.</p>
+            </section>
+
+            <section class="tool-section">
+                <h2>Tools & Applications</h2>
+                <div class="tool-tile">
+                    <div class="tool-icon-ipac animate-pulse"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61-.25-1.17.59-1.69-.98l-2.49-1c-.23-.08-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12-.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.08.49 0 .61-.22l2-3.46c.12-.22-.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
+                        </svg>
+                    </div>
+                    <div class="tool-content">
+                        <h3 class="bilingual">
+                            <span>IPAC Tool</span>
+                            <span class="chinese">IPAC 分析工具</span>
+                        </h3>
+                        <p>An interactive application to assist with applying the IPAC (Issue, Principle, Application,
+                            Conclusion) method to legal problem-solving. Features include scaffold selection, legal
+                            principle lookup, and answer generation.</p>
+                        <a href="ipac app revised.html" class="tool-link">Launch IPAC Tool</a>
+                    </div>
+                </div>
+            </section>
+
+            <div class="unit-grid">
+                <div class="unit-card unit1">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-float">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 1: Australian Legal System</span>
+                            <span class="chinese">单元1：澳大利亚法律体系</span>
+                        </h3>
+                        <p>Explore the fundamental structure of the Australian legal system, including court hierarchy,
+                            legal principles, terminology, and practice questions.</p>
+                        <a href="unit1.html" class="unit-link">Explore Unit 1</a>
+                    </div>
+                </div>
+
+                <div class="unit-card unit2">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-pulse">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 2: Business Law</span>
+                            <span class="chinese">单元2：商业法</span>
+                        </h3>
+                        <p>Learn about different business structures in Australia, including sole traders, partnerships, and
+                            companies, along with key legal concepts and case law.</p>
+                        <a href="unit2.html" class="unit-link">Explore Unit 2</a>
+                        <a href="business-mindmap.html" class="unit-link">Interactive Mind Map</a>
+                    </div>
+                </div>
+
+                <div class="unit-card unit3">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-bounce">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 14H7c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h10c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1zm-3-5H8v-2h6v2zm2-4H8v-2h8v2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 3: Contract Law</span>
+                            <span class="chinese">单元3：合同法</span>
+                        </h3>
+                        <p class="bilingual">
+                            <span>Understanding Agreements, Terms, and Legal Consequences.</span>
+                            <span class="chinese">理解协议、条款及法律后果。</span>
+                        </p>
+                        <a href="unit3.html" class="unit-link">Explore Unit 3</a>
+                    </div>
+                </div>
+
+                <div class="unit-card unit4">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-float">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 4: Tort of Negligence</span>
+                            <span class="chinese">单元4：侵权法之过失</span>
+                        </h3>
+                        <p>Master the fundamentals of negligence law, including duty of care, breach, causation, and defenses through interactive case studies.</p>
+                        <a href="unit4a.html" class="unit-link">Explore Unit 4</a>
+                    </div>
+                </div>
+
+                <div class="unit-card unit5">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-rotate">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v-2h-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 5: Consumer Protection Law</span>
+                            <span class="chinese">单元5：消费者保护法</span>
+                        </h3>
+                        <p>Study Australian consumer law, including misleading conduct and consumer guarantees, through interactive quizzes and games.</p>
+                        <a href="unit5.html" class="unit-link">Explore Unit 5</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    
+        <footer>
+            <p>Australian Legal System Learning Resource - UNSW Preparation Program - Coroiu Marius</p>
+            <p>© 2025 All Rights Reserved</p>
+        </footer>
+    </div>
+
+
+    <script>
+        // --- Video Intro Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoOverlay = document.getElementById('video-intro-overlay');
+            const mainContent = document.getElementById('main-content');
+            const introVideo = document.getElementById('intro-video');
+            const soundToggle = document.getElementById('sound-toggle');
+            
+            function enterSite() {
+                if (!videoOverlay) return;
+                
+                // Pause the video to stop sound immediately
+                if (introVideo) introVideo.pause();
+
+                // Fade out the overlay
+                videoOverlay.style.opacity = '0';
+                
+                // After the fade out, hide it completely and show the main content
+                setTimeout(() => {
+                    videoOverlay.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                }, 500); // This should match the transition duration in CSS
+            }
+            
+            // Check for skip_intro URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('skip_intro') === 'true') {
+                // If the parameter exists, skip the intro immediately
+                videoOverlay.style.display = 'none';
+                mainContent.classList.remove('hidden');
+            } else {
+                // Otherwise, set up the intro as usual
+                if(introVideo) {
+                    introVideo.muted = true; // Start muted
+                    introVideo.play().catch(error => {
+                        console.log("Autoplay was prevented. User interaction is needed to start.", error);
+                    });
+                }
+                
+                // Main overlay click to enter, but ignore clicks on the sound button
+                videoOverlay.addEventListener('click', (event) => {
+                    if (event.target !== soundToggle && !soundToggle.contains(event.target)) {
+                        enterSite();
+                    }
+                });
+            }
+
+            // Sound toggle button logic
+            if(soundToggle && introVideo) {
+                soundToggle.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent the overlay click from firing
+                    introVideo.muted = !introVideo.muted;
+                    soundToggle.classList.toggle('muted', introVideo.muted);
+                });
+            }
+        });
+
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            if(!headerBg) return;
+
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size / 2}px solid transparent`;
+                    div.style.borderRight = `${size / 2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+
+                headerBg.appendChild(div);
+            }
+        }
+
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+        });
+    </script>
+</body>
+
+</html>

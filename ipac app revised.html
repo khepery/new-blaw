@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPAC Principle Selector | 法律原则选择器</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* All your CSS from styles.css or previous inline styles should be here or correctly linked via styles.css */
+    body {
+      padding-top: 80px; /* Increased padding for fixed nav */
+      padding-bottom: 2em; margin: 0; font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #e7f0fa, #ffffff);
+      display: flex; flex-direction: column; align-items: center; color: #2c3e50;
+    }
+    #ipac-nav-wrapper {
+      position: fixed; width: 100%; top: 0; left: 0; z-index: 1010;
+      box-sizing: border-box; background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.15); padding: 12px 0;
+    }
+    #ipac-nav {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+      max-width: 800px; width: 90%; margin: 0 auto;
+    }
+    #ipac-nav button {
+      position: relative; padding: 10px 5px; font-size: 0.9em;
+      color: white; background: rgba(255,255,255,0.1); border:none;
+      border-radius: 8px; cursor:pointer; font-weight: 600;
+      transition: all 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    }
+    #ipac-nav button:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+    #ipac-nav button.active { background: rgba(255,255,255,0.3); box-shadow: 0 0 0 2px rgba(255,255,255,0.5); }
+    #ipac-nav button::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: white; transform: scaleX(0); transition: transform 0.3s ease; }
+    #ipac-nav button.active::after, #ipac-nav button:hover::after { transform: scaleX(1); }
+    #ipac-nav .zh { display: block; font-size: 0.75em; font-family: 'ZCOOL QingKe HuangYou', cursive; opacity: 0.9; margin-top: 4px; }
+    .card {
+      background: #ffffff; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06); border-radius: 20px;
+      padding: 2em; width: 100%; max-width: 880px; margin: 1em auto;
+      transition: transform 0.3s ease; overflow: visible !important;
+    }
+    .choices__list--dropdown { z-index: 1005 !important; max-height: 350px !important; overflow-y: auto !important; }
+    #tooltip {
+      position: fixed; max-width: 550px; background: white; border: 1px solid #ddd;
+      border-radius: 8px; padding: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      z-index: 10000; pointer-events: none; opacity: 0;
+      transform: translateY(10px); transition: opacity 0.2s ease, transform 0.2s ease;
+      font-size: 14px; line-height: 1.5; display: none;
+    }
+    #tooltip.show { opacity: 1; transform: translateY(0); display: block !important; }
+    #tooltip h4 { margin: 0 0 10px 0; color: #4f8cf1; font-size: 16px; font-weight: 600; }
+    .modal {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0,0,0,0.6); display: none;
+        justify-content: center; align-items: center; z-index: 2000;
+    }
+    .modal-content {
+        background: white; padding: 30px; border-radius: 12px; max-width: 800px;
+        width: 90%; max-height: 90vh; overflow-y: auto; position: relative;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .modal-close {
+        position: absolute; top: 15px; right: 20px; font-size: 28px;
+        font-weight: bold; cursor: pointer; color: #aaa;
+    }
+    .modal-close:hover { color: #333; }
+    label, select, textarea, button { width: 100%; font-size: 1em; padding: 12px; border-radius: 10px; margin-top: 12px; border: 1px solid #ccc; box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.05); box-sizing: border-box; }
+    textarea { background-color: #fcfcfc; resize: vertical; min-height: 150px; }
+    .label { font-weight: 600; margin-top: 1em; display: block; }
+    .info-section { margin-top: 20px; } .info-section p { margin-bottom: 0.8em; }
+    .scaffold { background-color: #f0f7ff; padding: 1em; border-left: 5px solid #4f8cf1; border-radius: 10px; margin-top: 15px; font-style: italic; }
+    .search-container { margin-bottom: 15px; }
+    .search-options { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .search-options label { width: auto; padding: 5px 10px; margin-top: 0; display: inline-flex; align-items: center; gap: 5px; }
+    .search-options input[type="checkbox"] { margin: 0; }
+    .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; }
+    .feedback-container { display: flex; justify-content: space-between; margin-top: 5px; font-size: 0.85em; color: #6c757d; }
+    #progress-container { max-width: 880px; width: 100%; margin: 20px auto; padding: 0 1em; box-sizing: border-box;}
+    .progress { height: 8px; background-color: #e9ecef; border-radius: 4px; overflow: hidden; }
+    #progress-bar { height: 100%; background: linear-gradient(to right, #4f8cf1, #00bcd4); transition: width 0.3s ease; }
+    .progress-labels { display: flex; justify-content: space-between; margin-top: 5px; font-size: 0.8em; color: #6c757d; }
+    h2 .zh { display: block; font-size: 0.9em; font-weight: normal; color: #333; } /* Adjusted h2 .zh color */
+    h3 { margin-bottom: 0.5em; color: #34495e; }
+    .zh { font-family: 'ZCOOL QingKe HuangYou', cursive; font-size: 0.95em; }
+    .example-section h3 { background-color: #007bff; color: white; padding: 8px 15px; border-radius: 5px; margin-top: 20px; }
+    .example-content { background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    /* ==== START: Add Case Study Card CSS ==== */
+#case-study-content.collapsed {
+  display: none;
+}
+#toggleCaseStudy:hover {
+   background-color: rgba(255,255,255,0.5) !important; /* Ensure hover is visible */
+}
+/* Style for the save button */
+#saveCaseStudy {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+ #saveCaseStudy:hover {
+     background-color: #d35400;
+ }
+/* ==== END: Add Case Study Card CSS ==== */
+#scrollToTopBtn {
+  /* --- CORE POSITIONING & SIZE --- */
+  display: none;          /* Hidden by default, JS shows it */
+  position: fixed !important; /* FORCE position to fixed */
+  bottom: 25px !important;      /* Position from bottom */
+  right: 25px !important;       /* Position from right */
+  width: 45px !important;       /* Fixed width - MAKE IT SMALL */
+  height: 45px !important;      /* Fixed height - MAKE IT SMALL */
+  padding: 0 !important;        /* Remove padding if using fixed dimensions */
+  z-index: 1000;          /* Ensure it's on top */
+
+  /* --- SHAPE & CENTERING --- */
+  border-radius: 50%;     /* Make it a circle */
+  display: flex !important;   /* Use flexbox to center content */
+  align-items: center;      /* Vertically center arrow */
+  justify-content: center;  /* Horizontally center arrow */
+
+  /* --- APPEARANCE (Adjust colors!) --- */
+  /* !!! USE YOUR APP'S TEAL COLOR CODE HERE !!! */
+  background-color: #00BCD4;
+  color: white;             /* Arrow color */
+  font-size: 24px !important;   /* Increase arrow size */
+  line-height: 1;           /* Prevent extra line spacing */
+  border: none;             /* No border */
+  outline: none;            /* No focus outline */
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2); /* Subtle shadow */
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#scrollToTopBtn:hover {
+  /* !!! USE YOUR APP'S DARKER TEAL COLOR HERE !!! */
+  background-color: #0097A7;
+  transform: translateY(-2px); /* Lift slightly on hover */
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+#scrollToTopBtn:active {
+  transform: translateY(0); /* Back down on click */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Add the keyframes CSS only if you use the fade-in/out JS */
+/*
+@keyframes fadeIn { ... }
+@keyframes fadeOut { ... }
+*/
+/* Refined #caseInfo styles */
+.info-section { /* This class already exists, we are enhancing it */
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #f9f9f9; /* Slightly off-white background for the whole section */
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.info-item {
+  margin-bottom: 18px; /* Space between items */
+  padding-bottom: 12px; /* Padding at the bottom of each item */
+  border-bottom: 1px dashed #dcdcdc; /* Subtle separator */
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none; /* No border for the last item */
+}
+
+.info-item h4 {
+  font-size: 1.1em;   /* Slightly larger for headings */
+  font-weight: 600;   /* Bold */
+  color: #2c3e50;    /* Darker color for headings */
+  margin-top: 0;
+  margin-bottom: 8px; /* Space below heading */
+  padding-bottom: 5px;
+  /* border-bottom: 2px solid #4f8cf1; Optional: underline heading */
+  /* display: inline-block; Optional: if you don't want full width underline */
+}
+
+.info-item p {
+  margin-top: 0;
+  margin-bottom: 6px; /* Tighter spacing for paragraph content */
+  line-height: 1.6;
+  color: #34495e; /* Main text color */
+}
+
+.info-item p .zh-inline, /* For Topic and Statute where Chinese is inline */
+.info-item p.zh {       /* For Principle, Summary, Scaffold where Chinese is on new line */
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-size: 0.9em;     /* Slightly smaller for Chinese text */
+  color: #555;         /* Slightly lighter color for Chinese text */
+  display: block;       /* Ensures Chinese text starts on a new line if it's a separate <p> */
+  margin-top: 4px;      /* Space above Chinese text if on new line */
+}
+
+.info-item p .zh-inline { /* Specifically for inline Chinese like Topic and Statute */
+    display: inline;
+    margin-left: 5px;
+}
+
+/* Specific styling for the scaffold section */
+.scaffold-container h4 { /* Targeting the h4 specifically within scaffold-container */
+  color: #2980b9; /* Different color for scaffold heading, e.g., a slightly lighter blue */
+  /* border-bottom-color: #2980b9; Optional: if using heading underline */
+}
+
+/* Remove old .scaffold styles if they conflict, or ensure these override */
+/* For instance, the old .scaffold had background-color: #f0f7ff; padding: 1em; etc. */
+/* We are replacing it with .scaffold-content for better structure */
+
+.scaffold-content { /* New wrapper for scaffold text content */
+  background-color: #eaf3fb; /* Softer blue than original .scaffold */
+  padding: 15px;
+  border-left: 5px solid #3498db; /* A matching blue, perhaps lighter than #4f8cf1 */
+  border-radius: 8px; /* Consistent rounded corners */
+  margin-top: 8px; /* Space from its heading */
+  font-style: normal; /* Reverting italic from old .scaffold if desired, or keep italic */
+}
+
+.scaffold-content p {
+  font-style: italic; /* Applying italic specifically to paragraphs within */
+  color: #2c3e50; /* Ensure text color is readable */
+}
+
+.scaffold-content p.zh {
+  color: #4a6a85; /* Slightly adjusted color for Chinese scaffold */
+}
+
+/* Ensure the case name is styled if needed */
+#case-display {
+    font-weight: 500; /* Make case name slightly bolder */
+    color: #16a085; /* Example: a teal color */
+}
+
+/* CSS for search term highlighting in Choices.js dropdown */
+.choices__item--selectable mark {
+  background-color: #fff3cd; /* A light yellow, Bootstrap's 'mark' color */
+  color: #5b4600;          /* Darker text for readability on yellow */
+  padding: 0.1em 0;       /* Minimal padding */
+  border-radius: 3px;
+}
+
+/* --- START: CSS FOR GLOSSARY MODAL --- */
+/* (Ensure you remove any conflicting older glossary styles if they exist) */
+
+#glossaryModal .modal-content {
+  max-height: 85vh; 
+  display: flex;
+  flex-direction: column;
+  /* If your general .modal-content style doesn't have enough padding, 
+     you can add specific padding here, e.g.: */
+  /* padding: 20px 30px 30px 30px; */
+}
+
+#glossaryModal .modal-title { 
+    margin-bottom: 20px; 
+    /* color: #1a2a6c; Example: match a theme color */
+}
+
+#glossarySearch {
+  width: 100%; 
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1em;
+  margin-bottom: 20px; 
+  box-sizing: border-box; 
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+#glossarySearch:focus {
+  border-color: #4f8cf1; /* Example focus color */
+  box-shadow: 0 0 0 0.2rem rgba(79, 140, 241, 0.25); 
+  outline: none;
+}
+
+#glossaryContent {
+  flex-grow: 1; 
+  overflow-y: auto;
+  padding-right: 10px; /* For scrollbar */
+}
+
+.glossary-item {
+  padding: 12px 0; 
+  border-bottom: 1px solid #e9ecef; 
+}
+
+.glossary-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0; 
+}
+
+.glossary-term-heading {
+  font-size: 1.05em; 
+  font-weight: 600;
+  color: #1a2a6c; /* Example: Dark blue */
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.glossary-term-heading .zh-inline-glossary { 
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-size: 0.9em; 
+  color: #495057; 
+  font-weight: normal; 
+  margin-left: 5px;
+}
+
+.glossary-definition {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #34495e; 
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.glossary-definition .zh-definition-glossary { 
+  display: block; 
+  margin-top: 5px;
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-size: 0.9em; 
+  color: #555;
+  font-style: normal; 
+}
+
+#glossaryContent mark { 
+  background-color: #fff3cd; 
+  color: #5b4600;          
+  padding: 0.1em 0.2em;   
+  border-radius: 3px;      
+}
+/* --- END: OF GLOSSARY CSS RULES --- */
+/* Styling for the new Save Full Analysis button */
+#saveIPACAnalysis {
+  margin-top: 10px;
+  width: auto; /* Or a fixed width if you prefer */
+  padding: 10px 18px; /* Adjusted padding for better look */
+  cursor: pointer;
+  background-color: #27ae60; /* A nice green */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Match other button styles */
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#saveIPACAnalysis:hover {
+  background-color: #229954; /* Darker green on hover */
+  transform: translateY(-1px);
+}
+
+#saveIPACAnalysis:active {
+  background-color: #1e8449;
+  transform: translateY(0px);
+}
+  </style>
+</head>
+<body>
+    <div class="utility-button-container" style="text-align: center; margin-bottom: 15px;">
+    <button id="showExampleBtn" style="margin-right: 10px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Show IPAC Example</button>
+    <button id="showGlossaryBtn" style="padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">Key Terms Glossary / 核心术语</button>
+</div>
+
+    <div id="ipac-nav-wrapper">
+      <div id="ipac-nav">
+        <button data-target="panel-issue">Issue<br><span class="zh">问题</span></button>
+        <button data-target="panel-principle">Principle<br><span class="zh">原则</span></button>
+        <button data-target="panel-application">Application<br><span class="zh">应用</span></button>
+        <button data-target="panel-conclusion">Conclusion<br><span class="zh">结论</span></button>
+      </div>
+    </div>
+
+    <div id="progress-container">
+        <div class="progress"><div id="progress-bar" style="width: 0%;"></div></div>
+        <div class="progress-labels">
+          <span>Issue</span><span>Principle</span><span>Application</span><span>Conclusion</span>
+        </div>
+    </div>
+
+<div class="card" id="panel-case-study" style="border-left: 6px solid #e67e22;"> <h2 style="background: linear-gradient(to right, #e67e22, #f39c12); color:white; display: flex; justify-content: space-between; align-items: center;">
+    <span>Case Study / 案例研究</span>
+    <button id="toggleCaseStudy" style="width: auto; padding: 5px 10px; font-size: 0.8em; margin-top: 0; background-color: rgba(255,255,255,0.3); color: white; border: 1px solid white; cursor: pointer;">Hide / 隐藏</button>
+  </h2>
+  <div id="case-study-content">
+    <p>Paste your case study text below:<br><span class="zh">请在下方粘贴您的案例研究文本：</span></p>
+    <textarea id="caseStudyText" placeholder="Paste your case study here..." style="min-height: 200px; width: 100%; box-sizing: border-box; background-color: #fff9f0; border: 1px solid #e67e22; border-radius: 5px; padding: 10px; font-family: inherit; font-size: 0.95em;"></textarea>
+     <button id="saveIPACAnalysis" style="margin-top: 10px; width: auto; padding: 8px 15px; cursor: pointer; background-color: #27ae60; color:white;">Save Full Analysis / 保存分析</button>
+  </div>
+</div>
+
+    <div class="card" id="panel-issue" style="border-left: 6px solid #f5a623;">
+      <h2 style="background: linear-gradient(to right, rgb(245, 166, 35), rgb(253, 216, 53)); color: white;">IPAC – Issue<br><span class="zh">法律问题</span></h2>
+      <p>Following the IPAC method...<br><span class="zh">根据IPAC方法...</span></p>
+      <label for="issueScaffold" class="label">Sentence Starters<br><span class="zh">建议句型</span></label>
+      <select id="issueScaffold"><option value="">-- Choose / 选择 --</option></select>
+      <button id="btnInsertIssueScaffold">Insert / 插入</button>
+      <h3>Your Issue Statement<br><span class="zh">你的问题陈述</span></h3>
+      <textarea id="issueText" placeholder="State the legal question..."></textarea>
+      <div class="feedback-container"><span class="word-count">0 words</span><span class="quality-indicator">Not started</span></div>
+    </div>
+
+    <div class="card" id="panel-principle" style="border-left: 6px solid #4f8cf1;">
+        <h2 style="background: linear-gradient(to right, #4f8cf1, #00bcd4); color:white;">IPAC – Principle<br><span class="zh">法律原则</span></h2>
+        <p>State applicable legal principles...<br><span class="zh">陈述适用法律原则...</span></p>
+        <div class="search-container">
+            <input type="text" id="conceptSearch" class="form-control" placeholder="Search concepts, cases..." />
+            <div class="search-options">
+              <label><input type="checkbox" id="searchConcept" checked> Concept</label>
+              <label><input type="checkbox" id="searchCase" checked> Case</label>
+              <label><input type="checkbox" id="searchPrinciple" checked> Principle</label>
+              <label><input type="checkbox" id="searchSummary" checked> Summary</label>
+              <label><input type="checkbox" id="searchStatute" checked> Statute</label>
+            </div>
+        </div>
+        <label for="conceptSelector" class="label">Choose Case<br><span class="zh">选择案例</span></label>
+        <select id="conceptSelector"><option value="">-- Select / 选择 --</option></select>
+        <div id="caseInfo" class="info-section" style="display:none;">
+    <div class="info-item">
+        <h4>Topic / 主题</h4>
+        <p><span id="topic"></span> <span class="zh-inline">(<span id="topic_zh"></span>)</span></p>
+    </div>
+    <div class="info-item">
+        <h4>Case / Associated Case / 案例</h4>
+        <p><span id="case-display"></span></p> </div>
+    <div class="info-item">
+        <h4>Principle / 原则</h4>
+        <p><span id="principle"></span></p>
+        <p class="zh"><span id="principle_zh"></span></p>
+    </div>
+    <div class="info-item">
+        <h4>Summary / 概述</h4>
+        <p><span id="summary"></span></p>
+        <p class="zh"><span id="summary_zh"></span></p>
+    </div>
+    <div class="info-item">
+        <h4>Statute / 法规</h4>
+        <p><span id="statute"></span> <span class="zh-inline">(<span id="statute_zh"></span>)</span></p>
+    </div>
+    <div class="info-item scaffold-container"> <h4>Suggested Scaffold / 建议句型</h4>
+        <div class="scaffold-content"> <p><span id="scaffold"></span></p>
+            <p class="zh"><span id="scaffold_zh"></span></p>
+        </div>
+    </div>
+</div>
+        <button id="insertPrincipleBtn">Insert into Answer / 插入</button>
+        <button id="btnCarryForward">Use in Application →</button>
+        <h3>Your Principle Paragraph<br><span class="zh">你的原则段落</span></h3>
+        <textarea id="studentText" placeholder="State the legal rules..."></textarea>
+        <div class="feedback-container"><span class="word-count">0 words</span><span class="quality-indicator">Not started</span></div>
+    </div>
+
+     <div class="card" id="panel-application" style="border-left: 6px solid #00b894;">
+      <h2 style="background: linear-gradient(to right, #00b894, #55efc4); color:white;">IPAC – Application<br><span class="zh">法律适用</span></h2>
+      <p>Explain how the law applies...<br><span class="zh">解释法律如何适用于案件事实。</span></p>
+      <label for="appScaffold" class="label">Sentence Starters<br><span class="zh">建议句型</span></label>
+      <select id="appScaffold"><option value="">-- Choose / 选择 --</option></select>
+      <button id="btnInsertAppScaffold">Insert / 插入</button>
+      <h3>Your Application Paragraph<br><span class="zh">你的应用段落</span></h3>
+      <textarea id="appText" placeholder="Apply the principles to the facts..."></textarea>
+      <div class="feedback-container"><span class="word-count">0 words</span><span class="quality-indicator">Not started</span></div>
+    </div>
+
+    <div class="card" id="panel-conclusion" style="border-left: 6px solid #6c5ce7;">
+      <h2 style="background: linear-gradient(to right, #6c5ce7, #a29bfe); color:white;">IPAC – Conclusion<br><span class="zh">结论</span></h2>
+      <p>Provide a conclusion that flows...<br><span class="zh">根据你的分析得出结论。</span></p>
+      <label for="conScaffold" class="label">Sentence Starters<br><span class="zh">建议句型</span></label>
+      <select id="conScaffold"><option value="">-- Choose / 选择 --</option></select>
+      <button id="btnInsertConScaffold">Insert / 插入</button>
+      <h3>Your Conclusion<br><span class="zh">你的结论</span></h3>
+      <textarea id="conText" placeholder="Conclude your legal analysis..."></textarea>
+      <div class="feedback-container"><span class="word-count">0 words</span><span class="quality-indicator">Not started</span></div>
+    </div>
+
+    <div class="card" id="panel-preview" style="border-left: 6px solid #9b59b6;">
+      <h2 style="background: linear-gradient(to right, #9b59b6, #af7ac5); color:white;">Full IPAC Answer<br><span class="zh">完整答案预览</span></h2>
+      <p>Combined IPAC answer.<br><span class="zh">组合的IPAC答案。</span></p>
+      <button id="btnGeneratePreview">Generate Preview / 生成</button>
+      <textarea id="ipacPreview" placeholder="Full answer appears here..." readonly style="min-height:200px;"></textarea>
+      <button id="btnDownloadWord">Download as Word / 下载</button>
+    </div>
+
+    <div id="exampleModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close">&times;</span>
+          <h2 class="modal-title">IPAC Example: Contract Law Problem</h2>
+          <div class="example-content"><strong>Problem:</strong> Derek was really excited when he saw the advertisement as he is about to open his own antique home decor shop and he is in the process of sourcing antique home decors for the shop. Therefore, Derek eagerly called his brother Sam and the following conversation took place: Derek: “Hi brother, I saw your advertisement of selling an antique chandelier. Was it the one that our great grandmother passed on to you? It would be amazing if I could have it in my new shop. What is the lowest price?” Sam: “Mate, the best price I could do for you is $2,500.00.” Derek: “Brother, I have spent a lot of money to get the shop ready for opening recently and I wouldn’t be able to afford $2,500.00. Would you accept $2,000.00?” Sam: “Derek, you know how much this chandelier means to me and I would never try to sell it if it wasn’t because your sister-in-law and I desperately need the money to repair the water damage in our house. How about $2,000 and I will also give you the original replacement light bulb that comes with the chandelier?” Derek: “Ok then, it’s a deal.” Later on the day, Sam found out that he had won a million-dollar lottery, and he no long needed to sell the chandelier. Sam then called Derek and said: “Hi, I am just calling to let you know that I have decided not to sell the chandelier anymore and I am sorry for changing my mind.” Advise Derek as to whether there is a contract between Derek and Sam.</div>
+          <div class="example-section"><h3 style="background-color: #f5a623; color: white;">Issue</h3><p>The central question is whether a binding contract was created between Sam and Derek when Derek said “Ok then, it’s a deal” to Sam’s offer of the chandelier for $2,000 plus the original bulb, and if so, whether Sam’s later revocation is valid. Contract formation requires offer and acceptance, consideration, and intention to create legal relations; Sam’s library notice was an invitation to treat, Derek’s $2.000 reply a counter-offer, Sam’s “$2.000 + bulb” a fresh offer, and Derek’s “Ok then, it’s a deal” an acceptance.</p></div>
+          <div class="example-section"><h3 style="background-color: #4f8cf1; color: white;">Principle 1 Application 1</h3><p> Invitation to Treat
+•	Principle: Retail displays, catalogues, and advertisements are invitations to treat, not offers, because they merely invite offers and preserve the seller’s freedom to accept or reject.
+•	Application: Sam’s library notice board ad for the antique chandelier was an invitation to treat. Derek’s subsequent phone call constituted the first offer, which Sam was free to accept, reject, or counter.
+</p></div>
+<div class="example-section"><h3 style="background-color: #4f8cf1; color: white;">Principle 2 Application 2</h3><p> Offer & Counter-Offer
+•	Principle: A counter-offer rejects and replaces the original offer; it extinguishes the prior offer. As in Hyde v Wrench, a counter-offer cannot later be revived.
+•	Application: Derek’s $2.000 request was a counter-offer to Sam’s $2,500. When Sam replied, “$2.000 and I’ll also give you the original replacement bulb,” he made a fresh offer under the rule in Hyde v Wrench.
+</p></div>
+<div class="example-section"><h3 style="background-color: #4f8cf1; color: white;">Principle 3 Application 3</h3><p> Acceptance & Communication
+•	Principle: Acceptance must be an unqualified assent to the exact terms, communicated by the offeree in response to the offer. In R v Clarke, acceptance was ineffective where the offeree acted without knowledge of the reward offer.
+•	Application: Derek’s “Ok then, it’s a deal” was an unequivocal acceptance of Sam’s $2.000 + bulb offer, communicated directly and with full knowledge of those terms.
+</p></div>
+<div class="example-section"><h3 style="background-color: #4f8cf1; color: white;">Principle 4 Application 4</h3><p> Consideration
+•	Principle: Consideration must be definite and real; the court must be able to ascertain its legal value.
+•	Application: Sam’s promise to transfer the chandelier and original bulb was a moving consideration from Sam; Derek’s promise to pay $2.000 was a consideration moving from Derek. This mutual exchange satisfies the requirement for consideration
+</p></div>
+<div class="example-section"><h3 style="background-color: #4f8cf1; color: white;">Principle 5 Application 5</h3><p>Intention to Create Legal Relations
+•	Principle: Commercial agreements carry a presumption of legal intent absent clear contrary evidence.
+•	Application: Although Sam and Derek are siblings, their negotiation over an antique chandelier for a commercial shop was a business transaction. The urgency and formal negotiation demonstrate an objective intention to be legally bound.
+</p></div>
+          <div class="example-section"><h3 style="background-color: #00b894; color: white;">Defences</h3><p>
+•	Late Revocation: An offeror can revoke up until acceptance, but the revocation must reach the offeree first. Sam’s attempt to withdraw came after Derek’s acceptance, so it is ineffective 
+•	Lack of Intention: Domestic arrangements ordinarily lack legal intent, but this presumption is rebutted in commercial contexts. The formal sale negotiation here evidences a clear intent to create legal relations.
+•	Uncertainty of Terms: Courts strive to uphold contracts by implying or clarifying uncertain terms where possible. Sam’s promise to include “the original replacement light bulb” is clear enough.</p></div>
+          <div class="example-section"><h3 style="background-color: #6c5ce7; color: white;">Conclusion</h3><p>
+Therefore, a valid contract was formed when Derek accepted Sam’s $2.000 + bulb offer. All elements, invitation to treat followed by offer/counter-offer, clear acceptance, consideration, and intention to create legal relations, are satisfied. Sam’s attempted revocation after acceptance is legally ineffective. Derek may enforce delivery of the chandelier and bulb or seek damages; given the chandelier’s uniqueness, specific performance is the most appropriate remedy.
+</p></div>
+        </div>
+    </div>
+
+    <div id="tooltip"><h4 id="tooltip-case"></h4><div class="principle" id="tooltip-principle"></div><div class="summary" id="tooltip-summary"></div><div class="chinese" id="tooltip-chinese"></div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<!-- Only load docx from one reliable source -->
+<script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+    <script>
+        // Verify docx library loading
+        window.addEventListener('load', function() {
+            if (typeof docx === 'undefined') {
+                console.error('docx library failed to load. Ensure the cdnjs link is correct and active.');
+            } else {
+                console.log('docx library loaded successfully.');
+            }
+        });
+    </script>
+
+    <script src="ipac data.js"></script>
+
+    <script>
+        // MAIN APPLICATION SCRIPT
+        // Ensure global variables are defined before use, or passed as parameters
+        let tooltip;
+        let hoveredElement = null;
+        let tooltipTimeout;
+        window.choicesInstance = null; // Specifically for #conceptSelector
+
+        // Scaffold options should be loaded from ipac data.js or defined here if not.
+        // Assuming they are loaded from ipac data.js for this example based on previous advice.
+
+        function initializeTooltip() {
+            tooltip = document.getElementById('tooltip');
+            if (!tooltip) {
+                console.error('Tooltip element not found');
+            } else {
+                tooltip.style.display = 'none';
+                tooltip.classList.remove('show');
+            }
+        }
+
+        function showTooltip(concept, x, y) {
+            if (!tooltip || !concept) return;
+            clearTimeout(tooltipTimeout);
+            const caseEl = document.getElementById('tooltip-case');
+            const principleEl = document.getElementById('tooltip-principle');
+            const summaryEl = document.getElementById('tooltip-summary');
+            const chineseEl = document.getElementById('tooltip-chinese');
+
+            if(caseEl) caseEl.textContent = concept.case || "";
+            if(principleEl) principleEl.textContent = concept.principle || "";
+            if(summaryEl) summaryEl.textContent = concept.summary || "";
+            if(chineseEl) chineseEl.innerHTML = `<em>${concept.principle_zh || ""}</em><br><em style="margin-top: 5px; display: block;">${concept.summary_zh || ""}</em>`;
+            
+            tooltip.style.display = 'block';
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            let left = x + 15;
+            let top = y + 15;
+
+            if (left + tooltipRect.width > viewportWidth - 10) left = x - tooltipRect.width - 15;
+            if (left < 10) left = 10;
+            if (top + tooltipRect.height > viewportHeight - 10) top = y - tooltipRect.height - 15;
+            if (top < 10) top = 10;
+
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+            requestAnimationFrame(() => { tooltip.classList.add('show'); });
+        }
+
+        function hideTooltip() {
+            if (!tooltip) return;
+            clearTimeout(tooltipTimeout);
+            tooltipTimeout = setTimeout(() => {
+                tooltip.classList.remove('show');
+                setTimeout(() => {
+                    if (tooltip && !tooltip.classList.contains('show')) {
+                         tooltip.style.display = 'none';
+                    }
+                }, 200);
+            }, 100);
+        }
+
+        function handleTooltipMouseMove(e) {
+            const item = e.target.closest('.choices__item--selectable');
+            if (!item) {
+                if (hoveredElement) hideTooltip();
+                hoveredElement = null;
+                return;
+            }
+            if (item === hoveredElement && tooltip && tooltip.classList.contains('show')) return;
+
+            clearTimeout(tooltipTimeout);
+            const value = item.getAttribute('data-value');
+            if (value !== null && typeof ipacConcepts !== 'undefined' && ipacConcepts[value]) {
+                const concept = ipacConcepts[value];
+                showTooltip(concept, e.clientX, e.clientY);
+                hoveredElement = item;
+            } else {
+                hideTooltip();
+                hoveredElement = null;
+            }
+        }
+
+        function handleTooltipMouseLeave() {
+            hideTooltip();
+            hoveredElement = null;
+        }
+
+        function setupTooltipListeners() {
+            if (!window.choicesInstance || !window.choicesInstance.dropdown || !window.choicesInstance.dropdown.element) {
+                console.warn("Tooltip setup: choicesInstance for #conceptSelector not fully ready.");
+                return;
+            }
+            const dropdownList = window.choicesInstance.dropdown.element;
+            if (!dropdownList) {
+                console.error("Tooltip setup error: Dropdown list for #conceptSelector not found.");
+                return;
+            }
+            
+            // Remove existing listeners before adding new ones to prevent duplication
+            dropdownList.removeEventListener('mousemove', handleTooltipMouseMove);
+            dropdownList.removeEventListener('mouseleave', handleTooltipMouseLeave);
+            
+            dropdownList.addEventListener('mousemove', handleTooltipMouseMove);
+            dropdownList.addEventListener('mouseleave', handleTooltipMouseLeave);
+            console.log('Tooltip listeners attached to #conceptSelector dropdown.');
+        }
+        
+        function initializeChoicesForElement(elementId, isConceptSelector = false) {
+            const selectElement = document.getElementById(elementId);
+            if (!selectElement) {
+                console.warn(`Choices.js init: Element with ID '${elementId}' not found.`);
+                return null;
+            }
+            let choicesOptions = {
+                searchEnabled: true, itemSelectText: '', shouldSort: false,
+                placeholderValue: '-- Select / 选择 --', renderChoiceLimit: -1,
+                position: 'bottom', allowHTML: true
+            };
+            if (isConceptSelector) {
+                choicesOptions.placeholderValue = '-- Select a case / 选择案例 --';
+                choicesOptions.callbackOnInit = function() {
+                    console.log('Choices.js initialized for #conceptSelector.');
+                    window.choicesInstance = this;
+                    setTimeout(setupTooltipListeners, 250);
+                };
+            }
+            return new Choices(selectElement, choicesOptions);
+        }
+
+        // Helper function to highlight search terms in text, case-insensitive
+        // and only highlights outside of existing HTML tags.
+        function highlightText(text, searchTerm) {
+            if (!searchTerm || !text) {
+                return text;
+            }
+            // Escape special characters in searchTerm for RegExp
+            const escapedSearchTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            try {
+                const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
+                // A more robust way to avoid highlighting inside HTML tags or attributes
+                // This is a simplified approach; a truly robust solution is complex.
+                // We'll split by tags, highlight, then rejoin.
+                const parts = text.split(/(<[^>]*>)/); // Split by tags, keeping delimiters
+                let newText = "";
+                for (let i = 0; i < parts.length; i++) {
+                    if (i % 2 === 0) { // Even parts are text content
+                        newText += parts[i].replace(regex, '<mark>$1</mark>');
+                    } else { // Odd parts are HTML tags
+                        newText += parts[i];
+                    }
+                }
+                return newText;
+            } catch (e) {
+                console.warn("Regex error in highlightText:", e);
+                return text; // Fallback to original text on error
+            }
+        }
+
+        function populateConceptSelectorWithOptions(conceptsToPopulate) {
+            const selector = document.getElementById("conceptSelector");
+            if (!selector || typeof ipacConcepts === 'undefined') {
+                console.error("populateConceptSelectorWithOptions: Selector or ipacConcepts not found/ready.");
+                return;
+            }
+
+            // --- ADDITION: Get current search term ---
+            const currentSearchTerm = (document.getElementById("conceptSearch")?.value || "").toLowerCase().trim();
+            // --- END ADDITION ---
+
+            const choicesArray = conceptsToPopulate.map(item => {
+                const originalIndex = ipacConcepts.indexOf(item);
+                
+                // --- MODIFICATION: Highlight relevant parts ---
+                let conceptDisplay = item.concept || 'N/A';
+                let caseDisplay = item.case || 'N/A';
+                let topicDisplay = `${item.topic || 'Uncategorized'} / ${item.topic_zh || '未分类'}`;
+
+                if (currentSearchTerm) {
+                    // Only highlight if search term is active
+                    // Highlighting in specific fields based on how labelHtml is constructed
+                    conceptDisplay = highlightText(conceptDisplay, currentSearchTerm);
+                    caseDisplay = highlightText(caseDisplay, currentSearchTerm);
+                    // Topic display might also be highlighted if you search topics,
+                    // but let's keep it simple for now and focus on concept/case in the label.
+                    // If your search function also targets topics for filtering, you might highlight topicDisplay too.
+                }
+                // --- END MODIFICATION ---
+
+                const labelHtml = `${conceptDisplay} <span style='font-size:0.8em; color:#777;'>— ${caseDisplay}</span> <em style='font-size:0.8em; color: #999; display:block;'>(${topicDisplay})</em>`;
+                
+                return {
+                    value: originalIndex.toString(),
+                    label: labelHtml,
+                    selected: false,
+                    disabled: false,
+                    customProperties: { originalItem: item } // Store original item for easier access if needed
+                };
+            });
+
+            const groupedChoices = [];
+            const topicMap = new Map();
+
+            // Use the choicesArray we just built for grouping
+            choicesArray.forEach(choiceObj => {
+                const item = choiceObj.customProperties.originalItem; // Get the original item
+                const topicLabel = `${item.topic || 'Uncategorized'} / ${item.topic_zh || '未分类'}`;
+                if (!topicMap.has(topicLabel)) {
+                    topicMap.set(topicLabel, { label: topicLabel, id: topicLabel.replace(/[^a-zA-Z0-9]/g, ''), disabled: false, choices: [] });
+                }
+                topicMap.get(topicLabel).choices.push(choiceObj);
+            });
+
+            groupedChoices.push(...Array.from(topicMap.values()).filter(group => group.choices.length > 0));
+            
+            if (window.choicesInstance) {
+                 window.choicesInstance.clearStore();
+                 window.choicesInstance.setChoices(groupedChoices, 'value', 'label', true);
+            } else {
+                console.warn("#conceptSelector Choices instance not ready during populate, attempting re-init for it.");
+                const existingChoicesJS = selector.choices;
+                if(existingChoicesJS) existingChoicesJS.destroy();
+                
+                initializeChoicesForElement('conceptSelector', true); 
+                if(window.choicesInstance) {
+                     window.choicesInstance.setChoices(groupedChoices, 'value', 'label', true);
+                } else {
+                    console.error("Still failed to initialize and populate #conceptSelector with Choices.js");
+                }
+            }
+        }
+        
+        function searchConcepts() {
+            const searchTerm = (document.getElementById("conceptSearch")?.value || "").toLowerCase();
+            const searchFields = {
+                concept: document.getElementById("searchConcept")?.checked || false,
+                case: document.getElementById("searchCase")?.checked || false,
+                principle: document.getElementById("searchPrinciple")?.checked || false,
+                summary: document.getElementById("searchSummary")?.checked || false,
+                statute: document.getElementById("searchStatute")?.checked || false
+            };
+
+            if (typeof ipacConcepts === 'undefined' || !Array.isArray(ipacConcepts)) {
+                 console.error("ipacConcepts is not defined or not an array in searchConcepts"); return;
+            }
+
+            const filteredConcepts = ipacConcepts.filter(item => {
+                if (!item) return false;
+                if (searchTerm === "") return true;
+                let matches = false;
+                try {
+                    if (searchFields.concept && item.concept && (item.concept.toLowerCase().includes(searchTerm) || (item.concept_zh && item.concept_zh.toLowerCase().includes(searchTerm)))) matches = true;
+                    if (searchFields.case && item.case && item.case.toLowerCase().includes(searchTerm)) matches = true;
+                    if (searchFields.principle && item.principle && (item.principle.toLowerCase().includes(searchTerm) || (item.principle_zh && item.principle_zh.toLowerCase().includes(searchTerm)))) matches = true;
+                    if (searchFields.summary && item.summary && (item.summary.toLowerCase().includes(searchTerm) || (item.summary_zh && item.summary_zh.toLowerCase().includes(searchTerm)))) matches = true;
+                    if (searchFields.statute && ((item.statute && item.statute.toLowerCase().includes(searchTerm)) || (item.statute_zh && item.statute_zh.toLowerCase().includes(searchTerm)))) matches = true;
+                } catch (e) {
+                    // console.warn("Error accessing property during search filter:", e, item);
+                    return false; // Skip item if a property is missing leading to error
+                }
+                return matches;
+            });
+            populateConceptSelectorWithOptions(filteredConcepts);
+        }
+
+       function populateScaffoldDropdowns() {
+    const selectsConf = [
+        { id: 'issueScaffold', options: (typeof issueScaffoldOptions !== 'undefined' ? issueScaffoldOptions : []) },
+        { id: 'appScaffold', options: (typeof appScaffoldOptions !== 'undefined' ? appScaffoldOptions : []) },
+        { id: 'conScaffold', options: (typeof conScaffoldOptions !== 'undefined' ? conScaffoldOptions : []) }
+    ];
+
+    selectsConf.forEach(conf => {
+        const selectElement = document.getElementById(conf.id);
+        if (!selectElement) {
+            console.warn(`Select element ${conf.id} not found for scaffold.`);
+            return;
+        }
+        const placeholder = selectElement.options[0]; // Keep the placeholder
+        selectElement.innerHTML = '';
+        if (placeholder) selectElement.appendChild(placeholder);
+
+        if (Array.isArray(conf.options)) {
+            conf.options.forEach(scaffold => {
+                if (scaffold && scaffold.id && scaffold.display_en) {
+                    const option = document.createElement("option");
+                    option.value = scaffold.id; // Use ID as the value for lookup
+
+                    // --- MODIFICATION HERE ---
+                    // Combine English and Chinese text for display in the dropdown
+                    // Use a separator like ' / ' between them.
+                    // Provide fallback if display_zh is missing.
+                    const displayText = scaffold.display_zh
+                        ? `${scaffold.display_en} / ${scaffold.display_zh}`
+                        : scaffold.display_en;
+                    option.textContent = displayText;
+                    // --- END MODIFICATION ---
+
+                    selectElement.appendChild(option);
+                } else {
+                    console.warn(`Skipping invalid scaffold object in ${conf.id}:`, scaffold);
+                }
+            });
+        } else {
+            console.warn(`Scaffold options for ${conf.id} is not an array or not defined.`);
+        }
+
+        // Re-initialize Choices.js if used
+        const choicesInstance = selectElement.choices;
+        if (choicesInstance) {
+            choicesInstance.destroy();
+        }
+        if(typeof initializeChoicesForElement === 'function') {
+             initializeChoicesForElement(conf.id, false);
+        } else {
+             console.warn(`initializeChoicesForElement function not found. Cannot re-initialize Choices.js for ${conf.id}`);
+        }
+    });
+}
+        
+        function showConceptInfo() {
+            const selector = document.getElementById("conceptSelector");
+            const selectedOriginalIndex = selector.value;
+
+            if (selectedOriginalIndex !== "" && typeof ipacConcepts !== 'undefined' && ipacConcepts[selectedOriginalIndex]) {
+                const info = ipacConcepts[selectedOriginalIndex];
+                document.getElementById("topic").innerText = info.topic || "";
+                document.getElementById("topic_zh").innerText = info.topic_zh || "";
+                document.getElementById("case-display").innerText = info.case || "N/A"; // Display case name
+                document.getElementById("principle").innerText = info.principle || "";
+                document.getElementById("principle_zh").innerText = info.principle_zh || "";
+                document.getElementById("summary").innerText = info.summary || "";
+                document.getElementById("summary_zh").innerText = info.summary_zh || "";
+                document.getElementById("statute").innerText = info.statute || "N/A";
+                document.getElementById("statute_zh").innerText = info.statute_zh || "不适用";
+                document.getElementById("scaffold").innerText = info.scaffold || "";
+                document.getElementById("scaffold_zh").innerText = info.scaffold_zh || "";
+                document.getElementById("caseInfo").style.display = "block";
+            } else {
+                document.getElementById("caseInfo").style.display = "none";
+            }
+        }
+
+        function insertTextIntoTextarea(textareaId, textToInsert) {
+    const textArea = document.getElementById(textareaId);
+    if (textArea && textToInsert != null) {
+        textArea.value += (textArea.value ? "\n\n" : "") + textToInsert;
+        
+        // Remove the dispatchEvent call to prevent infinite loops
+        // textArea.dispatchEvent(new Event('input', { bubbles: true }));
+        
+        // Call functions directly
+        updateWordCount();
+        updateProgressBar();
+    } else if (!textArea) {
+        console.warn(`Textarea with ID ${textareaId} not found for insertion.`);
+    }
+}
+
+        function insertScaffold() {
+            const selector = document.getElementById("conceptSelector");
+            const selectedIndex = selector.value;
+             if (selectedIndex !== "" && typeof ipacConcepts !== 'undefined' && ipacConcepts[selectedIndex]) {
+                const info = ipacConcepts[selectedIndex];
+                insertTextIntoTextarea("studentText", `${info.scaffold || ""}\n${info.scaffold_zh || ""}`);
+            }
+        }
+        
+        function carryForwardToPrinciple() {
+            const selector = document.getElementById("conceptSelector");
+            const selectedIndex = selector.value; // This is the original index from ipacConcepts
+            if (selectedIndex !== "" && typeof ipacConcepts !== 'undefined' && ipacConcepts[selectedIndex]) {
+                const info = ipacConcepts[selectedIndex]; // Get the full concept object
+
+                // Truncate principle and summary for brevity in the starter, if they exist
+                const principleText = info.principle 
+                    ? (info.principle.length > 150 ? info.principle.substring(0,147) + "..." : info.principle) 
+                    : "the relevant legal principle";
+                
+                const summaryText = info.summary 
+                    ? (info.summary.length > 100 ? info.summary.substring(0,97) + "..." : info.summary) 
+                    : "the established facts of that case";
+
+                // --- MODIFIED applicationStarter LINE ---
+                const applicationStarter = `Applying the principle from ${info.case || 'the selected legal concept'}, which establishes that '${principleText}' (this was illustrated in ${info.case || 'that concept'} where ${summaryText}), to the facts of the current scenario:\n\n[INSERT RELEVANT FACTS FROM YOUR CASE STUDY HERE, e.g., "In the current scenario, Party X did Y..."]\n\nThis principle applies because [EXPLAIN HOW THE PRINCIPLE CONNECTS TO THESE FACTS]...\nTherefore, it can be argued that [CONCLUDE THIS PART OF THE APPLICATION]...\n\n`;
+                // --- END OF MODIFICATION ---
+
+                insertTextIntoTextarea("appText", applicationStarter);
+                
+                const button = document.getElementById("btnCarryForward");
+                if (button) {
+                    button.style.backgroundColor = "#4CAF50"; // Green feedback
+                    button.textContent = "✓ Carried to Application";
+                    setTimeout(() => { 
+                        button.style.backgroundColor = ""; 
+                        button.textContent = "Use in Application →";
+                    }, 1500); // Keep feedback a bit longer
+                }
+                
+                // Navigate to application panel
+                setTimeout(() => { 
+                    const appNavButton = document.querySelector('#ipac-nav button[data-target="panel-application"]');
+                    if (appNavButton) {
+                        // Ensure smooth scroll to the application panel if it's not already active
+                        const targetSection = document.getElementById('panel-application');
+                        const navWrapper = document.getElementById('ipac-nav-wrapper');
+                        if (targetSection && navWrapper) {
+                            document.querySelectorAll('#ipac-nav button').forEach(btn => btn.classList.remove('active'));
+                            appNavButton.classList.add('active');
+                            const navHeight = navWrapper.offsetHeight;
+                            const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                            const scrollToPosition = targetPosition - navHeight - 10; // 10px margin
+                            
+                            // Temporarily disable scroll listener to avoid conflict
+                            let originalIsManualNavigation = window.isManualNavigation;
+                            window.isManualNavigation = true; 
+
+                            window.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
+                            
+                            setTimeout(() => { window.isManualNavigation = originalIsManualNavigation; }, 700); // Match smooth scroll duration
+                        }
+                    }
+                }, 100); // Short delay to allow text insertion before scroll
+            }
+        }
+       function insertIssueScaffold() {
+    const selectEl = document.getElementById("issueScaffold");
+    const selectedId = selectEl.value; // Get the ID of the selected scaffold
+
+    // Check if an option is selected and the data array exists
+    if (selectEl && selectedId && typeof issueScaffoldOptions !== 'undefined') {
+        // Find the corresponding scaffold object in the data array using the ID
+        const selectedScaffold = issueScaffoldOptions.find(opt => opt.id === selectedId);
+
+        if (selectedScaffold) {
+            // Construct the text to insert using insert_en and insert_zh properties
+            const textToInsert = `${selectedScaffold.insert_en || ""}\n\n${selectedScaffold.insert_zh || ""}`;
+            // Insert into the target textarea
+            insertTextIntoTextarea("issueText", textToInsert);
+        } else {
+             console.warn(`Scaffold with ID '${selectedId}' not found in issueScaffoldOptions.`);
+        }
+    } else if (!selectedId) {
+        // Handle case where placeholder is selected or no selection made
+        console.log("No issue scaffold selected.");
+    }
+}
+        function insertAppScaffold() {
+    const selectEl = document.getElementById("appScaffold");
+    const selectedId = selectEl.value; // Get the ID of the selected scaffold
+
+    if (selectEl && selectedId && typeof appScaffoldOptions !== 'undefined') {
+        const selectedScaffold = appScaffoldOptions.find(opt => opt.id === selectedId);
+
+        if (selectedScaffold) {
+            const textToInsert = `${selectedScaffold.insert_en || ""}\n\n${selectedScaffold.insert_zh || ""}`;
+            insertTextIntoTextarea("appText", textToInsert);
+        } else {
+             console.warn(`Scaffold with ID '${selectedId}' not found in appScaffoldOptions.`);
+        }
+    } else if (!selectedId) {
+        console.log("No application scaffold selected.");
+    }
+}
+        function insertConScaffold() {
+    const selectEl = document.getElementById("conScaffold");
+    const selectedId = selectEl.value; // Get the ID of the selected scaffold
+
+    if (selectEl && selectedId && typeof conScaffoldOptions !== 'undefined') {
+        const selectedScaffold = conScaffoldOptions.find(opt => opt.id === selectedId);
+
+        if (selectedScaffold) {
+            const textToInsert = `${selectedScaffold.insert_en || ""}\n\n${selectedScaffold.insert_zh || ""}`;
+            insertTextIntoTextarea("conText", textToInsert);
+        } else {
+             console.warn(`Scaffold with ID '${selectedId}' not found in conScaffoldOptions.`);
+        }
+    } else if (!selectedId) {
+        console.log("No conclusion scaffold selected.");
+    }
+}
+        function generatePreview() {
+            const issue = document.getElementById("issueText")?.value || "";
+            const principle = document.getElementById("studentText")?.value || "";
+            const application = document.getElementById("appText")?.value || "";
+            const conclusion = document.getElementById("conText")?.value || "";
+            const previewText = `ISSUE:\n${issue.trim()}\n\nPRINCIPLE:\n${principle.trim()}\n\nAPPLICATION:\n${application.trim()}\n\nCONCLUSION:\n${conclusion.trim()}`;
+            const previewArea = document.getElementById("ipacPreview");
+            if (previewArea) previewArea.value = previewText;
+        }
+       function updateProgressBar() {
+    const textareasIds = ['issueText', 'studentText', 'appText', 'conText'];
+    let filledSections = 0;
+    let existingTextareasCount = 0;
+
+    textareasIds.forEach(id => {
+        const textarea = document.getElementById(id);
+        if (textarea) {
+            existingTextareasCount++;
+            if (textarea.value.trim().length > 0) {
+                filledSections++;
+            }
+        }
+    });
+
+    const progress = (existingTextareasCount > 0) ? (filledSections / existingTextareasCount) * 100 : 0;
+    const progressBarEl = document.getElementById('progress-bar');
+    if (progressBarEl) {
+        progressBarEl.style.width = `${progress}%`;
+        // Add visual feedback for debugging
+        console.log(`Progress updated: ${progress}% (${filledSections}/${existingTextareasCount} sections filled)`);
+    } else {
+        console.error("Progress bar element with ID 'progress-bar' not found.");
+    }
+}
+        function updateWordCount() {
+            const textareas = ['issueText', 'studentText', 'appText', 'conText'];
+            textareas.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (!textarea) return;
+                const container = textarea.nextElementSibling;
+                if (!container || !container.classList.contains('feedback-container')) return;
+                const wordCountElement = container.querySelector('.word-count');
+                const qualityIndicator = container.querySelector('.quality-indicator');
+                const words = textarea.value.trim() === '' ? 0 : textarea.value.trim().split(/\s+/).filter(Boolean).length;
+                if (wordCountElement) wordCountElement.textContent = `${words} words`;
+                let quality = 'Not started'; let color = '#6c757d';
+                if (words > 0) {
+                    if (words < 20) { quality = 'Needs development'; color = '#ffc107'; }
+                    else if (words < 50) { quality = 'Good start'; color = '#17a2b8'; }
+                    else { quality = 'Well developed'; color = '#28a745'; }
+                }
+                if (qualityIndicator) { qualityIndicator.textContent = quality; qualityIndicator.style.color = color; }
+            });
+        }
+        async function downloadWord() {
+             try {
+                if (typeof docx === 'undefined') throw new Error("The docx library is not loaded correctly. Please ensure your internet connection is stable or try a different browser.");
+                const content = document.getElementById("ipacPreview")?.value || "";
+                if (!content.trim()) { alert("Please generate a preview first by clicking 'Generate Preview'."); return; }
+
+                const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
+                const paragraphs = [];
+                const parts = content.split("\n\n");
+                paragraphs.push(new Paragraph({ text: "IPAC Answer", heading: HeadingLevel.HEADING_1, alignment: AlignmentType.CENTER, spacing: { after: 300 } }));
+                parts.forEach(part => {
+                    const lines = part.split("\n");
+                    const title = lines[0];
+                    const partContent = lines.slice(1).join("\n");
+                    paragraphs.push(new Paragraph({ text: title, heading: HeadingLevel.HEADING_2, spacing: { before: 200, after: 100 } }));
+                    partContent.split("\n").forEach(textLine => {
+                         if(textLine.trim()) {
+                            paragraphs.push(new Paragraph({ children: [new TextRun(textLine)], spacing: { after: 120 } }));
+                         }
+                    });
+                });
+                const doc = new Document({ creator: "IPAC Principle Selector Tool", sections: [{ children: paragraphs }] });
+                const blob = await Packer.toBlob(doc);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a"); a.href = url; a.download = "IPAC_Answer.docx";
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+                const downloadBtn = document.getElementById("btnDownloadWord");
+                if (downloadBtn) {
+                    const originalText = downloadBtn.textContent;
+                    downloadBtn.textContent = "✓ Downloaded!";
+                    downloadBtn.style.backgroundColor = "#4CAF50";
+                    setTimeout(() => {
+                        downloadBtn.textContent = originalText;
+                        downloadBtn.style.backgroundColor = "";
+                    }, 2000);
+                }
+            } catch (error) { console.error("Error generating Word document:", error); alert("Error generating Word document: " + error.message); }
+        }
+
+// --- GLOSSARY MODAL SCRIPT ---
+        // --- GLOSSARY MODAL SCRIPT ---
+// Helper function to highlight search terms (ensure this is present from previous steps)
+function highlightText(text, searchTerm) {
+    if (!searchTerm || !text) {
+        return text;
+    }
+    const escapedSearchTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    try {
+        const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
+        const parts = text.split(/(<[^>]*>)/); 
+        let newText = "";
+        for (let i = 0; i < parts.length; i++) {
+            if (i % 2 === 0) { 
+                newText += parts[i].replace(regex, '<mark>$1</mark>');
+            } else { 
+                newText += parts[i];
+            }
+        }
+        return newText;
+    } catch (e) {
+        console.warn("Regex error in highlightText:", e);
+        return text; 
+    }
+}
+
+function populateGlossary(searchTerm = "") {
+    const glossaryContentDiv = document.getElementById('glossaryContent');
+    if (!glossaryContentDiv || typeof glossaryTerms === 'undefined') {
+        console.error("Glossary content div or glossaryTerms data not found.");
+        return;
+    }
+    glossaryContentDiv.innerHTML = ''; // Clear previous items
+
+    const lowerSearchTerm = searchTerm.toLowerCase().trim();
+
+    let filteredTerms = glossaryTerms.filter(item => {
+        if (!item || !item.term_en || !item.definition_en) return false;
+        if (lowerSearchTerm === "") return true;
+        return item.term_en.toLowerCase().includes(lowerSearchTerm) ||
+               item.definition_en.toLowerCase().includes(lowerSearchTerm) ||
+               (item.term_zh && item.term_zh.includes(lowerSearchTerm)) ||
+               (item.definition_zh && item.definition_zh.includes(lowerSearchTerm));
+    });
+
+    filteredTerms.sort((a, b) => {
+        if (a.term_en && b.term_en) {
+            return a.term_en.toLowerCase().localeCompare(b.term_en.toLowerCase());
+        }
+        return 0; 
+    });
+
+    if (filteredTerms.length === 0) {
+        glossaryContentDiv.innerHTML = '<p style="text-align: center; color: #777; margin-top: 20px;">No terms found matching your search.</p>';
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    ul.style.listStyleType = 'none'; 
+    ul.style.paddingLeft = '0';      
+
+    filteredTerms.forEach(term => {
+        const li = document.createElement('li');
+        li.classList.add('glossary-item'); 
+
+        const termHeading = document.createElement('h5');
+        termHeading.classList.add('glossary-term-heading'); 
+
+        let termEnDisplay = term.term_en;
+        let termZhDisplay = term.term_zh ? ` <span class="zh-inline-glossary">(${term.term_zh})</span>` : ""; 
+
+        if (lowerSearchTerm) {
+            termEnDisplay = highlightText(termEnDisplay, lowerSearchTerm);
+            if(term.term_zh) termZhDisplay = ` <span class="zh-inline-glossary">(${highlightText(term.term_zh, lowerSearchTerm)})</span>`;
+        }
+        // --- CORRECTED LINE ---
+        termHeading.innerHTML = `${termEnDisplay}${termZhDisplay}`;
+
+
+        const definitionPara = document.createElement('p');
+        definitionPara.classList.add('glossary-definition'); 
+
+        let defEnDisplay = term.definition_en;
+        let defZhDisplay = term.definition_zh ? `<br><span class="zh-definition-glossary">${term.definition_zh}</span>` : "";
+        if (lowerSearchTerm) {
+            defEnDisplay = highlightText(defEnDisplay, lowerSearchTerm);
+            if(term.definition_zh) defZhDisplay = `<br><span class="zh-definition-glossary">${highlightText(term.definition_zh, lowerSearchTerm)}</span>`;
+        }
+        // --- CORRECTED LINE ---
+        definitionPara.innerHTML = `${defEnDisplay}${defZhDisplay}`;
+
+        li.appendChild(termHeading);
+        li.appendChild(definitionPara);
+        ul.appendChild(li);
+    });
+    glossaryContentDiv.appendChild(ul);
+}
+
+// ==== START: CONSOLIDATED Save/Load IPAC & Case Study Toggle Functionality ====
+
+const ipacTextareaIds = ['caseStudyText', 'issueText', 'studentText', 'appText', 'conText'];
+const ipacLocalStorageKey = 'savedIPACAnalysis'; // Renamed for clarity
+const caseStudyToggleLocalStorageKey = 'caseStudyPanelCollapsed';
+
+// --- Save/Load Full IPAC Analysis ---
+function saveIPACAnalysis() {
+    const analysisData = {};
+    ipacTextareaIds.forEach(id => {
+        const textarea = document.getElementById(id);
+        if (textarea) {
+            analysisData[id] = textarea.value;
+        }
+    });
+
+    try {
+        localStorage.setItem(ipacLocalStorageKey, JSON.stringify(analysisData));
+        const saveBtn = document.getElementById('saveIPACAnalysis'); // Ensure this is your new button ID
+        if (saveBtn) {
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '✓ Saved! / 已保存!';
+            saveBtn.style.backgroundColor = '#2ecc71'; // Success green
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+                saveBtn.style.backgroundColor = '#27ae60'; // Original button color
+            }, 2000);
+        }
+        console.log("Full IPAC analysis saved to local storage.");
+    } catch (e) {
+        console.error("Error saving IPAC analysis to local storage:", e);
+        alert("Could not save your analysis. Local storage might be full or disabled.");
+    }
+}
+
+function loadSavedIPACAnalysis() {
+    try {
+        const savedDataString = localStorage.getItem(ipacLocalStorageKey);
+        if (savedDataString) {
+            const analysisData = JSON.parse(savedDataString);
+            ipacTextareaIds.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea && analysisData[id] !== undefined) {
+                    textarea.value = analysisData[id];
+                }
+            });
+            if (typeof updateWordCount === 'function') updateWordCount();
+            if (typeof updateProgressBar === 'function') updateProgressBar();
+            console.log("Loaded saved IPAC analysis.");
+        }
+    } catch (e) {
+        console.error("Error loading IPAC analysis from local storage:", e);
+    }
+}
+
+// --- Case Study Panel Toggle Functionality ---
+function setupCaseStudyToggle() {
+    const toggleBtn = document.getElementById('toggleCaseStudy');
+    const caseContent = document.getElementById('case-study-content');
+
+    if (toggleBtn && caseContent) {
+        // Restore collapsed state on load
+        const isCollapsed = localStorage.getItem(caseStudyToggleLocalStorageKey) === 'true';
+        if (isCollapsed) {
+            caseContent.classList.add('collapsed');
+            toggleBtn.textContent = 'Show / 显示';
+        } else {
+            caseContent.classList.remove('collapsed'); // Ensure it's shown if not explicitly collapsed
+            toggleBtn.textContent = 'Hide / 隐藏';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const currentlyCollapsed = caseContent.classList.toggle('collapsed');
+            toggleBtn.textContent = currentlyCollapsed ? 'Show / 显示' : 'Hide / 隐藏';
+            localStorage.setItem(caseStudyToggleLocalStorageKey, currentlyCollapsed);
+        });
+    } else {
+        console.error("Could not find toggleCaseStudy button or case-study-content elements.");
+    }
+}
+// ==== END: CONSOLIDATED Save/Load IPAC & Case Study Toggle Functionality ====
+
+let toggleBtn; 
+let caseContent; 
+let caseTextArea;
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // --- Initial Data Checks ---
+    if (typeof ipacConcepts === 'undefined' || !Array.isArray(ipacConcepts)) {
+        console.error('IPAC data (ipacConcepts array) failed to load. App may not function correctly.');
+        alert('Critical error: IPAC concepts data is missing.');
+        return;
+    } else {
+        console.log(`IPAC data loaded successfully with ${ipacConcepts.length} concepts.`);
+    }
+    if (typeof issueScaffoldOptions === 'undefined' || typeof appScaffoldOptions === 'undefined' || typeof conScaffoldOptions === 'undefined') {
+        console.error("Scaffold options arrays are not defined. Ensure they are loaded from ipac data.js or defined in this script.");
+    }
+    if (typeof glossaryTerms === 'undefined' || !Array.isArray(glossaryTerms)) {
+        console.warn('Glossary terms (glossaryTerms array) not found. Glossary feature might not work.');
+    }
+    if (typeof docx === 'undefined') {
+        // This check will likely always be true here as docx is loaded externally.
+        // The check in window.addEventListener('load', ...) for docx is more appropriate for its loading status.
+        console.warn('Docx library availability check in DOMContentLoaded.');
+    }
+
+    // --- Initialize UI Components & Features ---
+    initializeTooltip();
+    populateScaffoldDropdowns();
+
+    initializeChoicesForElement('conceptSelector', true);
+    searchConcepts(); // Initial population for conceptSelector
+
+    initializeChoicesForElement('issueScaffold');
+    initializeChoicesForElement('appScaffold');
+    initializeChoicesForElement('conScaffold');
+
+    // --- Setup Case Study Toggle AND Load Saved IPAC Data ---
+    setupCaseStudyToggle();    // Sets up the toggle and loads its collapsed state
+    loadSavedIPACAnalysis(); // Loads all IPAC text areas and updates counts/progress
+
+    // --- Attach Main Event Listeners ---
+
+    // Case Study - Enhanced Save Button
+    const saveAnalysisBtnEl = document.getElementById('saveIPACAnalysis');
+    if (saveAnalysisBtnEl) {
+        saveAnalysisBtnEl.addEventListener('click', saveIPACAnalysis);
+    } else {
+        // Fallback for the old button ID if HTML wasn't updated yet
+        const oldSaveBtn = document.getElementById('saveCaseStudy');
+        if (oldSaveBtn) {
+            console.warn("Fallback: Using old save button ID 'saveCaseStudy'. Please update HTML to 'saveIPACAnalysis'.");
+            oldSaveBtn.innerHTML = "Save Full Analysis / 保存分析"; // Update text for clarity
+            oldSaveBtn.style.backgroundColor = '#27ae60'; // Apply new style
+            oldSaveBtn.style.color = 'white';
+            oldSaveBtn.id = 'saveIPACAnalysis'; // Dynamically update ID if it helps
+            oldSaveBtn.addEventListener('click', saveIPACAnalysis);
+        } else {
+            console.error("Save button ('saveIPACAnalysis') not found.");
+        }
+    }
+
+    // Scaffold Insert Buttons
+    const btnInsertIssue = document.getElementById('btnInsertIssueScaffold');
+    if (btnInsertIssue) btnInsertIssue.addEventListener('click', insertIssueScaffold);
+
+    const btnInsertApp = document.getElementById('btnInsertAppScaffold');
+    if (btnInsertApp) btnInsertApp.addEventListener('click', insertAppScaffold);
+
+    const btnInsertCon = document.getElementById('btnInsertConScaffold');
+    if (btnInsertCon) btnInsertCon.addEventListener('click', insertConScaffold);
+
+    // Principle Panel Buttons
+    const insertPrincipleBtnEl = document.getElementById('insertPrincipleBtn');
+    if (insertPrincipleBtnEl) insertPrincipleBtnEl.addEventListener('click', insertScaffold);
+
+    const btnCarryForwardEl = document.getElementById('btnCarryForward');
+    if (btnCarryForwardEl) btnCarryForwardEl.addEventListener('click', carryForwardToPrinciple);
+
+    // Search Functionality
+    const conceptSearchEl = document.getElementById('conceptSearch');
+    if (conceptSearchEl) conceptSearchEl.addEventListener('input', searchConcepts);
+
+    document.querySelectorAll('.search-options input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', searchConcepts);
+    });
+
+    const conceptSelectorEl = document.getElementById('conceptSelector');
+    if (conceptSelectorEl) {
+        conceptSelectorEl.addEventListener('change', showConceptInfo);
+    }
+
+    // Textarea Input Listeners for Word Count & Progress
+    // Ensure ipacTextareaIds is defined globally (which it is in the block I gave you)
+    if (typeof ipacTextareaIds !== 'undefined') {
+        ipacTextareaIds.forEach(id => {
+            const textarea = document.getElementById(id);
+            if (textarea) {
+                ['input', 'paste', 'change'].forEach(eventType => {
+                    textarea.addEventListener(eventType, () => {
+                        setTimeout(() => {
+                            if (typeof updateWordCount === 'function') updateWordCount();
+                            if (typeof updateProgressBar === 'function') updateProgressBar();
+                        }, eventType === 'paste' ? 10 : 0);
+                    });
+                });
+            }
+        });
+    }
+
+
+    // Preview & Download Buttons
+    const btnGeneratePreviewEl = document.getElementById('btnGeneratePreview');
+    if (btnGeneratePreviewEl) btnGeneratePreviewEl.addEventListener('click', generatePreview);
+
+    const btnDownloadWordEl = document.getElementById('btnDownloadWord');
+    if (btnDownloadWordEl) btnDownloadWordEl.addEventListener('click', downloadWord);
+
+    // Example Modal
+    const showExampleBtnEl = document.getElementById('showExampleBtn');
+    const exampleModalEl = document.getElementById('exampleModal');
+    const exampleModalCloseBtnEl = document.querySelector('#exampleModal .modal-close');
+
+    if (showExampleBtnEl && exampleModalEl) {
+        showExampleBtnEl.addEventListener('click', () => { exampleModalEl.style.display = 'flex'; });
+    }
+    if (exampleModalCloseBtnEl && exampleModalEl) {
+        exampleModalCloseBtnEl.addEventListener('click', () => { exampleModalEl.style.display = 'none'; });
+    }
+    if (exampleModalEl) {
+        exampleModalEl.addEventListener('click', function(event) {
+            if (event.target === exampleModalEl) exampleModalEl.style.display = 'none';
+        });
+    }
+
+    // Glossary Modal (Moved from the separate DOMContentLoaded)
+    const showGlossaryBtnEl = document.getElementById('showGlossaryBtn');
+    const glossaryModalEl = document.getElementById('glossaryModal');
+    const glossaryModalCloseBtnEl = document.getElementById('glossaryModalClose');
+    const glossarySearchEl = document.getElementById('glossarySearch');
+
+    if (showGlossaryBtnEl && glossaryModalEl) {
+        showGlossaryBtnEl.addEventListener('click', () => {
+            if (typeof populateGlossary === 'function') populateGlossary();
+            glossaryModalEl.style.display = 'flex';
+        });
+    }
+    if (glossaryModalCloseBtnEl && glossaryModalEl) {
+        glossaryModalCloseBtnEl.addEventListener('click', () => { glossaryModalEl.style.display = 'none'; });
+    }
+    if (glossarySearchEl) {
+        glossarySearchEl.addEventListener('input', function() {
+            if (typeof populateGlossary === 'function') populateGlossary(this.value);
+        });
+    }
+    if (glossaryModalEl) {
+        glossaryModalEl.addEventListener('click', function(event) {
+            if (event.target === glossaryModalEl) glossaryModalEl.style.display = 'none';
+        });
+    }
+
+    // Scroll Navigation
+    const navWrapper = document.getElementById('ipac-nav-wrapper');
+    const navButtons = document.querySelectorAll('#ipac-nav button');
+    const sections = ['panel-case-study', 'panel-issue', 'panel-principle', 'panel-application', 'panel-conclusion', 'panel-preview'];
+    if (typeof window.isManualNavigation === 'undefined') {
+        window.isManualNavigation = false;
+    }
+
+    if (navWrapper && navButtons.length > 0) {
+        navButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const navHeight = navWrapper.offsetHeight;
+                    const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                    const scrollToPosition = targetPosition - navHeight - 10;
+                    window.isManualNavigation = true;
+                    window.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
+                    setTimeout(() => { window.isManualNavigation = false; }, 700);
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            if (window.isManualNavigation || !navWrapper) return;
+            let currentSectionId = '';
+            const navHeight = navWrapper.offsetHeight + 20;
+            let foundSection = false;
+            for (let i = 0; i < sections.length; i++) {
+                const sectionEl = document.getElementById(sections[i]);
+                if (sectionEl) {
+                    const rect = sectionEl.getBoundingClientRect();
+                    if (rect.top <= navHeight && rect.bottom >= navHeight) {
+                        currentSectionId = sections[i];
+                        foundSection = true;
+                        break;
+                    }
+                }
+            }
+            if (!foundSection) {
+                if (window.pageYOffset < navHeight + 50 && sections.length > 0) {
+                    currentSectionId = sections[0];
+                } else {
+                    let minDistance = Infinity;
+                    let closestSectionId = sections[0];
+                    for (let i = sections.length - 1; i >= 0; i--) {
+                         const sectionEl = document.getElementById(sections[i]);
+                         if(sectionEl) {
+                             const rect = sectionEl.getBoundingClientRect();
+                             if (rect.top <= navHeight && (navHeight - rect.top) < minDistance) {
+                                 minDistance = navHeight - rect.top;
+                                 closestSectionId = sections[i];
+                             } else if (rect.top > navHeight && rect.top < minDistance && !foundSection) {
+                                 minDistance = rect.top;
+                                 closestSectionId = sections[i];
+                             }
+                         }
+                    }
+                     if (!foundSection) currentSectionId = closestSectionId; // Only if no section was truly "current"
+                }
+            }
+            navButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-target') === currentSectionId);
+            });
+        });
+        window.dispatchEvent(new Event('scroll'));
+    } else {
+        console.error("IPAC Navigation wrapper or buttons not found for scroll spy.");
+    }
+
+    // Initial UI updates
+    if (typeof updateWordCount === 'function') updateWordCount();
+    if (typeof updateProgressBar === 'function') updateProgressBar();
+
+}); // END OF THE SINGLE, CONSOLIDATED DOMContentLoaded
+    </script>
+  <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top">&uarr;</button>
+    <script>
+          // Get the button element by its ID (Now it should match the button's ID)
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+      // Define the scroll distance (in pixels) after which the button appears
+      const scrollThreshold = 100; // Show button after scrolling down 100px
+
+      // Function to handle showing/hiding the button based on scroll position
+      function handleScroll() {
+        // Check scroll position (cross-browser compatibility)
+        const scrolled = document.body.scrollTop || document.documentElement.scrollTop;
+
+        // Make sure scrollToTopBtn was found before trying to use it
+        if (scrollToTopBtn) {
+            if (scrolled > scrollThreshold) {
+                // --- Standard Version (No Fade Effect) ---
+                scrollToTopBtn.style.display = "block";
+            } else {
+                // --- Standard Version (No Fade Effect) ---
+                scrollToTopBtn.style.display = "none";
+            }
+        } else {
+          // Optional: Log an error if the button wasn't found - helps debugging
+          console.error("Scroll to top button element not found!");
+        }
+      }
+
+      // Function to scroll the window to the top smoothly
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Use smooth scrolling animation
+        });
+      }
+
+      // ***** THIS LINE WAS MISSING - ADD IT BACK *****
+      // Add event listener for scroll events on the window
+      window.addEventListener('scroll', handleScroll);
+      // ***** END OF MISSING LINE *****
+
+    </script>
+    <div id="glossaryModal" class="modal">
+    <div class="modal-content">
+      <span id="glossaryModalClose" class="modal-close">&times;</span>
+      <h2 class="modal-title">Key Legal Terms Glossary / 核心法律术语</h2>
+      <input type="text" id="glossarySearch" class="form-control" placeholder="Search glossary..." style="margin-bottom: 15px;">
+      <div id="glossaryContent" style="max-height: 60vh; overflow-y: auto;">
+        </div>
+    </div>
+</div>
+  </body> 
+</html>   

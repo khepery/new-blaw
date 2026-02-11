@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Structures Knowledge Galaxy</title>
+    <style>
+        :root {
+            --unincorporated-color: #e74c3c;
+            --incorporated-color: #3498db;
+            --companies-color: #f1c40f;
+            --doctrine-color: #9b59b6;
+            --activities-color: #27ae60;
+            --bg-color: #0a0e17;
+            --text-color: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: var(--text-color);
+            overflow: hidden;
+        }
+        
+        header {
+            background: transparent;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Shooting stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Galaxy Container */
+        .galaxy-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 500px);
+            min-height: 600px;
+            margin: 10 auto;
+            overflow: hidden;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .galaxy {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+transform: translateY(-10%);
+        }
+
+        /* Cosmic bodies styles */
+        .celestial-body {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-align: center;
+            user-select: none;
+            overflow: visible;
+            z-index: 5;
+            animation: float 6s infinite alternate ease-in-out;
+        }
+
+        .celestial-body:hover {
+            transform: translate(-50%, -50%) scale(1.15);
+            z-index: 50;
+        }
+        
+        /* Interactive ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0.7;
+            animation: rippleEffect 1s cubic-bezier(0, 0.2, 0.8, 1) forwards;
+        }
+        
+        /* Interactive wave effect */
+        .wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            border: 2px solid white;
+            animation: waveEffect 2s ease-out forwards;
+        }
+        
+        /* Always visible labels */
+        .celestial-label {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 5px black, 0 0 10px black;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.3;
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        .celestial-label .en {
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        .celestial-label .cn {
+            display: block;
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .celestial-body.unincorporated {
+            background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
+            box-shadow: 0 0 50px rgba(231, 76, 60, 0.8);
+            animation-delay: 0.5s;
+        }
+
+        .celestial-body.incorporated {
+            background: radial-gradient(circle at 30% 30%, #3498db, #2980b9);
+            box-shadow: 0 0 50px rgba(52, 152, 219, 0.8);
+            animation-delay: 1s;
+        }
+
+        .celestial-body.companies {
+            background: radial-gradient(circle at 30% 30%, #f1c40f, #d4ac0d);
+            box-shadow: 0 0 50px rgba(241, 196, 15, 0.8);
+            animation-delay: 1.5s;
+        }
+
+        .celestial-body.doctrine {
+            background: radial-gradient(circle at 30% 30%, #9b59b6, #8e44ad);
+            box-shadow: 0 0 50px rgba(155, 89, 182, 0.8);
+            animation-delay: 2s;
+        }
+
+        .celestial-body.activities {
+            background: radial-gradient(circle at 30% 30%, #27ae60, #219952);
+            box-shadow: 0 0 50px rgba(39, 174, 96, 0.8);
+            animation-delay: 2.5s;
+        }
+
+        .celestial-body.root {
+            background: radial-gradient(circle at 30% 30%, #FFD700, #FFA500);
+            box-shadow: 0 0 70px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 165, 0, 0.5);
+            z-index: 6;
+            animation: pulsate 3s infinite alternate;
+        }
+        
+        /* Create particles around celestial bodies */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+            z-index: 4;
+        }
+
+        .orbit-line {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            z-index: 1;
+            animation: rotateOrbit 120s linear infinite;
+        }
+
+        /* Fixed connection line style */
+        .connection-line {
+            position: absolute;
+            height: 3px; /* slightly thicker for visibility */
+            transform-origin: 0 0; /* origin from start point */
+            pointer-events: none;
+            z-index: 2; /* make sure lines are above orbit lines */
+            animation: dataFlow 8s infinite linear;
+        }
+        
+        /* Energy field around planet groups */
+        .energy-field {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: 0;
+            animation: pulse 10s infinite alternate;
+        }
+/* Detail Panel */
+        .detail-panel {
+            position: fixed;
+            top: 0;
+            right: -650px;
+            width: 600px;
+            height: 100vh;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            overflow-y: auto;
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .detail-panel.active {
+            right: 0;
+        }
+
+        .close-panel {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .close-panel:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-panel h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        .detail-panel h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .content-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .content-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .content-tab.active {
+            border-bottom: 2px solid var(--incorporated-color);
+            color: var(--incorporated-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 1rem 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .tab-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .case-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--doctrine-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .case-panel h4 {
+            margin-bottom: 0.5rem;
+            color: var(--doctrine-color);
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            transition: opacity 1s ease;
+        }
+
+        .loading-text {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 100px;
+            height: 100px;
+            border: 5px solid transparent;
+            border-top-color: var(--incorporated-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Nebula background */
+        .nebula {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(20,20,50,0.2) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: -2;
+        }
+        
+        /* Mini satellites that orbit planets */
+        .mini-satellite {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transform-origin: center;
+            z-index: 4;
+        }
+        
+        /* Interactive highlight pulse for connected nodes */
+        .highlight-pulse {
+            animation: highlightPulse 1s ease-in-out;
+        }
+        
+        /* Interactive spotlight effect */
+        .spotlight {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            animation: spotlightEffect 1.5s ease-out forwards;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulsate {
+            0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 50px rgba(255, 215, 0, 0.7); }
+            50% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 70px rgba(255, 215, 0, 0.9); }
+            100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 50px rgba(255, 215, 0, 0.7); }
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) translateY(-10px) rotate(3deg); }
+            100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes rotateOrbit {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        @keyframes dataFlow {
+            0% { background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%); background-size: 150% 100%; background-position: -150% 0; }
+            100% { background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%); background-size: 150% 100%; background-position: 100% 0; }
+        }
+@keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.95); }
+            100% { opacity: 0.6; transform: scale(1.05); }
+        }
+        
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0); opacity: 1; }
+            100% { transform: translateX(calc(100vw * var(--direction-x))) translateY(calc(100vh * var(--direction-y))); opacity: 0; }
+        }
+        
+        @keyframes satelliteOrbit {
+            0% { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translate(0, 0); opacity: 0.8; }
+            100% { transform: translate(var(--float-x), var(--float-y)); opacity: 0; }
+        }
+        
+        @keyframes rippleEffect {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        }
+        
+        @keyframes waveEffect {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+        }
+        
+        @keyframes highlightPulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.3); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        @keyframes spotlightEffect {
+            0% { opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0; }
+        }
+        
+        @keyframes rotateAndExpand {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.5); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Special class for highlighted nodes */
+        .celestial-body.targeted {
+            z-index: 50;
+            animation: pulsate 1.5s infinite alternate !important;
+        }
+        
+        .celestial-body.targeted .celestial-label {
+            background-color: rgba(0, 0, 0, 0.8);
+            font-size: 14px;
+            padding: 6px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+/* Back to Main Button */
+.back-to-main {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(52, 152, 219, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+
+.back-to-main:hover {
+    background-color: rgba(41, 128, 185, 1);
+    transform: scale(1.1);
+}
+
+.back-to-main svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+@media (max-width: 768px) {
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Business Structures Knowledge Galaxy...</div>
+    </div>
+
+    <div class="nebula"></div>
+    <div class="stars" id="stars"></div>
+
+    <header>
+    <a href="index.html" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+    <h1>Business Structures Knowledge Galaxy</h1>
+</header>
+    
+    <div class="galaxy-container" id="galaxyContainer">
+        <div class="galaxy" id="galaxy">
+            <!-- Celestial bodies and connections will be generated here -->
+        </div>
+    </div>
+    
+    <div class="detail-panel" id="detailPanel">
+        <button class="close-panel" id="closePanel">×</button>
+        <h2 id="detailTitle">Business Structure</h2>
+        <h3 id="detailTitleCn">商业结构</h3>
+        
+        <div class="content-tabs" id="contentTabs">
+            <div class="content-tab active" data-tab="english">English</div>
+            <div class="content-tab" data-tab="chinese">中文</div>
+        </div>
+        
+        <div class="tab-content active" data-tab="english" id="englishContent">
+            <p>Select a celestial body to view details.</p>
+        </div>
+        
+        <div class="tab-content" data-tab="chinese" id="chineseContent">
+            <p>选择一个天体以查看详细信息。</p>
+        </div>
+    </div>
+<script>
+        // DOM Elements
+        const galaxyContainer = document.getElementById('galaxyContainer');
+        const galaxy = document.getElementById('galaxy');
+        const detailPanel = document.getElementById('detailPanel');
+        const closePanel = document.getElementById('closePanel');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailTitleCn = document.getElementById('detailTitleCn');
+        const englishContent = document.getElementById('englishContent');
+        const chineseContent = document.getElementById('chineseContent');
+        const contentTabs = document.getElementById('contentTabs');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const stars = document.getElementById('stars');
+        
+        // Galaxy configuration
+        let targetNode = null; // Currently focused node
+        
+        // Initialize
+        function initializeGalaxy() {
+            createStars();
+            createShootingStars();
+            createEnergyFields();
+            
+            // Create orbit lines
+            createOrbits();
+            
+            // Create all celestial bodies first
+            staticNodes.forEach(node => {
+                createCelestialBody(node);
+            });
+            
+            // Then create connection lines (so they appear under the celestial bodies)
+            // THIS IS THE FIXED CONNECTION LINE CREATION FUNCTION
+            staticNodes.forEach(node => {
+                if (node.connections) {
+                    node.connections.forEach(targetId => {
+                        const targetNode = staticNodes.find(n => n.id === targetId);
+                        if (targetNode) {
+                            createConnectionLine(node, targetNode);
+                        }
+                    });
+                }
+            });
+            
+            // Add mini satellites to primary planets
+            addMiniSatellites();
+            
+            // Setup mouse movement effect
+            setupMouseEffect();
+            
+            // Setup event listeners
+            setupDetailPanel();
+            
+            // Hide loading overlay
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 1000);
+            }, 1500);
+        }
+        
+        // Create energy fields for groups
+        function createEnergyField(x, y, size, color) {
+            const field = document.createElement('div');
+            field.className = 'energy-field';
+            field.style.width = `${size * 2}%`;
+            field.style.height = `${size * 2}%`;
+            field.style.left = `${x}%`;
+            field.style.top = `${y}%`;
+            field.style.transform = 'translate(-50%, -50%)';
+            field.style.background = `radial-gradient(ellipse at center, ${color} 0%, rgba(0,0,0,0) 70%)`;
+            field.style.animationDelay = `${Math.random() * 5}s`;
+            galaxy.appendChild(field);
+        }
+        
+        // Create energy fields
+        function createEnergyFields() {
+            // Field for unincorporated
+            createEnergyField(30, 30, 20, 'rgba(231, 76, 60, 0.03)');
+            
+            // Field for incorporated/companies
+            createEnergyField(70, 30, 25, 'rgba(52, 152, 219, 0.03)');
+            
+            // Field for doctrine
+            createEnergyField(30, 70, 20, 'rgba(155, 89, 182, 0.03)');
+            
+            // Field for activities
+            createEnergyField(70, 70, 20, 'rgba(39, 174, 96, 0.03)');
+            
+            // Central field
+            createEnergyField(50, 50, 15, 'rgba(255, 215, 0, 0.05)');
+        }
+// Create shooting stars that occasionally cross the screen
+        function createShootingStars() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.className = 'shooting-star';
+                    
+                    // Random position at the edge of the screen
+                    const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+                    let startX, startY;
+                    let directionX, directionY;
+                    
+                    switch(side) {
+                        case 0: // top
+                            startX = Math.random() * window.innerWidth;
+                            startY = 0;
+                            directionX = Math.random() * 2 - 1;
+                            directionY = 1;
+                            break;
+                        case 1: // right
+                            startX = window.innerWidth;
+                            startY = Math.random() * window.innerHeight;
+                            directionX = -1;
+                            directionY = Math.random() * 2 - 1;
+                            break;
+                        case 2: // bottom
+                            startX = Math.random() * window.innerWidth;
+                            startY = window.innerHeight;
+                            directionX = Math.random() * 2 - 1;
+                            directionY = -1;
+                            break;
+                        case 3: // left
+                            startX = 0;
+                            startY = Math.random() * window.innerHeight;
+                            directionX = 1;
+                            directionY = Math.random() * 2 - 1;
+                            break;
+                    }
+                    
+                    shootingStar.style.left = `${startX}px`;
+                    shootingStar.style.top = `${startY}px`;
+                    shootingStar.style.setProperty('--direction-x', directionX);
+                    shootingStar.style.setProperty('--direction-y', directionY);
+                    shootingStar.style.opacity = '1';
+                    shootingStar.style.boxShadow = '0 0 20px white, 0 0 30px white';
+                    shootingStar.style.width = `${Math.random() * 2 + 1}px`;
+                    shootingStar.style.height = `${Math.random() * 50 + 10}px`;
+                    shootingStar.style.animation = `shoot ${Math.random() * 2 + 1}s linear forwards`;
+                    
+                    document.body.appendChild(shootingStar);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        if (document.body.contains(shootingStar)) {
+                            document.body.removeChild(shootingStar);
+                        }
+                    }, 3000);
+                }
+            }, 3000);
+        }
+        
+        // Add mini-satellites that orbit around main planets
+        function addMiniSatellites() {
+            // Get all main planets
+            const mainPlanets = document.querySelectorAll('.celestial-body');
+            
+            mainPlanets.forEach(planet => {
+                if (planet.dataset.id === 'root') return; // Skip the central sun
+                
+                // Number of satellites based on planet size
+                const planetSize = parseInt(planet.style.width);
+                const numSatellites = Math.floor(planetSize / 30); // Roughly 1-3 satellites per planet
+                
+                for (let i = 0; i < numSatellites; i++) {
+                    const satellite = document.createElement('div');
+                    satellite.className = 'mini-satellite';
+                    
+                    // Get planet position and add satellite
+                    const planetX = parseFloat(planet.style.left);
+                    const planetY = parseFloat(planet.style.top);
+                    
+                    // Set orbit radius
+                    const orbitRadius = (planetSize / 2) + 10 + (i * 8);
+                    satellite.style.setProperty('--orbit-radius', `${orbitRadius}px`);
+                    
+                    // Set position at center of planet
+                    satellite.style.left = `${planetX}%`;
+                    satellite.style.top = `${planetY}%`;
+                    
+                    // Set animation
+                    const direction = i % 2 === 0 ? 'normal' : 'reverse';
+                    const duration = 5 + (i * 2);
+                    satellite.style.animation = `satelliteOrbit ${duration}s linear infinite ${direction}`;
+                    
+                    // Set color based on planet type
+                    const planetType = planet.className.split(' ')[1];
+                    if (planetType === 'unincorporated') {
+                        satellite.style.backgroundColor = 'rgba(231, 76, 60, 0.8)';
+                    } else if (planetType === 'incorporated') {
+                        satellite.style.backgroundColor = 'rgba(52, 152, 219, 0.8)';
+                    } else if (planetType === 'companies') {
+                        satellite.style.backgroundColor = 'rgba(241, 196, 15, 0.8)';
+                    } else if (planetType === 'doctrine') {
+                        satellite.style.backgroundColor = 'rgba(155, 89, 182, 0.8)';
+                    } else if (planetType === 'activities') {
+                        satellite.style.backgroundColor = 'rgba(39, 174, 96, 0.8)';
+                    }
+                    
+                    galaxy.appendChild(satellite);
+                }
+            });
+        }
+// Setup mouse movement effect
+        function setupMouseEffect() {
+            document.addEventListener('mousemove', (e) => {
+                // Subtle parallax effect for stars
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                stars.style.transform = `translate(${mouseX * -20}px, ${mouseY * -20}px)`;
+                
+                // Trigger occasional particle burst from a random planet
+                if (Math.random() > 0.98) {
+                    const planets = document.querySelectorAll('.celestial-body');
+                    const randomPlanet = planets[Math.floor(Math.random() * planets.length)];
+                    createParticleBurst(randomPlanet);
+                }
+            });
+        }
+        
+        // Create particle burst from a planet
+        function createParticleBurst(planet) {
+            const planetType = planet.className.split(' ')[1];
+            const planetRect = planet.getBoundingClientRect();
+            const centerX = planetRect.left + planetRect.width / 2;
+            const centerY = planetRect.top + planetRect.height / 2;
+            
+            // Color based on planet type
+            let particleColor;
+            if (planetType === 'unincorporated') {
+                particleColor = 'rgba(231, 76, 60, 0.8)';
+            } else if (planetType === 'incorporated') {
+                particleColor = 'rgba(52, 152, 219, 0.8)';
+            } else if (planetType === 'companies') {
+                particleColor = 'rgba(241, 196, 15, 0.8)';
+            } else if (planetType === 'doctrine') {
+                particleColor = 'rgba(155, 89, 182, 0.8)';
+            } else if (planetType === 'activities') {
+                particleColor = 'rgba(39, 174, 96, 0.8)';
+            } else if (planetType === 'root') {
+                particleColor = 'rgba(255, 215, 0, 0.8)';
+            } else {
+                particleColor = 'rgba(255, 255, 255, 0.8)';
+            }
+            
+            // Create particles
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${centerX}px`;
+                particle.style.top = `${centerY}px`;
+                particle.style.backgroundColor = particleColor;
+                
+                // Random movement
+                const floatX = (Math.random() - 0.5) * 120;
+                const floatY = (Math.random() - 0.5) * 120;
+                particle.style.setProperty('--float-x', `${floatX}px`);
+                particle.style.setProperty('--float-y', `${floatY}px`);
+                
+                // Animation
+                particle.style.animation = `particleFloat ${Math.random() * 2 + 1}s ease-out forwards`;
+                
+                document.body.appendChild(particle);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    if (document.body.contains(particle)) {
+                        document.body.removeChild(particle);
+                    }
+                }, 3000);
+            }
+        }
+        
+        // Create ripple effect from planet
+        function createRippleEffect(planet, color) {
+            const planetRect = planet.getBoundingClientRect();
+            const centerX = planetRect.left + planetRect.width / 2;
+            const centerY = planetRect.top + planetRect.height / 2;
+            
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = `${centerX}px`;
+            ripple.style.top = `${centerY}px`;
+            ripple.style.width = `${planetRect.width}px`;
+            ripple.style.height = `${planetRect.height}px`;
+            ripple.style.border = `2px solid ${color}`;
+            
+            document.body.appendChild(ripple);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (document.body.contains(ripple)) {
+                    document.body.removeChild(ripple);
+                }
+            }, 1000);
+        }
+        
+        // Create wave effect from planet
+        function createWaveEffect(planet, color) {
+            const planetRect = planet.getBoundingClientRect();
+            const centerX = planetRect.left + planetRect.width / 2;
+            const centerY = planetRect.top + planetRect.height / 2;
+            
+            const wave = document.createElement('div');
+            wave.className = 'wave';
+            wave.style.left = `${centerX}px`;
+            wave.style.top = `${centerY}px`;
+            wave.style.width = `${planetRect.width}px`;
+            wave.style.height = `${planetRect.height}px`;
+            wave.style.borderColor = color;
+            
+            document.body.appendChild(wave);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (document.body.contains(wave)) {
+                    document.body.removeChild(wave);
+                }
+            }, 2000);
+        }
+// Create spotlight effect
+        function createSpotlightEffect(planet) {
+            const planetRect = planet.getBoundingClientRect();
+            const centerX = planetRect.left + planetRect.width / 2;
+            const centerY = planetRect.top + planetRect.height / 2;
+            
+            const spotlight = document.createElement('div');
+            spotlight.className = 'spotlight';
+            spotlight.style.left = `${centerX}px`;
+            spotlight.style.top = `${centerY}px`;
+            spotlight.style.width = `${planetRect.width * 3}px`;
+            spotlight.style.height = `${planetRect.height * 3}px`;
+            
+            document.body.appendChild(spotlight);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (document.body.contains(spotlight)) {
+                    document.body.removeChild(spotlight);
+                }
+            }, 1500);
+        }
+        
+        // Highlight connected nodes
+        function highlightConnectedNodes(nodeId) {
+            const node = staticNodes.find(n => n.id === nodeId);
+            if (!node || !node.connections) return;
+            
+            // Find all connected nodes
+            node.connections.forEach(targetId => {
+                const targetBody = document.querySelector(`.celestial-body[data-id="${targetId}"]`);
+                if (targetBody) {
+                    // Add highlight pulse class
+                    targetBody.classList.add('highlight-pulse');
+                    
+                    // Remove class after animation completes
+                    setTimeout(() => {
+                        targetBody.classList.remove('highlight-pulse');
+                    }, 1000);
+                }
+            });
+            
+            // Also highlight connection lines
+            const connectionLines = document.querySelectorAll('.connection-line');
+            connectionLines.forEach(line => {
+                // Get the source and target attributes to determine connections
+                const source = line.getAttribute('data-source');
+                const target = line.getAttribute('data-target');
+                
+                // If this line connects to our node, highlight it
+                if (source === nodeId || target === nodeId) {
+                    // This line is connected to our node
+                    line.style.animationDuration = '2s';
+                    line.style.opacity = '1';
+                    line.style.boxShadow = '0 0 15px currentColor';
+                    
+                    // Reset after some time
+                    setTimeout(() => {
+                        line.style.animationDuration = '8s';
+                        line.style.opacity = '0.7';
+                        line.style.boxShadow = '0 0 8px currentColor';
+                    }, 2000);
+                }
+            });
+        }
+        
+        // Create orbit circles
+        function createOrbits() {
+            // Main orbit for primary planets
+            const mainOrbit = document.createElement('div');
+            mainOrbit.className = 'orbit-line';
+            mainOrbit.style.width = '70%';
+            mainOrbit.style.height = '70%';
+            mainOrbit.style.top = '50%';
+            mainOrbit.style.left = '50%';
+            galaxy.appendChild(mainOrbit);
+            
+            // Secondary orbit
+            const secondaryOrbit = document.createElement('div');
+            secondaryOrbit.className = 'orbit-line';
+            secondaryOrbit.style.width = '40%';
+            secondaryOrbit.style.height = '40%';
+            secondaryOrbit.style.top = '50%';
+            secondaryOrbit.style.left = '50%';
+            secondaryOrbit.style.animationDirection = 'reverse';
+            secondaryOrbit.style.animationDuration = '180s';
+            galaxy.appendChild(secondaryOrbit);
+            
+            // Outer orbit
+            const outerOrbit = document.createElement('div');
+            outerOrbit.className = 'orbit-line';
+            outerOrbit.style.width = '90%';
+            outerOrbit.style.height = '90%';
+            outerOrbit.style.top = '50%';
+            outerOrbit.style.left = '50%';
+            outerOrbit.style.animationDuration = '240s';
+            galaxy.appendChild(outerOrbit);
+        }
+// Create stars background
+        function createStars() {
+            for (let i = 0; i < 250; i++) {
+                const star = document.createElement('div');
+                const size = Math.random() * 2;
+                const opacity = Math.random() * 0.8 + 0.2;
+                
+                star.style.position = 'absolute';
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.opacity = opacity;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.boxShadow = `0 0 ${size * 2}px rgba(255, 255, 255, ${opacity})`;
+                
+                // Add twinkling animation randomly
+                if (Math.random() > 0.5) {
+                    star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite alternate`;
+                }
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Create a celestial body with permanent visible label
+        function createCelestialBody(node) {
+            const celestialBody = document.createElement('div');
+            celestialBody.className = `celestial-body ${node.type}`;
+            celestialBody.dataset.id = node.id;
+            celestialBody.style.width = `${node.size}px`;
+            celestialBody.style.height = `${node.size}px`;
+            celestialBody.style.left = `${node.x}%`;
+            celestialBody.style.top = `${node.y}%`;
+            
+            // Set animation duration based on size for variety
+            const animDuration = 4 + (node.size / 20);
+            celestialBody.style.animationDuration = `${animDuration}s`;
+            
+            // Create permanent visible label
+            const label = document.createElement('div');
+            label.className = 'celestial-label';
+            
+            // Add English and Chinese text
+            const englishSpan = document.createElement('span');
+            englishSpan.className = 'en';
+            englishSpan.textContent = node.title;
+            
+            const chineseSpan = document.createElement('span');
+            chineseSpan.className = 'cn';
+            chineseSpan.textContent = node.titleCn || '';
+            
+            label.appendChild(englishSpan);
+            if (node.titleCn) {
+                label.appendChild(chineseSpan);
+            }
+            
+            // Adjust label position for better visibility
+            if (node.labelOffset) {
+                if (node.labelOffset.x) {
+                    label.style.marginLeft = `${node.labelOffset.x}px`;
+                }
+                if (node.labelOffset.y) {
+                    label.style.top = `${110 + node.labelOffset.y}%`;
+                }
+            }
+            
+            celestialBody.appendChild(label);
+            galaxy.appendChild(celestialBody);
+// Add click event with toggle functionality and interactive effects
+            celestialBody.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                // Check if already targeted (toggle functionality)
+                if (celestialBody.classList.contains('targeted')) {
+                    // Close the detail panel
+                    detailPanel.classList.remove('active');
+                    celestialBody.classList.remove('targeted');
+                    targetNode = null;
+                    
+                    // Create ripple effect on close
+                    let rippleColor;
+                    if (node.type === 'unincorporated') {
+                        rippleColor = 'rgba(231, 76, 60, 0.7)';
+                    } else if (node.type === 'incorporated') {
+                        rippleColor = 'rgba(52, 152, 219, 0.7)';
+                    } else if (node.type === 'companies') {
+                        rippleColor = 'rgba(241, 196, 15, 0.7)';
+                    } else if (node.type === 'doctrine') {
+                        rippleColor = 'rgba(155, 89, 182, 0.7)';
+                    } else if (node.type === 'activities') {
+                        rippleColor = 'rgba(39, 174, 96, 0.7)';
+                    } else {
+                        rippleColor = 'rgba(255, 255, 255, 0.7)';
+                    }
+                    
+                    createRippleEffect(celestialBody, rippleColor);
+                } else {
+                    // Open the detail panel
+                    openDetailPanel(node);
+                    targetNode = node;
+                    
+                    // Remove targeted class from all bodies
+                    document.querySelectorAll('.celestial-body').forEach(body => {
+                        body.classList.remove('targeted');
+                    });
+                    
+                    // Add targeted class to this body
+                    celestialBody.classList.add('targeted');
+                    
+                    // Create interactive effects
+                    createParticleBurst(celestialBody);
+                    
+                    // Create wave effect
+                    let waveColor;
+                    if (node.type === 'unincorporated') {
+                        waveColor = 'rgba(231, 76, 60, 0.7)';
+                    } else if (node.type === 'incorporated') {
+                        waveColor = 'rgba(52, 152, 219, 0.7)';
+                    } else if (node.type === 'companies') {
+                        waveColor = 'rgba(241, 196, 15, 0.7)';
+                    } else if (node.type === 'doctrine') {
+                        waveColor = 'rgba(155, 89, 182, 0.7)';
+                    } else if (node.type === 'activities') {
+                        waveColor = 'rgba(39, 174, 96, 0.7)';
+                    } else {
+                        waveColor = 'rgba(255, 255, 255, 0.7)';
+                    }
+                    
+                    createWaveEffect(celestialBody, waveColor);
+                    
+                    // Create spotlight effect
+                    createSpotlightEffect(celestialBody);
+                    
+                    // Highlight connected nodes
+                    highlightConnectedNodes(node.id);
+                    
+                    // Temporary rotation effect (3D-like animation)
+                    const originalAnimation = celestialBody.style.animation;
+                    celestialBody.style.animation = 'rotateAndExpand 1.5s ease-in-out';
+                    
+                    // Reset animation after effect
+                    setTimeout(() => {
+                        celestialBody.style.animation = 'pulsate 1.5s infinite alternate';
+                    }, 1500);
+                }
+            });
+        }
+// THIS IS THE FIXED CONNECTION LINE FUNCTION 
+        // Create connection line between nodes with color matching source node
+        // Create connection line between nodes with color matching source node
+function createConnectionLine(sourceNode, targetNode) {
+    // Get the bounding rectangle of the galaxy container
+    const galaxyRect = galaxy.getBoundingClientRect();
+    
+    // Convert percentage positions to pixels
+    const sourcePosX = (sourceNode.x / 100) * galaxyRect.width;
+    const sourcePosY = (sourceNode.y / 100) * galaxyRect.height;
+    const targetPosX = (targetNode.x / 100) * galaxyRect.width;
+    const targetPosY = (targetNode.y / 100) * galaxyRect.height;
+    
+    // Calculate dx, dy, distance, and angle in pixels
+    const dx = targetPosX - sourcePosX;
+    const dy = targetPosY - sourcePosY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+    
+    // Create the line element
+    const line = document.createElement('div');
+    line.className = 'connection-line';
+    
+    // Store data attributes for source and target for later highlighting
+    line.setAttribute('data-source', sourceNode.id);
+    line.setAttribute('data-target', targetNode.id);
+    
+    // Position the line at the source node's center in pixels and set its width and rotation
+    line.style.left = `${sourcePosX}px`;
+    line.style.top = `${sourcePosY}px`;
+    line.style.width = `${distance}px`;
+    line.style.transform = `rotate(${angle}deg)`;
+    
+    // Set color based on source node type for matching visual style
+    let lineColor, glowColor;
+    if (sourceNode.type === 'unincorporated') {
+        lineColor = 'rgba(231, 76, 60, 0.7)';
+        glowColor = 'rgba(231, 76, 60, 0.5)';
+    } else if (sourceNode.type === 'incorporated') {
+        lineColor = 'rgba(52, 152, 219, 0.7)';
+        glowColor = 'rgba(52, 152, 219, 0.5)';
+    } else if (sourceNode.type === 'companies') {
+        lineColor = 'rgba(241, 196, 15, 0.7)';
+        glowColor = 'rgba(241, 196, 15, 0.5)';
+    } else if (sourceNode.type === 'doctrine') {
+        lineColor = 'rgba(155, 89, 182, 0.7)';
+        glowColor = 'rgba(155, 89, 182, 0.5)';
+    } else if (sourceNode.type === 'activities') {
+        lineColor = 'rgba(39, 174, 96, 0.7)';
+        glowColor = 'rgba(39, 174, 96, 0.5)';
+    } else {
+        lineColor = 'rgba(255, 255, 255, 0.7)';
+        glowColor = 'rgba(255, 255, 255, 0.5)';
+    }
+    
+    line.style.backgroundColor = lineColor;
+    line.style.boxShadow = `0 0 8px ${glowColor}`;
+    line.style.animationDelay = `${Math.random() * 3}s`;
+    
+    // Append the connection line to the galaxy container
+    galaxy.appendChild(line);
+}
+
+// Open detail panel with node information
+        function openDetailPanel(node) {
+            detailTitle.textContent = node.title;
+            detailTitleCn.textContent = node.titleCn || '';
+            
+            // Set English content
+            if (node.content) {
+                englishContent.innerHTML = formatContent(node.content);
+            } else {
+                englishContent.innerHTML = '<p>No detailed information available.</p>';
+            }
+            
+            // Set Chinese content
+            if (node.contentCn) {
+                chineseContent.innerHTML = formatContent(node.contentCn);
+            } else {
+                chineseContent.innerHTML = '<p>没有可用的详细信息。</p>';
+            }
+            
+            // Apply color theme based on node type
+            let themeColor;
+            switch (node.type) {
+                case 'unincorporated':
+                    themeColor = 'var(--unincorporated-color)';
+                    break;
+                case 'incorporated':
+                    themeColor = 'var(--incorporated-color)';
+                    break;
+                case 'companies':
+                    themeColor = 'var(--companies-color)';
+                    break;
+                case 'doctrine':
+                    themeColor = 'var(--doctrine-color)';
+                    break;
+                case 'activities':
+                    themeColor = 'var(--activities-color)';
+                    break;
+                case 'root':
+                    themeColor = '#FFD700';
+                    break;
+                default:
+                    themeColor = 'white';
+            }
+            
+            detailTitle.style.color = themeColor;
+            
+            // Show panel
+            detailPanel.classList.add('active');
+        }
+        
+        // Format content text with proper HTML
+        function formatContent(text) {
+            // Replace newlines with <br>
+            let formatted = text.replace(/\n/g, '<br>');
+            
+            // Format bullet points
+            formatted = formatted.replace(/•\s(.*?)(?=<br>|$)/g, '<li>$1</li>');
+            
+            // Wrap lists in <ul>
+            if (formatted.includes('<li>')) {
+                formatted = formatted.replace(/<li>(.*?)(?=<ul>|$)/gs, '<ul><li>$1</ul>');
+                // Fix duplicated <ul> tags
+                formatted = formatted.replace(/<\/ul><ul>/g, '');
+            }
+            
+            // Format section titles
+            formatted = formatted.replace(/(.*?):/g, '<strong>$1:</strong>');
+            
+            // Format case details
+            if (formatted.includes('Facts:') || formatted.includes('Background:') || formatted.includes('Issue:') || formatted.includes('Held:')) {
+                formatted = `<div class="case-panel">${formatted}</div>`;
+            }
+            
+            return formatted;
+        }
+// Setup detail panel events
+        function setupDetailPanel() {
+            // Close button
+            closePanel.addEventListener('click', () => {
+                detailPanel.classList.remove('active');
+                // Remove targeted class from all celestial bodies
+                document.querySelectorAll('.celestial-body').forEach(body => {
+                    body.classList.remove('targeted');
+                });
+                targetNode = null;
+            });
+            
+            // Tab switching
+            contentTabs.addEventListener('click', (e) => {
+                if (e.target.classList.contains('content-tab')) {
+                    const tabName = e.target.dataset.tab;
+                    
+                    // Update tab active state
+                    document.querySelectorAll('.content-tab').forEach(tab => {
+                        tab.classList.toggle('active', tab.dataset.tab === tabName);
+                    });
+                    
+                    // Update content visibility
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.toggle('active', content.dataset.tab === tabName);
+                    });
+                }
+            });
+        }
+        
+        // Static nodes data - nodes positioned for optimal visibility
+        const staticNodes = [
+            // Central "Sun" - Business Structures
+            {
+                id: 'root',
+                title: 'Business Structures',
+                titleCn: '商业结构',
+                x: 50,  // Center of the container
+                y: 50,  // Center of the container
+                size: 100,
+                type: 'root',
+                connections: ['unincorporated', 'incorporated', 'doctrine', 'activities'],
+                content: 'The core concept that encompasses all types of business organizational structures in Australia.',
+                contentCn: '包含澳大利亚所有类型的商业组织结构的核心概念。'
+            },
+            
+            // Primary Planets - Positioned in four quadrants
+            {
+                id: 'unincorporated',
+                title: 'Unincorporated Business Organisations',
+                titleCn: '未注册的/非公司化/非法人商业机构',
+                x: 30,  // Left side
+                y: 30,  // Top-left quadrant
+                size: 80,
+                type: 'unincorporated',
+                connections: ['soleTrader', 'partnership'],
+                content: 'Unincorporated business structures are simpler forms of business organization that do not involve the creation of a separate legal entity.',
+                contentCn: '未注册的/非公司化/非法人商业机构是较为简单的企业组织形式，不涉及创建独立法律实体。'
+            },
+            {
+                id: 'incorporated',
+                title: 'Incorporated Business Structures',
+                titleCn: '注册的/公司化的/法人商业机构',
+                x: 70,  // Right side
+                y: 30,  // Top-right quadrant
+                size: 80,
+                type: 'incorporated',
+                connections: ['companies', 'legalEffects'],
+                content: 'Incorporated businesses are separate legal entities from their owners, created through a formal registration process.',
+                contentCn: '注册的/公司化的/法人商业机构是独立于其所有者的法律实体，通过正式注册程序创建的。'
+            },
+            {
+                id: 'doctrine',
+                title: 'Doctrine of Separate Legal Entity',
+                titleCn: '独立法人人格原则',
+                x: 30,  // Left side
+                y: 70,  // Bottom-left quadrant
+                size: 80,
+                type: 'doctrine',
+                connections: ['salomon', 'corporateVeil', 'liftingVeil', 'effectsOfLifting'],
+                content: 'The principle that a company is a separate legal entity from its shareholders.',
+                contentCn: '独立法人人格原则'
+            },
+            {
+                id: 'activities',
+                title: 'In-Class Activities',
+                titleCn: '课堂活动',
+                x: 70,  // Right side
+                y: 70,  // Bottom-right quadrant
+                size: 80,
+                type: 'activities',
+                connections: ['question1', 'question2', 'question3'],
+                content: 'Activities to test understanding of business structures',
+                contentCn: '测试对商业结构理解的活动'
+            },
+            
+            // Remaining nodes with improved positioning
+            {
+                id: 'companies',
+                title: 'Companies',
+                titleCn: '公司',
+                x: 80,  // Right side
+                y: 25,  // Top area
+                size: 60,
+                type: 'companies',
+                connections: ['typesOfCompanies'],
+                content: 'Definition: A company is an association of persons registered under the Corporations Act 2001.\n\nCharacteristics:\n• Separate legal entity upon incorporation.\n• Members have limited liability.\n• Taxed at a flat rate.\n• Perpetual succession, meaning the company continues to exist even if ownership changes.\n• Management is separate from ownership.',
+                contentCn: '定义：公司是根据《2001年公司法》一群注册的人员联合体/协会。\n\n特点：\n• 注册后成为独立的法人实体。\n• 成员具有有限责任。\n• 按固定税率征税。\n• 永续经营，即使所有权变更，公司也继续存在。\n• 管理与所有权分离。'
+            },
+            {
+                id: 'typesOfCompanies',
+                title: 'Types of Companies',
+                titleCn: '公司类型',
+                x: 80,  // Right side
+                y: 40,  // Center-right
+                size: 50,
+                type: 'companies',
+                connections: ['proprietary', 'public'],
+                content: 'The main types of companies in Australia',
+                contentCn: '公司类型'
+            },
+            
+            // Satellites - Unincorporated (Top left section)
+            {
+                id: 'soleTrader',
+                title: 'Sole Trader',
+                titleCn: '个体经营者',
+                x: 18,  // Far left
+                y: 20,  // Top area
+                size: 45,
+                type: 'unincorporated',
+                content: 'Definition: A sole trader is an individual who owns and operates a business alone.\n\nCharacteristics:\n• Easy to establish and run due to lack of formalities.\n• The owner has full control of the business.\n• The owner faces unlimited liability, meaning personal assets are at risk if the business incurs debts.\n• Limited access to resources and finance.\n• No disclosure requirements.\n• The business ends with the death of the owner.',
+                contentCn: '定义：个体经营者是指个人单独拥有和经营的企业\n\n特点：\n• 建立和运营简单，缺乏正式手续。\n• 业主对业务有完全控制权。\n• 业主面临无限责任，这意味着个人资产面临业务债务的风险。\n• 资源和融资有限。\n• 无需信息披露。\n• 业主去世后业务终止。',
+                labelOffset: { y: -20 }
+            },
+            {
+                id: 'partnership',
+                title: 'Partnership',
+                titleCn: '合伙企业',
+                x: 20,  // Far left
+                y: 40,  // Upper-middle left
+                size: 45,
+                type: 'unincorporated',
+                content: 'Definition: A partnership exists when two or more people carry on a business together with the intent of making a profit.\n\nCharacteristics:\n• Easy to establish with a partnership agreement.\n• Not a separate legal entity; partners are personally and jointly liable for business debts.\n• Control is divided among partners.\n• Income splitting is possible.\n• No disclosure requirements.\n• The partnership dissolves if there is a change in the partners.\n• Minimum of 2, maximum of 20 partners.',
+                contentCn: '定义：合伙企业是指两人或以上共同经营业务并以盈利为目的。\n\n特点：\n• 通过合伙协议易于建立。\n• 不是独立的法人实体；合伙人对业务债务承担个人和连带责任。\n• 控制权在合伙人之间分配。\n• 可以进行收入分配。\n• 无需信息披露。\n• 如果合伙人发生变化，合伙企业将解散。\n• 2-20个合作伙伴',
+                labelOffset: { x: -30 }
+            },
+            
+            // Rest of the nodes with updated positions for better visibility
+            {
+                id: 'proprietary',
+                title: 'Proprietary Companies (Pty Ltd)',
+                titleCn: '私人公司',
+                x: 90,  // Far right
+                y: 35,  // Middle-right
+                size: 40,
+                type: 'companies',
+                content: '• Maximum of 50 shareholders.\n• Suitable for small businesses.\n• Financial secrecy for small proprietary companies.\n• Fewer regulatory burdens than public companies.',
+                contentCn: '• 最多50名股东。\n• 适合小型企业。\n• 小型私人公司财务保密。\n• 比上市公司监管负担更少。',
+                labelOffset: { x: 30 }
+            },
+           {
+                id: 'public',
+                title: 'Public Companies (Ltd)',
+                titleCn: '上市公司',
+                x: 90,  // Far right
+                y: 50,  // Middle-right
+                size: 40,
+                type: 'companies',
+                content: '• Can be listed on the stock exchange (ASX).\n• Can raise funds from the public.\n• Subject to financial disclosure and more regulation.',
+                contentCn: '• 可在澳大利亚证券交易所（ASX）上市。\n• 可向公众募集资金。\n• 需要财务披露，监管更多。',
+                labelOffset: { x: 40 }
+            },
+            {
+                id: 'legalEffects',
+                title: 'Legal Effects of Incorporation',
+                titleCn: '注册的法律效果',
+                x: 60,  // Mid-right
+                y: 40,  // Upper-middle right
+                size: 40,
+                type: 'companies',
+                content: 'Upon incorporation, a company becomes a separate legal entity, distinct from its members and controllers. It can enter contracts, own property, sue and be sued in its own name, and confer limited liability on its members.',
+                contentCn: '公司注册后，成为与其成员和管理人员独立的法人实体。公司可以以其公司名义签订合同、拥有财产、进行诉讼和被诉讼，并为其成员提供有限责任。'
+            },
+            
+            // Satellites - Doctrine (Bottom left section)
+            {
+                id: 'salomon',
+                title: 'Salomon v Salomon & Co Ltd [1897]',
+                titleCn: 'Salomon诉Salomon公司案例[1897]',
+                x: 15,  // Far left
+                y: 65,  // Bottom-left area
+                size: 40,
+                type: 'doctrine',
+                content: 'Facts: Mr. Salomon was the major shareholder, director, and secured creditor of his company. The company\'s business failed, and the assets were insufficient to pay both Mr. Salomon and the company\'s creditors.\n\nBackground: Aaron Salomon was a successful boot manufacturer. To involve his family in the business, he converted his business to a limited liability company, Salomon & Co. Ltd., in 1892. The company was formed by Salomon, his wife, and children, following all legal procedures under the Companies Act 1862. After formation, the company faced industry downturns, labor strikes, and unsold inventory, eventually leading to an inability to meet its debts.\n\nIssue: Whether Mr. Salomon was personally liable for the company\'s debts.\n\nHeld: The court ruled that upon incorporation, a company becomes a separate legal entity from its founders, directors, members, and controllers.\n\nTrial Process: Initial trial: The initial court considered the company merely a "shell" for Mr. Salomon and ruled he was responsible for the company\'s debts. Appeal: Appeal to the House of Lords, which ultimately overturned the initial ruling, confirming that a company is a separate legal entity, and Mr. Salomon was not responsible for the company\'s debts.\n\nLegal Principle: A separate legal entity is a business that is recognized by law as having its own legal personality, distinct from its owners or shareholders. This means that the business can own property, incur debts, sue, and be sued in its own name.',
+                contentCn: '事实：Salomon先生是其公司主要股东、董事和担保债权人。公司的业务失败，资产价值不足以支付Salomon先生和公司的其他债权人。\n\n背景故事：阿隆·萨洛蒙先生是一位成功的皮鞋制造商。为了让他的家人参与到业务中，他在1892年将自己的业务转化为有限责任公司Salomon & Co. Ltd.。公司由萨洛蒙先生、他的妻子和孩子们共同持股，并完全遵循《1862年公司法》的所有法律程序。公司成立后，遭遇了行业不景气、劳工罢工和滞销库存等问题，最终导致公司无法履行债务。债权人之一Broderip先生提起法律诉讼，要求清算公司资产，但清算后的资产不足以偿还无担保债权人的债务。\n\n问题：Salomon先生是否对公司债务负个人责任？\n\n判决：法院裁决，公司一经成立，即成为与其创始人、董事、成员和控制者独立的法人实体。\n\n裁决过程：初审：初审法院认为公司只是萨洛蒙先生的一个"外壳"，判决他需要对公司的债务负责。上诉：上诉至英国上议院（House of Lords），最终上议院推翻了初审判决，确认公司是一个独立的法人实体，萨洛蒙先生不对公司的债务负责。\n\n法律原则：该案例确立了公司法中的独立法人原则，"独立法律实体"是指一种被法律承认具有独立法律人格的企业，与其所有者或股东分开。这意味着该企业可以以自己的名义拥有财产、承担债务、起诉和被起诉。',
+                labelOffset: { x: -30 }
+            },
+            {
+                id: 'corporateVeil',
+                title: 'Concept of the Corporate Veil',
+                titleCn: '公司面纱概念',
+                x: 15,  // Far left
+                y: 80,  // Bottom-left
+                size: 40,
+                type: 'doctrine',
+                content: 'Definition: The corporate veil is the legal separation between the company\'s identity and its members/directors, protecting them from personal liability for the company\'s debts.\n\nConceptual Understanding: Commonly refers to situations where there may be a need to disclose or identify individuals behind a company, especially when involving legal proceedings, contractual obligations, or corporate governance.',
+                contentCn: '定义：公司面纱是指公司身份与其成员/董事之间的法律分离，保护他们免于对公司债务承担个人责任\n\n概念理解：常指的是在某些情况下，可能需要公开或识别公司背后的个人，尤其是当涉及到法律诉讼、合同义务或公司治理时。',
+                labelOffset: { x: -40 }
+            },
+            {
+                id: 'liftingVeil',
+                title: 'Lifting the Corporate Veil—Gilford v Horne [1933]',
+                titleCn: '揭开公司面纱—Gilford诉Horne案例[1933]',
+                x: 35,  // Mid-left
+                y: 60,  // Bottom-left area
+                size: 40,
+                type: 'doctrine',
+                content: 'Lifting the Corporate Veil: In certain circumstances, courts may disregard the corporate veil to hold the members/directors personally liable.\n\nSpecial Circumstances: Courts lift the veil to enforce legal and contractual obligations if the company is used for fraudulent or improper purposes.\n\nFacts: Horne signed an employment contract with Gilford Motor Co promising not to take its customers. He resigned and set up a company targeting Gilford\'s customers.\n\nBackground: Mr. Horne worked for Gilford Motor Company and signed a contract promising not to take the company\'s customers after leaving. After leaving, Horne established a company and continued to poach customers from his former employer.\n\nIssue: Can Mr. Horn evade his contractual obligations through his newly established company?\n\nHeld: The court lifted the corporate veil, holding Horne personally liable for misusing the corporate personality to avoid contractual obligations.\n\nAdditional Note: The court considered Horne\'s company to be a \'mere cloak\' to avoid contractual obligations, and pierced the corporate veil to hold Horne personally responsible for his actions.\n\nLegal Principle: This case demonstrates that the court can, in certain circumstances, lift the corporate veil, especially when a company is used for fraudulent or improper purposes. The court can hold individuals accountable to ensure that legal and contractual obligations are enforced.',
+                contentCn: '揭开公司面纱：在某些情况下，法院可以揭开公司面纱，追究成员/董事的个人责任。\n\n特殊情况：如果公司用于欺诈或不正当目的，法院会揭开面纱以执行法律和合同义务。\n\n事实：Horne与Gilford Motor Co签订雇佣合同，承诺不抢其客户。他辞职后成立了一家公司，目标客户是Gilford的客户。\n\n背景补充：霍恩先生在Gilford Motor公司工作期间，签订了一份合同，承诺在离职后不抢走公司的客户。离职后，霍恩成立了一家公司，继续抢夺原公司的客户。\n\n法律问题：霍恩先生是否可以通过其新成立的公司逃避合同义务？\n\n判决：法院揭开公司面纱，认定Horne滥用公司身份以避免合同义务，追究其个人责任。\n\n背景补充：法院认为霍恩先生利用公司作为"幌子"以避开合同义务，揭开了公司的面纱，判定霍恩先生个人需要对其行为负责。\n\n法律原则：该案例展示了法院在某些情况下可以揭开公司的面纱，特别是在公司被用于欺诈或不正当目的时。法院可以追究个人的责任，确保法律和合同义务得以执行'
+            },
+            {
+                id: 'effectsOfLifting',
+                title: 'Effects of Lifting the Corporate Veil',
+                titleCn: '揭开公司面纱的效果',
+                x: 38,  // Mid-left
+                y: 80,  // Bottom area
+                size: 40,
+                type: 'doctrine',
+                content: 'Effects of Lifting the Corporate Veil:\n• Reveals the identity of owners/directors.\n• Imposes personal liability for the company\'s debts on the owners/directors.\n\nConceptual Understanding: Means that in some cases, a company\'s debts may directly affect the personal finances of its owners or directors, especially in cases where the corporate structure has not maintained independence or there is abuse of the corporate form.',
+                contentCn: '揭开公司面纱的效果：\n• 揭示所有者/董事的身份。\n• 对公司债务对所有者/董事施加个人责任。\n\n概念理解：意味着在某些情况下，公司的债务可能会直接影响到其所有者或董事的个人财务状况，尤其是在公司结构未能保持独立性或存在滥用公司形式的情况下。'
+            },
+            
+            // Satellites - In-Class Activities (Bottom right section)
+            {
+                id: 'question1',
+                title: 'Question 1: Doctrine of Separate Legal Entity and Corporate Veil',
+                titleCn: '问题1：独立法人原则和公司面纱',
+                x: 85,  // Far right
+                y: 65,  // Bottom-right area
+                size: 40,
+                type: 'activities',
+                content: 'Explanation: Upon incorporation, a company is a separate legal entity, distinct from its shareholders (Salomon v Salomon & Co. Ltd [1897]). Corporate Veil: Protects shareholders from personal liability. Lifting the Corporate Veil: Occurs in cases of fraud or improper conduct (Gilford Motors v Horne [1933]).',
+                contentCn: '说明：公司一经注册成立，即成为独立于其股东的法律实体（Salomon诉Salomon公司案例[1897]）。公司面纱：保护股东免于个人责任。揭开公司面纱：在欺诈或不当行为的情况下发生（Gilford Motors诉Horne案例[1933]）。',
+                labelOffset: { x: 40 }
+            },
+            {
+                id: 'question2',
+                title: 'Question 2: Mr. Lee\'s Legal Rights',
+                titleCn: '问题2：李先生的法律权利',
+                x: 85,  // Far right
+                y: 75,  // Bottom-right
+                size: 40,
+                type: 'activities',
+                content: 'Issue: Whether Mr. Lee and his company are separate entities and whether the corporate veil protects Mr. Lee.\n\nPrinciple: A company is a separate entity upon incorporation. The veil can be lifted in cases of wrongdoing.\n\nApplication: Mr. Lee\'s company is a separate entity, but using Kenny\'s secret recipe may constitute improper conduct, leading to the veil being lifted.\n\nConclusion: Mr. Lee can be held personally liable due to improper use of the company.',
+                contentCn: '问题：李先生与其公司是否为独立实体，以及公司面纱是否保护李先生。\n\n原则：公司一经注册成立，即成为独立实体。在不当行为的情况下，可以揭开面纱。\n\n应用：李先生的公司是独立实体，但使用Kenny的秘方可能构成不当行为，导致揭开面纱。\n\n结论：由于不当使用公司，李先生可能被追究个人责任。',
+                labelOffset: { x: 40 }
+            },
+            {
+                id: 'question3',
+                title: 'Question 3: Business Structure for Mr. Lee',
+                titleCn: '问题3：李先生的商业结构',
+                x: 65,  // Mid-right
+                y: 85,  // Bottom
+                size: 40,
+                type: 'activities',
+                content: '(a) Sole Trader:\nSuitable for small businesses where the owner wants full control.\nAdvantages: Simple, full control, retains profits.\nDisadvantages: Unlimited liability, limited resources, business continuity dependent on the owner.\n\n(b) Expanding with Brothers:\nPartnership:\nAdvantages: Easy to establish, combined skills, shared decision-making.\nDisadvantages: Unlimited liability, potential conflicts, shared profits.\n\nCompany:\nAdvantages: Limited liability, easier to raise capital, perpetual succession.\nDisadvantages: Complex setup, regulatory compliance, potential loss of control.\n\nConclusion:\nForming a company is beneficial for limiting personal liability and facilitating business growth.',
+                contentCn: '(a) 个体经营者：\n适合希望拥有完全控制权的小型企业的所有者。\n优点：简单，完全控制，保留利润。\n缺点：无限责任，资源有限，业务连续性依赖于所有者。\n\n(b) 与兄弟扩展：\n合伙企业：\n优点：易于建立，技能组合，共享决策。\n缺点：无限责任，潜在冲突，共享利润。\n\n公司：\n优点：有限责任，更容易筹集资金，永续经营。\n缺点：设立复杂，需遵守监管规定，可能失去控制权。\n\n结论：\n成立公司有利于限制个人责任并促进业务增长。'
+            }
+        ];
+        
+        // Initialize galaxy when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeGalaxy);
+    </script>
+</body>
+</html>

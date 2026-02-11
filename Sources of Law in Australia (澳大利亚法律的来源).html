@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sources of Law in Australia</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #1d4ed8;
+            --accent-color: #3b82f6;
+            --light-accent: #eff6ff;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --statute-color: #06b6d4;
+            --statute-light: #cffafe;
+            --common-color: #10b981;
+            --common-light: #d1fae5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+            padding: 0.5rem;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .section-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        
+        .section-title {
+            flex-grow: 1;
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+        
+        .section-title p {
+            color: var(--med-text);
+            font-size: 1.1rem;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .content-card-statute {
+            border-left: 5px solid var(--statute-color);
+        }
+        
+        .content-card-common {
+            border-left: 5px solid var(--common-color);
+        }
+        
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background-color: var(--light-accent);
+            opacity: 0.5;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
+        
+        .law-source-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .law-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--statute-color);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .law-icon.common-law {
+            background-color: var(--common-color);
+        }
+        
+        .law-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: white;
+        }
+        
+        .law-title {
+            flex-grow: 1;
+        }
+        
+        .law-title h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+            color: var(--dark-text);
+        }
+        
+        .law-title p {
+            color: var(--med-text);
+            font-size: 1rem;
+        }
+        
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .english {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chinese {
+            flex: 1;
+            min-width: 300px;
+            color: var(--med-text);
+            border-left: 1px solid #e5e7eb;
+            padding-left: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .statute-list li::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%2306b6d4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+        }
+        
+        .common-list li::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%2310b981"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+        }
+        
+        .example-box {
+            background-color: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .example-box-statute {
+            background-color: var(--statute-light);
+        }
+        
+        .example-box-common {
+            background-color: var(--common-light);
+        }
+        
+        .example-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-box h4::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231e3a8a"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v4h-4v2h4v4h2v-4h4v-2h-4V8z"/></svg>');
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        .highlight-text {
+            font-weight: 600;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent-color);
+            opacity: 0.3;
+            border-radius: 2px;
+        }
+        
+        .visual-metaphor {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .metaphor-image {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+        
+        .metaphor-image svg {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+        }
+        
+        .metaphor-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .metaphor-text h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            text-decoration: none;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bilingual-text {
+                flex-direction: column;
+            }
+            
+            .english, .chinese {
+                width: 100%;
+                padding: 0;
+            }
+            
+            .chinese {
+                border-left: none;
+                border-top: 1px solid #e5e7eb;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .content-card {
+                padding: 1.5rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        /* Custom animation keyframes */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulsing {
+            animation: pulse 4s ease-in-out infinite;
+        }
+/* Back to Main Button */
+.back-to-main {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color, #1a237e);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-main:hover {
+    background-color: var(--secondary-color, #0d47a1);
+    transform: scale(1.1);
+}
+
+.back-to-main svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mobile adjustments for back button */
+@media (max-width: 768px) {
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+    </style>
+<link rel="stylesheet" href="mobile-styles.css">
+</head>
+<body>
+<a href="index.html" class="back-to-main" title="Back to Main Page">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+</a>
+    <header>
+        <div class="header-shapes" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Sources of Law in Australia</h1>
+            <p>澳大利亚法律的来源</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button" data-target="main-sources">Main Sources</button>
+            <button class="nav-button" data-target="parliament-law">Parliament-Made Law</button>
+            <button class="nav-button" data-target="court-law">Court-Made Law</button>
+            <button class="nav-button" data-target="comparison">Visual Comparison</button>
+            <button class="nav-button" data-target="historical">Historical Development</button>
+            <button class="nav-button" data-target="relationship">Relationship</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="main-sources" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>The Two Main Sources of Law</h2>
+                    <p>两个主要法律来源</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Australia's legal rules come from two main sources:</p>
+                    </div>
+                    <div class="chinese">
+                        <p>澳大利亚的法律规则来自两个主要来源：</p>
+                    </div>
+                </div>
+                
+                <div class="content-card content-card-statute">
+                    <div class="law-source-header">
+                        <div class="law-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+                            </svg>
+                        </div>
+                        <div class="law-title">
+                            <h3>1. Parliament-Made Law</h3>
+                            <p>议会制定的法律</p>
+                        </div>
+                    </div>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>Also called: <span class="highlight-text">Statute law</span>, <span class="highlight-text">Legislation</span>, <span class="highlight-text">Acts of Parliament</span>, <span class="highlight-text">Enacted law</span></p>
+                        </div>
+                        <div class="chinese">
+                            <p>也称为：<span class="highlight-text">成文法</span>，<span class="highlight-text">立法</span>，<span class="highlight-text">议会法案</span>，<span class="highlight-text">已制定法律</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card content-card-common">
+                    <div class="law-source-header">
+                        <div class="law-icon common-law">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                            </svg>
+                        </div>
+                        <div class="law-title">
+                            <h3>2. Court-Made Law</h3>
+                            <p>法院制定的法律</p>
+                        </div>
+                    </div>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>Also called: <span class="highlight-text">Common law</span>, <span class="highlight-text">Case law</span>, <span class="highlight-text">Precedent</span>, <span class="highlight-text">Unenacted law</span></p>
+                        </div>
+                        <div class="chinese">
+                            <p>也称为：<span class="highlight-text">普通法</span>，<span class="highlight-text">判例法</span>，<span class="highlight-text">先例</span>，<span class="highlight-text">未制定法律</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="parliament-law" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Parliament-Made Law</h2>
+                    <p>议会制定的法律</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>What Is It? (这是什么？)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Laws written and passed by elected representatives in Parliament.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>由议会中选举产生的代表制定和通过的书面法律。</p>
+                    </div>
+                </div>
+                
+                <h3>How It Works (它如何运作)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ol class="feature-list statute-list">
+                            <li>A bill (proposed law) is introduced to Parliament</li>
+                            <li>Parliament debates and possibly amends the bill</li>
+                            <li>If passed, it becomes an Act of Parliament (statute)</li>
+                            <li>The law is now enforceable</li>
+                        </ol>
+                    </div>
+                    <div class="chinese">
+                        <ol class="feature-list statute-list">
+                            <li>一项法案（拟议法律）被提交给议会</li>
+                            <li>议会辩论并可能修改法案</li>
+                            <li>如果通过，它成为议会法案（法规）</li>
+                            <li>法律现在可以执行</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="example-box example-box-statute">
+                    <h4>Example (例子)</h4>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>The <strong>Competition and Consumer Act 2010</strong> is a statute that protects consumers from unfair business practices.</p>
+                        </div>
+                        <div class="chinese">
+                            <p><strong>2010年竞争与消费者法</strong>是一项保护消费者免受不公平商业行为侵害的法规。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Advantages (优点)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list statute-list">
+                            <li>Created by elected representatives (democratic)</li>
+                            <li>Can be comprehensive and detailed</li>
+                            <li>Can be created quickly to address new issues</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list statute-list">
+                            <li>由民选代表创建（民主）</li>
+                            <li>可以全面且详细</li>
+                            <li>可以快速创建以解决新问题</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Limitations (局限性)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list statute-list">
+                            <li>Cannot cover every possible situation</li>
+                            <li>May become outdated as society changes</li>
+                            <li>May be ambiguous and require interpretation</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list statute-list">
+                            <li>无法涵盖每一种可能的情况</li>
+                            <li>随着社会变化可能过时</li>
+                            <li>可能含糊不清需要解释</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="court-law" class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Court-Made Law</h2>
+                    <p>法院制定的法律</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>What Is It? (这是什么？)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Laws developed by judges when they make decisions in court cases.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>法官在审理法庭案件时制定的法律。</p>
+                    </div>
+                </div>
+                
+                <h3>How It Works (它如何运作)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ol class="feature-list common-list">
+                            <li>When a case comes to court, the judge examines the facts</li>
+                            <li>If there's no clear statute law that applies, the judge makes a decision</li>
+                            <li>This decision becomes a precedent for similar future cases</li>
+                            <li>Over time, a consistent body of case law develops</li>
+                        </ol>
+                    </div>
+                    <div class="chinese">
+                        <ol class="feature-list common-list">
+                            <li>当案件来到法庭时，法官审查事实</li>
+                            <li>如果没有明确适用的成文法，法官做出决定</li>
+                            <li>这一决定成为类似未来案件的先例</li>
+                            <li>随着时间推移，形成一致的判例法体系</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="example-box example-box-common">
+                    <h4>Example (例子)</h4>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>The landmark case <strong>Donoghue v Stevenson</strong> [1932] established the modern concept of negligence in Australia when a woman found a decomposed snail in her ginger beer bottle.</p>
+                        </div>
+                        <div class="chinese">
+    <p>具有里程碑意义的案例<strong>Donoghue诉Stevenson</strong> [1932]确立了澳大利亚现代过失概念，当时一名女子在她的姜汁啤酒瓶中发现了一只腐烂的蜗牛。</p>
+</div>
+</div>
+</div>
+
+<h3>Advantages (优点)</h3>
+<div class="bilingual-text">
+    <div class="english">
+        <ul class="feature-list common-list">
+            <li>Flexible and adapts to new situations</li>
+            <li>Based on real cases and practical problems</li>
+            <li>Develops gradually with societal changes</li>
+        </ul>
+    </div>
+    <div class="chinese">
+        <ul class="feature-list common-list">
+            <li>灵活且能适应新情况</li>
+            <li>基于真实案例和实际问题</li>
+            <li>随着社会变化逐渐发展</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Limitations (局限性)</h3>
+<div class="bilingual-text">
+    <div class="english">
+        <ul class="feature-list common-list">
+            <li>Can develop slowly</li>
+            <li>May be inconsistent between different courts</li>
+            <li>Less accessible to the public than statute law</li>
+        </ul>
+    </div>
+    <div class="chinese">
+        <ul class="feature-list common-list">
+            <li>发展可能缓慢</li>
+            <li>不同法院之间可能不一致</li>
+            <li>比成文法对公众来说不太容易获取</li>
+        </ul>
+    </div>
+</div>
+</div>
+</section>
+
+<section id="comparison" class="section">
+    <div class="section-header">
+        <div class="section-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7.5 21.5h-2V4h2v17.5zm4.5-5h-2V4h2v12.5zm4.5 5h-2V4h2v17.5zm4.5-8h-2V4h2v9.5z"/>
+            </svg>
+        </div>
+        <div class="section-title">
+            <h2>Think of it this way... (通俗理解...)</h2>
+        </div>
+    </div>
+    
+    <div class="visual-metaphor">
+        <div class="metaphor-image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="floating">
+                <path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z" fill="#1e3a8a"/>
+            </svg>
+        </div>
+        <div class="metaphor-text">
+            <h3>Parliament-Made Law is like a Recipe Book (议会制定的法律就像菜谱书)</h3>
+            <div class="bilingual-text">
+                <div class="english">
+                    <ul>
+                        <li>Clear instructions written down in advance</li>
+                        <li>Anyone can read and follow them</li>
+                        <li>But might not cover every possible cooking problem</li>
+                    </ul>
+                </div>
+                <div class="chinese">
+                    <ul>
+                        <li>事先写下的明确说明</li>
+                        <li>任何人都可以阅读并遵循</li>
+                        <li>但可能无法涵盖每一个可能的烹饪问题</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="visual-metaphor">
+        <div class="metaphor-text">
+            <h3>Court-Made Law is like Learning to Cook from a Master Chef (法院制定的法律就像向大厨学习烹饪)</h3>
+            <div class="bilingual-text">
+                <div class="english">
+                    <ul>
+                        <li>Solutions develop as problems arise</li>
+                        <li>Based on experience and what works in practice</li>
+                        <li>Knowledge builds up over time through many different situations</li>
+                    </ul>
+                </div>
+                <div class="chinese">
+                    <ul>
+                        <li>随着问题出现而发展解决方案</li>
+                        <li>基于经验和实践中行之有效的方法</li>
+                        <li>知识通过许多不同情况随时间积累</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="metaphor-image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="pulsing">
+                <path d="M416 32a95.17 95.17 0 0 0-57.73 19.74C334.93 20.5 298 0 256 0s-78.93 20.5-102.27 51.74A95.56 95.56 0 0 0 0 128c0 41.74 64 224 64 224v128a32 32 0 0 0 32 32h320a32 32 0 0 0 32-32V352s64-182.26 64-224a96 96 0 0 0-96-96zm-16 320h-48v48a16 16 0 0 1-16 16h-32a16 16 0 0 1-16-16v-48h-64v48a16 16 0 0 1-16 16h-32a16 16 0 0 1-16-16v-48h-48c-14.29-40.7-48-144.07-48-192a48 48 0 0 1 96 0c0 27.45-9.42 44.14-36.65 166.03l31.87 9.07c24.58-109.7 37.24-140.35 56.65-158.1 23.21-21.23 51.06-32.38 80.88-32.38s57.71 11.19 80.88 32.38c19.48 17.8 32.14 48.75 56.65 158.1l31.87-9.07C479.42 156.14 470 139.45 470 112a48 48 0 0 1 96 0c0 47.93-33.71 151.3-48 192z" fill="#10b981"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<section id="historical" class="section">
+    <div class="section-header">
+        <div class="section-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+            </svg>
+        </div>
+        <div class="section-title">
+            <h2>Historical Development</h2>
+            <p>历史发展</p>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <h3>Common Law Development (普通法的发展)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>Common law originated in medieval England after the Norman Conquest (1066). Judges traveled throughout the country hearing cases and gradually developed consistent principles that became "common" to all England.</p>
+            </div>
+            <div class="chinese">
+                <p>普通法起源于诺曼征服（1066年）后的中世纪英格兰。法官在全国各地审理案件，逐渐发展出适用于整个英格兰的一致原则。</p>
+            </div>
+        </div>
+        
+        <h3>Equity Development (衡平法的发展)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <ul class="feature-list">
+                    <li>Equity developed because common law was sometimes too rigid</li>
+                    <li>People petitioned the King for fairness when common law remedies were inadequate</li>
+                    <li>The King delegated these petitions to his Chancellor</li>
+                    <li>Eventually, a separate court system (Court of Chancery) developed</li>
+                </ul>
+            </div>
+            <div class="chinese">
+                <ul class="feature-list">
+                    <li>衡平法的发展是因为普通法有时过于僵化</li>
+                    <li>当普通法救济不足时，人们请求国王给予公平</li>
+                    <li>国王将这些请愿委托给他的大臣</li>
+                    <li>最终，形成了一个独立的法院系统（大法官法院）</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>Modern Fusion (现代融合)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>Today, both common law and equity are administered by the same courts in Australia. The principles of both systems continue to influence Australian law.</p>
+            </div>
+            <div class="chinese">
+                <p>如今，普通法和衡平法都由澳大利亚的同一法院系统管理。两种系统的原则继续影响着澳大利亚法律。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="relationship" class="section">
+    <div class="section-header">
+        <div class="section-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M14 4l2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3z"/>
+            </svg>
+        </div>
+        <div class="section-title">
+            <h2>The Relationship Between Statute Law and Common Law</h2>
+            <p>成文法与普通法的关系</p>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <h3>Hierarchy (层级关系)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <ul class="feature-list">
+                    <li>Statute law generally overrides common law</li>
+                    <li>Courts interpret statutes when their meaning is unclear</li>
+                    <li>Common law fills gaps where no statute exists</li>
+                </ul>
+            </div>
+            <div class="chinese">
+                <ul class="feature-list">
+                    <li>成文法一般优先于普通法</li>
+                    <li>当法规含义不明确时，法院会进行解释</li>
+                    <li>普通法填补没有法规存在的空白</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Interpretation Example (解释示例)</h4>
+            <div class="bilingual-text">
+                <div class="english">
+                    <p>If Parliament passes a law about online shopping, but doesn't define what "delivery" means in the digital context, courts might need to interpret this through case decisions.</p>
+                </div>
+                <div class="chinese">
+                    <p>如果议会通过了一项关于网上购物的法律，但没有定义数字环境中"交付"的含义，法院可能需要通过案例决定来解释这一点。</p>
+                </div>
+            </div>
+        </div>
+        
+        <h3>Summary Table (总结表)</h3>
+        <table class="comparison-table">
+            <tr>
+                <th>Feature</th>
+                <th>Statute Law (成文法)</th>
+                <th>Common Law (普通法)</th>
+            </tr>
+            <tr>
+                <td>Source</td>
+                <td>Parliament (议会)</td>
+                <td>Courts (法院)</td>
+            </tr>
+            <tr>
+                <td>Form</td>
+                <td>Written Acts (书面法案)</td>
+                <td>Judicial decisions (司法判决)</td>
+            </tr>
+            <tr>
+                <td>Creation process</td>
+                <td>Voting by elected representatives (民选代表投票)</td>
+                <td>Judges resolving individual cases (法官解决个案)</td>
+            </tr>
+            <tr>
+                <td>Change process</td>
+                <td>Amendment by Parliament (议会修订)</td>
+                <td>New decisions by higher courts (高等法院新判决)</td>
+            </tr>
+            <tr>
+                <td>Flexibility</td>
+                <td>Less flexible (较不灵活)</td>
+                <td>More flexible (更灵活)</td>
+            </tr>
+            <tr>
+                <td>Clarity</td>
+                <td>Usually clearer (通常更清晰)</td>
+                <td>Can be less clear (可能不太清晰)</td>
+            </tr>
+        </table>
+    </div>
+</section>
+</main>
+
+<a href="#" class="back-to-top" id="back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+    </svg>
+</a>
+
+<footer>
+    <p>Sources of Law in Australia - UNSW Preparation Program - Coroiu Marius</p>
+    <p>© 2025 All Rights Reserved</p>
+</footer>
+
+<script>
+    // Add dynamic shapes to header background
+    function setupHeaderAnimation() {
+        const headerBg = document.getElementById('header-animation');
+        const shapeCount = 10;
+        const shapes = ['circle', 'square', 'triangle'];
+        
+        for (let i = 0; i < shapeCount; i++) {
+            const div = document.createElement('div');
+            const size = Math.random() * 60 + 20;
+            const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+            
+            div.style.width = `${size}px`;
+            div.style.height = `${size}px`;
+            div.style.left = `${Math.random() * 100}%`;
+            div.style.top = `${Math.random() * 100}%`;
+            div.style.position = 'absolute';
+            
+            if (shapeType === 'circle') {
+                div.style.borderRadius = '50%';
+            } else if (shapeType === 'square') {
+                div.style.borderRadius = '4px';
+            } else if (shapeType === 'triangle') {
+                div.style.width = '0';
+                div.style.height = '0';
+                div.style.borderLeft = `${size/2}px solid transparent`;
+                div.style.borderRight = `${size/2}px solid transparent`;
+                div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                div.style.background = 'transparent';
+            }
+            
+            div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+            div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+            
+            headerBg.appendChild(div);
+        }
+    }
+    
+    // Handle navigation
+    function setupNavigation() {
+        const navButtons = document.querySelectorAll('.nav-button');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Scroll to target section
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+    
+    // Handle scroll animations
+    function setupScrollAnimations() {
+        const sections = document.querySelectorAll('.section');
+        const backToTop = document.getElementById('back-to-top');
+        
+        // Function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= window.innerHeight - 100 &&
+                rect.bottom >= 0
+            );
+        }
+        
+        // Function to handle scroll
+        function handleScroll() {
+            // Show/hide back to top button
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            // Animate sections when they come into view
+            sections.forEach(section => {
+                if (isInViewport(section)) {
+                    section.classList.add('visible');
+                }
+            });
+            
+            // Update active nav button based on scroll position
+            let closestSection = null;
+            let closestDistance = Infinity;
+            
+            sections.forEach(section => {
+                const distance = Math.abs(section.getBoundingClientRect().top - 100);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestSection = section;
+                }
+            });
+            
+            if (closestSection) {
+                const targetId = closestSection.id;
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    if (btn.getAttribute('data-target') === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Initial call to handleScroll
+        handleScroll();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Back to top button click handler
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        setupHeaderAnimation();
+        setupNavigation();
+        setupScrollAnimations();
+    });
+</script>
+</body>
+</html>

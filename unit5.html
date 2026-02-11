@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 5: Consumer Protection Law - Interactive Learning Hub</title>
+    <link rel="stylesheet" href="unit5_styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[var(--light-bg)] text-[var(--dark-text)] leading-relaxed">
+    <header
+        class="bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-[var(--light-text)] py-8 md:py-12 px-4 text-center relative overflow-hidden">
+                <div class="header-animation absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="floating-icon text-4xl md:text-5xl text-white/10"
+                style="top: 10%; left: 5%; animation-delay: -2s;">🛒</div>
+            <div class="floating-icon text-4xl md:text-5xl text-white/10"
+                style="top: 60%; right: 10%; animation-delay: -4s;">📋</div>
+            <div class="floating-icon text-4xl md:text-5xl text-white/10"
+                style="bottom: 20%; left: 15%; animation-delay: -6s;">⚖️</div>
+            <div class="floating-icon text-4xl md:text-5xl text-white/10"
+                style="top: 30%; right: 25%; animation-delay: -8s;">🏷️</div>
+            <div class="floating-icon text-4xl md:text-5xl text-white/10"
+                style="top: 75%; left: 35%; animation-delay: -10s;">✅</div>
+        </div>
+        <div class="header-content relative z-10">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 md:mb-4 animate-fadeInDown">Unit 5: Consumer Protection
+                Law <span class="text-2xl md:text-3xl opacity-90 italic text-[var(--light-text)]">消费者保护法</span></h1>
+            <p class="text-base md:text-lg">Master the fundamentals of consumer protection in Australia. <span
+                    class="text-sm md:text-base opacity-90 italic text-[var(--light-text)]">掌握澳大利亚消费者保护的基础知识。</span>
+            </p>
+        </div>
+            </header>
+
+    <!-- Fixed Navigation Bar with Progress Bar -->
+<!-- Fixed Navigation Bar with Progress Bar -->
+<div class="sticky top-0 z-[1000] relative">
+    <!-- Back button -->
+    <a href="index.html" title="Back to Main Menu" class="absolute top-1/2 left-4 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors no-underline">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+    </a>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-[var(--primary-color)] py-2 px-4 shadow-md">
+        <ul class="nav-links max-w-6xl mx-auto flex flex-wrap justify-center gap-x-2 gap-y-1">
+            <li><a href="#intro"
+                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)] active">Introduction
+                    <span class="chinese-text-nav">介绍</span></a></li>
+            <li><a href="#acl-overview"
+                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Australian
+                    Consumer Law <span class="chinese-text-nav">澳大利亚消费者法</span></a></li>
+            <li><a href="#misleading-conduct"
+                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Misleading
+                    Conduct <span class="chinese-text-nav">误导性行为</span></a></li>
+            <li><a href="#consumer-guarantees"
+                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Consumer
+                    Guarantees <span class="chinese-text-nav">消费者保证</span></a></li>
+            <li><a href="#application"
+                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Application
+                    <span class="chinese-text-nav">应用</span></a></li>
+            <li><a href="#summary"
+                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Summary
+                    <span class="chinese-text-nav">总结</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-container bg-gray-200">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div id="darkModeToggle" class="absolute top-1/2 right-4 -translate-y-1/2 z-50 cursor-pointer p-2 rounded-full">
+        <span id="sunIcon" title="Activate light mode">☀️</span>
+        <span id="moonIcon" title="Activate dark mode" class="hidden">🌙</span>
+    </div>
+</div>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-8">
+        <section id="intro"
+            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2
+                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
+                Welcome to Unit 5! <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">欢迎来到第五单元！</span>
+            </h2>
+            <p class="mb-4 text-base">In this unit, you'll learn about consumer protection law in Australia - one of
+                the most important areas for both consumers and businesses. We'll explore how the law protects
+                consumers from unfair business practices and guarantees certain standards for products and services.
+            </p>
+            <p class="chinese-text-body mb-4 text-sm">在本单元中，您将学习澳大利亚的消费者保护法 -
+                这是对消费者和企业都非常重要的领域之一。我们将探讨法律如何保护消费者免受不公平的商业行为，并为产品和服务保证一定的标准。</p>
+
+            <div
+                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">What is Consumer Protection
+                    Law? <span class="text-base opacity-90 italic text-gray-600">什么是消费者保护法？</span></h4>
+                <p class="mb-2 text-base">Consumer protection law refers to the regulations designed to ensure fair
+                    trade and competition and the free flow of truthful information in the marketplace. These laws
+                    are designed to prevent businesses from engaging in fraud or unfair practices and to protect
+                    individuals from scams and deception.</p>
+                <p class="chinese-text-body text-sm">
+                    消费者保护法是指旨在确保公平贸易和竞争以及市场信息自由流通的法规。这些法律旨在防止企业从事欺诈或不公平的做法，并保护个人免受骗局和欺骗。</p>
+            </div>
+
+            <div
+                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">Why is it Important? <span
+                        class="text-base opacity-90 italic text-gray-600">为什么它很重要？</span></h4>
+                <p class="mb-2 text-base">Consumer protection laws help maintain a fair marketplace where consumers
+                    can confidently purchase goods and services knowing they have legal rights if something goes
+                    wrong. For businesses, understanding these laws is crucial to operate ethically and avoid legal
+                    penalties.</p>
+                <p class="chinese-text-body text-sm">
+                    消费者保护法有助于维持一个公平的市场，消费者可以放心地购买商品和服务，因为他们知道如果出现问题，他们有法律权利。对于企业来说，了解这些法律对于道德经营和避免法律处罚至关重要。</p>
+            </div>
+        </section>
+
+        <section id="acl-overview"
+            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2
+                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
+                Australian Consumer Law Overview <span
+                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">澳大利亚消费者法概述</span></h2>
+            <p class="mb-6 text-base">The Australian Consumer Law (ACL) is a national law that aims to protect
+                consumers and ensure fair trading in Australia. It's contained in Schedule 2 of the Competition and
+                Consumer Act 2010 (Cth).</p>
+            <p class="chinese-text-body mb-6 text-sm">
+                澳大利亚消费者法（ACL）是一项旨在保护消费者并确保澳大利亚公平交易的国家法律。它包含在《2010年竞争与消费者法》（联邦）附表2中。</p>
+
+            <div
+                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">Key Features of the ACL <span
+                        class="text-base opacity-90 italic text-gray-600">ACL的主要特点</span></h4>
+                <ul class="list-disc ml-5 mt-2 text-base space-y-1">
+                    <li>It applies nationally and in all states and territories <span
+                            class="chinese-text-body text-sm">它适用于全国和所有州和领地</span></li>
+                    <li>It covers all businesses and consumers in Australia <span
+                            class="chinese-text-body text-sm">它覆盖澳大利亚的所有企业和消费者</span></li>
+                    <li>It protects consumers when they buy goods and services <span
+                            class="chinese-text-body text-sm">它在消费者购买商品和服务时保护他们</span></li>
+                    <li>It ensures businesses compete fairly <span
+                            class="chinese-text-body text-sm">它确保企业公平竞争</span></li>
+                </ul>
+            </div>
+
+            <div
+                class="info-box example-box mt-6 bg-emerald-50 border-l-4 border-[var(--success-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--success-color)] font-semibold text-lg mb-2">Main Protections Under the ACL
+                    <span class="text-base opacity-90 italic text-gray-600">ACL下的主要保护</span>
+                </h4>
+                <ul class="list-disc ml-5 mt-2 text-base space-y-1">
+                    <li><strong>Misleading or deceptive conduct</strong> (Section 18) <span
+                            class="chinese-text-body text-sm"><strong>误导或欺骗性行为</strong>（第18条）</span></li>
+                    <li><strong>Consumer guarantees</strong> (Sections 54-57) <span
+                            class="chinese-text-body text-sm"><strong>消费者保证</strong>（第54-57条）</span></li>
+                    <li>Unfair contract terms <span class="chinese-text-body text-sm">不公平合同条款</span></li>
+                    <li>Product safety <span class="chinese-text-body text-sm">产品安全</span></li>
+                    <li>Unsolicited consumer agreements <span
+                            class="chinese-text-body text-sm">未经请求的消费者协议</span></li>
+                </ul>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="text-[var(--primary-color)] text-xl font-semibold mb-3">Application of the ACL <span
+                        class="text-lg opacity-90 italic text-gray-600">ACL的应用</span></h3>
+                <p class="mb-4 text-base">The ACL applies to all sectors of the Australian economy and is enforced
+                    by the Australian Competition and Consumer Commission (ACCC) at the federal level and by state
+                    and territory consumer protection agencies.</p>
+                <p class="chinese-text-body mb-4 text-sm">
+                    ACL适用于澳大利亚经济的所有部门，由澳大利亚竞争与消费者委员会（ACCC）在联邦层面执行，并由州和领地消费者保护机构执行。</p>
+            </div>
+
+            <button id="quizBtn_acl_overview"
+                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">ACL
+                Overview Quiz <span class="text-sm opacity-90 italic">ACL概述测验</span></button>
+        </section>
+
+        <section id="misleading-conduct"
+            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2
+                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
+                Section 18: Misleading or Deceptive Conduct <span
+                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">第18条：误导或欺骗性行为</span></h2>
+            <p class="mb-6 text-base">Section 18 is one of the most important and widely used provisions of the
+                Australian Consumer Law. It prohibits conduct in trade or commerce that is misleading or deceptive
+                or is likely to mislead or deceive. <span class="chinese-text-body text-sm">第18条是澳大利亚消费者法中最重要和最广泛使用的条款之一。它禁止在贸易或商业中进行误导或欺骗或可能误导或欺骗的行为。</span></p>
+
+            <div
+                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">Section 18 of the ACL <span
+                        class="text-base opacity-90 italic text-gray-600">ACL第18条</span></h4>
+                <p class="mb-2 text-base font-semibold">"A person must not, in trade or commerce, engage in conduct
+                    that is misleading or deceptive or is likely to mislead or deceive." <span class="chinese-text-body text-sm font-semibold">"任何人在贸易或商业活动中，不得从事误导性或欺骗性，或可能产生误导或欺骗的行为。"</span></p>
+
+                <h5 class="text-[var(--secondary-color)] font-semibold text-base mb-2">Elements of Section 18 <span
+                        class="text-sm opacity-90 italic text-gray-600">第18条的要素</span></h5>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-2 px-4 border-b text-left">Element <span
+                                        class="text-sm opacity-90 italic">要素</span></th>
+                                <th class="py-2 px-4 border-b text-left">Explanation <span
+                                        class="text-sm opacity-90 italic">解释</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border-b font-semibold">A person <span class="chinese-text-body text-sm">当事人</span></td>
+                                <td class="py-2 px-4 border-b">Includes both individuals and companies <span
+                                        class="chinese-text-body text-sm block">包括个人和公司</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b font-semibold">In trade or commerce <span class="chinese-text-body text-sm">在贸易或商业中</span></td>
+                                <td class="py-2 px-4 border-b">The transaction must have a trading or commercial
+                                    character; private or non-commercial sales are excluded <span
+                                        class="chinese-text-body text-sm block">交易必须具有贸易或商业性质；私人或非商业销售被排除在外</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b font-semibold">Engage in conduct <span class="chinese-text-body text-sm">从事行为</span></td>
+                                <td class="py-2 px-4 border-b">Doing or refusing to do an act; includes remaining
+                                    silent <span class="chinese-text-body text-sm block">作为或不作为；包括保持沉默</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b font-semibold">Misleading or deceptive or likely to
+                                    mislead or deceive <span class="chinese-text-body text-sm">误导或欺骗，或可能误导或欺骗</span></td>
+                                <td class="py-2 px-4 border-b">To lead someone into error <span
+                                        class="chinese-text-body text-sm block">引导某人陷入错误</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="topic-grid grid grid-cols-1 gap-8 my-8">
+                <div class="case-study-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-blue-500 text-white rounded-full p-3 mr-4">
+                            <span class="text-2xl">🏷️</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-900 mb-1">Case Study: Misleading Pricing <span class="chinese-text-body text-sm">案例研究：误导性定价</span></h3>
+                            <p class="text-blue-700">Polex Pty Ltd Watch Pricing <span class="chinese-text-body text-sm">Polex有限公司手表定价</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/80 rounded-lg p-4 mb-4">
+                        <h4 class="font-semibold text-blue-900 mb-2">📖 The Scenario <span class="chinese-text-body text-sm">情景</span></h4>
+                        <p class="text-gray-700">Polex Pty Ltd advertised a designer watch as "Was $2,500, now $1,500!" However, the watch has always been priced at $1,800. <span class="chinese-text-body text-sm">Polex有限公司为一款名牌手表打广告称“原价$2,500，现价$1,500！”然而，该手表一直以来的定价都是$1,800。</span></p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white/80 rounded-lg p-4">
+                            <h4 class="font-semibold text-blue-900 mb-2">🔍 Analysis <span class="chinese-text-body text-sm">分析</span></h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><span class="font-semibold">Person:</span> Polex Pty Ltd ✓ <span class="chinese-text-body text-sm">当事人：Polex有限公司 ✓</span></li>
+                                <li><span class="font-semibold">Trade/Commerce:</span> Selling watches ✓ <span class="chinese-text-body text-sm">贸易/商业中：销售手表 ✓</span></li>
+                                <li><span class="font-semibold">Conduct:</span> False pricing claim ✓ <span class="chinese-text-body text-sm">行为：虚假定价声明 ✓</span></li>
+                                <li><span class="font-semibold">Misleading:</span> Yes - false "was" price ✓ <span class="chinese-text-body text-sm">误导性：是 - 虚假的“原价” ✓</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white/80 rounded-lg p-4">
+                            <h4 class="font-semibold text-blue-900 mb-2">⚖️ Verdict <span class="chinese-text-body text-sm">裁决</span></h4>
+                            <p class="text-red-600 font-semibold mb-2">BREACH of Section 18 <span class="chinese-text-body text-sm">违反第18条</span></p>
+                            <p class="text-sm text-gray-700">The false "was" price misleads consumers about the discount offered. <span class="chinese-text-body text-sm">虚假的“原价”误导了消费者对所提供折扣的判断。</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-yellow-100 rounded-lg p-3">
+                        <p class="text-sm"><span class="font-semibold">💡 Key Takeaway:</span> Businesses must ensure all pricing claims are accurate and verifiable. <span class="chinese-text-body text-sm"><span class="font-semibold">关键要点：</span>企业必须确保所有定价声明都是准确且可验证的。</span></p>
+                    </div>
+                </div>
+
+                <div class="case-study-card bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-green-500 text-white rounded-full p-3 mr-4">
+                            <span class="text-2xl">🍽️</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-900 mb-1">Case Study: Puffery vs Deception <span class="chinese-text-body text-sm">案例研究：“夸大宣传”与欺骗</span></h3>
+                            <p class="text-green-700">Restaurant "Best Steaks" Claim <span class="chinese-text-body text-sm">餐厅“最佳牛排”声明</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/80 rounded-lg p-4 mb-4">
+                        <h4 class="font-semibold text-green-900 mb-2">📖 The Scenario <span class="chinese-text-body text-sm">情景</span></h4>
+                        <p class="text-gray-700">A restaurant claims it has the "best steaks on earth" and the "tastiest food in town". <span class="chinese-text-body text-sm">一家餐厅声称拥有“地球上最好的牛排”和“城里最美味的食物”。</span></p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white/80 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-900 mb-2">🔍 What is Puffery? <span class="chinese-text-body text-sm">什么是“夸大宣传”？</span></h4>
+                            <p class="text-sm text-gray-700 mb-2">Puffery is obvious exaggeration that no reasonable person would take literally. <span class="chinese-text-body text-sm">“夸大宣传”是明显的夸张，任何有理性的人都不会信以为真。</span></p>
+                            <ul class="text-sm space-y-1">
+                                <li>• "Best in the world" <span class="chinese-text-body text-sm">“世界第一”</span></li>
+                                <li>• "Tastiest ever" <span class="chinese-text-body text-sm">“史上最美味”</span></li>
+                                <li>• "Most amazing" <span class="chinese-text-body text-sm">“最惊艳”</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white/80 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-900 mb-2">⚖️ Verdict <span class="chinese-text-body text-sm">裁决</span></h4>
+                            <p class="text-green-600 font-semibold mb-2">NO BREACH <span class="chinese-text-body text-sm">未违规</span></p>
+                            <p class="text-sm text-gray-700">These claims are mere puffery - exaggerated sales talk not taken literally. <span class="chinese-text-body text-sm">这些声明仅仅是“夸大宣传”——不会被信以为真的夸张推销说辞。</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-yellow-100 rounded-lg p-3">
+                        <p class="text-sm"><span class="font-semibold">💡 Key Takeaway:</span> Puffery is allowed, but specific measurable claims must be accurate. <span class="chinese-text-body text-sm"><span class="font-semibold">关键要点：</span>允许“夸大宣传”，但具体可衡量的声明必须准确。</span></p>
+                    </div>
+                </div>
+
+                <div class="case-study-card bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-orange-500 text-white rounded-full p-3 mr-4">
+                            <span class="text-2xl">🍞</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-orange-900 mb-1">Real Case: ACCC v Coles <span class="chinese-text-body text-sm">真实案例：ACCC诉Coles案</span></h3>
+                            <p class="text-orange-700">"Freshly Baked" Bread Claims <span class="chinese-text-body text-sm">“新鲜出炉”面包声明</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/80 rounded-lg p-4 mb-4">
+                        <h4 class="font-semibold text-orange-900 mb-2">📖 The Facts <span class="chinese-text-body text-sm">事实</span></h4>
+                        <p class="text-gray-700">Coles promoted bread as "Baked Today, Sold Today" and "Freshly Baked In-Store". In reality, the bread was partially baked and frozen off-site, then "finished" in-store. <span class="chinese-text-body text-sm">Coles宣传其面包为“今日烘焙，今日销售”和“店内新鲜出炉”。实际上，面包是在异地部分烘焙并冷冻，然后在店内“完成”烘焙。</span></p>
+                    </div>
+                    
+                    <div class="bg-white/80 rounded-lg p-4 mb-4">
+                        <h4 class="font-semibold text-orange-900 mb-2">🏛️ Court's Decision <span class="chinese-text-body text-sm">法院判决</span></h4>
+                        <p class="text-gray-700 mb-2">The Federal Court found Coles breached s18 because: <span class="chinese-text-body text-sm">联邦法院裁定Coles违反了第18条，因为：</span></p>
+                        <ul class="text-sm space-y-1">
+                            <li>• The claims implied bread was baked from scratch daily <span class="chinese-text-body text-sm">声明暗示面包是每天从零开始烘焙的</span></li>
+                            <li>• Consumers expected fresh, not frozen, products <span class="chinese-text-body text-sm">消费者期望的是新鲜而非冷冻产品</span></li>
+                            <li>• Coles failed to disclose the partial baking process <span class="chinese-text-body text-sm">Coles未能披露部分烘焙的过程</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-4 bg-red-100 rounded-lg p-3">
+                        <p class="text-sm"><span class="font-semibold">⚠️ Important:</span> Even technically true statements can be misleading if they create a false overall impression. <span class="chinese-text-body text-sm"><span class="font-semibold">重要提示：</span>即使技术上真实的陈述，如果造成了错误的整体印象，也可能具有误导性。</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <button id="quizBtn_misleading_conduct"
+                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Misleading
+                Conduct Quiz <span class="text-sm opacity-90 italic">误导性行为测验</span></button>
+
+            <div class="mt-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+                <h3 class="text-[var(--primary-color)] text-xl font-semibold mb-3">Interactive: Misleading Ad Analyzer <span
+                        class="text-lg opacity-90 italic text-gray-600">互动：误导性广告分析器</span></h3>
+                <p class="mb-4 text-base">Learn to identify misleading conduct by analyzing different advertising scenarios. Choose a scenario and see if it breaches Section 18. <span class="chinese-text-body text-sm">通过分析不同的广告情景，学习识别误导性行为。选择一个情景，看看它是否违反了第18条。</span></p>
+                
+                <div id="misleadingAdAnalyzer" class="bg-white p-6 rounded-lg shadow-inner">
+                    <div class="mb-6">
+                        <h4 class="font-bold text-lg mb-3">Select a Scenario to Analyze: <span class="chinese-text-body text-sm">选择一个情景进行分析：</span></h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="scenarioButtons">
+                            <button class="scenario-btn bg-blue-100 hover:bg-blue-200 p-4 rounded-lg text-left transition-all" data-scenario="1">
+                                <span class="font-semibold">Scenario 1: Tech Store <span class="chinese-text-body text-sm">情景1：科技商店</span></span>
+                                <p class="text-sm text-gray-600 mt-1">"Limited Time Only" Claims <span class="chinese-text-body text-sm">“限时特卖”声明</span></p>
+                            </button>
+                            <button class="scenario-btn bg-green-100 hover:bg-green-200 p-4 rounded-lg text-left transition-all" data-scenario="2">
+                                <span class="font-semibold">Scenario 2: Health Product <span class="chinese-text-body text-sm">情景2：保健品</span></span>
+                                <p class="text-sm text-gray-600 mt-1">"Doctor Recommended" Claims <span class="chinese-text-body text-sm">“医生推荐”声明</span></p>
+                            </button>
+                            <button class="scenario-btn bg-yellow-100 hover:bg-yellow-200 p-4 rounded-lg text-left transition-all" data-scenario="3">
+                                <span class="font-semibold">Scenario 3: Car Dealership <span class="chinese-text-body text-sm">情景3：汽车经销商</span></span>
+                                <p class="text-sm text-gray-600 mt-1">"No Deposit" Advertising <span class="chinese-text-body text-sm">“零首付”广告</span></p>
+                            </button>
+                            <button class="scenario-btn bg-red-100 hover:bg-red-200 p-4 rounded-lg text-left transition-all" data-scenario="4">
+                                <span class="font-semibold">Scenario 4: Online Course <span class="chinese-text-body text-sm">情景4：在线课程</span></span>
+                                <p class="text-sm text-gray-600 mt-1">"Guaranteed Results" Claims <span class="chinese-text-body text-sm">“保证结果”声明</span></p>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="scenarioDisplay" class="hidden">
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <h5 class="font-semibold mb-2" id="scenarioTitle"></h5>
+                            <p id="scenarioDescription" class="text-gray-700"></p>
+                            <div id="scenarioDetails" class="mt-3 text-sm text-gray-600"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block font-semibold mb-2">Your Analysis: Does this breach Section 18? <span class="chinese-text-body text-sm">你的分析：这是否违反了第18条？</span></label>
+                            <div class="flex gap-4 mb-3">
+                                <button id="yesBreachBtn" class="flex-1 bg-red-100 hover:bg-red-200 p-3 rounded-lg font-semibold text-red-700 transition-all">
+                                    Yes - It's Misleading <span class="chinese-text-body text-sm">是 - 这是误导性的</span>
+                                </button>
+                                <button id="noBreachBtn" class="flex-1 bg-green-100 hover:bg-green-200 p-3 rounded-lg font-semibold text-green-700 transition-all">
+                                    No - It's Acceptable <span class="chinese-text-body text-sm">否 - 这是可接受的</span>
+                                </button>
+                            </div>
+                            <textarea id="studentReasoning" class="w-full p-3 border rounded-lg" rows="3" 
+                                placeholder="Explain your reasoning... (请解释你的理由...)"></textarea>
+                        </div>
+                        
+                        <button id="checkAnalysisBtn" class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-2 px-4 rounded transition-all">
+                            Check Your Analysis <span class="chinese-text-body text-sm">检查你的分析</span>
+                        </button>
+                        
+                        <div id="analysisResult" class="hidden mt-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h5 class="font-bold mb-2" id="expertAnalysisTitle">Expert Analysis: <span class="chinese-text-body text-sm">专家分析：</span></h5>
+                                <div id="expertAnalysis"></div>
+                                <div id="keyLearningPoints" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="knowledgeCheckBtn_misleading_conduct"
+                class="btn btn-warning mt-6 inline-block px-5 py-2.5 bg-[var(--warning-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#d39e00] hover:-translate-y-0.5 hover:shadow-md">Section
+                18 Knowledge Check <span class="text-sm opacity-90 italic">第18条知识检验</span></button>
+
+            <div id="kc_misleading_conduct"
+                class="knowledge-check-box bg-yellow-50 border border-yellow-400 rounded-lg p-6 mt-6 shadow-sm hidden">
+                <h4 class="text-yellow-700 text-xl font-semibold border-b-2 border-yellow-500 pb-2 mb-4">Test Your
+                    Knowledge <span class="text-lg opacity-90 italic">检验您的知识</span></h4>
+                <div class="knowledge-check-content space-y-4">
+                    <div class="knowledge-check-item">
+                        <p class="mb-3 text-base">Section 18 of the Australian Consumer Law prohibits a <span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="person"></span>, in <span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="trade or commerce"></span>, from engaging in conduct that is <span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="misleading or deceptive"></span> or is likely to <span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="mislead or deceive"></span>.</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">When a restaurant claims it has "the best coffee in town,"
+                            this is likely to be considered <span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="puffery"></span> rather than misleading conduct because reasonable
+                            consumers would not take such claims <span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="literally"></span>.</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">In the ACCC v Coles case, the court found that Coles' claims
+                            that its bread was "<span class="blank-container inline-block relative mx-1"><input
+                                    type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="freshly baked"></span>" and "<span
+                                class="blank-container inline-block relative mx-1"><input type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="baked today"></span>" were misleading because the bread was
+                            actually partially <span class="blank-container inline-block relative mx-1"><input
+                                    type="text"
+                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
+                                    data-answer="baked and frozen"></span> off site by a supplier.</p>
+                    </div>
+                </div>
+                <div class="knowledge-check-buttons flex flex-wrap gap-2 mt-4">
+                    <button id="checkAnswersBtn_kc_misleading_conduct"
+                        class="btn btn-success inline-block px-5 py-2.5 bg-[var(--success-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#1e7e34] hover:-translate-y-0.5 hover:shadow-md">Check
+                        My Answers <span class="text-sm opacity-90 italic">检查我的答案</span></button>
+                    <button id="revealAnswersBtn_kc_misleading_conduct"
+                        class="btn btn-info inline-block px-5 py-2.5 bg-[#17a2b8] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#117a8b] hover:-translate-y-0.5 hover:shadow-md">Reveal
+                        Answers <span class="text-sm opacity-90 italic">显示答案</span></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="consumer-guarantees"
+            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2
+                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
+                Consumer Guarantees <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">消费者保证</span>
+            </h2>
+            <p class="mb-6 text-base">The Australian Consumer Law provides automatic guarantees for goods and
+                services purchased by consumers. These guarantees apply regardless of any warranties offered by
+                sellers or manufacturers. <span class="chinese-text-body text-sm">澳大利亚消费者法为消费者购买的商品和服务提供自动保证。无论销售商或制造商是否提供任何保修，这些保证都适用。</span></p>
+
+            <div
+                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">What are Consumer Guarantees?
+                    <span class="text-base opacity-90 italic text-gray-600">什么是消费者保证？</span>
+                </h4>
+                <p class="mb-2 text-base">Consumer guarantees are automatic rights that apply to all purchases of
+                    goods and services by consumers under the Australian Consumer Law. They can't be excluded, even
+                    by agreement. <span class="chinese-text-body text-sm">消费者保证是根据澳大利亚消费者法，适用于消费者购买的所有商品和服务的自动权利。即使通过协议也无法排除。</span></p>
+            </div>
+
+            <div class="mt-8 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 border border-indigo-200">
+                <h3 class="text-[var(--primary-color)] text-xl font-semibold mb-3">Interactive: Consumer Guarantees Sorting Game
+                    <span class="text-lg opacity-90 italic text-gray-600">互动：消费者保证分类游戏</span>
+                </h3>
+                <p class="mb-4 text-base">Test your understanding by sorting scenarios into the correct consumer guarantee sections. <span class="chinese-text-body text-sm">通过将情景分类到正确的消费者保证部分来测试您的理解。</span></p>
+                
+                <div id="guaranteeMatchGame" class="bg-white p-6 rounded-lg shadow-inner">
+                    <button id="startGameBtn"
+                        class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-lg">
+                        Start Game <span class="chinese-text-body text-sm">开始游戏</span>
+                    </button>
+                    
+                    <div id="gameContent" class="hidden mt-6">
+                        <div class="mb-4 text-center">
+                            <span class="text-lg font-semibold">Score: <span id="gameScore">0</span> / <span id="totalScenarios">8</span> <span class="chinese-text-body text-sm">得分</span></span>
+                        </div>
+                        
+                        <div id="currentScenario" class="bg-gray-50 p-6 rounded-lg mb-6">
+                            <h4 class="font-bold text-lg mb-3" id="scenarioNumber"></h4>
+                            <p id="scenarioText" class="text-gray-700 mb-4"></p>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <button class="guarantee-btn bg-blue-100 hover:bg-blue-200 p-4 rounded-lg transition-all" data-section="54">
+                                    <span class="font-semibold">Section 54</span>
+                                    <p class="text-sm text-gray-600 mt-1">Acceptable Quality <span class="chinese-text-body text-sm">可接受的质量</span></p>
+                                </button>
+                                <button class="guarantee-btn bg-green-100 hover:bg-green-200 p-4 rounded-lg transition-all" data-section="55">
+                                    <span class="font-semibold">Section 55</span>
+                                    <p class="text-sm text-gray-600 mt-1">Fitness for Purpose <span class="chinese-text-body text-sm">适合特定目的</span></p>
+                                </button>
+                                <button class="guarantee-btn bg-yellow-100 hover:bg-yellow-200 p-4 rounded-lg transition-all" data-section="56">
+                                    <span class="font-semibold">Section 56</span>
+                                    <p class="text-sm text-gray-600 mt-1">Supply by Description <span class="chinese-text-body text-sm">按描述供应</span></p>
+                                </button>
+                                <button class="guarantee-btn bg-purple-100 hover:bg-purple-200 p-4 rounded-lg transition-all" data-section="57">
+                                    <span class="font-semibold">Section 57</span>
+                                    <p class="text-sm text-gray-600 mt-1">Supply by Sample <span class="chinese-text-body text-sm">按样品供应</span></p>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="gameFeedback" class="hidden">
+                            <div class="p-4 rounded-lg mb-4" id="feedbackBox">
+                                <h5 class="font-bold mb-2" id="feedbackTitle"></h5>
+                                <p id="feedbackText"></p>
+                            </div>
+                            <button id="nextScenarioBtn" class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-2 px-4 rounded transition-all">
+                                Next Scenario → <span class="chinese-text-body text-sm">下一个情景 →</span>
+                            </button>
+                        </div>
+                        
+                        <div id="gameComplete" class="hidden text-center">
+                            <h4 class="text-2xl font-bold mb-4">Game Complete!</h4>
+                            <p class="text-lg mb-4">Your final score: <span id="finalScore"></span></p>
+                            <div id="performanceFeedback" class="mb-4"></div>
+                            <button id="resetGameBtn" class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-3 px-6 rounded-lg transition-all">
+                                Play Again <span class="chinese-text-body text-sm">再玩一次</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="quizBtn_consumer_guarantees"
+                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Consumer
+                Guarantees Quiz <span class="text-sm opacity-90 italic">消费者保证测验</span></button>
+
+        </section>
+
+        <section id="application"
+            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2
+                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
+                Application of Consumer Protection Law <span
+                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">消费者保护法的应用</span></h2>
+            <p class="mb-6 text-base">In this section, we'll apply the IPAC (Issue, Principle, Application,
+                Conclusion) method to analyze a comprehensive consumer law scenario. <span class="chinese-text-body text-sm">在本节中，我们将应用IPAC（问题，原则，应用，结论）方法来分析一个全面的消费者法律情景。</span></p>
+
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 shadow-lg">
+                <div class="flex items-center mb-6">
+                    <div class="bg-orange-500 text-white rounded-full p-4 mr-4">
+                        <span class="text-3xl">🧥</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800">Case Study: South Face Waterproof Jacket <span class="chinese-text-body text-sm">案例研究：South Face防水夹克</span></h3>
+                        <p class="text-gray-600">A Comprehensive IPAC Analysis <span class="chinese-text-body text-sm">一个全面的IPAC分析</span></p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 mb-6 shadow-md">
+                    <h4 class="font-bold text-lg mb-3 text-blue-800">📋 Case Facts <span class="chinese-text-body text-sm">案件事实</span></h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">The Purchase <span class="chinese-text-body text-sm">购买过程</span></h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Mr. Lee needs jacket for New Zealand mountains <span class="chinese-text-body text-sm">李先生需要一件用于新西兰山区的夹克</span></li>
+                                <li>• Temperature will be below 0°C <span class="chinese-text-body text-sm">温度将低于0°C</span></li>
+                                <li>• Told staff he's unfamiliar with adventure clothing <span class="chinese-text-body text-sm">告诉店员他不熟悉户外服装</span></li>
+                                <li>• Staff recommended "South Face Waterproof 550" <span class="chinese-text-body text-sm">店员推荐了“South Face Waterproof 550”</span></li>
+                                <li>• Price: $600 <span class="chinese-text-body text-sm">价格：$600</span></li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">The Problems <span class="chinese-text-body text-sm">出现的问题</span></h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Jacket failed to protect from cold <span class="chinese-text-body text-sm">夹克未能防寒</span></li>
+                                <li>• Mr. Lee became very sick <span class="chinese-text-body text-sm">李先生病得很重</span></li>
+                                <li>• Zipper fell off on day 2 <span class="chinese-text-body text-sm">第二天拉链脱落</span></li>
+                                <li>• Filling fell out on day 3 <span class="chinese-text-body text-sm">第三天填充物脱落</span></li>
+                                <li>• Filling was mix of feathers & cotton (not 100% duck feathers) <span class="chinese-text-body text-sm">填充物是羽毛和棉花的混合物（非100%鸭绒）</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-purple-600 text-white p-4">
+                            <h4 class="font-bold text-lg flex items-center">
+                                <span class="bg-white text-purple-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">I</span>
+                                Issue (问题)
+                            </h4>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700">Has South Face breached any implied guarantees under the Australian Consumer Law? <span class="chinese-text-body text-sm">South Face是否违反了澳大利亚消费者法下的任何默示保证？</span></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-blue-600 text-white p-4">
+                            <h4 class="font-bold text-lg flex items-center">
+                                <span class="bg-white text-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">P</span>
+                                Principle (原则)
+                            </h4>
+                        </div>
+                        <div class="p-6">
+                            <p class="mb-4">The ACL provides three relevant consumer guarantees: <span class="chinese-text-body text-sm">ACL提供了三个相关的消费者保证：</span></p>
+                            <div class="grid md:grid-cols-3 gap-3">
+                                <div class="bg-blue-50 p-3 rounded">
+                                    <h5 class="font-semibold text-blue-800">Section 54 <span class="chinese-text-body text-sm">第54条</span></h5>
+                                    <p class="text-sm">Goods must be of acceptable quality <span class="chinese-text-body text-sm">商品必须具有可接受的质量</span></p>
+                                </div>
+                                <div class="bg-green-50 p-3 rounded">
+                                    <h5 class="font-semibold text-green-800">Section 55 <span class="chinese-text-body text-sm">第55条</span></h5>
+                                    <p class="text-sm">Goods must be fit for disclosed purpose <span class="chinese-text-body text-sm">商品必须适合所披露的目的</span></p>
+                                </div>
+                                <div class="bg-yellow-50 p-3 rounded">
+                                    <h5 class="font-semibold text-yellow-800">Section 56 <span class="chinese-text-body text-sm">第56条</span></h5>
+                                    <p class="text-sm">Goods must match their description <span class="chinese-text-body text-sm">商品必须与其描述相符</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-green-600 text-white p-4">
+                            <h4 class="font-bold text-lg flex items-center">
+                                <span class="bg-white text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">A</span>
+                                Application (应用)
+                            </h4>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h5 class="font-semibold mb-2">Section 54 Analysis <span class="chinese-text-body text-sm">第54条分析</span></h5>
+                                <p class="text-sm mb-2">The jacket was NOT of acceptable quality because: <span class="chinese-text-body text-sm">该夹克不具有可接受的质量，因为：</span></p>
+                                <ul class="text-sm space-y-1 ml-4">
+                                    <li>❌ Not fit for purpose (failed to protect from cold) <span class="chinese-text-body text-sm">不适合用途（未能防寒）</span></li>
+                                    <li>❌ Had defects (zipper fell off) <span class="chinese-text-body text-sm">存在缺陷（拉链脱落）</span></li>
+                                    <li>❌ Not durable (filling fell out after 3 days) <span class="chinese-text-body text-sm">不耐用（3天后填充物脱落）</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h5 class="font-semibold mb-2">Section 55 Analysis <span class="chinese-text-body text-sm">第55条分析</span></h5>
+                                <p class="text-sm mb-2">The jacket was NOT fit for disclosed purpose because: <span class="chinese-text-body text-sm">该夹克不适合所披露的目的，因为：</span></p>
+                                <ul class="text-sm space-y-1 ml-4">
+                                    <li>✓ Mr. Lee disclosed specific purpose (below 0°C hiking) <span class="chinese-text-body text-sm">李先生披露了特定目的（低于0°C徒步）</span></li>
+                                    <li>✓ He relied on staff recommendation <span class="chinese-text-body text-sm">他依赖了店员的推荐</span></li>
+                                    <li>❌ Jacket failed in those conditions <span class="chinese-text-body text-sm">夹克在那些条件下失效</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="border-l-4 border-yellow-500 pl-4">
+                                <h5 class="font-semibold mb-2">Section 56 Analysis <span class="chinese-text-body text-sm">第56条分析</span></h5>
+                                <p class="text-sm mb-2">The jacket did NOT match its description because: <span class="chinese-text-body text-sm">该夹克与其描述不符，因为：</span></p>
+                                <ul class="text-sm space-y-1 ml-4">
+                                    <li>📄 Described as "100% duck feathers" <span class="chinese-text-body text-sm">描述为“100%鸭绒”</span></li>
+                                    <li>❌ Actually contained cotton mixed with feathers <span class="chinese-text-body text-sm">实际上含有棉花和羽毛的混合物</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-red-600 text-white p-4">
+                            <h4 class="font-bold text-lg flex items-center">
+                                <span class="bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">C</span>
+                                Conclusion (结论)
+                            </h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="bg-red-50 p-4 rounded-lg mb-4">
+                                <p class="font-semibold text-red-800 mb-2">South Face has breached ALL THREE consumer guarantees: <span class="chinese-text-body text-sm">South Face违反了所有三项消费者保证：</span></p>
+                                <ul class="text-sm space-y-1">
+                                    <li>✓ Section 54 - Acceptable quality <span class="chinese-text-body text-sm">第54条 - 可接受的质量</span></li>
+                                    <li>✓ Section 55 - Fitness for disclosed purpose <span class="chinese-text-body text-sm">第55条 - 适合所披露的目的</span></li>
+                                    <li>✓ Section 56 - Correspondence with description <span class="chinese-text-body text-sm">第56条 - 与描述相符</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <p class="font-semibold text-green-800 mb-2">Mr. Lee's Rights: <span class="chinese-text-body text-sm">李先生的权利：</span></p>
+                                <p class="text-sm">Entitled to remedy under ACL - refund, replacement, or repair <span class="chinese-text-body text-sm">根据ACL有权获得补救 - 退款、更换或维修</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="quizBtn_application"
+                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Application
+                Quiz <span class="text-sm opacity-90 italic">应用测验</span></button>
+        </section>
+
+        <section id="summary"
+            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2
+                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
+                Unit 5 Mastery Summary <span
+                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">第五单元精通总结</span></h2>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-bold mb-4 text-center">🎯 Key Concepts Quick Reference <span class="chinese-text-body text-sm">核心概念快速参考</span></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="summary-card bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-3xl">📜</span>
+                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Australian Consumer Law <span class="chinese-text-body text-sm">澳大利亚消费者法</span></h4>
+                            <p class="text-sm opacity-90">The foundation of consumer protection <span class="chinese-text-body text-xs">消费者保护的基础</span></p>
+                        </div>
+                        <div class="card-back hidden p-4">
+                            <h5 class="font-bold mb-3">Remember: <span class="chinese-text-body text-sm">记住：</span></h5>
+                            <ul class="text-sm space-y-2">
+                                <li>📍 Schedule 2 of Competition & Consumer Act 2010 <span class="chinese-text-body text-xs">《2010年竞争与消费者法》附表2</span></li>
+                                <li>🌏 Applies nationally to ALL businesses & consumers <span class="chinese-text-body text-xs">全国范围内适用于所有企业和消费者</span></li>
+                                <li>🛡️ Cannot be excluded by agreement <span class="chinese-text-body text-xs">不能通过协议排除</span></li>
+                                <li>👮 Enforced by ACCC <span class="chinese-text-body text-xs">由ACCC执行</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="summary-card bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-3xl">⚠️</span>
+                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Section 18: Misleading Conduct <span class="chinese-text-body text-sm">第18条：误导性行为</span></h4>
+                            <p class="text-sm opacity-90">The most used provision <span class="chinese-text-body text-xs">最常用的条款</span></p>
+                        </div>
+                        <div class="card-back hidden p-4">
+                            <h5 class="font-bold mb-3">Remember: <span class="chinese-text-body text-sm">记住：</span></h5>
+                            <ul class="text-sm space-y-2">
+                                <li><strong>Rule:</strong> No misleading or deceptive conduct <span class="chinese-text-body text-xs">规则：不得有误导或欺骗行为</span></li>
+                                <li><strong>Test:</strong> Does it lead a consumer into error? <span class="chinese-text-body text-xs">测试：是否会引导消费者犯错？</span></li>
+                                <li><strong>Puffery:</strong> Exaggerated claims are okay (e.g., "Best coffee in town") <span class="chinese-text-body text-xs">夸大宣传：允许夸张的说法（例如“镇上最好的咖啡”）</span></li>
+                                <li><strong>Intention:</strong> Not relevant. It doesn't matter if you meant to mislead. <span class="chinese-text-body text-xs">意图：不相关。你是否意图误导并不重要。</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="summary-card bg-gradient-to-br from-red-500 to-red-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-3xl">✅</span>
+                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">s54: Acceptable Quality <span class="chinese-text-body text-sm">第54条：可接受的质量</span></h4>
+                            <p class="text-sm opacity-90">Goods must meet a basic standard <span class="chinese-text-body text-xs">商品必须符合基本标准</span></p>
+                        </div>
+                        <div class="card-back hidden p-4">
+                            <h5 class="font-bold mb-3">Key aspects: <span class="chinese-text-body text-sm">关键方面：</span></h5>
+                            <ul class="text-sm space-y-2">
+                                <li>Fit for common purposes <span class="chinese-text-body text-xs">适合通用目的</span></li>
+                                <li>Acceptable appearance & finish <span class="chinese-text-body text-xs">外观和做工可接受</span></li>
+                                <li>Free from defects <span class="chinese-text-body text-xs">无瑕疵</span></li>
+                                <li>Safe & Durable <span class="chinese-text-body text-xs">安全耐用</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="summary-card bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-3xl">🎯</span>
+                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">s55, s56, s57: Specific Guarantees <span class="chinese-text-body text-sm">第55, 56, 57条：具体保证</span></h4>
+                            <p class="text-sm opacity-90">Matching specific needs & claims <span class="chinese-text-body text-xs">匹配特定需求和声明</span></p>
+                        </div>
+                        <div class="card-back hidden p-4">
+                            <h5 class="font-bold mb-3">Remember: <span class="chinese-text-body text-sm">记住：</span></h5>
+                            <ul class="text-sm space-y-2">
+                                <li><strong>s55:</strong> Fit for a purpose you disclosed <span class="chinese-text-body text-xs">第55条：适合您披露的用途</span></li>
+                                <li><strong>s56:</strong> Matches the description given <span class="chinese-text-body text-xs">第56条：与所给描述相符</span></li>
+                                <li><strong>s57:</strong> Matches the sample/demo model shown <span class="chinese-text-body text-xs">第57条：与所示样品/演示模型相符</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">Ready to Test Your Mastery? <span class="chinese-text-body text-sm">准备好测试您的掌握程度了吗？</span></h3>
+                <p class="mb-6 text-gray-600">Take the final review quiz to solidify your knowledge of Unit 5. <span class="chinese-text-body text-sm">参加期末复习测验，巩固您对第五单元的知识。</span></p>
+                <button id="quizBtn_final_review" class="btn bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-8 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                    Take Final Review Quiz <span class="text-base opacity-90 italic">期末复习测验</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[var(--primary-color)] text-[var(--light-text)] py-8 mt-12 text-center">
+        <div class="max-w-6xl mx-auto px-4">
+            <p class="mb-2">Consumer Protection Law Learning Hub</p>
+            <p class="text-sm opacity-80">&copy; <span id="currentYear"></span> All Rights Reserved. <span
+                    class="chinese-text-body text-sm opacity-80" id="currentYearChinese"></span> 版权所有。</p>
+        </div>
+    </footer>
+
+    <div id="scrollUpBtn" class="hidden">
+        <span>🐸</span>
+    </div>
+
+    <audio id="frog-sound" src="ribbit.mp3" preload="auto"></audio>
+
+    <div id="quizModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[2000]">
+        <div class="bg-[var(--quiz-card-bg)] rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <header class="p-5 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-[var(--primary-color)]">Knowledge Check Quiz <span
+                        class="text-lg opacity-90 italic text-gray-600">知识检验测验</span></h2>
+            </header>
+            <div id="quizContentContainer" class="p-6 overflow-y-auto">
+            </div>
+            <footer class="p-5 border-t border-gray-200 bg-gray-50 rounded-b-xl flex justify-end gap-4">
+                <button id="checkAnswersBtn" class="btn bg-[var(--success-color)] text-white">Check Answers <span
+                        class="text-sm opacity-90 italic">检查答案</span></button>
+                <button id="closeQuizModalBtn" class="btn bg-gray-200 text-gray-700">Close <span
+                        class="text-sm opacity-90 italic">关闭</span></button>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for summary card flipping
+        document.querySelectorAll('.summary-card').forEach(card => {
+            card.addEventListener('click', function () {
+                this.querySelector('.card-front').classList.toggle('hidden');
+                this.querySelector('.card-back').classList.toggle('hidden');
+            });
+        });
+    </script>
+    <script src="unit5_fixes.js"></script>
+
+</body>
+
+</html>

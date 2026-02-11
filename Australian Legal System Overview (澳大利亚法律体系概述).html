@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Legal System Overview</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #5e35b1;
+            --light-accent: #e8eaf6;
+            --light-bg: #f5f7fa;
+            --dark-text: #333;
+            --light-text: #fff;
+            --med-text: #666;
+            --highlight: #ffc107;
+            --section-colors: #e3f2fd, #e8f5e9, #f3e5f5, #fff8e1, #efebe9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Background animation */
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+            padding: 0.5rem;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-header h2::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .blockquote {
+            background-color: var(--light-accent);
+            border-left: 5px solid var(--accent-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            border-radius: 8px;
+        }
+        
+        .blockquote.bilingual {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blockquote.bilingual::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background-color: var(--accent-color);
+            opacity: 0.2;
+            border-radius: 50% 0 0 0;
+        }
+        
+        .example-box {
+            background-color: #fff8e1;
+            border: 1px dashed var(--highlight);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .example-box::before {
+            content: 'Example / 例子';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--highlight);
+            color: var(--dark-text);
+            padding: 0.2rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 0 0 0 8px;
+        }
+        
+        .section-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-content h3 {
+            margin: 2rem 0 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 1.5rem;
+        }
+        
+        .english {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 1rem;
+        }
+        
+        .chinese {
+            flex: 1;
+            min-width: 300px;
+            color: var(--med-text);
+            border-left: 1px solid #eee;
+            padding-left: 1rem;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        .icon-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .icon-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .icon-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%235e35b1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            text-decoration: none;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bilingual-text {
+                flex-direction: column;
+            }
+            
+            .english, .chinese {
+                width: 100%;
+                padding: 0;
+            }
+            
+            .chinese {
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Animation for sections */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Specific section styling */
+        #what-is-law h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a237e"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>');
+        }
+        
+        #origin h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a237e"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>');
+        }
+        
+        #comparisons h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a237e"><path d="M7.5 21.5h-2V4h2v17.5zm4.5-5h-2V4h2v12.5zm4.5 5h-2V4h2v17.5zm4.5-8h-2V4h2v9.5z"/></svg>');
+        }
+        
+        #business-law h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a237e"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>');
+        }
+        
+        #historical h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a237e"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>');
+        }
+        
+        #relationship h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a237e"><path d="M14 4l2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3z"/></svg>');
+        }
+/* Back to Main Button */
+.back-to-main {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color, #1a237e);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-main:hover {
+    background-color: var(--secondary-color, #0d47a1);
+    transform: scale(1.1);
+}
+
+.back-to-main svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mobile adjustments for back button */
+@media (max-width: 768px) {
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+    </style>
+<link rel="stylesheet" href="mobile-styles.css">
+</head>
+<body>
+<a href="index.html" class="back-to-main" title="Back to Main Page">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+</a>
+    <header>
+        <div class="header-bg" id="header-animation"></div>
+        <h1>Australian Legal System Overview</h1>
+        <p>澳大利亚法律体系概述</p>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button" data-target="what-is-law">What is Law?</button>
+            <button class="nav-button" data-target="origin">Origin of Australian Law</button>
+            <button class="nav-button" data-target="comparisons">Legal System Comparisons</button>
+            <button class="nav-button" data-target="business-law">Business Law Context</button>
+            <button class="nav-button" data-target="historical">Historical Development</button>
+            <button class="nav-button" data-target="relationship">Statute & Common Law</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="what-is-law" class="section">
+            <div class="section-header">
+                <h2>What is Law? (什么是法律？)</h2>
+            </div>
+            
+            <div class="section-content">
+                <h3>Definition (定义)</h3>
+                <div class="blockquote bilingual">
+                    <div class="english">
+                        "Law is a system of rules that operate in our society to regulate, control and influence behavior."
+                    </div>
+                    <div class="chinese">
+                        "法律是在我们社会中运行的规则系统，用以规范、控制和影响行为。"
+                    </div>
+                </div>
+                
+                <h3>Purpose of Law (法律的目的)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="icon-list">
+                            <li>To regulate individual behavior for society's benefit</li>
+                            <li>To exclude arbitrary power</li>
+                            <li>To provide a system for settling disputes</li>
+                            <li>To determine rights, duties, and obligations of people</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="icon-list">
+                            <li>为了社会的利益而规范个人行为</li>
+                            <li>排除专断的权力</li>
+                            <li>提供解决争端的系统</li>
+                            <li>确定人们的权利、责任和义务</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="origin" class="section">
+            <div class="section-header">
+                <h2>Origin of Australian Law (澳大利亚法律的起源)</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Australia inherited its legal system from England. The Australian legal system is based on the <span class="highlight">common law</span> tradition.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>澳大利亚从英国继承了其法律体系。澳大利亚的法律体系基于<span class="highlight">普通法</span>传统。</p>
+                    </div>
+                </div>
+                
+                <h3>Common Law System vs. Civil Law System (普通法系统与民法系统)</h3>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Common Law System (普通法系统)</th>
+                        <th>Civil Law System (民法系统)</th>
+                    </tr>
+                    <tr>
+                        <td>Found in Australia, UK, USA, Canada</td>
+                        <td>Found in Continental Europe, Latin America, parts of Asia</td>
+                    </tr>
+                    <tr>
+                        <td>Relies heavily on precedent (case law)</td>
+                        <td>Based primarily on comprehensive written codes</td>
+                    </tr>
+                    <tr>
+                        <td>Judges play a role in developing law</td>
+                        <td>Less reliance on judicial precedent</td>
+                    </tr>
+                    <tr>
+                        <td>More flexible and adaptable</td>
+                        <td>More structured and systematic</td>
+                    </tr>
+                </table>
+                
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Australia follows the Common Law System.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>澳大利亚遵循普通法系统。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="comparisons" class="section">
+            <div class="section-header">
+                <h2>Think of it this way... (通俗理解...)</h2>
+            </div>
+            
+            <div class="section-content">
+                <h3>Imagine Law as Traffic Rules (把法律想象成交通规则)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="icon-list">
+                            <li><strong>Parliament</strong>: Creates the basic traffic rules (like speed limits)</li>
+                            <li><strong>Courts</strong>: Decide how rules apply in specific situations</li>
+                            <li><strong>Executive</strong>: Police officers who enforce the rules</li>
+                        </ul>
+                        
+                        <p>When there's an accident (dispute), we need clear rules to decide who was at fault. These rules come from two sources:</p>
+                        <ol>
+                            <li>Traffic signs and written rules (statute law)</li>
+                            <li>Previous decisions about similar accidents (common law)</li>
+                        </ol>
+                    </div>
+                    <div class="chinese">
+                        <ul class="icon-list">
+                            <li><strong>议会</strong>：制定基本交通规则（如限速）</li>
+                            <li><strong>法院</strong>：决定如何在特定情况下应用规则</li>
+                            <li><strong>行政</strong>：执行规则的警察</li>
+                        </ul>
+                        
+                        <p>当发生事故（争议）时，我们需要明确的规则来决定谁有过错。这些规则来自两个来源：</p>
+                        <ol>
+                            <li>交通标志和书面规则（成文法）</li>
+                            <li>关于类似事故的以往决定（普通法）</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>Real-Life Example (生活例子):</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>Imagine your friend borrows your phone and breaks it:</p>
+                            <ul>
+                                <li><strong>Civil law</strong> helps you get compensation from your friend</li>
+                                <li><strong>Criminal law</strong> would apply if your friend stole your phone instead of borrowing it</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <p>想象一下你的朋友借走你的手机并将其弄坏：</p>
+                            <ul>
+                                <li><strong>民法</strong>帮助你从朋友那里获得赔偿</li>
+                                <li><strong>刑法</strong>适用于如果你的朋友偷走而不是借走你的手机</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Key Differences to Remember (需要记住的关键区别)</h3>
+                <h4>Civil Law vs. Criminal Law (民法与刑法)</h4>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Civil Law (民法)</th>
+                        <th>Criminal Law (刑法)</th>
+                    </tr>
+                    <tr>
+                        <td>Disputes between individuals/organizations</td>
+                        <td>Offenses against the state/society</td>
+                    </tr>
+                    <tr>
+                        <td>Example: Contract disputes, property damage</td>
+                        <td>Example: Theft, assault, murder</td>
+                    </tr>
+                    <tr>
+                        <td>Remedy: Compensation, specific performance</td>
+                        <td>Remedy: Fines, imprisonment</td>
+                    </tr>
+                    <tr>
+                        <td>Burden of proof: Balance of probabilities</td>
+                        <td>Burden of proof: Beyond reasonable doubt</td>
+                    </tr>
+                    <tr>
+                        <td>Parties: Plaintiff vs. Defendant</td>
+                        <td>Parties: Crown/Prosecution vs. Accused</td>
+                    </tr>
+                </table>
+                
+                <h4>Common Law vs. Equity (普通法与衡平法)</h4>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Common Law (普通法)</th>
+                        <th>Equity (衡平法)</th>
+                    </tr>
+                    <tr>
+                        <td>Traditional remedy: Damages (money)</td>
+                        <td>More flexible remedies like injunctions</td>
+                    </tr>
+                    <tr>
+                        <td>Strict application of legal rules</td>
+                        <td>Based on principles of fairness</td>
+                    </tr>
+                    <tr>
+                        <td>Developed in King's courts</td>
+                        <td>Developed in Chancellor's courts</td>
+                    </tr>
+                    <tr>
+                        <td>Follows precedent strictly</td>
+                        <td>Can be more flexible for justice</td>
+                    </tr>
+                </table>
+                
+                <div class="example-box">
+                    <h3>Equity Example (衡平法例子):</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>If someone is building a wall that blocks your sunlight, common law might only give you money as compensation. Equity can order them to stop building the wall (an injunction).</p>
+                        </div>
+                        <div class="chinese">
+                            <p>如果有人正在建造一堵墙挡住了你的阳光，普通法可能只会给你钱作为补偿。衡平法可以命令他们停止建造墙壁（禁令）。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Today, common law and equity are fused and administered by the same court system. But their principles remain distinct.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>今天，普通法和衡平法已经融合在一起，由同一法院系统管理。但它们的原则仍然不同。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="business-law" class="section">
+            <div class="section-header">
+                <h2>Business Law Context (商法语境)</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Business Law is the set of rules that control and preserve economic and commercial activities in Australia. It determines:</p>
+                        <ul class="icon-list">
+                            <li>Rights of business owners and customers</li>
+                            <li>Duties of businesses toward society</li>
+                            <li>Obligations between businesses and their partners</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>商法是控制和保护澳大利亚经济和商业活动的一套规则。它确定了：</p>
+                        <ul class="icon-list">
+                            <li>企业主和顾客的权利</li>
+                            <li>企业对社会的责任</li>
+                            <li>企业与其合作伙伴之间的义务</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="historical" class="section">
+            <div class="section-header">
+                <h2>Historical Development (历史发展)</h2>
+            </div>
+            
+            <div class="section-content">
+                <h3>Common Law Development (普通法的发展)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Common law originated in medieval England after the Norman Conquest (1066). Judges traveled throughout the country hearing cases and gradually developed consistent principles that became "common" to all England.</p>
+                    </div>
+                    <div class="chinese">
+    <p>普通法起源于诺曼征服（1066年）后的中世纪英格兰。法官在全国各地审理案件，逐渐发展出适用于整个英格兰的一致原则。</p>
+</div>
+</div>
+
+<h3>Equity Development (衡平法的发展)</h3>
+<div class="bilingual-text">
+    <div class="english">
+        <ul class="icon-list">
+            <li>Equity developed because common law was sometimes too rigid</li>
+            <li>People petitioned the King for fairness when common law remedies were inadequate</li>
+            <li>The King delegated these petitions to his Chancellor</li>
+            <li>Eventually, a separate court system (Court of Chancery) developed</li>
+        </ul>
+    </div>
+    <div class="chinese">
+        <ul class="icon-list">
+            <li>衡平法的发展是因为普通法有时过于僵化</li>
+            <li>当普通法救济不足时，人们请求国王给予公平</li>
+            <li>国王将这些请愿委托给他的大臣</li>
+            <li>最终，形成了一个独立的法院系统（大法官法院）</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Modern Fusion (现代融合)</h3>
+<div class="bilingual-text">
+    <div class="english">
+        <p>Today, both common law and equity are administered by the same courts in Australia. The principles of both systems continue to influence Australian law.</p>
+    </div>
+    <div class="chinese">
+        <p>如今，普通法和衡平法都由澳大利亚的同一法院系统管理。两种系统的原则继续影响着澳大利亚法律。</p>
+    </div>
+</div>
+</div>
+</section>
+
+<section id="relationship" class="section">
+    <div class="section-header">
+        <h2>The Relationship Between Statute Law and Common Law (成文法与普通法的关系)</h2>
+    </div>
+    
+    <div class="section-content">
+        <h3>Hierarchy (层级关系)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <ul class="icon-list">
+                    <li>Statute law generally overrides common law</li>
+                    <li>Courts interpret statutes when their meaning is unclear</li>
+                    <li>Common law fills gaps where no statute exists</li>
+                </ul>
+            </div>
+            <div class="chinese">
+                <ul class="icon-list">
+                    <li>成文法一般优先于普通法</li>
+                    <li>当法规含义不明确时，法院会进行解释</li>
+                    <li>普通法填补没有法规存在的空白</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h3>Interpretation Example (解释示例)</h3>
+            <div class="bilingual-text">
+                <div class="english">
+                    <p>If Parliament passes a law about online shopping, but doesn't define what "delivery" means in the digital context, courts might need to interpret this through case decisions.</p>
+                </div>
+                <div class="chinese">
+                    <p>如果议会通过了一项关于网上购物的法律，但没有定义数字环境中"交付"的含义，法院可能需要通过案例决定来解释这一点。</p>
+                </div>
+            </div>
+        </div>
+        
+        <h3>Summary Table (总结表)</h3>
+        <table class="comparison-table">
+            <tr>
+                <th>Feature</th>
+                <th>Statute Law (成文法)</th>
+                <th>Common Law (普通法)</th>
+            </tr>
+            <tr>
+                <td>Source</td>
+                <td>Parliament (议会)</td>
+                <td>Courts (法院)</td>
+            </tr>
+            <tr>
+                <td>Form</td>
+                <td>Written Acts (书面法案)</td>
+                <td>Judicial decisions (司法判决)</td>
+            </tr>
+            <tr>
+                <td>Creation process</td>
+                <td>Voting by elected representatives (民选代表投票)</td>
+                <td>Judges resolving individual cases (法官解决个案)</td>
+            </tr>
+            <tr>
+                <td>Change process</td>
+                <td>Amendment by Parliament (议会修订)</td>
+                <td>New decisions by higher courts (高等法院新判决)</td>
+            </tr>
+            <tr>
+                <td>Flexibility</td>
+                <td>Less flexible (较不灵活)</td>
+                <td>More flexible (更灵活)</td>
+            </tr>
+            <tr>
+                <td>Clarity</td>
+                <td>Usually clearer (通常更清晰)</td>
+                <td>Can be less clear (可能不太清晰)</td>
+            </tr>
+        </table>
+    </div>
+</section>
+</main>
+
+<a href="#" class="back-to-top" id="back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+    </svg>
+</a>
+
+<footer>
+    <p>Australian Legal System Overview - UNSW Preparation Program - Coroiu Marius</p>
+    <p>© 2025 All Rights Reserved</p>
+</footer>
+
+<script>
+    // Add dynamic circles to header background
+    function setupHeaderAnimation() {
+        const headerBg = document.getElementById('header-animation');
+        const circleCount = 15;
+        
+        for (let i = 0; i < circleCount; i++) {
+            const div = document.createElement('div');
+            const size = Math.random() * 60 + 20;
+            
+            div.style.width = `${size}px`;
+            div.style.height = `${size}px`;
+            div.style.left = `${Math.random() * 100}%`;
+            div.style.top = `${Math.random() * 100}%`;
+            div.style.animationDuration = `${Math.random() * 20 + 10}s`;
+            div.style.animationDelay = `${Math.random() * 5}s`;
+            div.style.animation = `moveAround ${Math.random() * 20 + 10}s infinite alternate ease-in-out`;
+            div.style.position = 'absolute';
+            div.style.borderRadius = '50%';
+            div.style.backgroundColor = 'white';
+            
+            headerBg.appendChild(div);
+        }
+    }
+    
+    // Handle navigation
+    function setupNavigation() {
+        const navButtons = document.querySelectorAll('.nav-button');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Scroll to target section
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+    
+    // Handle scroll animations
+    function setupScrollAnimations() {
+        const sections = document.querySelectorAll('.section');
+        const backToTop = document.getElementById('back-to-top');
+        
+        // Function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= window.innerHeight - 100 &&
+                rect.bottom >= 0
+            );
+        }
+        
+        // Function to handle scroll
+        function handleScroll() {
+            // Show/hide back to top button
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            // Animate sections when they come into view
+            sections.forEach(section => {
+                if (isInViewport(section)) {
+                    section.classList.add('visible');
+                }
+            });
+            
+            // Update active nav button based on scroll position
+            let closestSection = null;
+            let closestDistance = Infinity;
+            
+            sections.forEach(section => {
+                const distance = Math.abs(section.getBoundingClientRect().top - 100);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestSection = section;
+                }
+            });
+            
+            if (closestSection) {
+                const targetId = closestSection.id;
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    if (btn.getAttribute('data-target') === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Initial call to handleScroll
+        handleScroll();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Back to top button click handler
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        setupHeaderAnimation();
+        setupNavigation();
+        setupScrollAnimations();
+        
+        // Add animations to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes moveAround {
+                0% { transform: translate(0, 0); }
+                100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
+</body>
+</html>

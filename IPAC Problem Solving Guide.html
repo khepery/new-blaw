@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPAC Method for Legal Problem Solving</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #2563eb;
+            --accent-color: #3b82f6;
+            --light-accent: #eff6ff;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --step-color-1: #06b6d4;
+            --step-color-2: #10b981;
+            --step-color-3: #8b5cf6;
+            --step-color-4: #f43f5e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+            padding: 0.5rem;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ipac-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .ipac-step:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .ipac-step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .ipac-step-content {
+            flex-grow: 1;
+        }
+        
+        .ipac-step-title {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .english {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 1rem;
+            position: relative;
+        }
+        
+        .chinese {
+            flex: 1;
+            min-width: 300px;
+            color: var(--med-text);
+            border-left: 1px solid #e5e7eb;
+            padding-left: 1rem;
+        }
+        
+        .example-box {
+            background-color: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .practice-scenario {
+            background-color: #f0f9ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .tips-section {
+            background-color: #ecfdf5;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            text-decoration: none;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .bilingual-text {
+                flex-direction: column;
+            }
+            
+            .english, .chinese {
+                width: 100%;
+                padding: 0;
+                border-left: none;
+            }
+            
+            .chinese {
+                border-top: 1px solid #e5e7eb;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .ipac-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .ipac-step-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+/* Back to Main Button */
+.back-to-main {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color, #1a237e);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-main:hover {
+    background-color: var(--secondary-color, #0d47a1);
+    transform: scale(1.1);
+}
+
+.back-to-main svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mobile adjustments for back button */
+@media (max-width: 768px) {
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+    </style>
+<link rel="stylesheet" href="mobile-styles.css">
+</head>
+<body>
+<a href="index.html" class="back-to-main" title="Back to Main Page">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+</a>
+    <header>
+        <div class="header-shapes" id="header-animation"></div>
+        <div class="header-content">
+            <h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="white">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                IPAC Method for Legal Problem Solving
+            </h1>
+            <p>法律问题解决的IPAC方法</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button" data-target="overview">Overview</button>
+            <button class="nav-button" data-target="steps">IPAC Steps</button>
+            <button class="nav-button" data-target="example">Full Example</button>
+            <button class="nav-button" data-target="mistakes">Common Mistakes</button>
+            <button class="nav-button" data-target="tips">Success Tips</button>
+            <button class="nav-button" data-target="practice">Practice Exercise</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="overview" class="section">
+            <div class="content-card">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <h2>What is the IPAC Method?</h2>
+                        <p>The IPAC Method is a structured approach to answering legal problem questions. It provides a clear framework for analyzing legal scenarios and preparing written answers.</p>
+                    </div>
+                    <div class="chinese">
+                        <h2>什么是IPAC方法？</h2>
+                        <p>IPAC方法是回答法律问题的结构化方法。它为分析法律情景和准备书面答案提供了一个清晰的框架。</p>
+                    </div>
+                </div>
+                
+                <div class="bilingual-text">
+                    <div class="english">
+                        <h3>The IPAC Framework</h3>
+                        <ul>
+                            <li><strong>I - Issue</strong>: Identify the legal issues</li>
+                            <li><strong>P - Principle</strong>: State relevant legal principles</li>
+                            <li><strong>A - Application</strong>: Apply principles to specific facts</li>
+                            <li><strong>C - Conclusion</strong>: Provide a clear conclusion</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <h3>IPAC框架</h3>
+                        <ul>
+                            <li><strong>I - 问题</strong>：识别法律问题</li>
+                            <li><strong>P - 原则</strong>：陈述相关法律原则</li>
+                            <li><strong>A - 应用</strong>：将原则应用于具体事实</li>
+                            <li><strong>C - 结论</strong>：提供明确结论</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="steps" class="section">
+            <div class="content-card">
+                <h2>IPAC Steps Breakdown</h2>
+                
+                <div class="ipac-step" style="background-color: rgba(6, 182, 212, 0.1);">
+                    <div class="ipac-step-icon" style="background-color: var(--step-color-1);">I</div>
+                    <div class="ipac-step-content">
+                        <div class="ipac-step-title">
+                            <h3>Issue (问题)</h3>
+                        </div>
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <p>Identify the legal issues raised by the facts. Focus on the specific dispute or problem that needs resolution.</p>
+                                <div class="example-box">
+                                    <strong>Example:</strong> "The issue is whether ABC Company breached its duty of care to customers when it failed to place warning signs near the wet floor."
+                                </div>
+                            </div>
+                            <div class="chinese">
+                                <p>确定事实引发的法律问题。专注于需要解决的具体争议或问题。</p>
+                                <div class="example-box">
+                                    <strong>例子：</strong>"问题在于ABC公司在未能在湿滑地板附近放置警告标志时是否违反了对顾客的注意义务。"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ipac-step" style="background-color: rgba(16, 185, 129, 0.1);">
+                    <div class="ipac-step-icon" style="background-color: var(--step-color-2);">P</div>
+                    <div class="ipac-step-content">
+                        <div class="ipac-step-title">
+                            <h3>Principle (原则)</h3>
+                        </div>
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <p>State the relevant legal principles and sources of law. Identify applicable laws and explain the legal rules.</p>
+                                <div class="example-box">
+                                    <strong>Example:</strong> "Under the common law principle in Donoghue v Stevenson [1932], a business owes a duty of care to customers on its premises."
+                                </div>
+                            </div>
+                            <div class="chinese">
+                                <p>陈述相关的法律原则和法律来源。识别适用的法律并解释法律规则。</p>
+<div class="example-box">
+    <strong>例子：</strong>"根据Donoghue诉Stevenson [1932]中的普通法原则，企业对其场所内的顾客负有注意义务。"
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ipac-step" style="background-color: rgba(139, 92, 246, 0.1);">
+    <div class="ipac-step-icon" style="background-color: var(--step-color-3);">A</div>
+    <div class="ipac-step-content">
+        <div class="ipac-step-title">
+            <h3>Application (应用)</h3>
+        </div>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>Apply the legal principles to the specific facts of the case. Connect the legal principles to the specific facts and analyze arguments from both sides.</p>
+                <div class="example-box">
+                    <strong>Example:</strong> "Applying these principles, ABC Company knew the floor was wet but failed to place warning signs, creating a foreseeable risk of injury."
+                </div>
+            </div>
+            <div class="chinese">
+                <p>将法律原则应用于案例的具体事实。将法律原则与具体事实联系起来，并分析双方论点。</p>
+                <div class="example-box">
+                    <strong>例子：</strong>"应用这些原则，ABC公司知道地板湿滑但未放置警告标志，造成了可预见的伤害风险。"
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ipac-step" style="background-color: rgba(244, 63, 94, 0.1);">
+    <div class="ipac-step-icon" style="background-color: var(--step-color-4);">C</div>
+    <div class="ipac-step-content">
+        <div class="ipac-step-title">
+            <h3>Conclusion (结论)</h3>
+        </div>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>Provide a clear conclusion based on your application of the law to the facts. Be specific about the outcome and keep it brief but decisive.</p>
+                <div class="example-box">
+                    <strong>Example:</strong> "In conclusion, ABC Company likely breached its duty of care and would be liable for customer injuries."
+                </div>
+            </div>
+            <div class="chinese">
+                <p>基于您对法律事实的应用提供明确的结论。对结果具体说明，保持简洁但果断。</p>
+                <div class="example-box">
+                    <strong>例子：</strong>"综上所述，ABC公司很可能违反了注意义务，并将对顾客的伤害负责。"
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+        </section>
+
+        <section id="example" class="section">
+            <div class="content-card">
+                <h2>Full IPAC Method Example</h2>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <h3>Negligence Case: Slip and Fall</h3>
+                        <div class="practice-scenario">
+                            <strong>Scenario:</strong> Mr. Zhang slipped and fell on a spilled drink in SuperMart, breaking his arm.
+                        </div>
+                        <h4>Detailed IPAC Analysis</h4>
+                        <div class="example-box">
+                            <h4>Issue</h4>
+                            <p>Whether SuperMart owes compensation to Mr. Zhang for his injuries from slipping on a spilled drink.</p>
+                            
+                            <h4>Principle</h4>
+                            <p>Under the tort of negligence established in Donoghue v Stevenson [1932], businesses owe a duty of care to their customers. Australian courts in Wyong Shire Council v Shirt (1980) established that breaching this duty requires:</p>
+                            <ul>
+                                <li>A foreseeable risk of injury</li>
+                                <li>A risk that a reasonable person would have taken precautions against</li>
+                                <li>Failure to take those precautions</li>
+                            </ul>
+                            
+                            <h4>Application</h4>
+                            <p>Analyzing the specific circumstances:</p>
+                            <ul>
+                                <li>The spilled drink created a foreseeable risk of slipping</li>
+                                <li>The spill was reported to staff 20 minutes before the incident</li>
+                                <li>No warning signs or cleanup action was taken</li>
+                                <li>The spill was in a high-traffic area near the checkout</li>
+                            </ul>
+                            <p>Potential counterargument: Mr. Zhang might have contributed to his own injury by not watching where he was walking.</p>
+                            
+                            <h4>Conclusion</h4>
+                            <p>SuperMart likely breached its duty of care. The company is probably liable for Mr. Zhang's injuries, though compensation might be reduced due to potential contributory negligence.</p>
+                        </div>
+                    </div>
+                    <div class="chinese">
+                        <h3>过失案例：滑倒事件</h3>
+                        <div class="practice-scenario">
+                            <strong>情景：</strong>张先生在超市的一个洒落的饮料上滑倒，并因此摔断了手臂。
+                        </div>
+                        <h4>详细的IPAC分析</h4>
+                        <div class="example-box">
+                            <h4>问题</h4>
+                            <p>超市是否需要为张先生因滑倒饮料而造成的伤害支付赔偿。</p>
+                            
+                            <h4>原则</h4>
+                            <p>根据Donoghue诉Stevenson [1932]案确立的侵权过失法，企业对顾客负有注意义务。澳大利亚法院在Wyong Shire Council诉Shirt (1980)案中确立了违反此义务需要满足的条件：</p>
+                            <ul>
+                                <li>可预见的伤害风险</li>
+                                <li>一个理性人会采取预防措施的风险</li>
+                                <li>未能采取这些预防措施</li>
+                            </ul>
+                            
+                            <h4>应用</h4>
+                            <p>分析具体情况：</p>
+                            <ul>
+                                <li>洒落的饮料造成了可预见的滑倒风险</li>
+                                <li>事件发生前20分钟已向工作人员报告了泼洒</li>
+                                <li>未采取任何警告或清理行动</li>
+                                <li>泼洒发生在收银台附近的高流量区域</li>
+                            </ul>
+                            <p>潜在的反驳：张先生可能因没有注意走路而对自己的伤害负有责任。</p>
+                            
+                            <h4>结论</h4>
+                            <p>超市很可能违反了其注意义务。公司可能需要为张先生的伤害负责，尽管由于可能存在的共同过失，赔偿金额可能会被减少。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mistakes" class="section">
+            <div class="content-card">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ol>
+                            <li>
+                                <strong>Skipping Steps</strong>
+                                <p>Don't jump straight to the conclusion without proper analysis. Each step of IPAC is crucial for a complete answer.</p>
+                            </li>
+                            <li>
+                                <strong>Not Citing Legal Sources</strong>
+                                <p>Always support your principles with case names or legislation. Don't rely solely on your own opinion.</p>
+                            </li>
+                            <li>
+                                <strong>One-Sided Analysis</strong>
+                                <p>Always consider both sides of the argument. Even if one party has a stronger case, acknowledge counterarguments.</p>
+                            </li>
+                            <li>
+                                <strong>Vague Conclusions</strong>
+                                <p>Be specific about the likely outcome. Avoid sitting on the fence without reaching a definite conclusion.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="chinese">
+                        <ol>
+                            <li>
+                                <strong>跳过步骤</strong>
+                                <p>不要在没有适当分析的情况下直接得出结论。IPAC的每个步骤对于完整的答案都至关重要。</p>
+                            </li>
+                            <li>
+                                <strong>不引用法律来源</strong>
+                                <p>始终用案例名称或法规支持你的原则。不要仅仅依赖自己的观点。</p>
+                            </li>
+                            <li>
+                                <strong>单方面分析</strong>
+                                <p>始终考虑论点的双方。即使一方的案例更强，也要承认对方的论点。</p>
+                            </li>
+                            <li>
+                                <strong>模糊结论</strong>
+                                <p>对可能的结果具体说明。避免犹豫不决，不下明确结论。</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tips" class="section">
+            <div class="tips-section">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <h2>Tips for Success</h2>
+                        <ul>
+                            <li>
+                                <strong>Read the Question Carefully</strong>
+                                <p>Identify what you're being asked to advise on. Note any specific issues mentioned in the question.</p>
+                            </li>
+                            <li>
+                                <strong>Organize Your Thoughts</strong>
+                                <p>Before writing, briefly outline the key issues, laws, and facts. Ensure each IPAC component is clearly defined.</p>
+                            </li>
+                            <li>
+                                <strong>Use Clear Language</strong>
+                                <p>Avoid unnecessary legal jargon. Explain complex concepts in simple terms.</p>
+                            </li>
+                            <li>
+                                <strong>Time Management</strong>
+                                <p>In exams, allocate time for each section of your answer. Don't spend too long on one issue if multiple issues need addressing.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <h2>成功技巧</h2>
+                        <ul>
+                            <li>
+                                <strong>仔细阅读问题</strong>
+                                <p>确定你被要求就什么提供建议。注意问题中提到的具体问题。</p>
+                            </li>
+                            <li>
+                                <strong>整理思路</strong>
+                                <p>在写作前，简要概述关键问题、法律和事实。确保每个IPAC组成部分都清晰定义。</p>
+                            </li>
+                            <li>
+                                <strong>使用清晰的语言</strong>
+                                <p>避免不必要的法律术语。用简单的术语解释复杂概念。</p>
+                            </li>
+                            <li>
+                                <strong>时间管理</strong>
+                                <p>在考试中，为答案的每个部分分配时间。如果有多个问题需要处理，不要在一个问题上花费太长时间。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice" class="section">
+    <div class="content-card">
+        <h2>Practice Exercise (练习)</h2>
+        <div class="bilingual-text">
+            <div class="english">
+                <div class="practice-scenario">
+                    <h3>Scenario</h3>
+                    <p>James owns a small coffee shop. He hired Sarah to work as a barista. After three months, James fired Sarah without notice because he found her using her phone during work hours. Sarah claims unfair dismissal.</p>
+                </div>
+                
+                <h3>Task: Advise Sarah using the IPAC method</h3>
+                
+                <div class="example-box">
+                    <h4>Sample Answer Framework</h4>
+                    <h5>Issue</h5>
+                    <p>Whether Sarah's dismissal without notice constitutes unfair dismissal under employment law.</p>
+                    
+                    <h5>Principle</h5>
+                    <p>Key points to consider:</p>
+                    <ul>
+                        <li>Employment law principles regarding unfair dismissal</li>
+                        <li>Provisions for probation periods</li>
+                        <li>Requirements for procedural fairness</li>
+                        <li>Grounds for termination of employment</li>
+                    </ul>
+                    
+                    <h5>Application</h5>
+                    <p>Consider and analyze:</p>
+                    <ul>
+                        <li>Sarah's perspective and potential arguments</li>
+                        <li>James's reasons for dismissal</li>
+                        <li>Contextual factors of the employment</li>
+                        <li>Potential legal protections for the employee</li>
+                    </ul>
+                    
+                    <h5>Conclusion</h5>
+                    <p>Provide a clear assessment of whether Sarah has a valid unfair dismissal claim based on the analysis.</p>
+                </div>
+            </div>
+            <div class="chinese">
+                <div class="practice-scenario">
+                    <h3>情景</h3>
+                    <p>James拥有一家小咖啡店。他雇佣Sarah担任咖啡师。三个月后，James解雇了Sarah，没有提前通知，因为他发现她在工作时间使用手机。Sarah声称不公平解雇。</p>
+                </div>
+                
+                <h3>任务：使用IPAC方法为Sarah提供建议</h3>
+                
+                <div class="example-box">
+                    <h4>示例答案框架</h4>
+                    <h5>问题</h5>
+                    <p>Sarah未经通知被解雇是否构成雇佣法下的不公平解雇。</p>
+                    
+                    <h5>原则</h5>
+                    <p>需要考虑的关键点：</p>
+                    <ul>
+                        <li>关于不公平解雇的雇佣法原则</li>
+                        <li>试用期的规定</li>
+                        <li>程序公平性的要求</li>
+                        <li>终止雇佣的理由</li>
+                    </ul>
+                    
+                    <h5>应用</h5>
+                    <p>考虑和分析：</p>
+                    <ul>
+                        <li>Sarah的观点和潜在论点</li>
+                        <li>James解雇的理由</li>
+                        <li>雇佣的背景因素</li>
+                        <li>员工可能的法律保护</li>
+                    </ul>
+                    
+                    <h5>结论</h5>
+                    <p>根据分析，对Sarah是否有有效的不公平解雇索赔提供明确评估。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </main>
+
+    <a href="#" class="back-to-top" id="back-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </a>
+
+    <footer>
+        <p>IPAC Problem Solving Guide - UNSW Preparation Program - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Header animation (similar to previous website)
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Navigation setup
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Scroll to target section
+                    const targetId = button.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+        
+        // Scroll animations
+        function setupScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            const backToTop = document.getElementById('back-to-top');
+            
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= window.innerHeight - 100 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Function to handle scroll
+            function handleScroll() {
+                // Show/hide back to top button
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                // Animate sections when they come into view
+                sections.forEach(section => {
+                    if (isInViewport(section)) {
+                        section.classList.add('visible');
+                    }
+                });
+}
+            
+            // Initial call to handleScroll
+            handleScroll();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Back to top button click handler
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+            setupNavigation();
+            setupScrollAnimations();
+        });
+    </script>
+</body>
+</html>

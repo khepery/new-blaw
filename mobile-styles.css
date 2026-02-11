@@ -1,0 +1,68 @@
+/* Mobile responsiveness for all pages */
+@media (max-width: 768px) {
+    /* Improve general readability */
+    body {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    /* Adjust header sizing */
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* Make content fit smaller screens */
+    main, .content-card, .section {
+        padding: 1rem;
+    }
+    
+    /* Fix tables on small screens */
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+    
+    /* Ensure bilingual sections stack properly */
+    .bilingual-text, .english, .chinese {
+        display: block;
+        width: 100%;
+    }
+    
+    .chinese {
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 1rem;
+        margin-top: 1rem;
+        padding-left: 0;
+    }
+    
+    /* Make navigation more touch-friendly */
+    .nav-button {
+        padding: 0.8rem;
+    }
+    
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    /* Further adjustments */
+    header {
+        padding: 1.5rem 1rem;
+    }
+    
+    /* Better spacing for tiny screens */
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

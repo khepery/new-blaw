@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Legal Principles and Doctrines</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --light-accent: #eef2f7;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --med-text: #7f8c8d;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            
+            --precedent-color: #e74c3c;
+            --precedent-light: #fadbd8;
+            --powers-division-color: #f39c12;
+            --powers-division-light: #fef5e7;
+            --powers-separation-color: #27ae60;
+            --powers-separation-light: #e9f7ef;
+            --federation-color: #8e44ad;
+            --federation-light: #f5eef8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+            padding: 0.5rem;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .section-icon.precedent {
+            background-color: var(--precedent-color);
+        }
+        
+        .section-icon.division {
+            background-color: var(--powers-division-color);
+        }
+        
+        .section-icon.separation {
+            background-color: var(--powers-separation-color);
+        }
+        
+        .section-icon.federation {
+            background-color: var(--federation-color);
+        }
+        
+        .section-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        
+        .section-title {
+            flex-grow: 1;
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+        
+        .section-title p {
+            color: var(--med-text);
+            font-size: 1.1rem;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .english {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chinese {
+            flex: 1;
+            min-width: 300px;
+            color: var(--med-text);
+            border-left: 1px solid #e5e7eb;
+            padding-left: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%233498db"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+        }
+        
+        .example-box {
+            background-color: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .example-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-box h4::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%232c3e50"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v4h-4v2h4v4h2v-4h4v-2h-4V8z"/></svg>');
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--light-accent);
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-card h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card.precedent {
+            border-top: 4px solid var(--precedent-color);
+        }
+        
+        .info-card.division {
+            border-top: 4px solid var(--powers-division-color);
+        }
+        
+        .info-card.separation {
+            border-top: 4px solid var(--powers-separation-color);
+        }
+        
+        .info-card.federation {
+            border-top: 4px solid var(--federation-color);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        .precedent-structure {
+            width: 100%;
+            max-width: 700px;
+            margin: 2rem auto;
+            position: relative;
+            text-align: center;
+        }
+        
+        .precedent-node {
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0.5rem auto;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 5;
+            background-color: var(--precedent-light);
+            border: 2px solid var(--precedent-color);
+            max-width: 300px;
+            width: 100%;
+        }
+        
+        .precedent-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .precedent-connection {
+            width: 2px;
+            height: 30px;
+            background-color: var(--precedent-color);
+            margin: 0 auto;
+        }
+        
+        .precedent-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--precedent-color);
+            margin: 0 auto;
+        }
+        
+        .precedent-branch {
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem 0;
+            position: relative;
+        }
+        
+        .precedent-branch::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background-color: var(--precedent-color);
+            z-index: 1;
+        }
+        
+        .precedent-branch-node {
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0 1rem;
+            width: 220px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 5;
+            background-color: var(--precedent-light);
+            border: 2px solid var(--precedent-color);
+        }
+        
+        .precedent-branch-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .separation-diagram {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .power-branch {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 0.5rem;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .power-branch:hover {
+            transform: translateY(-5px);
+        }
+        
+        .power-branch h3 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-accent);
+        }
+        
+        .power-branch.legislative {
+            border-top: 4px solid #e74c3c;
+        }
+        
+        .power-branch.executive {
+            border-top: 4px solid #f39c12;
+        }
+        
+        .power-branch.judicial {
+            border-top: 4px solid #27ae60;
+        }
+        
+        .power-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .power-icon.legislative {
+            background-color: #fadbd8;
+        }
+        
+        .power-icon.executive {
+            background-color: #fef5e7;
+        }
+        
+        .power-icon.judicial {
+            background-color: #e9f7ef;
+        }
+        
+        .power-icon svg {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .federation-map {
+            width: 100%;
+            max-width: 700px;
+            margin: 2rem auto;
+            text-align: center;
+            position: relative;
+        }
+        
+        .australia-map {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+        }
+        
+        .division-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .power-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .power-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .power-card h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-accent);
+        }
+        
+        .power-card h3::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .power-card.exclusive h3::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%23e74c3c"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>');
+        }
+        
+        .power-card.concurrent h3::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%23f39c12"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>');
+        }
+        
+        .power-card.residual h3::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%2327ae60"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>');
+        }
+        
+        .power-card.exclusive {
+            border-top: 4px solid #e74c3c;
+        }
+        
+        .power-card.concurrent {
+            border-top: 4px solid #f39c12;
+        }
+        
+        .power-card.residual {
+            border-top: 4px solid #27ae60;
+        }
+        
+        .case-example {
+            background-color: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--precedent-color);
+        }
+        
+        .case-example h4 {
+            color: var(--precedent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .case-detail {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .case-detail::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="%23e74c3c"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+        }
+        
+        .floating-svg {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .key-term {
+            padding: 2px 5px;
+            background-color: #fef9e6;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulsing {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bilingual-text {
+                flex-direction: column;
+            }
+            
+            .english, .chinese {
+                width: 100%;
+                padding: 0;
+            }
+            
+            .chinese {
+                border-left: none;
+                border-top: 1px solid #e5e7eb;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .separation-diagram {
+                flex-direction: column;
+            }
+            
+            .power-branch {
+                margin: 0.5rem 0;
+            }
+            
+            .precedent-branch::before {
+                display: none;
+            }
+            
+            .precedent-branch {
+                flex-direction: column;
+            }
+            
+            .precedent-branch-node {
+                margin: 0.5rem auto;
+                width: 90%;
+            }
+        }
+/* Back to Main Button */
+.back-to-main {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color, #1a237e);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-main:hover {
+    background-color: var(--secondary-color, #0d47a1);
+    transform: scale(1.1);
+}
+
+.back-to-main svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mobile adjustments for back button */
+@media (max-width: 768px) {
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+    </style>
+<link rel="stylesheet" href="mobile-styles.css">
+</head>
+<body>
+<a href="index.html" class="back-to-main" title="Back to Main Page">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+</a>
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Key Legal Principles and Doctrines</h1>
+            <p>关键法律原则和学说</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button" data-target="precedent">Doctrine of Precedent</button>
+            <button class="nav-button" data-target="division">Division of Powers</button>
+            <button class="nav-button" data-target="separation">Separation of Powers</button>
+            <button class="nav-button" data-target="federation">Federation of Australia</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="precedent" class="section">
+            <div class="section-header">
+                <div class="section-icon precedent">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>The Doctrine of Precedent</h2>
+                    <p>先例原则</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>What Is It? (这是什么？)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>The doctrine of precedent is a fundamental principle in the common law system that states <span class="key-term">"like cases should be decided alike"</span> - similar cases should have similar outcomes.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>先例原则是普通法系统中的一项基本原则，规定<span class="key-term">"类似案例应当以类似方式决定"</span>——相似的案例应当有相似的结果。</p>
+                    </div>
+                </div>
+                
+                <h3>How It Works (它如何运作)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ol class="feature-list">
+                            <li>When judges make decisions, they must follow the decisions made by judges in higher courts in similar previous cases</li>
+                            <li>These previous decisions are called "precedents"</li>
+                            <li>This creates consistency and predictability in the legal system</li>
+                        </ol>
+                    </div>
+                    <div class="chinese">
+                        <ol class="feature-list">
+                            <li>当法官做出决定时，他们必须遵循高级法院在类似先前案例中做出的决定</li>
+                            <li>这些先前的决定被称为"先例"</li>
+                            <li>这在法律系统中创造了一致性和可预测性</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="info-card precedent">
+                    <h3>Key Terminology (关键术语)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <h4><span class="key-term">Ratio Decidendi</span> (判决理由)</h4>
+                            <ul class="feature-list">
+                                <li>The <strong>binding part</strong> of a previous case decision</li>
+                                <li>The reason or principle upon which the case was decided</li>
+                                <li>Only this part is binding on lower courts</li>
+                            </ul>
+                            
+                            <h4><span class="key-term">Obiter Dicta</span> (附带意见)</h4>
+                            <ul class="feature-list">
+                                <li>Comments or observations made by judges that are <strong>not binding</strong></li>
+                                <li>Side remarks not essential to the decision</li>
+                                <li>May be persuasive but not binding</li>
+                            </ul>
+                        </div>
+                       <div class="chinese">
+    <h4><span class="key-term">判决理由</span> (Ratio Decidendi)</h4>
+    <ul class="feature-list">
+        <li>先前案例决定的<strong>具有约束力的部分</strong></li>
+        <li>案件裁决基于的理由或原则</li>
+        <li>只有这部分对下级法院有约束力</li>
+    </ul>
+    
+    <h4><span class="key-term">附带意见</span> (Obiter Dicta)</h4>
+    <ul class="feature-list">
+        <li>法官发表的<strong>不具约束力</strong>的评论或观察</li>
+        <li>对决定非必要的附带言论</li>
+        <li>可能具有说服力但不具约束力</li>
+    </ul>
+</div>
+</div>
+</div>
+
+<div class="info-card precedent">
+    <h3>Binding vs. Persuasive Precedent (约束性 vs. 说服性先例)</h3>
+    <div class="bilingual-text">
+        <div class="english">
+            <h4><span class="key-term">Binding Precedent</span> (约束性先例)</h4>
+            <ul class="feature-list">
+                <li>Lower courts are <strong>obliged</strong> to follow decisions of higher courts in the same hierarchy</li>
+                <li>Example: The District Court of NSW must follow NSW Supreme Court decisions</li>
+            </ul>
+            
+            <h4><span class="key-term">Persuasive Precedent</span> (说服性先例)</h4>
+            <ul class="feature-list">
+                <li>Some decisions are not binding but may be <strong>seriously considered</strong></li>
+                <li>Examples:
+                    <ul>
+                        <li>Decisions from courts in different jurisdictions</li>
+                        <li>Decisions from courts of equal status</li>
+                        <li>Decisions from foreign courts</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="chinese">
+            <h4><span class="key-term">约束性先例</span> (Binding Precedent)</h4>
+            <ul class="feature-list">
+                <li>下级法院<strong>必须</strong>遵循同一等级体系中高级法院的决定</li>
+                <li>例如：新南威尔士州地区法院必须遵循新南威尔士州最高法院的决定</li>
+            </ul>
+            
+            <h4><span class="key-term">说服性先例</span> (Persuasive Precedent)</h4>
+            <ul class="feature-list">
+                <li>某些决定不具约束力，但可能会<strong>被认真考虑</strong></li>
+                <li>例如：
+                    <ul>
+                        <li>来自不同管辖区法院的决定</li>
+                        <li>来自同等地位法院的决定</li>
+                        <li>来自外国法院的决定</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="example-box">
+    <h4>Think of it this way... (通俗理解...)</h4>
+    <div class="bilingual-text">
+        <div class="english">
+            <p><strong>Imagine a Family with Rules</strong> (想象一个有规则的家庭)</p>
+            <ul>
+                <li>Parents (High Court) make the important rules that everyone must follow</li>
+                <li>Older siblings (Supreme Courts) interpret those rules for specific situations</li>
+                <li>Younger siblings (Lower Courts) must follow the interpretations of both parents and older siblings</li>
+                <li>But if a cousin (court from another state) has a good interpretation, the family might consider it, though they don't have to follow it</li>
+            </ul>
+        </div>
+        <div class="chinese">
+            <p><strong>想象一个有规则的家庭</strong></p>
+            <ul>
+                <li>父母（高等法院）制定每个人都必须遵循的重要规则</li>
+                <li>兄姐（最高法院）针对特定情况解释这些规则</li>
+                <li>弟妹（下级法院）必须遵循父母和兄姐的解释</li>
+                <li>但如果表亲（另一州的法院）有个好的解释，家人可能会考虑它，尽管他们不必遵循</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<h3>Visual Example: Precedent Binding Structure (视觉示例：先例约束结构)</h3>
+<div class="precedent-structure">
+    <div class="precedent-node">
+        <strong>High Court of Australia</strong><br>
+        澳大利亚高等法院
+    </div>
+    <div class="precedent-connection"></div>
+    <div class="precedent-arrow"></div>
+    <div class="precedent-branch">
+        <div class="precedent-branch-node">
+            <strong>Federal Courts</strong><br>
+            联邦法院
+        </div>
+        <div class="precedent-branch-node">
+            <strong>State Courts</strong><br>
+            州法院
+        </div>
+    </div>
+    <div class="precedent-connection"></div>
+    <div class="precedent-arrow"></div>
+    <div class="precedent-branch">
+        <div class="precedent-branch-node">
+            <strong>Federal Court<br>of Australia</strong><br>
+            澳大利亚联邦法院
+        </div>
+        <div class="precedent-branch-node">
+            <strong>NSW Supreme<br>Court</strong><br>
+            新南威尔士州最高法院
+        </div>
+    </div>
+    <div class="precedent-connection"></div>
+    <div class="precedent-arrow"></div>
+    <div class="precedent-branch">
+        <div class="precedent-branch-node">
+            <strong>Federal Circuit<br>Court</strong><br>
+            联邦巡回法院
+        </div>
+        <div class="precedent-branch-node">
+            <strong>NSW District<br>Court</strong><br>
+            新南威尔士州地区法院
+        </div>
+    </div>
+    <div class="precedent-connection"></div>
+    <div class="precedent-arrow"></div>
+    <div class="precedent-node">
+        <strong>NSW Local Court</strong><br>
+        新南威尔士州地方法院
+    </div>
+</div>
+
+<div class="info-card precedent">
+    <h3>Overruling and Distinguishing (推翻和区分)</h3>
+    <div class="bilingual-text">
+        <div class="english">
+            <h4><span class="key-term">Overruling</span> (推翻)</h4>
+            <ul class="feature-list">
+                <li>Higher courts can overrule precedents set by lower courts</li>
+                <li>Courts may overrule their own previous decisions (rarely)</li>
+                <li>Example: The High Court can overrule a precedent set by the Federal Court</li>
+            </ul>
+            
+            <h4><span class="key-term">Distinguishing</span> (区分)</h4>
+            <ul class="feature-list">
+                <li>A judge can "distinguish" a case from a precedent if the facts are significantly different</li>
+                <li>This allows the judge to reach a different conclusion without breaking precedent</li>
+                <li>Example: "While the previous case involved a verbal contract, the current case involves a written contract with specific terms"</li>
+            </ul>
+        </div>
+        <div class="chinese">
+            <h4><span class="key-term">推翻</span> (Overruling)</h4>
+            <ul class="feature-list">
+                <li>高级法院可以推翻下级法院确立的先例</li>
+                <li>法院可以推翻自己先前的决定（很少见）</li>
+                <li>例如：高等法院可以推翻联邦法院确立的先例</li>
+            </ul>
+            
+            <h4><span class="key-term">区分</span> (Distinguishing)</h4>
+            <ul class="feature-list">
+                <li>如果事实有显著不同，法官可以"区分"某个案例与先例</li>
+                <li>这允许法官在不破坏先例的情况下得出不同结论</li>
+                <li>例如："虽然先前的案例涉及口头合同，但当前案例涉及具有特定条款的书面合同"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="case-example">
+    <h4>Example of Precedent (先例示例)</h4>
+    <div class="bilingual-text">
+        <div class="english">
+            <p>In the famous case <strong>Donoghue v Stevenson</strong> [1932]:</p>
+            <p class="case-detail"><strong>Facts</strong>: A woman found a decomposed snail in her ginger beer bottle and became ill</p>
+            <p class="case-detail"><strong>Ratio Decidendi</strong>: Manufacturers owe a duty of care to the ultimate consumers of their products</p>
+            <p class="case-detail"><strong>Impact</strong>: This precedent established the modern concept of negligence and is still binding today</p>
+        </div>
+        <div class="chinese">
+            <p>在著名案例 <strong>Donoghue v Stevenson</strong> [1932] 中：</p>
+            <p class="case-detail"><strong>事实</strong>：一名女士在姜啤酒瓶中发现了一只腐烂的蜗牛，并因此生病</p>
+            <p class="case-detail"><strong>判决理由</strong>：制造商对其产品的最终消费者负有谨慎责任</p>
+            <p class="case-detail"><strong>影响</strong>：这一先例确立了现代疏忽概念，至今仍具约束力</p>
+        </div>
+    </div>
+</div>
+
+<div class="case-example">
+    <h4>Sample Case Analysis (案例分析示例)</h4>
+    <div class="bilingual-text">
+        <div class="english">
+            <p>In the case "Smith v Jones" the court stated:</p>
+            <p class="case-detail"><strong>"Smith acted negligently."</strong> (The decision - not binding by itself)</p>
+            <p class="case-detail"><strong>"This was because he was texting while driving and hit Jones' car."</strong> (Ratio decidendi - binding)</p>
+            <p class="case-detail"><strong>"If Smith had pulled over to send the text, he would have acted responsibly."</strong> (Obiter dicta - not binding)</p>
+        </div>
+        <div class="chinese">
+            <p>在"Smith v Jones"案例中，法院表示：</p>
+            <p class="case-detail"><strong>"Smith 行为疏忽。"</strong> (决定 - 本身不具约束力)</p>
+            <p class="case-detail"><strong>"这是因为他在开车时发短信并撞上了Jones的车。"</strong> (判决理由 - 具有约束力)</p>
+            <p class="case-detail"><strong>"如果Smith停车发短信，他的行为就会是负责任的。"</strong> (附带意见 - 不具约束力)</p>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+
+<section id="division" class="section">
+    <div class="section-header">
+        <div class="section-icon division">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+            </svg>
+        </div>
+        <div class="section-title">
+            <h2>Division of Powers</h2>
+            <p>权力划分</p>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <h3>What Is It? (这是什么？)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>The division of powers is the distribution of law-making authority between the Commonwealth (federal) and state/territory governments in Australia.</p>
+            </div>
+            <div class="chinese">
+                <p>权力划分是在澳大利亚联邦和州/领地政府之间分配立法权的制度。</p>
+            </div>
+        </div>
+        
+        <div class="division-grid">
+            <div class="power-card exclusive">
+                <h3>Exclusive Powers (专属权力)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li>Powers that <strong>only the Commonwealth Parliament</strong> can exercise</li>
+                            <li>Examples: foreign affairs, defense, currency, immigration</li>
+                            <li>States cannot make laws in these areas</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li><strong>只有联邦议会</strong>可以行使的权力</li>
+                            <li>例如：外交事务、国防、货币、移民</li>
+                            <li>州不能在这些领域制定法律</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="power-card concurrent">
+                <h3>Concurrent Powers (并行权力)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li>Powers that <strong>both Commonwealth and state parliaments</strong> can exercise</li>
+                            <li>Examples: health, education, environmental protection, taxation</li>
+                            <li>When state and Commonwealth laws conflict, the Commonwealth law prevails (Section 109 of Constitution)</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li><strong>联邦和州议会都</strong>可以行使的权力</li>
+                            <li>例如：健康、教育、环境保护、税收</li>
+                            <li>当州法律与联邦法律冲突时，联邦法律优先（宪法第109条）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="power-card residual">
+                <h3>Residual Powers (剩余权力)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li>Powers not specifically given to the Commonwealth</li>
+                            <li>Belong to the states</li>
+                            <li>Examples: criminal law, police, local government, roads</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li>未明确赋予联邦的权力</li>
+                            <li>属于各州</li>
+                            <li>例如：刑法、警察、地方政府、道路</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card division">
+            <h3>Section 109 of the Constitution (宪法第109条)</h3>
+            <div class="bilingual-text">
+                <div class="english">
+                    <p><span class="key-term">"When a law of a State is inconsistent with a law of the Commonwealth, the latter shall prevail, and the former shall, to the extent of the inconsistency, be invalid."</span></p>
+                </div>
+                <div class="chinese">
+                    <p><span class="key-term">"当州法律与联邦法律不一致时，后者应优先，前者在不一致的范围内无效。"</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Example of Division of Powers (权力划分示例)</h4>
+            <div class="bilingual-text">
+                <div class="english">
+                    <p><strong>Consumer Protection Laws</strong>:</p>
+                    <ul>
+                        <li>Commonwealth has the <strong>Australian Consumer Law</strong> (national framework)</li>
+                        <li>States have their own consumer affairs departments and laws</li>
+                        <li>If state consumer law conflicts with the Commonwealth law, the Commonwealth law prevails</li>
+                    </ul>
+                </div>
+                <div class="chinese">
+                    <p><strong>消费者保护法</strong>：</p>
+                    <ul>
+                        <li>联邦有<strong>澳大利亚消费者法</strong>（国家框架）</li>
+                        <li>各州有自己的消费者事务部门和法律</li>
+                        <li>如果州消费者法律与联邦法律冲突，联邦法律优先</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="separation" class="section">
+    <div class="section-header">
+        <div class="section-icon separation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M3 14h4v-4H3v4zm0 5h4v-4H3v4zM3 9h4V5H3v4zm5 5h13v-4H8v4zm0 5h13v-4H8v4zM8 5v4h13V5H8z"/>
+            </svg>
+        </div>
+        <div class="section-title">
+            <h2>Separation of Powers</h2>
+            <p>三权分立</p>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <h3>What Is It? (这是什么？)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>The separation of powers divides government into three branches to prevent concentration of power and protect against tyranny.</p>
+            </div>
+            <div class="chinese">
+                <p>三权分立将政府分为三个部门，以防止权力集中并防范暴政。</p>
+            </div>
+        </div>
+        
+        <div class="separation-diagram">
+            <div class="power-branch legislative">
+                <div class="power-icon legislative">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e74c3c">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                </div>
+                <h3>1. Legislature (立法机关)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li><strong>Role</strong>: Makes and amends laws</li>
+                            <li><strong>In Australia</strong>: Parliament (House of Representatives and Senate)</li>
+                            <li><strong>Example Function</strong>: Passing the Competition and Consumer Act</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li><strong>角色</strong>：制定和修改法律</li>
+                            <li><strong>在澳大利亚</strong>：议会（众议院和参议院）</li>
+                            <li><strong>功能示例</strong>：通过《竞争与消费者法》</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="power-branch executive">
+                <div class="power-icon executive">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f39c12">
+                        <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                    </svg>
+                </div>
+                <h3>2. Executive (行政机关)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li><strong>Role</strong>: Administers and enforces laws</li>
+                            <li><strong>In Australia</strong>: Governor-General, Prime Minister, Ministers, public service</li>
+                            <li><strong>Example Function</strong>: Implementing tax collection, border security</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li><strong>角色</strong>：管理和执行法律</li>
+                            <li><strong>在澳大利亚</strong>：总督、总理、部长、公共服务</li>
+                            <li><strong>功能示例</strong>：实施税收征收、边境安全</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="power-branch judicial">
+                <div class="power-icon judicial">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#27ae60">
+                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                </div>
+                <h3>3. Judiciary (司法机关)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li><strong>Role</strong>: Interprets laws and resolves disputes</li>
+                            <li><strong>In Australia</strong>: Courts and judges</li>
+                            <li><strong>Example Function</strong>: Deciding if a business has violated consumer law</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li><strong>角色</strong>：解释法律和解决争议</li>
+                            <li><strong>在澳大利亚</strong>：法院和法官</li>
+                            <li><strong>功能示例</strong>：判断企业是否违反了消费者法</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card separation">
+            <h3>Separation of Powers in Australia (澳大利亚的三权分立)</h3>
+            <div class="bilingual-text">
+                <div class="english">
+                    <p>In Australia, there is not a complete separation between the legislative and executive branches:</p>
+                    <ul class="feature-list">
+                        <li>Ministers (executive) are also members of Parliament (legislative)</li>
+                        <li>However, the judiciary remains strictly separate from the other branches</li>
+                    </ul>
+                </div>
+                <div class="chinese">
+                    <p>在澳大利亚，立法和行政部门之间没有完全分离：</p>
+                    <ul class="feature-list">
+                        <li>部长（行政）也是议会成员（立法）</li>
+                        <li>然而，司法部门与其他部门严格分离</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card separation">
+            <h3>Why It Matters (为什么它很重要)</h3>
+            <div class="bilingual-text">
+                <div class="english">
+                    <ul class="feature-list">
+                        <li>Prevents abuse of power</li>
+                        <li>Ensures checks and balances</li>
+                        <li>Protects individual rights</li>
+                        <li>Maintains rule of law</li>
+                    </ul>
+                </div>
+                <div class="chinese">
+                    <ul class="feature-list">
+                        <li>防止滥用权力</li>
+                        <li>确保制衡</li>
+                        <li>保护个人权利</li>
+                        <li>维护法治</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Think of it this way... (通俗理解...)</h4>
+            <div class="bilingual-text">
+                <div class="english">
+                    <p><strong>Imagine a Football Game</strong> (想象一场足球比赛)</p>
+                    <ul>
+                        <li><strong>Legislature</strong> (Parliament): Makes the rules of the game</li>
+                        <li><strong>Executive</strong> (Government): Acts as the coach and players who play according to the rules</li>
+                        <li><strong>Judiciary</strong> (Courts): Serves as the referee who interprets and applies the rules</li>
+                    </ul>
+                </div>
+                <div class="chinese">
+                    <p><strong>想象一场足球比赛</strong></p>
+                    <ul>
+                        <li><strong>立法机关</strong>（议会）：制定比赛规则</li>
+                        <li><strong>行政机关</strong>（政府）：作为按规则比赛的教练和球员</li>
+                        <li><strong>司法机关</strong>（法院）：担任解释和应用规则的裁判</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="federation" class="section">
+    <div class="section-header">
+        <div class="section-icon federation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+        </div>
+        <div class="section-title">
+            <h2>Federation of Australia</h2>
+            <p>澳大利亚联邦</p>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <h3>What Is It? (这是什么？)</h3>
+        <div class="bilingual-text">
+            <div class="english">
+                <p>Federation is the process by which the six British colonies united in 1901 to form the Commonwealth of Australia.</p>
+            </div>
+            <div class="chinese">
+                <p>联邦是六个英国殖民地在1901年联合起来组成澳大利亚联邦的过程。</p>
+            </div>
+        </div>
+        
+      <div class="federation-visual">
+    <div class="center-hub">
+        <div class="year">1901</div>
+    </div>
+    
+    <div class="states-container">
+        <div class="state-row">
+            <div class="state-card">
+                <div class="state-name">Western Australia</div>
+                <div class="state-name-chinese">西澳大利亚州</div>
+            </div>
+            
+            <div class="state-card">
+                <div class="state-name">South Australia</div>
+                <div class="state-name-chinese">南澳大利亚州</div>
+            </div>
+        </div>
+        
+        <div class="state-row">
+            <div class="state-card">
+                <div class="state-name">Queensland</div>
+                <div class="state-name-chinese">昆士兰州</div>
+            </div>
+            
+            <div class="state-card">
+                <div class="state-name">New South Wales</div>
+                <div class="state-name-chinese">新南威尔士州</div>
+            </div>
+        </div>
+        
+        <div class="state-row">
+            <div class="state-card">
+                <div class="state-name">Victoria</div>
+                <div class="state-name-chinese">维多利亚州</div>
+            </div>
+            
+            <div class="state-card">
+                <div class="state-name">Tasmania</div>
+                <div class="state-name-chinese">塔斯马尼亚州</div>
+            </div>
+        </div>
+        
+        <div class="state-row">
+            <div class="state-card special-card">
+                <div class="state-name">Northern Territory*</div>
+                <div class="state-name-chinese">北领地*</div>
+                <div class="state-note">*Part of SA until 1911</div>
+            </div>
+        </div>
+    </div>
+    
+    <h3 class="federation-title">Commonwealth of Australia</h3>
+    <p class="federation-subtitle">Established January 1, 1901 | 成立于1901年1月1日</p>
+    <p class="federation-description">Six British colonies united to form the new nation, with Northern Territory administered as part of South Australia until 1911.</p>
+    <p class="federation-description-chinese">六个英国殖民地联合组成新国家，北领地作为南澳大利亚州的一部分管理，直到1911年。</p>
+    
+    <style>
+        .federation-visual {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5eef8;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .center-hub {
+            width: 100px;
+            height: 100px;
+            background-color: #8e44ad;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0 20px rgba(142, 68, 173, 0.5);
+            animation: pulse 3s infinite ease-in-out;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .year {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .states-container {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .state-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .state-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            width: 200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #8e44ad;
+            text-align: left;
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .state-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .state-row:nth-child(1) .state-card:nth-child(1) { animation-delay: 0.1s; }
+        .state-row:nth-child(1) .state-card:nth-child(2) { animation-delay: 0.2s; }
+        .state-row:nth-child(2) .state-card:nth-child(1) { animation-delay: 0.3s; }
+        .state-row:nth-child(2) .state-card:nth-child(2) { animation-delay: 0.4s; }
+        .state-row:nth-child(3) .state-card:nth-child(1) { animation-delay: 0.5s; }
+        .state-row:nth-child(3) .state-card:nth-child(2) { animation-delay: 0.6s; }
+        .state-row:nth-child(4) .state-card { animation-delay: 0.7s; }
+        
+        .special-card {
+            position: relative;
+            border-left: 4px solid #3498db;
+        }
+        
+        .state-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-size: 1.1rem;
+        }
+        
+        .state-name-chinese {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .state-note {
+            font-size: 0.8rem;
+            color: #3498db;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .federation-title {
+            font-size: 1.8rem;
+            color: #8e44ad;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+        
+        .federation-subtitle {
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 0.9s;
+            opacity: 0;
+        }
+        
+        .federation-description,
+        .federation-description-chinese {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #2c3e50;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+        
+        .federation-description-chinese {
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(142, 68, 173, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(142, 68, 173, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(142, 68, 173, 0.5); }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .state-row {
+                gap: 1rem;
+            }
+            
+            .state-card {
+                width: 160px;
+                padding: 0.8rem;
+            }
+            
+            .state-name {
+                font-size: 1rem;
+            }
+            
+            .federation-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .state-card {
+                width: 100%;
+            }
+            
+            .state-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</div>
+
+<div class="info-card federation">
+    <h3>The Australian Constitution (澳大利亚宪法)</h3>
+    <div class="bilingual-text">
+        <div class="english">
+            <ul class="feature-list">
+                <li>Established the federation</li>
+                <li>Created the Commonwealth of Australia</li>
+                <li>Distributed powers between Commonwealth and states</li>
+                <li>Established the federal system of government</li>
+            </ul>
+        </div>
+        <div class="chinese">
+            <ul class="feature-list">
+                <li>建立了联邦</li>
+                <li>创建了澳大利亚联邦</li>
+                <li>在联邦和各州之间分配权力</li>
+                <li>建立了联邦政府体系</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="info-card federation">
+    <h3>Key Features of Federation (联邦的关键特征)</h3>
+    <div class="bilingual-text">
+        <div class="english">
+            <ul class="feature-list">
+                <li>Each colony became a state with its own parliament</li>
+                <li>States retained many of their powers</li>
+                <li>Commonwealth Parliament was created with specific powers</li>
+                <li>High Court was established to interpret the Constitution</li>
+            </ul>
+        </div>
+        <div class="chinese">
+            <ul class="feature-list">
+                <li>每个殖民地都成为拥有自己议会的州</li>
+                <li>各州保留了许多权力</li>
+                <li>创建了具有特定权力的联邦议会</li>
+                <li>建立了高等法院解释宪法</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="info-card federation">
+    <h3>Practical Impact (实际影响)</h3>
+    <div class="bilingual-text">
+        <div class="english">
+            <ul class="feature-list">
+                <li>Multiple parliaments (1 federal + 6 state + 2 territory)</li>
+                <li>Different laws can exist in different states</li>
+                <li>Businesses may need to comply with both federal and state laws</li>
+                <li>Some areas have national consistency (e.g., Corporations Law)</li>
+            </ul>
+        </div>
+        <div class="chinese">
+            <ul class="feature-list">
+                <li>多个议会（1个联邦 + 6个州 + 2个领地）</li>
+                <li>不同州可以存在不同法律</li>
+                <li>企业可能需要同时遵守联邦和州法律</li>
+                <li>某些领域具有全国一致性（例如，公司法）</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+</main>
+
+<a href="#" class="back-to-top" id="back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+    </svg>
+</a>
+
+<footer>
+    <p>Key Legal Principles and Doctrines - UNSW Preparation Program - Coroiu Marius</p>
+    <p>© 2025 All Rights Reserved</p>
+</footer>
+
+<script>
+    // Add dynamic elements to header background
+    function setupHeaderAnimation() {
+        const headerBg = document.getElementById('header-animation');
+        const symbols = 12;
+        
+        for (let i = 0; i < symbols; i++) {
+            const div = document.createElement('div');
+            const size = Math.random() * 40 + 20;
+            
+            div.style.position = 'absolute';
+            div.style.width = `${size}px`;
+            div.style.height = `${size}px`;
+            div.style.left = `${Math.random() * 100}%`;
+            div.style.top = `${Math.random() * 100}%`;
+            div.style.opacity = '0.3';
+            div.style.background = 'rgba(255, 255, 255, 0.5)';
+            
+            // Create different symbols for legal principles
+            const symbolType = Math.floor(Math.random() * 4);
+            if (symbolType === 0) { // Gavel
+                div.style.borderRadius = '0';
+                div.style.borderTop = `${size/4}px solid rgba(255, 255, 255, 0.7)`;
+                div.style.height = `${size/2}px`;
+            } else if (symbolType === 1) { // Scale of justice
+                div.style.borderRadius = '0';
+                div.style.borderTop = `${size/4}px solid rgba(255, 255, 255, 0.7)`;
+                div.style.borderBottom = `${size/4}px solid rgba(255, 255, 255, 0.7)`;
+            } else if (symbolType === 2) { // Book
+                div.style.borderRadius = '0';
+                div.style.border = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+            } else { // Court building
+                div.style.borderRadius = '0';
+                div.style.borderBottom = `${size/2}px solid rgba(255, 255, 255, 0.7)`;
+                div.style.borderLeft = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+                div.style.borderRight = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+            }
+            
+            div.style.animation = `float ${Math.random() * 6 + 8}s infinite ease-in-out`;
+            div.style.animationDelay = `${Math.random() * 5}s`;
+            
+            headerBg.appendChild(div);
+        }
+    }
+    
+    // Handle navigation
+    function setupNavigation() {
+        const navButtons = document.querySelectorAll('.nav-button');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Scroll to target section
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // Handle scroll animations
+    function setupScrollAnimations() {
+        const sections = document.querySelectorAll('.section');
+        const backToTop = document.getElementById('back-to-top');
+        
+        // Function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= window.innerHeight - 100 &&
+                rect.bottom >= 0
+            );
+        }
+        
+        // Function to handle scroll
+        function handleScroll() {
+            // Show/hide back to top button
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            // Animate sections when they come into view
+            sections.forEach(section => {
+                if (isInViewport(section)) {
+                    section.classList.add('visible');
+                }
+            });
+            
+            // Update active nav button based on scroll position
+            let closestSection = null;
+            let closestDistance = Infinity;
+            
+            sections.forEach(section => {
+                const distance = Math.abs(section.getBoundingClientRect().top - 100);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestSection = section;
+                }
+            });
+            
+            if (closestSection) {
+                const targetId = closestSection.id;
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    if (btn.getAttribute('data-target') === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Initial call to handleScroll
+        handleScroll();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        
+        // Back to top button click handler
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        setupHeaderAnimation();
+        setupNavigation();
+        setupScrollAnimations();
+        
+        // Make all sections visible initially
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.add('visible');
+        });
+        
+        // Add animations CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(0px) rotate(0deg); }
+                50% { transform: translateY(-10px) rotate(5deg); }
+                100% { transform: translateY(0px) rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
+</body>
+</html>

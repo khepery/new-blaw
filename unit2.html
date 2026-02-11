@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2: Choice of Business Structure</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #f1c40f;
+            --light-accent: #f9f2cc;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --med-text: #7f8c8d;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            
+            --sole-trader-color: #e74c3c;
+            --sole-trader-light: #fadbd8;
+            --partnership-color: #f39c12;
+            --partnership-light: #fef5e7;
+            --company-color: #27ae60;
+            --company-light: #e9f7ef;
+            --separate-legal-color: #3498db;
+            --separate-legal-light: #d6eaf8;
+            --corporate-veil-color: #8e44ad;
+            --corporate-veil-light: #f5eef8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+            padding: 0.5rem;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .section-icon.sole-trader {
+            background-color: var(--sole-trader-color);
+        }
+        
+        .section-icon.partnership {
+            background-color: var(--partnership-color);
+        }
+        
+        .section-icon.company {
+            background-color: var(--company-color);
+        }
+        
+        .section-icon.separate-legal {
+            background-color: var(--separate-legal-color);
+        }
+        
+        .section-icon.corporate-veil {
+            background-color: var(--corporate-veil-color);
+        }
+        
+        .section-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        
+        .section-title {
+            flex-grow: 1;
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+        
+        .section-title p {
+            color: var(--med-text);
+            font-size: 1.1rem;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .english {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chinese {
+            flex: 1;
+            min-width: 300px;
+            color: var(--med-text);
+            border-left: 1px solid #e5e7eb;
+            padding-left: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%23f1c40f"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+        }
+        
+        .example-box {
+            background-color: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .example-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-box h4::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%232c3e50"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v4h-4v2h4v4h2v-4h4v-2h-4V8z"/></svg>');
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--light-accent);
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-card h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card.sole-trader {
+            border-top: 4px solid var(--sole-trader-color);
+        }
+        
+        .info-card.partnership {
+            border-top: 4px solid var(--partnership-color);
+        }
+        
+        .info-card.company {
+            border-top: 4px solid var(--company-color);
+        }
+        
+        .info-card.separate-legal {
+            border-top: 4px solid var(--separate-legal-color);
+        }
+        
+        .info-card.corporate-veil {
+            border-top: 4px solid var(--corporate-veil-color);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        .business-structure-diagram {
+            width: 100%;
+            max-width: 700px;
+            margin: 2rem auto;
+            position: relative;
+            text-align: center;
+        }
+        
+        .structure-node {
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0.5rem auto;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 5;
+            max-width: 300px;
+            width: 100%;
+        }
+        
+        .structure-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .structure-connection {
+            width: 2px;
+            height: 30px;
+            margin: 0 auto;
+        }
+        
+        .structure-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            margin: 0 auto;
+        }
+        
+        .structure-branch {
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem 0;
+            position: relative;
+        }
+        
+        .structure-branch::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            z-index: 1;
+        }
+        
+        .structure-branch-node {
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0 1rem;
+            width: 220px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .structure-branch-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .case-example {
+            background-color: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .case-example h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .case-detail {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .case-detail::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="%23f1c40f"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+        }
+
+        .floating-svg {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .key-term {
+            padding: 2px 5px;
+            background-color: #fef9e6;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes highlightBorder {
+            0% {
+                box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(241, 196, 15, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(241, 196, 15, 0);
+            }
+        }
+        
+        @keyframes rotateFade {
+            0% {
+                transform: rotateY(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: rotateY(180deg);
+                opacity: 0.2;
+            }
+            100% {
+                transform: rotateY(360deg);
+                opacity: 0.8;
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulsing {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .highlight-border {
+            animation: highlightBorder 2s ease-in-out;
+        }
+        
+        .rotate-fade {
+            animation: rotateFade 5s infinite linear;
+        }
+        
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .back-to-main:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        /* Business Structure Specific Styles */
+        .business-structure-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .structure-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .structure-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .structure-card-header {
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .structure-card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: transform 0.6s, opacity 0.6s;
+        }
+        
+        .structure-card:hover .structure-card-header::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .structure-card-content {
+            padding: 1.5rem;
+        }
+        
+        /* Popup Styles for Structure Diagram */
+        .structure-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000; /* Increased to ensure it's above all other content */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .structure-popup.active {
+            opacity: 1;
+        }
+        
+        .popup-content {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            overflow-x: visible !important; /* Allow tooltips to extend */
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+            z-index: 2100; /* Ensure it's clickable */
+        }
+        
+        .popup-close:hover {
+            color: var(--accent-color);
+        }
+        
+        .popup-body {
+            color: var(--dark-text);
+            position: relative;
+            overflow: visible !important; /* Allow tooltips to extend */
+        }
+        
+        .clickable-node {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .clickable-node:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-width: 3px !important;
+        }
+        
+        .interactive-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .interactive-button:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .structure-card .expand-btn {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            z-index: 5;
+        }
+        
+        .structure-card .expand-btn:hover {
+            background-color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        
+        .structure-details {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+            background-color: var(--light-bg);
+            border-top: 1px solid #eee;
+        }
+        
+        .structure-details.expanded {
+            height: auto;
+            padding: 1.5rem;
+        }
+        
+        .interactive-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+        
+        .interactive-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            opacity: 0.2;
+            transform: scale(0);
+            transition: transform 0.3s;
+        }
+        
+        .structure-card:hover .interactive-icon::after {
+            transform: scale(1.5);
+        }
+        
+        .structure-card.sole-trader .structure-card-header {
+            background-color: var(--sole-trader-color);
+        }
+        
+        .structure-card.partnership .structure-card-header {
+            background-color: var(--partnership-color);
+        }
+        
+        .structure-card.company .structure-card-header {
+            background-color: var(--company-color);
+        }
+        
+        .structure-pros-cons {
+            margin-top: 1.5rem;
+        }
+        
+        .structure-pros-cons h4 {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .structure-pros-cons h4::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .pros h4::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="%2327ae60"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+        }
+        
+        .cons h4::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="%23e74c3c"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>');
+        }
+        
+        .corporate-veil-diagram {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .veil-container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            perspective: 800px;
+        }
+        
+        .veil {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) rotateY(0deg);
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(to right, rgba(142, 68, 173, 0.05), rgba(142, 68, 173, 0.2));
+            border-left: 2px dashed rgba(142, 68, 173, 0.3);
+            border-right: 2px dashed rgba(142, 68, 173, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+            z-index: 5;
+        }
+        
+        .veil.lifted {
+            transform: translateX(-50%) rotateY(110deg);
+        }
+        
+        .veil-button {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1rem;
+            background-color: var(--corporate-veil-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .entity-person, .entity-company {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .entity-person {
+            top: 80px;
+            left: 50px;
+            background-color: var(--corporate-veil-light);
+            z-index: 2;
+        }
+        
+        .entity-company {
+            top: 80px;
+            right: 50px;
+            background-color: white;
+            z-index: 2;
+        }
+        
+        .entity-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        
+        /* Interactive Elements and Tooltips */
+        .concept-tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--accent-color);
+            cursor: help;
+        }
+        
+        .concept-tooltip .tooltip-text {
+            visibility: hidden;
+            width: 280px;
+            max-width: 90vw; /* Ensure tooltip doesn't exceed screen width */
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1500; /* Increased to ensure visibility */
+            bottom: 130%;
+            left: 0;
+            transform: translateX(0); /* Reset transform for better positioning */
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: var(--box-shadow);
+            font-size: 0.9rem;
+            pointer-events: none; /* Prevent tooltip from blocking mouse events */
+            overflow: visible; /* Ensure content is not cut off */
+        }
+        
+        /* Smarter default positioning for the tooltip */
+        .concept-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Make sure the tooltip container doesn't interfere with scroll */
+        .content-card, .section, .info-card {
+            overflow: visible !important;
+        }
+        
+        /* Special positioning for tooltips at extreme edges */
+        .concept-tooltip.left-edge .tooltip-text {
+            left: 0;
+            right: auto;
+        }
+        
+        .concept-tooltip.right-edge .tooltip-text {
+            left: auto;
+            right: 0;
+        }
+        
+        .concept-tooltip.top-edge .tooltip-text {
+            bottom: auto;
+            top: 130%;
+        }
+        
+        .concept-tooltip.top-edge .tooltip-text::after {
+            top: -10px;
+            bottom: auto;
+            border-color: transparent transparent var(--primary-color) transparent;
+        }
+        
+        .concept-tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 15px; /* Align with the left side for better visibility */
+            margin-left: 0;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--primary-color) transparent transparent transparent;
+        }
+        
+        .concept-tooltip.right-edge .tooltip-text::after {
+            left: auto;
+            right: 15px;
+        }
+        
+        .concept-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .expandable-info {
+            margin: 1rem 0;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .info-expand-btn {
+            background-color: var(--light-accent);
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+            z-index: 6;
+        }
+        
+        .info-expand-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .expanded-content {
+            display: none;
+            background-color: var(--light-bg);
+            border-left: 2px solid var(--accent-color);
+            padding: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0 4px 4px 0;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .expanded-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .chinese-small {
+            font-size: 0.8em;
+            color: var(--med-text);
+            margin-left: 0.5rem;
+        }
+        
+        .english-text, .chinese-text {
+            display: block;
+        }
+        
+        .chinese-text {
+            font-size: 0.9em;
+            color: var(--med-text);
+            margin-top: 0.2rem;
+        }
+        
+        .interactive-diagram {
+            position: relative;
+            margin: 2rem auto;
+            max-width: 600px;
+            height: 400px;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .diagram-node {
+            position: absolute;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 5;
+        }
+        
+        .diagram-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .diagram-node.active {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        
+        .diagram-connector {
+            position: absolute;
+            background-color: var(--med-text);
+            z-index: 1;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
+        .diagram-connector.active {
+            opacity: 0.8;
+        }
+        
+        .diagram-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .diagram-info.active {
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bilingual-text {
+                flex-direction: column;
+            }
+            
+            .english, .chinese {
+                width: 100%;
+                padding: 0;
+            }
+            
+            .chinese {
+                border-left: none;
+                border-top: 1px solid #e5e7eb;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .structure-branch::before {
+                display: none;
+            }
+            
+            .structure-branch {
+                flex-direction: column;
+            }
+            
+            .structure-branch-node {
+                margin: 0.5rem auto;
+                width: 90%;
+            }
+            
+            .veil-container {
+                width: 300px;
+            }
+            
+            .entity-person {
+                left: 30px;
+            }
+            
+            .entity-company {
+                right: 30px;
+            }
+            
+            .back-to-main {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-to-main svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .concept-tooltip .tooltip-text {
+                width: 220px;
+            }
+            
+            .interactive-diagram {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .veil-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .veil {
+                width: 150px;
+                height: 250px;
+            }
+            
+            .entity-person, .entity-company {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .entity-person {
+                left: 20px;
+            }
+            
+            .entity-company {
+                right: 20px;
+            }
+            
+            .entity-icon {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Unit 2: Business Law - Choice of Business Structure</h1>
+            <p>商业法 - 企业结构选择</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button" data-target="overview">Overview</button>
+            <button class="nav-button" data-target="unincorporated">Unincorporated Businesses</button>
+            <button class="nav-button" data-target="incorporated">Incorporated Businesses</button>
+            <button class="nav-button" data-target="entity">Separate Legal Entity</button>
+            <button class="nav-button" data-target="veil">Corporate Veil</button>
+            <button class="nav-button" data-target="cases">Case Law</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="overview" class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background-color: var(--accent-color);">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l4-2.18L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Overview of Business Structures</h2>
+                    <p>企业结构概述</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Introduction (简介)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>When starting a business, one of the most important decisions is choosing the appropriate business structure. This choice has significant implications for liability, taxation, management, and the future of your business.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>创业时，最重要的决策之一是选择适当的企业结构。这个选择对责任、税收、管理和企业的未来有重大影响。</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-business-structure">
+                    <div class="business-structure-diagram">
+                        <div class="structure-node" id="parent-node" style="background-color: var(--accent-color); color: white; font-weight: bold;">
+                            Business Structures<br>
+                            企业结构
+                        </div>
+                        <div class="structure-connection" style="background-color: var(--accent-color);"></div>
+                        <div class="structure-arrow" style="border-top: 10px solid var(--accent-color);"></div>
+                        <div class="structure-branch">
+                            <div class="structure-branch-node clickable-node" data-structure="unincorporated" style="background-color: var(--partnership-light); border: 2px solid var(--partnership-color);">
+                                <strong>Unincorporated</strong><br>
+                                非公司型企业
+                            </div>
+                            <div class="structure-branch-node clickable-node" data-structure="incorporated" style="background-color: var(--company-light); border: 2px solid var(--company-color);">
+                                <strong>Incorporated</strong><br>
+                                公司型企业
+                            </div>
+                        </div>
+                        <div class="structure-connection" style="background-color: var(--accent-color);"></div>
+                        <div class="structure-arrow" style="border-top: 10px solid var(--accent-color);"></div>
+                        <div class="structure-branch">
+                            <div class="structure-branch-node clickable-node" data-structure="sole-trader" style="background-color: var(--sole-trader-light); border: 2px solid var(--sole-trader-color);">
+                                <strong>Sole Trader</strong><br>
+                                个体经营者
+                            </div>
+                            <div class="structure-branch-node clickable-node" data-structure="partnership" style="background-color: var(--partnership-light); border: 2px solid var(--partnership-color);">
+                                <strong>Partnership</strong><br>
+                                合伙企业
+                            </div>
+                            <div class="structure-branch-node clickable-node" data-structure="company" style="background-color: var(--company-light); border: 2px solid var(--company-color);">
+                                <strong>Company</strong><br>
+                                公司
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="structure-popup" id="structure-info-popup">
+                        <div class="popup-content">
+                            <div class="popup-header">
+                                <h3 id="popup-title">Structure Information</h3>
+                                <button class="popup-close" id="popup-close">&times;</button>
+                            </div>
+                            <div class="popup-body" id="popup-body">
+                                <!-- Content will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="structure-info-templates" style="display: none;">
+                    <div id="info-unincorporated">
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <h4>Unincorporated Business Structures</h4>
+                                <p>Unincorporated business structures do not involve the creation of a separate legal entity. The business and its owners are considered the same legal entity.</p>
+                                <p><strong>Key characteristics:</strong></p>
+                                <ul>
+                                    <li>No separate legal identity from owners</li>
+                                    <li>Unlimited liability (owners personally liable)</li>
+                                    <li>Simpler to establish and operate</li>
+                                    <li>Fewer reporting requirements</li>
+                                </ul>
+                            </div>
+                            <div class="chinese">
+                                <h4>非公司型企业结构</h4>
+                                <p>非公司型企业结构不涉及创建独立的法律实体。企业及其所有者被视为同一法律实体。</p>
+                                <p><strong>主要特点：</strong></p>
+                                <ul>
+                                    <li>与所有者没有独立的法律身份</li>
+                                    <li>无限责任（所有者个人负责）</li>
+                                    <li>建立和运营更简单</li>
+                                    <li>较少的报告要求</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="info-incorporated">
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <h4>Incorporated Business Structures</h4>
+                                <p>Incorporated businesses are separate legal entities from their owners. They are created through a formal registration process under the Corporations Act 2001 (Cth).</p>
+                                <p><strong>Key characteristics:</strong></p>
+                                <ul>
+                                    <li>Separate legal identity from owners</li>
+                                    <li>Limited liability (generally)</li>
+                                    <li>More complex regulatory requirements</li>
+                                    <li>Perpetual succession</li>
+                                    <li>Enhanced ability to raise capital</li>
+                                </ul>
+                            </div>
+                            <div class="chinese">
+                                <h4>公司型企业结构</h4>
+                                <p>公司型企业是独立于其所有者的法律实体。它们是通过《2001年公司法》(联邦)下的正式注册程序创建的。</p>
+                                <p><strong>主要特点：</strong></p>
+                                <ul>
+                                    <li>与所有者有独立的法律身份</li>
+                                    <li>有限责任（通常）</li>
+                                    <li>更复杂的监管要求</li>
+                                    <li>永久存续</li>
+                                    <li>提高筹集资金的能力</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="info-sole-trader">
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <h4>Sole Trader</h4>
+                                <p>A sole trader is the simplest business structure, where an individual runs the business in their personal capacity.</p>
+                                <p><strong>Example:</strong> A freelance graphic designer operating under their own name.</p>
+                                <button class="interactive-button" data-action="navigate" data-target="unincorporated">Learn more about Sole Traders</button>
+                            </div>
+                            <div class="chinese">
+                                <h4>个体经营者</h4>
+                                <p>个体经营者是最简单的企业结构，个人以个人身份经营企业。</p>
+                                <p><strong>示例：</strong> 以自己名义经营的自由职业平面设计师。</p>
+                                <button class="interactive-button" data-action="navigate" data-target="unincorporated">了解更多关于个体经营者的信息</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="info-partnership">
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <h4>Partnership</h4>
+                                <p>A partnership is a business structure where two or more individuals or entities carry on a business together with a view to profit.</p>
+                                <p><strong>Example:</strong> Two architects joining forces to form an architectural firm.</p>
+                                <button class="interactive-button" data-action="navigate" data-target="unincorporated">Learn more about Partnerships</button>
+                            </div>
+                            <div class="chinese">
+                                <h4>合伙企业</h4>
+                                <p>合伙企业是一种企业结构，两个或多个个人或实体共同开展业务以获取利润。</p>
+                                <p><strong>示例：</strong> 两位建筑师联合组建建筑事务所。</p>
+                                <button class="interactive-button" data-action="navigate" data-target="unincorporated">了解更多关于合伙企业的信息</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="info-company">
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <h4>Company</h4>
+                                <p>A company is a business structure that creates a legal entity separate from its shareholders. It provides limited liability and perpetual succession.</p>
+                                <p><strong>Example:</strong> A tech startup registered as ABC Pty Ltd with several founders as shareholders.</p>
+                                <button class="interactive-button" data-action="navigate" data-target="incorporated">Learn more about Companies</button>
+                            </div>
+                            <div class="chinese">
+                                <h4>公司</h4>
+                                <p>公司是一种创建独立于其股东的法律实体的企业结构。它提供有限责任和永久存续。</p>
+                                <p><strong>示例：</strong> 一家注册为ABC Pty Ltd的科技初创公司，几位创始人作为股东。</p>
+                                <button class="interactive-button" data-action="navigate" data-target="incorporated">了解更多关于公司的信息</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Main Factors to Consider (主要考虑因素)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <ul class="feature-list">
+                            <li>Purpose, nature, and objectives of the business</li>
+                            <li>Formalities and establishment costs</li>
+                            <li>Access to finance and capital</li>
+                            <li>Management structure and control</li>
+                            <li>Taxation advantages and disadvantages</li>
+                            <li>Extent of liability (protection of personal assets)</li>
+                            <li>Privacy and confidentiality requirements</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <ul class="feature-list">
+                            <li>企业的目的、性质和目标</li>
+                            <li>手续和设立成本</li>
+                            <li>融资和资本获取</li>
+                            <li>管理结构和控制权</li>
+                            <li>税收优势和劣势</li>
+                            <li>责任范围（个人资产保护）</li>
+                            <li>隐私和保密要求</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="unincorporated" class="section">
+            <div class="section-header">
+                <div class="section-icon partnership">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Unincorporated Business Structures</h2>
+                    <p>非公司型企业结构</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Unincorporated Businesses (非公司型企业)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>Unincorporated business structures are simpler forms of business organization that do not involve the creation of a separate legal entity. The two main types are sole traders and partnerships.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>非公司型企业结构是较为简单的企业组织形式，不涉及创建独立法律实体。主要有两种类型：个体经营者和合伙企业。</p>
+                    </div>
+                </div>
+                
+                <div class="business-structure-container">
+                    <div class="structure-card sole-trader">
+                        <div class="structure-card-header">
+                            <h3>Sole Trader</h3>
+                            <p>个体经营者</p>
+                        </div>
+                        <div class="structure-card-content">
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p>A sole trader is a person carrying on business as an independent individual, who owns and controls the business.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p>个体经营者是作为独立个体经营业务的人，拥有并控制该企业。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="structure-pros-cons">
+                                <div class="pros">
+                                    <h4>Advantages <span class="chinese-small">优势</span></h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="english-text">Easy to establish and operate with minimal formalities</span>
+                                            <span class="chinese-text">设立和经营简单，手续最少</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Full control over the business</span>
+                                            <span class="chinese-text">对企业拥有完全控制权</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">All profits belong to the owner</span>
+                                            <span class="chinese-text">所有利润归所有者所有</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Privacy and minimal disclosure requirements</span>
+                                            <span class="chinese-text">隐私保护和最少的信息披露要求</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="cons">
+                                    <h4>Disadvantages <span class="chinese-small">劣势</span></h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="english-text">Unlimited personal liability for business debts</span>
+                                            <span class="chinese-text">对企业债务承担无限个人责任</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Limited access to capital and finance</span>
+                                            <span class="chinese-text">资本和融资渠道有限</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Business ends with the death of the sole trader</span>
+                                            <span class="chinese-text">个体经营者死亡时企业终止</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Limited ability to share risks</span>
+                                            <span class="chinese-text">分担风险的能力有限</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="structure-card partnership">
+                        <div class="structure-card-header">
+                            <h3>Partnership</h3>
+                            <p>合伙企业</p>
+                        </div>
+                        <div class="structure-card-content">
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p>A partnership exists between persons carrying on a business in common with a view to profit. In Australia, a partnership is generally limited to a maximum of 20 partners.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p>合伙企业是指两个或多个人共同开展业务以赚取利润。在澳大利亚，合伙企业通常最多可有20名合伙人。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="structure-pros-cons">
+                                <div class="pros">
+                                    <h4>Advantages <span class="chinese-small">优势</span></h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="english-text">Relatively easy to establish with a partnership agreement</span>
+                                            <span class="chinese-text">通过合伙协议相对容易建立</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Shared financial resources and expertise</span>
+                                            <span class="chinese-text">共享财务资源和专业知识</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Shared responsibilities and workload</span>
+                                            <span class="chinese-text">共享责任和工作量</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Potential for income splitting</span>
+                                            <span class="chinese-text">收入分配的可能性</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="cons">
+                                    <h4>Disadvantages <span class="chinese-small">劣势</span></h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="english-text">Joint and several liability for partnership debts</span>
+                                            <span class="chinese-text">对合伙企业债务承担连带责任</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Each partner is liable for the actions of other partners</span>
+                                            <span class="chinese-text">每个合伙人对其他合伙人的行为负责</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Partnership dissolves when partners change</span>
+                                            <span class="chinese-text">合伙人变更时合伙企业解散</span>
+                                        </li>
+                                        <li>
+                                            <span class="english-text">Potential for disputes between partners</span>
+                                            <span class="chinese-text">合伙人之间可能产生争议</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Key Difference: Legal Identity (关键区别：法律身份)</h4>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>The most critical distinction between unincorporated and incorporated business structures is the concept of a separate legal entity:</p>
+                            <ul>
+                                <li><strong>Unincorporated businesses</strong> (sole traders and partnerships) are not separate legal entities from their owners.</li>
+                                <li>This means the business owners are personally liable for all business debts and obligations.</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <p>非公司型企业和公司型企业结构之间最关键的区别是独立法律实体的概念：</p>
+                            <ul>
+                                <li><strong>非公司型企业</strong>（个体经营者和合伙企业）与其所有者没有独立的法律身份。</li>
+                                <li>这意味着企业所有者个人要对所有企业债务和义务负责。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="incorporated" class="section">
+            <div class="section-header">
+                <div class="section-icon company">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Incorporated Business Structures</h2>
+                    <p>公司型企业结构</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Companies (公司)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>A company is an association of persons who satisfy the requirements in the <span class="key-term">Corporations Act 2001 (Cth)</span> for registration. It is a separate legal entity from its shareholders and directors.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>公司是满足<span class="key-term">《2001年公司法》(联邦)</span>注册要求的人员组成的团体。它是一个独立于其股东和董事的法律实体。</p>
+                    </div>
+                </div>
+                
+                <div class="info-card company">
+                    <h3>Types of Companies (公司类型)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <h4>Proprietary (Private) Companies (Pty Ltd)</h4>
+                            <ul class="feature-list">
+                                <li>Maximum of 50 non-employee shareholders</li>
+                                <li>Cannot raise funds from the public</li>
+                                <li>Less regulatory burden than public companies</li>
+                                <li>Most suitable for small to medium businesses</li>
+                                <li>Financial secrecy for small proprietary companies</li>
+                            </ul>
+                            
+                            <h4>Public Companies (Ltd)</h4>
+                            <ul class="feature-list">
+                                <li>No limit on the number of shareholders</li>
+                                <li>May be listed on the Australian Securities Exchange (ASX)</li>
+                                <li>Can raise funds from the public</li>
+                                <li>Subject to more extensive financial reporting and disclosure</li>
+                                <li>Greater regulatory requirements</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <h4>私人有限公司 (Pty Ltd)</h4>
+                            <ul class="feature-list">
+                                <li>最多50名非雇员股东</li>
+                                <li>不能从公众筹集资金</li>
+                                <li>监管负担比公众公司少</li>
+                                <li>最适合中小型企业</li>
+                                <li>小型私人公司享有财务保密</li>
+                            </ul>
+                            
+                            <h4>公众有限公司 (Ltd)</h4>
+                            <ul class="feature-list">
+                                <li>对股东数量没有限制</li>
+                                <li>可在澳大利亚证券交易所(ASX)上市</li>
+                                <li>可以从公众筹集资金</li>
+                                <li>受更广泛的财务报告和披露要求约束</li>
+                                <li>更多的监管要求</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card company">
+                    <h3>Other Company Types (其他公司类型)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <h4>Limited Companies (Ltd)</h4>
+                            <p>A limited company is one where the liability of members is limited to the amount they have invested or guaranteed. This is the most common type of company and includes both proprietary and public companies.</p>
+                            <div class="expandable-info" data-info="limited-company">
+                                <button class="info-expand-btn">Learn More</button>
+                                <div class="expanded-content">
+                                    <p><strong>Example:</strong> If a limited company has debts of $1 million but assets of only $300,000, the shareholders typically lose only their investment and are not personally liable for the remaining $700,000 debt.</p>
+                                </div>
+                            </div>
+                            
+                            <h4>Unlimited Companies</h4>
+                            <p>An unlimited company is a corporate entity where the liability of members is not limited - meaning the shareholders are liable for all the debts of the company if it fails.</p>
+                            <div class="expandable-info" data-info="unlimited-company">
+                                <button class="info-expand-btn">Learn More</button>
+                                <div class="expanded-content">
+                                    <p><strong>Key point:</strong> Unlimited companies are rare in Australia. They are sometimes used for specific purposes where the shareholders are comfortable with unlimited liability, such as within corporate groups where a parent company controls the subsidiary.</p>
+                                </div>
+                            </div>
+                            
+                            <h4>No Liability Companies (NL)</h4>
+                            <p>A specialized type of company used almost exclusively in the mining industry. Shareholders have no liability to pay calls on their shares and can forfeit their shares if they do not pay calls.</p>
+                            <div class="expandable-info" data-info="no-liability-company">
+                                <button class="info-expand-btn">Learn More</button>
+                                <div class="expanded-content">
+                                    <p><strong>Special feature:</strong> This unique structure acknowledges the speculative nature of mining ventures. It allows investors to limit their financial commitment to the mining project without being required to pay any unpaid amounts on their shares.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chinese">
+                            <h4>有限公司 (Ltd)</h4>
+                            <p>有限公司是指成员的责任仅限于他们已投资或担保的金额。这是最常见的公司类型，包括私人有限公司和公众有限公司。</p>
+                            <div class="expandable-info" data-info="limited-company-cn">
+                                <button class="info-expand-btn">了解更多</button>
+                                <div class="expanded-content">
+                                    <p><strong>示例：</strong> 如果一家有限公司有100万澳元的债务，但资产只有30万澳元，股东通常只损失他们的投资，而不对剩余的70万澳元债务承担个人责任。</p>
+                                </div>
+                            </div>
+                            
+                            <h4>无限公司</h4>
+                            <p>无限公司是一种成员责任不受限制的公司实体 - 这意味着，如果公司失败，股东对公司的所有债务负责。</p>
+                            <div class="expandable-info" data-info="unlimited-company-cn">
+                                <button class="info-expand-btn">了解更多</button>
+                                <div class="expanded-content">
+                                    <p><strong>要点：</strong> 无限公司在澳大利亚很少见。它们有时用于股东对无限责任感到满意的特定目的，例如在母公司控制子公司的公司集团内。</p>
+                                </div>
+                            </div>
+                            
+                            <h4>无责任公司 (NL)</h4>
+                            <p>一种几乎专门用于采矿业的专业公司类型。股东没有义务支付股份催缴，如果不支付催缴，可以放弃他们的股份。</p>
+                            <div class="expandable-info" data-info="no-liability-company-cn">
+                                <button class="info-expand-btn">了解更多</button>
+                                <div class="expanded-content">
+                                    <p><strong>特殊特点：</strong> 这种独特的结构承认了采矿企业的投机性质。它允许投资者限制他们对采矿项目的财务承诺，而不需要支付他们股份上的任何未付金额。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card company">
+                    <h3>Key Features of Companies (公司的主要特点)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <ul class="feature-list">
+                                <li><strong>Separate Legal Entity:</strong> A company exists as a separate legal entity from its owners and controllers</li>
+                                <li><strong>Limited Liability:</strong> Shareholders' liability is limited to the amount they have invested</li>
+                                <li><strong>Perpetual Succession:</strong> A company continues to exist regardless of changes in ownership</li>
+                                <li><strong>Corporate Tax Rate:</strong> Companies are taxed at a flat rate</li>
+                                <li><strong>Management Structure:</strong> Management is separated from ownership (shareholders elect directors)</li>
+                                <li><strong>Regulatory Compliance:</strong> Subject to the requirements of the Corporations Act 2001 (Cth)</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <ul class="feature-list">
+                                <li><strong>独立法律实体：</strong> 公司作为一个独立于其所有者和控制者的法律实体存在</li>
+                                <li><strong>有限责任：</strong> 股东的责任仅限于他们已投资的金额</li>
+                                <li><strong>永久存续：</strong> 公司继续存在，无论所有权如何变化</li>
+                                <li><strong>公司税率：</strong> 公司按统一税率纳税</li>
+                                <li><strong>管理结构：</strong> 管理与所有权分离（股东选举董事）</li>
+                                <li><strong>监管合规：</strong> 受《2001年公司法》(联邦)要求的约束</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="structure-pros-cons">
+                    <div class="pros">
+                        <h4>Advantages of Companies (公司的优势)</h4>
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <ul class="feature-list">
+                                    <li>Limited liability protection for shareholders</li>
+                                    <li>Enhanced ability to raise capital</li>
+                                    <li>Perpetual existence independent of owners</li>
+                                    <li>Potential tax advantages</li>
+                                    <li>Professional image and credibility</li>
+                                    <li>Ownership is easily transferable through share transfers</li>
+                                </ul>
+                            </div>
+                            <div class="chinese">
+                                <ul class="feature-list">
+                                    <li>为股东提供有限责任保护</li>
+                                    <li>提高筹集资金的能力</li>
+                                    <li>独立于所有者的永久存在</li>
+                                    <li>潜在的税收优势</li>
+                                    <li>专业形象和可信度</li>
+                                    <li>所有权可通过股份转让轻松转移</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cons">
+                        <h4>Disadvantages of Companies (公司的劣势)</h4>
+                        <div class="bilingual-text">
+                            <div class="english">
+                                <ul class="feature-list">
+                                    <li>More complex and costly to establish and maintain</li>
+                                    <li>Greater regulatory compliance requirements</li>
+                                    <li>Less privacy due to public reporting requirements</li>
+                                    <li>Complex taxation arrangements</li>
+                                    <li>Potential for double taxation (company and dividend tax)</li>
+                                    <li>Personal guarantees may still be required for new companies</li>
+                                </ul>
+                            </div>
+                            <div class="chinese">
+                                <ul class="feature-list">
+                                    <li>设立和维护更复杂且成本更高</li>
+                                    <li>更多的监管合规要求</li>
+                                    <li>由于公共报告要求，隐私较少</li>
+                                    <li>复杂的税收安排</li>
+                                    <li>潜在的双重征税（公司税和股息税）</li>
+                                    <li>新公司可能仍需要个人担保</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="entity" class="section">
+            <div class="section-header">
+                <div class="section-icon separate-legal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 10h-3v3h-2v-3H8v-2h3V8h2v3h3v2z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>The Concept of Separate Legal Entity</h2>
+                    <p>独立法律实体的概念</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Separate Legal Entity (独立法律实体)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>A fundamental principle of company law is that upon incorporation, a company becomes a separate legal entity, distinct from its shareholders, directors, and officers. This principle was established in the landmark case of <span class="key-term">Salomon v Salomon & Co Ltd</span> [1897].</p>
+                    </div>
+                    <div class="chinese">
+                        <p>公司法的一个基本原则是，公司在注册成立后成为一个独立的法律实体，与其股东、董事和高管不同。这一原则是在具有里程碑意义的<span class="key-term">Salomon v Salomon & Co Ltd</span> [1897]案例中确立的。</p>
+                    </div>
+                </div>
+                
+                <div class="info-card separate-legal">
+                    <h3>Legal Characteristics (法律特征)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>As a separate legal entity, a company:</p>
+                            <ul class="feature-list">
+                                <li>Can enter into contracts in its own name</li>
+                                <li>Can sue and be sued in its own name</li>
+                                <li>Can own, acquire, and dispose of property</li>
+                                <li>Continues to exist despite changes in its membership (perpetual succession)</li>
+                                <li>Is liable for its own debts and obligations</li>
+                                <li>Can limit the liability of its members</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <p>作为独立法律实体，公司：</p>
+                            <ul class="feature-list">
+                                <li>可以以自己的名义签订合同</li>
+                                <li>可以以自己的名义起诉和被起诉</li>
+                                <li>可以拥有、获取和处置财产</li>
+                                <li>尽管成员发生变化，但继续存在（永久存续）</li>
+                                <li>对自身的债务和义务负责</li>
+                                <li>可以限制其成员的责任</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Practical Example (实际例子)</h4>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p><strong>Scenario:</strong> A company borrows $50,000 from a bank to purchase equipment.</p>
+                            <ul>
+                                <li><strong>Unincorporated business:</strong> The owner would be personally liable for repaying the loan.</li>
+                                <li><strong>Company:</strong> The company itself is responsible for repaying the loan. If the company cannot pay, the shareholders generally lose only their investment, not their personal assets (subject to exceptions).</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <p><strong>场景：</strong> 一家公司从银行借款5万澳元购买设备。</p>
+                            <ul>
+                                <li><strong>非公司型企业：</strong> 所有者将个人负责偿还贷款。</li>
+                                <li><strong>公司：</strong> 公司本身负责偿还贷款。如果公司无法支付，股东通常只会损失他们的投资，而不是他们的个人资产（但有例外情况）。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="veil" class="section">
+            <div class="section-header">
+                <div class="section-icon corporate-veil">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>The Corporate Veil</h2>
+                    <p>公司面纱</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3>The Corporate Veil (公司面纱)</h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>The "corporate veil" is a legal metaphor that describes the separation between a company and its members. It is the artificial screen that separates the legal identity of a company from its shareholders and directors.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>"公司面纱"是一个法律隐喻，描述了公司与其成员之间的分离。它是将公司的法律身份与其股东和董事分开的人为屏障。</p>
+                    </div>
+                </div>
+                
+                <div class="corporate-veil-diagram">
+                    <div class="veil-container">
+                        <div class="entity-person">
+                            <svg class="entity-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8e44ad">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                            <div>Shareholders/Directors</div>
+                            <div>股东/董事</div>
+                        </div>
+                        
+                        <div class="veil"></div>
+                        
+                        <div class="entity-company">
+                            <svg class="entity-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#3498db">
+                                <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                            </svg>
+                            <div>Company</div>
+                            <div>公司</div>
+                        </div>
+                        
+                        <button class="veil-button" id="veil-toggle">Lift Veil</button>
+                    </div>
+                </div>
+                
+                <div class="info-card corporate-veil">
+                    <h3>Lifting the Corporate Veil (揭开公司面纱)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p>"Lifting" or "piercing" the corporate veil refers to the circumstances in which courts will look behind the corporate structure and hold the shareholders or directors personally liable for the company's actions or debts.</p>
+                            <p>Courts may lift the corporate veil in exceptional circumstances, such as:</p>
+                            <ul class="feature-list">
+                                <li>Fraud or improper conduct</li>
+                                <li>Attempts to evade legal obligations</li>
+                                <li>Where the company is a mere façade or sham</li>
+                                <li>In the interests of justice</li>
+                                <li>Where required by statute</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <p>"揭开"或"刺穿"公司面纱是指法院会在某些情况下看穿公司结构，让股东或董事个人对公司的行为或债务负责。</p>
+                            <p>法院可能在以下特殊情况下揭开公司面纱：</p>
+                            <ul class="feature-list">
+                                <li>欺诈或不当行为</li>
+                                <li>试图逃避法律义务</li>
+                                <li>公司只是一个表面或虚假实体</li>
+                                <li>为了公正</li>
+                                <li>法规要求时</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card corporate-veil">
+                    <h3>Effects of Lifting the Corporate Veil (揭开公司面纱的效果)</h3>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <ul class="feature-list">
+                                <li>The separate legal entity principle is disregarded</li>
+                                <li>Shareholders or directors may be held personally liable for company debts</li>
+                                <li>Personal assets of shareholders or directors may be at risk</li>
+                                <li>The limited liability protection is lost</li>
+                            </ul>
+                        </div>
+                        <div class="chinese">
+                            <ul class="feature-list">
+                                <li>独立法律实体原则被忽略</li>
+                                <li>股东或董事可能要对公司债务承担个人责任</li>
+                                <li>股东或董事的个人资产可能面临风险</li>
+                                <li>有限责任保护丧失</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cases" class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background-color: var(--separate-legal-color);">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                </div>
+                <div class="section-title">
+                    <h2>Landmark Case Law</h2>
+                    <p>具有里程碑意义的判例法</p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+<div class="case-example" style="border-left-color: var(--separate-legal-color);">
+                    <h4>Salomon v Salomon & Co Ltd [1897] AC 22</h4>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p class="case-detail"><strong>Facts:</strong> Mr. Salomon ran a boot manufacturing business as a sole trader. He formed a company, Salomon & Co Ltd, and sold his business to the company. He was the major shareholder, a director, and also a secured creditor of the company. When the company failed, the value of its assets was insufficient to pay both Mr. Salomon as a secured creditor and the company's other unsecured creditors.</p>
+                            <p class="case-detail"><strong>Issue:</strong> Whether Mr. Salomon was personally liable for the debts of the company, or whether the company was a separate legal entity.</p>
+                            <p class="case-detail"><strong>Held:</strong> The House of Lords held that a company, once incorporated, is a separate legal entity distinct from its shareholders, even if one shareholder holds virtually all the shares and controls the company. Mr. Salomon was not liable for the company's debts. His status as a secured creditor was valid and took priority over unsecured creditors.</p>
+                            <p class="case-detail"><strong>Significance:</strong> This case established the fundamental principle that a company is a separate legal entity from its members, which remains a cornerstone of company law today.</p>
+                        </div>
+                        <div class="chinese">
+                            <p class="case-detail"><strong>事实：</strong> Salomon先生作为个体经营者经营制靴业务。他成立了Salomon & Co Ltd公司，并将他的业务卖给了该公司。他是主要股东、董事，也是公司的有担保债权人。当公司失败时，其资产价值不足以同时支付Salomon先生作为有担保债权人和公司的其他无担保债权人。</p>
+                            <p class="case-detail"><strong>争议点：</strong> Salomon先生是否个人对公司债务负责，或者公司是否为独立的法律实体。</p>
+                            <p class="case-detail"><strong>判决：</strong> 上议院认为，公司一旦注册成立，就是一个独立于其股东的法律实体，即使一个股东持有几乎所有股份并控制公司。Salomon先生不对公司债务负责。他作为有担保债权人的地位是有效的，并优先于无担保债权人。</p>
+                            <p class="case-detail"><strong>意义：</strong> 该案确立了公司是独立于其成员的法律实体这一基本原则，这一原则至今仍然是公司法的基石。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-example" style="border-left-color: var(--corporate-veil-color);">
+                    <h4>Gilford Motor Co Ltd v Horne [1933] Ch 935</h4>
+                    <div class="bilingual-text">
+                        <div class="english">
+                            <p class="case-detail"><strong>Facts:</strong> Mr. Horne was a former employee of Gilford Motor Company who had signed an employment contract containing a clause preventing him from soliciting the company's customers after leaving. After leaving Gilford, Horne formed a company and began soliciting Gilford's customers through this new company.</p>
+                            <p class="case-detail"><strong>Issue:</strong> Whether the formation of the company was merely a device to avoid Horne's contractual obligations.</p>
+                            <p class="case-detail"><strong>Held:</strong> The court held that the company was a "mere cloak or sham" formed to enable Horne to evade his contractual obligations. The court issued an injunction against both Horne and his company, effectively lifting the corporate veil.</p>
+                            <p class="case-detail"><strong>Significance:</strong> This case established that the courts may lift the corporate veil when a company is formed as a mere façade or device to evade existing legal obligations.</p>
+                        </div>
+                        <div class="chinese">
+                            <p class="case-detail"><strong>事实：</strong> Horne先生是Gilford汽车公司的前雇员，他签署了一份雇佣合同，其中包含一项条款，禁止他在离职后招揽公司的客户。离开Gilford后，Horne成立了一家公司，并开始通过这家新公司招揽Gilford的客户。</p>
+                            <p class="case-detail"><strong>争议点：</strong> 公司的成立是否仅仅是为了避免Horne的合同义务的工具。</p>
+                            <p class="case-detail"><strong>判决：</strong> 法院认为，该公司只是一个"外壳或伪装"，成立的目的是使Horne能够逃避合同义务。法院对Horne和他的公司发出禁令，有效地揭开了公司面纱。</p>
+                            <p class="case-detail"><strong>意义：</strong> 该案确立了当公司被成立为逃避现有法律义务的表面形式或工具时，法院可以揭开公司面纱。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="#" class="back-to-top" id="back-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </a>
+
+    <footer>
+        <p>Choice of Business Structure - UNSW Preparation Program - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Add dynamic elements to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const symbols = 12;
+            
+            for (let i = 0; i < symbols; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 40 + 20;
+                
+                div.style.position = 'absolute';
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.opacity = '0.3';
+                div.style.background = 'rgba(255, 255, 255, 0.5)';
+                
+                // Create different symbols for business structures
+                const symbolType = Math.floor(Math.random() * 4);
+                if (symbolType === 0) { // Building
+                    div.style.borderRadius = '0';
+                    div.style.borderBottom = `${size/2}px solid rgba(255, 255, 255, 0.7)`;
+                    div.style.borderLeft = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+                    div.style.borderRight = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+                } else if (symbolType === 1) { // Document
+                    div.style.borderRadius = '0';
+                    div.style.border = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+                    div.style.borderTop = `${size/4}px solid rgba(255, 255, 255, 0.7)`;
+                } else if (symbolType === 2) { // Briefcase
+                    div.style.borderRadius = '0';
+                    div.style.border = `${size/10}px solid rgba(255, 255, 255, 0.7)`;
+                    div.style.borderTop = `${size/6}px solid rgba(255, 255, 255, 0.7)`;
+                } else { // Money
+                    div.style.borderRadius = `${size/4}px`;
+                    div.style.border = `${size/10}px dotted rgba(255, 255, 255, 0.7)`;
+                }
+                
+                div.style.animation = `float ${Math.random() * 6 + 8}s infinite ease-in-out`;
+                div.style.animationDelay = `${Math.random() * 5}s`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Handle navigation
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Scroll to target section
+                    const targetId = button.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Handle scroll animations
+        function setupScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            const backToTop = document.getElementById('back-to-top');
+            
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= window.innerHeight - 100 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Function to handle scroll
+            function handleScroll() {
+                // Show/hide back to top button
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                // Animate sections when they come into view
+                sections.forEach(section => {
+                    if (isInViewport(section)) {
+                        section.classList.add('visible');
+                    }
+                });
+                
+                // Update active nav button based on scroll position
+                let closestSection = null;
+                let closestDistance = Infinity;
+                
+                sections.forEach(section => {
+                    const distance = Math.abs(section.getBoundingClientRect().top - 100);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestSection = section;
+                    }
+                });
+                
+                if (closestSection) {
+                    const targetId = closestSection.id;
+                    document.querySelectorAll('.nav-button').forEach(btn => {
+                        if (btn.getAttribute('data-target') === targetId) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                }
+            }
+            
+            // Initial call to handleScroll
+            handleScroll();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Back to top button click handler
+            backToTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Corporate veil interaction
+        function setupVeilInteraction() {
+            const veilButton = document.getElementById('veil-toggle');
+            const veil = document.querySelector('.veil');
+            
+            veilButton.addEventListener('click', function() {
+                if (veil.classList.contains('lifted')) {
+                    veil.classList.remove('lifted');
+                    veilButton.textContent = 'Lift Veil';
+                } else {
+                    veil.classList.add('lifted');
+                    veilButton.textContent = 'Lower Veil';
+                }
+            });
+        }
+        
+        // Interactive business structure diagram
+        function setupBusinessStructureDiagram() {
+            const clickableNodes = document.querySelectorAll('.clickable-node');
+            const popup = document.getElementById('structure-info-popup');
+            const popupTitle = document.getElementById('popup-title');
+            const popupBody = document.getElementById('popup-body');
+            const popupClose = document.getElementById('popup-close');
+            const templates = document.getElementById('structure-info-templates');
+            
+            if (!popup || !clickableNodes.length) return;
+            
+            // Add click event to nodes
+            clickableNodes.forEach(node => {
+                node.addEventListener('click', function() {
+                    const structureType = this.getAttribute('data-structure');
+                    const template = document.getElementById(`info-${structureType}`);
+                    
+                    if (template) {
+                        // Apply highlight effect
+                        this.classList.add('highlight-border');
+                        setTimeout(() => {
+                            this.classList.remove('highlight-border');
+                        }, 2000);
+                        
+                        // Set popup content
+                        popupTitle.textContent = this.querySelector('strong').textContent;
+                        popupBody.innerHTML = template.innerHTML;
+                        
+                        // Show popup
+                        popup.style.display = 'block';
+                        setTimeout(() => {
+                            popup.classList.add('active');
+                        }, 10);
+                        
+                        // Setup any interactive buttons in the popup
+                        setupPopupButtons();
+                    }
+                });
+            });
+            
+            // Close popup
+            popupClose.addEventListener('click', function() {
+                popup.classList.remove('active');
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 300);
+            });
+            
+            // Setup popup navigation buttons
+            function setupPopupButtons() {
+                const buttons = popupBody.querySelectorAll('.interactive-button');
+                
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const action = this.getAttribute('data-action');
+                        const target = this.getAttribute('data-target');
+                        
+                        if (action === 'navigate') {
+                            // Close popup
+                            popup.classList.remove('active');
+                            setTimeout(() => {
+                                popup.style.display = 'none';
+                            }, 300);
+                            
+                            // Navigate to target section
+                            const targetSection = document.getElementById(target);
+                            if (targetSection) {
+                                window.scrollTo({
+                                    top: targetSection.offsetTop - 100,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        }
+        
+        // Setup expandable info sections
+        function setupExpandableInfo() {
+            const expandButtons = document.querySelectorAll('.info-expand-btn');
+            
+            expandButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    
+                    if (content.classList.contains('active')) {
+                        content.classList.remove('active');
+                        this.textContent = this.textContent.replace('Hide', 'Learn More');
+                    } else {
+                        content.classList.add('active');
+                        this.textContent = this.textContent.replace('Learn More', 'Hide');
+                    }
+                });
+            });
+        }
+        
+        // Setup tooltips for concept explanations
+        function addConceptTooltips() {
+            // Find key terms and add tooltips
+            const keyTerms = {
+                'separate legal entity': {
+                    en: 'A company exists independently from its owners and has its own rights and obligations.',
+                    cn: '公司独立于其所有者存在，并拥有自己的权利和义务。'
+                },
+                'limited liability': {
+                    en: 'Owners\' responsibility for company debts is limited to the amount they invested.',
+                    cn: '所有者对公司债务的责任仅限于他们投资的金额。'
+                },
+                'corporate veil': {
+                    en: 'The legal separation between a company and its shareholders that shields them from personal liability.',
+                    cn: '公司与其股东之间的法律分离，使股东免于个人责任。'
+                },
+                'lifting the corporate veil': {
+                    en: 'When courts look beyond the company structure to hold shareholders or directors personally liable.',
+                    cn: '当法院超越公司结构，让股东或董事个人负责时。'
+                },
+                'perpetual succession': {
+                    en: 'A company continues to exist despite changes in ownership or management.',
+                    cn: '尽管所有权或管理层发生变化，公司仍继续存在。'
+                }
+            };
+
+            // Clear any existing tooltips first to avoid duplicates
+            document.querySelectorAll('.concept-tooltip').forEach(tooltip => {
+                const parent = tooltip.parentNode;
+                parent.innerHTML = parent.innerHTML.replace(/<span class="concept-tooltip">(.+?)<\/span>/g, '$1');
+            });
+
+            // Search for these key terms in paragraphs, list items, and headings
+            document.querySelectorAll('p, li, h4').forEach(element => {
+                // Skip elements that are inside tooltip templates
+                if (element.closest('#structure-info-templates') || 
+                    element.closest('.tooltip-text') ||
+                    element.closest('.expanded-content')) {
+                    return;
+                }
+
+                // Process each key term
+                for (const term in keyTerms) {
+                    // Create a safe regex pattern
+                    const escapeRegExp = (string) => {
+                        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    };
+                    const pattern = new RegExp(`\\b${escapeRegExp(term)}\\b`, 'gi');
+
+                    // Only add tooltip if term exists and not already tooltipped
+                    if (pattern.test(element.innerHTML) &&
+                        !element.innerHTML.includes(`class="concept-tooltip">${term}`)) {
+
+                        // Replace only the term, not HTML tags
+                        let replaced = false;
+                        element.innerHTML = element.innerHTML.replace(pattern, function(match) {
+                            if (!replaced) {
+                                replaced = true;
+                                return `<span class="concept-tooltip">${match}<span class="tooltip-text">${keyTerms[term].en}<br><span style="color:#ccc">${keyTerms[term].cn}</span></span></span>`;
+                            }
+                            return match; // Don't replace subsequent occurrences in the same element
+                        });
+                    }
+                }
+            });
+
+            // Position tooltips correctly after they're created
+            setTimeout(positionAllTooltips, 200);
+
+            // Also reposition on window resize
+            window.addEventListener('resize', positionAllTooltips);
+        }
+
+        function positionAllTooltips() {
+            document.querySelectorAll('.concept-tooltip').forEach(positionTooltip);
+        }
+        
+        function positionTooltip(tooltip) {
+            // Remove any existing positioning classes
+            tooltip.classList.remove('left-edge', 'right-edge', 'top-edge');
+            
+            const rect = tooltip.getBoundingClientRect();
+            const tooltipText = tooltip.querySelector('.tooltip-text');
+            
+            if (!tooltipText) return;
+            
+            // Reset tooltip styles for measurement
+            tooltipText.style.visibility = 'hidden';
+            tooltipText.style.opacity = '0';
+            
+            // Check if tooltip is near the right edge of the viewport
+            if (rect.right + 140 > window.innerWidth) {
+                tooltip.classList.add('right-edge');
+            }
+            // Check if tooltip is near the left edge of the viewport
+            else if (rect.left < 140) {
+                tooltip.classList.add('left-edge');
+            }
+            
+            // Check if tooltip is near the top of the viewport
+            if (rect.top < 150) {
+                tooltip.classList.add('top-edge');
+            }
+            
+            // Hide the tooltip again
+            tooltipText.style.visibility = '';
+            tooltipText.style.opacity = '';
+            
+            // Add event listeners to reposition on hover
+            tooltip.addEventListener('mouseenter', () => {
+                positionTooltip(tooltip);
+            });
+        }
+        
+        // Enhanced card interactivity
+        function setupCardInteractivity() {
+            const structureCards = document.querySelectorAll('.structure-card');
+            
+            structureCards.forEach(card => {
+                // Add expand button if it doesn't exist
+                if (!card.querySelector('.expand-btn')) {
+                    const expandBtn = document.createElement('button');
+                    expandBtn.className = 'expand-btn';
+                    expandBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>';
+                    card.appendChild(expandBtn);
+                    
+                    // Create details section if it doesn't exist
+                    if (!card.querySelector('.structure-details')) {
+                        const details = document.createElement('div');
+                        details.className = 'structure-details';
+                        
+                        // Determine content based on card type
+                        let content = '';
+                        if (card.classList.contains('sole-trader')) {
+                            content = `
+                                <div class="bilingual-text">
+                                    <div class="english">
+                                        <h4>Key Legal Characteristics:</h4>
+                                        <ul>
+                                            <li>No legal separation between business and owner</li>
+                                            <li>Unlimited personal liability</li>
+                                            <li>Business ends with death of owner</li>
+                                        </ul>
+                                    </div>
+                                    <div class="chinese">
+                                        <h4>主要法律特征：</h4>
+                                        <ul>
+                                            <li>企业与所有者之间没有法律分离</li>
+                                            <li>无限个人责任</li>
+                                            <li>企业随所有者死亡而终止</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                        } else if (card.classList.contains('partnership')) {
+                            content = `
+                                <div class="bilingual-text">
+                                    <div class="english">
+                                        <h4>Key Legal Characteristics:</h4>
+                                        <ul>
+                                            <li>Joint and several liability among partners</li>
+                                            <li>Each partner can bind the partnership</li>
+                                            <li>Partnership dissolves when partners change</li>
+                                        </ul>
+                                    </div>
+                                    <div class="chinese">
+                                        <h4>主要法律特征：</h4>
+                                        <ul>
+                                            <li>合伙人之间连带责任</li>
+                                            <li>每个合伙人都可以约束合伙企业</li>
+                                            <li>合伙人变更时合伙企业解散</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        details.innerHTML = content;
+                        card.appendChild(details);
+                    }
+                    
+                    // Add click event to button
+                    expandBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const details = card.querySelector('.structure-details');
+                        if (details.classList.contains('expanded')) {
+                            details.classList.remove('expanded');
+                            this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>';
+                        } else {
+                            details.classList.add('expanded');
+                            this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19 13H5v-2h14v2z"/></svg>';
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setupHeaderAnimation();
+            setupNavigation();
+            setupScrollAnimations();
+            setupVeilInteraction();
+            setupBusinessStructureDiagram();
+            setupExpandableInfo();
+            addConceptTooltips();
+            setupCardInteractivity();
+            
+            // Position all tooltips after page is fully loaded
+            window.addEventListener('load', positionAllTooltips);
+            
+            // Reposition tooltips when popups are opened
+            document.querySelectorAll('.clickable-node').forEach(node => {
+                node.addEventListener('click', function() {
+                    // Add a slight delay to ensure the popup is visible
+                    setTimeout(positionAllTooltips, 300);
+                });
+            });
+            
+            // Make all sections visible initially
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('visible');
+            });
+        });
+    </script>
+</body>
+</html>

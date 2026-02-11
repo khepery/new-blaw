@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Legal System Practice Questions</title>
+    <style>
+        :root {
+            --primary-color: #1a4971;
+            --secondary-color: #0d6efd;
+            --accent-color: #5e5fb1;
+            --light-accent: #e8eef6;
+            --light-bg: #f5f7fa;
+            --dark-text: #333;
+            --light-text: #fff;
+            --med-text: #666;
+            --highlight: #ffc107;
+            --correct-answer: #4caf50;
+            --section-colors: #e3f2fd, #e8f5e9, #f3e5f5, #fff8e1, #efebe9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Background animation */
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+            padding: 0.5rem;
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .nav-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+        }
+        
+        .nav-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-header h2::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .blockquote {
+            background-color: var(--light-accent);
+            border-left: 5px solid var(--accent-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            border-radius: 8px;
+        }
+        
+        .blockquote.bilingual {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blockquote.bilingual::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background-color: var(--accent-color);
+            opacity: 0.2;
+            border-radius: 50% 0 0 0;
+        }
+        
+        .example-box {
+            background-color: #fff8e1;
+            border: 1px dashed var(--highlight);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .example-box::before {
+            content: 'Example / 例子';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--highlight);
+            color: var(--dark-text);
+            padding: 0.2rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 0 0 0 8px;
+        }
+        
+        .section-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-content h3 {
+            margin: 2rem 0 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 1.5rem;
+        }
+        
+        .english {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 1rem;
+        }
+        
+        .chinese {
+            flex: 1;
+            min-width: 300px;
+            color: var(--med-text);
+            border-left: 1px solid #eee;
+            padding-left: 1rem;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        .icon-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .icon-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .icon-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.3rem;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%235e35b1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            text-decoration: none;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bilingual-text {
+                flex-direction: column;
+            }
+            
+            .english, .chinese {
+                width: 100%;
+                padding: 0;
+            }
+            
+            .chinese {
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Animation for sections */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Special styling for practice questions */
+        .question-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+        
+        .question-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .multiple-choice {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .multiple-choice li {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 5px;
+            background-color: var(--light-accent);
+            transition: background-color 0.3s;
+        }
+        
+        .multiple-choice li:hover {
+            background-color: #e0e7f1;
+        }
+        
+        .multiple-choice li.correct {
+            border-left: 4px solid var(--correct-answer);
+        }
+        
+        .answer-box {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .answer-box.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .show-answer-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .show-answer-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .check-answer-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .check-answer-btn:hover {
+            background-color: #4d4db3;
+        }
+        
+        .question-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .short-answer {
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-top: 1rem;
+        }
+        
+        .scenario {
+            background-color: #e8f4fd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .answer-reveal-container {
+            margin-top: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0;
+            transition: width 0.5s ease;
+        }
+        
+        .correct-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            background-color: var(--correct-answer);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 1rem;
+        }
+        
+        .model-answer {
+            background-color: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        /* Special section icons */
+        #multiple-choice h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a4971"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+        }
+        
+        #short-answer h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%231a4971"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>');
+        }
+.bilingual-table-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bilingual-table-cell .chinese {
+    font-size: 0.9em;
+    color: var(--med-text);
+}
+/* Additional fixes specifically for practice questions page */
+@media (max-width: 768px) {
+  /* Make sure answer boxes don't overflow */
+  .answer-box, .model-answer {
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Fix comparison tables that might overflow */
+  .comparison-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Adjust question boxes to fit mobile */
+  .question-box {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Make sure code samples don't overflow */
+  pre, code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  
+  /* Force long words to break */
+  p, li, td, th, div {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Ensure buttons have enough space */
+  .show-answer-btn, .check-answer-btn {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+  }
+  
+  /* Make multiple choice options stack better */
+  .multiple-choice li {
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+}
+/* Back to Main Button */
+.back-to-main {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color, #1a237e);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-main:hover {
+    background-color: var(--secondary-color, #0d47a1);
+    transform: scale(1.1);
+}
+
+.back-to-main svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mobile adjustments for back button */
+@media (max-width: 768px) {
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+/* Fix for revealed answers overflowing on mobile */
+@media (max-width: 768px) {
+  /* Ensure answer boxes contain their content properly */
+  .answer-box, .model-answer {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: break-word;
+  }
+  
+  /* Make long words break to prevent horizontal overflow */
+  .answer-box h4, .model-answer h3, .model-answer p, .model-answer li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Improve answer box visibility */
+  .answer-box.visible, .model-answer {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Add scrolling indicator for tables */
+  .comparison-table {
+    position: relative;
+  }
+  
+  .comparison-table::after {
+    content: "→ Scroll →";
+    position: absolute;
+    right: 10px;
+    bottom: -20px;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    animation: fadeInOut 2s infinite;
+  }
+  
+  /* Adjust timer and theme toggle buttons for mobile */
+  #study-timer, #theme-toggle {
+    position: fixed;
+    bottom: 10px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    z-index: 100;
+  }
+  
+  #study-timer {
+    left: 10px;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  #theme-toggle {
+    left: 160px;
+    width: auto;
+    white-space: nowrap;
+  }
+  
+  /* Animation for scroll indicator */
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+}
+
+/* Styles for very small screens */
+@media (max-width: 480px) {
+  #study-timer, #theme-toggle {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+  
+  #study-timer {
+    max-width: 120px;
+  }
+  
+  #theme-toggle {
+    left: 140px;
+  }
+  
+  .answer-box.visible, .model-answer {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+    </style>
+<link rel="stylesheet" href="mobile-styles.css">
+</head>
+<body>
+<a href="index.html" class="back-to-main" title="Back to Main Page">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+</a>
+    <header>
+        <div class="header-bg" id="header-animation"></div>
+        <h1>Australian Legal System Practice Questions</h1>
+        <p>澳大利亚法律体系练习题</p>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button" data-target="introduction">Introduction</button>
+            <button class="nav-button" data-target="multiple-choice">Multiple-Choice</button>
+            <button class="nav-button" data-target="short-answer">Short-Answer</button>
+            <button class="nav-button" data-target="practice-tips">Practice Tips</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="introduction" class="section">
+            <div class="section-header">
+                <h2>Introduction (简介)</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>This section contains multiple-choice questions and short-answer practice problems similar to what you'll see on your assessment. Each question includes a detailed explanation of the answer.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>本节包含多项选择题和简答练习题，类似于您在评估中会看到的题目。每个问题都包含详细的答案解释。</p>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        </section>
+<section id="multiple-choice" class="section">
+            <div class="section-header">
+                <h2>Multiple-Choice Questions (多项选择题)</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="question-box" id="q1">
+                    <div class="question-number">1</div>
+                    <div class="question-title">Separation of Powers</div>
+                    
+                    <p>Which of the following statements is true? Under the doctrine of the separation of powers the members of parliaments:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) has the power to interpret laws on education.</li>
+                        <li data-option="B">B) has to follow the precedent set by the High Court of Australia.</li>
+                        <li data-option="C">C) has the power to prevail over state law under s 109 of the Australia Constitution.</li>
+                        <li data-option="D" class="correct">D) has the power to make and amend laws.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q1-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q1-answer">
+                            <h4>Answer: D) has the power to make and amend laws.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Under the doctrine of separation of powers, government power is divided into three branches: legislative (Parliament), executive (Government), and judicial (Courts). The primary function of Parliament is to make and amend laws, while the judiciary interprets laws and the executive administers them.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 根据三权分立原则，政府权力分为三个部门：立法（议会）、行政（政府）和司法（法院）。议会的主要职能是制定和修改法律，而司法部门解释法律，行政部门负责执行法律。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q2">
+                    <div class="question-number">2</div>
+                    <div class="question-title">Sources of Law</div>
+                    
+                    <p>Which of the following CANNOT be referred to as "Common Law"?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Precedent.</li>
+                        <li data-option="B">B) Case law.</li>
+                        <li data-option="C" class="correct">C) Enacted law.</li>
+                        <li data-option="D">D) Judges' decisions.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q2-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q2-answer">
+                            <h4>Answer: C) Enacted law.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> "Enacted law" refers to laws made by Parliament (statutes, legislation), not courts. Common law specifically refers to law developed by courts through judicial decisions (case law/precedent). Enacted law is the opposite of common law—it's law that has been formally written down and passed by a legislative body.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> "成文法"指议会制定的法律（法规、立法），而非法院制定的法律。普通法特指通过司法判决（判例法/先例）由法院发展的法律。成文法是普通法的对立面——它是由立法机构正式书面通过的法律。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q3">
+                    <div class="question-number">3</div>
+                    <div class="question-title">Criminal Law</div>
+                    
+                    <p>Which of the following statements involving criminal law is NOT correct?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Examples of criminal law are the charges of murder, or fraud.</li>
+                        <li data-option="B" class="correct">B) It is a dispute between an individual and another legal entity.</li>
+                        <li data-option="C">C) The Crown (or prosecution) must prove its case beyond reasonable doubt.</li>
+                        <li data-option="D">D) The offender can be punished either by fine or imprisonment.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q3-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q3-answer">
+                            <h4>Answer: B) It is a dispute between an individual and another legal entity.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Criminal law does not involve disputes between individuals or legal entities - that would be civil law. Criminal law involves offenses against the state or society as a whole, with the prosecution representing the Crown (the state). The statement incorrectly describes civil law, not criminal law.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 刑法不涉及个人或法律实体之间的纠纷——那属于民法范畴。刑法涉及针对国家或整个社会的犯罪行为，由检察官代表国家（王室）进行起诉。该说法错误地描述了民法，而非刑法。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q4">
+                    <div class="question-number">4</div>
+                    <div class="question-title">Civil Litigation</div>
+                    
+                    <p>What is the name used for a person who commences a civil action?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Accused.</li>
+                        <li data-option="B">B) Defendant.</li>
+                        <li data-option="C" class="correct">C) Plaintiff.</li>
+                        <li data-option="D">D) Respondent.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q4-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q4-answer">
+                            <h4>Answer: C) Plaintiff.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> In civil litigation, the person who initiates the legal action is called the "plaintiff" (or claimant in some jurisdictions). The "defendant" is the party being sued, the "accused" is a term used in criminal proceedings, and "respondent" is typically used in appeals or some administrative proceedings.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 在民事诉讼中，提起法律诉讼的人被称为"原告"（在某些司法管辖区也称为"申诉人"）。"被告"是被起诉的一方，"被控告人"是刑事诉讼中使用的术语，而"答辩人"通常用于上诉或某些行政程序中。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q5">
+                    <div class="question-number">5</div>
+                    <div class="question-title">Constitutional Inconsistency</div>
+                    
+                    <p>Section 109 of the Australian Constitution provides that if a statute made by a state legislature is inconsistent with a statute made by the federal legislature:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) both the federal law and state law will be made invalid to the extent of the inconsistency.</li>
+                        <li data-option="B">B) both the federal law and state law will be valid.</li>
+                        <li data-option="C" class="correct">C) the federal law shall prevail, and the state law will be invalid to the extent of the inconsistency.</li>
+                        <li data-option="D">D) the state law shall prevail, and the federal law will be invalid to the extent of the inconsistency.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q5-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q5-answer">
+                            <h4>Answer: C) the federal law shall prevail, and the state law will be invalid to the extent of the inconsistency.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> This is directly stated in Section 109 of the Australian Constitution. When a law made by a state parliament conflicts with a law made by the Commonwealth Parliament, the Commonwealth law takes precedence. The state law remains valid in all other respects that don't conflict with the Commonwealth law.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 这直接规定在澳大利亚宪法第109条中。当州议会制定的法律与联邦议会制定的法律相冲突时，联邦法律优先。州法律在与联邦法律不冲突的所有其他方面仍然有效。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q6">
+                    <div class="question-number">6</div>
+                    <div class="question-title">Court Hierarchy</div>
+                    
+                    <p>A decision by the Supreme Court of NSW is binding on the:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Federal Court of Australia.</li>
+                        <li data-option="B">B) High Court of Australia.</li>
+                        <li data-option="C">C) Lower Courts of Queensland.</li>
+                        <li data-option="D" class="correct">D) District Courts of NSW.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q6-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q6-answer">
+                            <h4>Answer: D) District Courts of NSW.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Under the doctrine of precedent, decisions of higher courts bind lower courts in the same jurisdiction. The Supreme Court of NSW is higher than the District Courts of NSW in the same state hierarchy, so its decisions are binding on those lower courts. However, it does not bind courts in other jurisdictions (Queensland) or federal courts, and certainly not the High Court, which is Australia's highest court.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 根据先例原则，高级法院的判决对同一管辖区内的低级法院具有约束力。新南威尔士州最高法院在同一州级体系中高于新南威尔士州的区域法院，因此其判决对这些低级法院具有约束力。然而，它对其他管辖区（昆士兰州）的法院或联邦法院没有约束力，当然也不对澳大利亚最高法院有约束力，后者是澳大利亚的最高法院。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q7">
+                    <div class="question-number">7</div>
+                    <div class="question-title">State Powers</div>
+                    
+                    <p>Establishing laws regarding education, health, and local government are examples under which power?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Executive power.</li>
+                        <li data-option="B" class="correct">B) Residual power.</li>
+                        <li data-option="C">C) Exclusive power.</li>
+                        <li data-option="D">D) Legislature power.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q7-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q7-answer">
+                            <h4>Answer: B) Residual power.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Residual powers are those not specifically assigned to the Commonwealth in the Constitution and therefore remain with the states. Education, health, and local government are not explicitly given to the Commonwealth in the Constitution, so they fall under the residual powers of the states.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 剩余权力是指那些没有在宪法中明确分配给联邦的权力，因此保留给各州。教育、健康和地方政府在宪法中没有明确赋予联邦，因此它们属于各州的剩余权力范围。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q8">
+                    <div class="question-number">8</div>
+                    <div class="question-title">Civil Law Definition</div>
+                    
+                    <p>The term 'civil law' can refer to those legal systems whose laws are based on Roman law. It can also refer to the body of laws:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) that is created by judges</li>
+                        <li data-option="B" class="correct">B) that does not relate to criminal offenses.</li>
+                        <li data-option="C">C) that establish what conduct is criminal and the punishments for engaging in such conduct</li>
+                        <li data-option="D">D) that is based on fairness and justice</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q8-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q8-answer">
+                            <h4>Answer: B) that does not relate to criminal offenses.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> In common law systems like Australia's, civil law refers to the area of law that deals with disputes between individuals or organizations, where compensation may be awarded to the victim. It is distinct from criminal law, which deals with offenses against the state or society as a whole. While "civil law" can refer to Roman law-based systems (as opposed to common law systems), within a common law system like Australia's, it refers to non-criminal legal matters.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 在像澳大利亚这样的普通法系统中，民法指的是处理个人或组织之间纠纷的法律领域，受害者可能获得赔偿。它与刑法不同，后者处理针对国家或整个社会的犯罪行为。虽然"民法"可以指基于罗马法的法律系统（相对于普通法系统），但在澳大利亚这样的普通法系统内，它指的是非刑事法律事务。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q9">
+                    <div class="question-number">9</div>
+                    <div class="question-title">Purpose of Law</div>
+                    
+                    <p>Which of the following statements is NOT the purpose of the law?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) The purpose of the law is to regulate the conduct of the individuals.</li>
+                        <li data-option="B" class="correct">B) To grant arbitrary power to a particular government body.</li>
+                        <li data-option="C">C) Providing a legal system to hear and settle disputes by an independent and impartial process.</li>
+                        <li data-option="D">D) Determining the rights, duties and obligation of people who are engaged in everyday transactions.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q9-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q9-answer">
+                            <h4>Answer: B) To grant arbitrary power to a particular government body.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Granting arbitrary (unlimited or uncontrolled) power to any government body goes against the fundamental principles of the rule of law, which requires that law should apply equally to all and that no one should be above the law. In democratic societies like Australia, the purpose of law is to regulate conduct, resolve disputes fairly, protect rights, and establish clear duties and obligations - not to grant unchecked power to any person or entity.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 赋予任何政府机构任意（无限或不受控制的）权力违背了法治的基本原则，法治要求法律应平等适用于所有人，任何人都不应凌驾于法律之上。在澳大利亚等民主社会中，法律的目的是规范行为、公平解决争端、保护权利并确立明确的责任和义务——而不是赋予任何个人或实体不受约束的权力。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q10">
+                    <div class="question-number">10</div>
+                    <div class="question-title">Federalism in Australia</div>
+                    
+                    <p>The ability to create different laws for Australian states, territories and the Commonwealth occurs because of the:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) court system of hierarchy.</li>
+                        <li data-option="B">B) separation of power.</li>
+                        <li data-option="C" class="correct">C) division of power.</li>
+                        <li data-option="D">D) case law from common law courts.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q10-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q10-answer">
+                            <h4>Answer: C) division of power.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> The division of power refers to how law-making authority is distributed between the Commonwealth (federal) and state/territory governments in Australia. This federal system allows for different laws to exist at the federal and state levels because each has their own areas of legislative responsibility as outlined in the Australian Constitution.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 权力划分指的是澳大利亚联邦和州/领地政府之间如何分配立法权。这种联邦制度允许联邦和州级层面存在不同的法律，因为根据澳大利亚宪法，各自都有自己的立法责任领域。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div class="question-box" id="q11">
+                    <div class="question-number">11</div>
+                    <div class="question-title">Civil Law Disputes</div>
+                    
+                    <p>Civil law involves the disputes:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Between individuals and the Crown.</li>
+                        <li data-option="B">B) Between corporations only.</li>
+                        <li data-option="C" class="correct">C) Between legal entities including persons, corporations or government.</li>
+                        <li data-option="D">D) Between government only.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q11-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q11-answer">
+                            <h4>Answer: C) Between legal entities including persons, corporations or government.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Civil law deals with disputes between legal entities, which can include natural persons (individuals), legal persons (corporations), or government bodies. What distinguishes civil law is that it involves private rights and remedies, rather than criminal offenses against the state/society.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 民事法律处理法律实体之间的纠纷，可以包括自然人（个人）、法人（公司）或政府机构。民事法律的区别在于它涉及私人权利和救济，而不是针对国家/社会的刑事犯罪。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q12">
+                    <div class="question-number">12</div>
+                    <div class="question-title">Supreme Law</div>
+                    
+                    <p>Under Australian democracy, 'unelected' judges make laws that determine the way people live. Parliaments, on the other hand, are elected by voters so in this indirect way the electors can determine the laws that people live by. In consideration to the above statement which of the following would be classed as the supreme law?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Common law</li>
+                        <li data-option="B" class="correct">B) Acts of legislation</li>
+                        <li data-option="C">C) Equity law</li>
+                        <li data-option="D">D) Doctrine of precedent</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q12-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q12-answer">
+                            <h4>Answer: B) Acts of legislation</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> In Australia's parliamentary system, Acts of legislation (statutes) passed by elected parliaments are considered the supreme form of law. While judges develop common law through their decisions, Parliament can override these decisions by passing legislation. This reflects the democratic principle that laws should ultimately be made by representatives elected by the people. The constitutional framework provides Parliament with the supreme law-making authority, subject only to constitutional limitations.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 在澳大利亚的议会制度中，由选举产生的议会通过的立法法案（法规）被视为最高形式的法律。虽然法官通过其判决发展普通法，但议会可以通过立法推翻这些判决。这反映了民主原则，即法律最终应由人民选举的代表制定。宪法框架赋予议会最高立法权，仅受宪法限制。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q13">
+                    <div class="question-number">13</div>
+                    <div class="question-title">Doctrine of Precedent</div>
+                    
+                    <p>Which of the following statements of doctrine of precedent is NOT correct?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) The basis of doctrine of precedent is: like case should be decided alike.</li>
+                        <li data-option="B" class="correct">B) The reasons given for deciding a case is called "obiter dicta" which constitutes a binding precedent.</li>
+                        <li data-option="C">C) The cases with similar facts should be decided in the same way as the higher court in the same judiciary hierarchy.</li>
+                        <li data-option="D">D) In Australia, both the commonwealth and the states have adopted a hierarchical court system.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q13-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q13-answer">
+                            <h4>Answer: B) The reasons given for deciding a case is called "obiter dicta" which constitutes a binding precedent.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> This statement is incorrect because the reasons given for deciding a case are called "ratio decidendi" (not "obiter dicta"), and only the ratio decidendi constitutes binding precedent. "Obiter dicta" refers to remarks or observations made by judges that are not essential to the decision and do not form binding precedent.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 这种说法是不正确的，因为判决案件的理由被称为"判决理由"（ratio decidendi）（而非"附带意见"），只有判决理由构成具有约束力的先例。"附带意见"（obiter dicta）指的是法官做出的对判决不重要的评论或观察，不构成具有约束力的先例。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q14">
+                    <div class="question-number">14</div>
+                    <div class="question-title">Executive Function</div>
+                    
+                    <p>Under the concept of 'separation of powers' the function of the executive is to:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A" class="correct">A) administer the law.</li>
+                        <li data-option="B">B) evaluate the law.</li>
+                        <li data-option="C">C) interpret the law.</li>
+                        <li data-option="D">D) make and amend the law.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q14-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q14-answer">
+                            <h4>Answer: A) administer the law.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> The separation of powers divides government into three branches: the legislature (makes laws), the judiciary (interprets laws), and the executive (administers/implements laws). The executive branch is responsible for putting laws into action and enforcing them.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 三权分立将政府分为三个部门：立法机构（制定法律）、司法机构（解释法律）和行政机构（管理/实施法律）。行政部门负责将法律付诸实施并执行法律。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q15">
+                    <div class="question-number">15</div>
+                    <div class="question-title">Federation of Australia</div>
+                    
+                    <p>Which of the following statements of federation is correct:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Each colony was granted more power to make their own laws.</li>
+                        <li data-option="B" class="correct">B) Each colony became a state with its own parliament that enacted law for the state.</li>
+                        <li data-option="C">C) Each colony was able to retain its law-making powers upon federation.</li>
+                        <li data-option="D">D) Federation is a process of uniting six British colonies during the meeting in 1890s.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q15-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q15-answer">
+                            <h4>Answer: B) Each colony became a state with its own parliament that enacted law for the state.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> When Australia federated in 1901, the six colonies became states within the new Commonwealth of Australia. Each state retained its own parliament with the power to make laws for matters not specifically given to the Commonwealth under the Constitution. While federation did involve meetings in the 1890s leading to the agreement, option D describes the process rather than the constitutional outcome.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 1901年澳大利亚联邦成立时，六个殖民地变成了澳大利亚联邦内的州。每个州保留了自己的议会，有权为宪法下未特别赋予联邦的事务制定法律。虽然联邦化确实涉及1890年代的会议导致协议，但选项D描述的是过程而非宪法结果。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q16">
+                    <div class="question-number">16</div>
+                    <div class="question-title">State Courts</div>
+                    
+                    <p>An example of a State court is the:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Family Court.</li>
+                        <li data-option="B">B) Federal Circuit Court.</li>
+                        <li data-option="C">C) High Court.</li>
+                        <li data-option="D" class="correct">D) Local Court.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q16-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q16-answer">
+                            <h4>Answer: D) Local Court.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Local Courts are state courts that handle less serious criminal matters and smaller civil claims. The Family Court, Federal Circuit Court, and High Court are all federal courts established under Chapter III of the Constitution. State courts include Local Courts, District/County Courts, and State Supreme Courts.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 地方法院是处理较轻刑事案件和较小民事索赔的州法院。家庭法院、联邦巡回法院和高等法院都是根据宪法第三章设立的联邦法院。州法院包括地方法院、区/县法院和州最高法院。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q17">
+                    <div class="question-number">17</div>
+                    <div class="question-title">Residual Powers</div>
+                    
+                    <p>Which of the following statement is the appropriate description of residual powers?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Residual power is when the states agreed to federate, they decided that some laws should exclusively made by commonwealth.</li>
+                        <li data-option="B" class="correct">B) Residual power is if the Constitution has not given the Commonwealth specific powers to make laws in a certain area, only the states can enact valid laws.</li>
+                        <li data-option="C">C) Residual powers allow states to make valid laws in the areas of customs and excise, military forces, currencies, etc.</li>
+                        <li data-option="D">D) Commonwealth and states parliament cannot exercise their law-making power on the same matter.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q17-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q17-answer">
+                            <h4>Answer: B) Residual power is if the Constitution has not given the Commonwealth specific powers to make laws in a certain area, only the states can enact valid laws.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Residual powers refer to the legislative powers that remain with the states because they are not specifically allocated to the Commonwealth in the Constitution. Since the Australian Constitution specifically enumerates the Commonwealth's powers, anything not listed remains with the states. This contrasts with exclusive powers (such as customs, defense, currency) which only the Commonwealth can exercise.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 剩余权力指的是留给各州的立法权，因为这些权力在宪法中没有特别分配给联邦。由于澳大利亚宪法特别列举了联邦的权力，任何未列出的权力都保留给各州。这与专属权力（如海关、国防、货币）形成对比，专属权力只能由联邦行使。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q18">
+                    <div class="question-number">18</div>
+                    <div class="question-title">Unenacted Law</div>
+                    
+                    <p>Unenacted law is also known as?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A" class="correct">A) Precedent.</li>
+                        <li data-option="B">B) Statute law.</li>
+                        <li data-option="C">C) Acts of parliament.</li>
+                        <li data-option="D">D) Legislation</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q18-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q18-answer">
+                            <h4>Answer: A) Precedent.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Unenacted law refers to law that has not been passed by a legislature. This is primarily common law or judge-made law, created through judicial decisions (precedents). Options B, C, and D all refer to different forms of enacted law - law that has been formally passed by a legislative body.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 未颁布的法律指的是未经立法机构通过的法律。这主要是普通法或法官制定的法律，通过司法判决（先例）创建。选项B、C和D都指不同形式的已颁布法律——由立法机构正式通过的法律。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q19">
+                    <div class="question-number">19</div>
+                    <div class="question-title">Binding Precedent</div>
+                    
+                    <p>Under the doctrine of precedent, a decision by the Supreme Court of Queensland is binding on the:</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Supreme Court of Queensland.</li>
+                        <li data-option="B">B) High Court of Australia.</li>
+                        <li data-option="C">C) District Courts of NSW.</li>
+                        <li data-option="D" class="correct">D) Local Courts of Queensland.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q19-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q19-answer">
+                            <h4>Answer: D) Local Courts of Queensland.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Under the doctrine of precedent, decisions of higher courts bind lower courts in the same jurisdiction. The Supreme Court of Queensland is above the Local Courts of Queensland in the state hierarchy, so its decisions bind those lower courts. It does not bind courts in other jurisdictions (NSW) or courts above it in the hierarchy (High Court). The Supreme Court is generally bound by its own previous decisions (with some exceptions) but this is not what the question asks.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 根据先例原则，高级法院的判决对同一管辖区内的低级法院具有约束力。昆士兰州最高法院在州级体系中高于昆士兰州地方法院，因此其判决对这些低级法院具有约束力。它不约束其他管辖区（新南威尔士州）的法院或层级中高于它的法院（高等法院）。最高法院通常受其自身先前判决的约束（有一些例外），但这不是问题所问的。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q20">
+                    <div class="question-number">20</div>
+                    <div class="question-title">Equity System</div>
+                    
+                    <p>As a result of the injustices that sometimes occurred with the application of the common law in the early UK court system, which system was developed to provide more flexible remedies that were inadequate within common law system?</p>
+                    
+                    <ul class="multiple-choice">
+                        <li data-option="A">A) Court system of hierarchy.</li>
+                        <li data-option="B">B) Separation of power.</li>
+                        <li data-option="C" class="correct">C) Equity.</li>
+                        <li data-option="D">D) Case law from common law courts.</li>
+                    </ul>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('q20-answer')">Show Explanation</button>
+                        
+                        <div class="answer-box" id="q20-answer">
+                            <h4>Answer: C) Equity.</h4>
+                            
+                            <div class="bilingual-text">
+                                <div class="english">
+                                    <p><strong>Explanation:</strong> Equity developed in England when the rigid common law system sometimes failed to provide just outcomes. People would petition the Lord Chancellor (the King's representative) for fairness (equity) when common law remedies were inadequate. Equity developed a set of principles and remedies that focused on fairness and justice rather than strict legal technicalities, including remedies like specific performance, injunctions, and rescission that weren't available under common law.</p>
+                                </div>
+                                <div class="chinese">
+                                    <p><strong>解释：</strong> 衡平法在英国发展起来，是因为僵化的普通法系统有时无法提供公正的结果。当普通法救济措施不足时，人们会向大法官（国王的代表）请愿公平（衡平）。衡平法发展了一套原则和救济措施，注重公平和正义而非严格的法律技术性，包括特定履行、禁令和撤销等普通法下无法获得的救济措施。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="short-answer" class="section">
+            <div class="section-header">
+                <h2>Short-Answer Questions (简答题)</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="question-box" id="sa1">
+                    <div class="question-number">1</div>
+                    <div class="question-title">Federation of Australia and Commonwealth Law-Making Powers</div>
+                    
+                    <p>Explain the federation of Australia and the ability of the Commonwealth parliament to make laws on consumer protection and health. (5 marks)</p>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('sa1-answer')">Show Model Answer</button>
+                        
+                        <div class="answer-box" id="sa1-answer">
+                            <h4>Model Answer:</h4>
+                            
+                            <div class="model-answer">
+                                <div class="bilingual-text">
+                                    <div class="english">
+                                        <p>The Federation of Australia was established in 1901 when six British colonies united to form the Commonwealth of Australia. This created a system of government in which powers are divided between the federal (Commonwealth) government and the state governments. The Australian Constitution outlines the areas where the Commonwealth has legislative power and those reserved for the states. The Australian Constitution outlines the areas where the Commonwealth can legislate, including trade and commerce, defense, and foreign affairs.</p>
+                                        
+                                        <p>Under the Australian Constitution, consumer protection falls under the Commonwealth's powers to regulate trade and commerce (Section 51(i)) and corporations (Section 51(xx)). The Commonwealth Parliament enacted the Australian Consumer Law (ACL), a national law providing uniform protections for consumers across all states and territories.</p>
+                                        
+                                        <p>Health is primarily a state responsibility, but the Commonwealth also plays a significant role through its powers over taxation (Section 51(ii)) and grants to states (Section 96). This enables the Commonwealth to fund programs like Medicare and regulate health-related services affecting interstate commerce.</p>
+                                        
+                                        <p>Key Point Summary: The Commonwealth Parliament can legislate on consumer protection and influence health policy using its constitutional powers, while states retain significant responsibilities in health administration.</p>
+                                    </div>
+                                    <div class="chinese">
+                                        <p>澳大利亚联邦于1901年建立，当时六个英国殖民地联合组成了澳大利亚联邦。这创建了一个联邦制政府系统，权力在联邦（联邦）和州政府之间划分，如澳大利亚宪法所概述。澳大利亚宪法规定了联邦政府的立法领域，包括贸易与商业、国防和外交事务。</p>
+                                        
+                                        <p>根据澳大利亚宪法，消费者保护属于联邦根据第51条第(i)款（贸易与商业）和第(xx)款（公司）规定的权力范围。联邦议会颁布了《澳大利亚消费者法》（ACL），这是一部为全国消费者提供统一保护的法律，适用于所有州和领地。</p>
+                                        
+                                        <p>健康事务主要由州政府负责，但联邦政府通过其税收权力（第51条第(ii)款）和对州政府的拨款权（第96条）也扮演重要角色。这使联邦能够资助例如全民医保（Medicare）等项目，并规范涉及州际贸易的健康服务。</p>
+                                        
+                                        <p>重点总结：联邦议会能够根据宪法规定制定消费者保护法律，并通过拨款和税收权来影响健康政策，但州政府在健康事务管理方面仍保留重要权力。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="sa2">
+                    <div class="question-number">2</div>
+                    <div class="question-title">Legal Problem Solving (IPAC Method)</div>
+                    
+                    <div class="scenario">
+                        <p><strong>Scenario:</strong> Li Wei owns a small online business selling imported electronics. He purchased 500 smartphone cases from a supplier, Techware Pty Ltd, with a written contract stating delivery would occur "within 2 weeks." After 3 weeks, the goods had not arrived, causing Li Wei to miss sales during a major promotion. When the goods finally arrived after 4 weeks, 20% of the cases were damaged. Advise Li Wei on his legal position using the IPAC method.</p>
+                    </div>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('sa2-answer')">Show Model Answer</button>
+                        
+                        <div class="answer-box" id="sa2-answer">
+                            <h4>Model Answer:</h4>
+                            
+                            <div class="model-answer">
+                                <h3>Issue:</h3>
+                                <p>The issues in this case are:</p>
+                                <ol>
+                                    <li>Whether Techware Pty Ltd breached the contract by delivering the smartphone cases 2 weeks later than agreed</li>
+                                    <li>Whether Techware is liable for the damaged goods</li>
+                                    <li>What remedies are available to Li Wei for the late delivery and damaged goods</li>
+                                </ol>
+                                
+                                <h3>Principle:</h3>
+                                <p>Under contract law, when parties form a binding agreement, they must perform their obligations as specified. Time stipulations in commercial contracts are generally considered essential terms, as established in cases like Tramways Advertising Pty Ltd v Luna Park (1938).</p>
+                                
+                                <p>The Sale of Goods Act provides that goods must be of merchantable quality and fit for purpose. There is an implied condition that goods match their description and are free from defects.</p>
+                                
+                                <p>For breach of contract, remedies include damages to compensate for losses directly resulting from the breach (Hadley v Baxendale).</p>
+                                
+                                <h3>Application:</h3>
+                                <p>Applying these principles to Li Wei's situation:</p>
+                                
+                                <p><strong>Late Delivery</strong>: The contract clearly specified delivery "within 2 weeks," but the goods arrived after 4 weeks. This is a breach of an essential term of the contract. The 2-week delay is significant in the context of retail business, especially during a promotional period. Techware would likely have known that timely delivery was important for a retail business.</p>
+<p><strong>Damaged Goods</strong>: 20% of the smartphone cases were damaged upon delivery. This breaches the implied condition under the Sale of Goods Act that goods must be of merchantable quality. The damaged goods are not fit for the purpose of resale.</p>
+                                
+                                <p><strong>Remedies</strong>: Li Wei can claim damages for:</p>
+                                <ul>
+                                    <li>Lost profits from the missed sales during the promotional period (provided he can prove these losses)</li>
+                                    <li>The value of the damaged goods (either refund or replacement)</li>
+                                    <li>Any additional costs incurred due to the delay (e.g., storage costs, customer compensation)</li>
+                                </ul>
+                                
+                                <p>Techware might argue that:</p>
+                                <ul>
+                                    <li>The 2-week timeframe was an estimate, not a strict deadline</li>
+                                    <li>The delay was caused by factors beyond their control</li>
+                                    <li>Li Wei didn't suffer significant losses</li>
+                                    <li>Li Wei should have inspected the goods immediately and reported damage promptly</li>
+                                </ul>
+                                
+                                <h3>Conclusion:</h3>
+                                <div class="bilingual-text">
+                                    <div class="english">
+                                        <p>Li Wei has strong grounds to claim that Techware breached the contract both by late delivery and by supplying damaged goods. He is entitled to damages for his provable losses, including lost profits from the missed promotion and the value of the damaged goods. He should document all losses carefully and communicate with Techware promptly, proposing a reasonable settlement such as a partial refund or replacement of the damaged items plus compensation for the delayed delivery.</p>
+                                    </div>
+                                    <div class="chinese">
+                                        <p>李伟有充分理由声称Techware违反了合同，包括延迟交货和提供损坏的商品。他有权获得可证明损失的赔偿，包括错过促销活动的利润损失和损坏商品的价值。他应该仔细记录所有损失，并及时与Techware沟通，提出合理的解决方案，例如部分退款或更换损坏物品以及延迟交货的补偿。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="sa3">
+                    <div class="question-number">3</div>
+                    <div class="question-title">Court System and Precedent</div>
+                    
+                    <p>Explain how the doctrine of precedent operates in the Australian court system. Use an example to illustrate when a court is bound by a previous decision and when it might only find a previous decision persuasive. (5 marks)</p>
+                    
+                    <div class="answer-reveal-container">
+                        <button class="show-answer-btn" onclick="toggleAnswer('sa3-answer')">Show Model Answer</button>
+                        
+                        <div class="answer-box" id="sa3-answer">
+                            <h4>Model Answer:</h4>
+                            
+                            <div class="model-answer">
+                                <div class="bilingual-text">
+                                    <div class="english">
+                                        <p>The doctrine of precedent (stare decisis) is a fundamental principle in Australia's common law system that requires "like cases to be decided alike." Under this doctrine, courts must follow the decisions made by higher courts in the same hierarchy when the cases involve similar facts and legal issues.</p>
+                                        
+                                        <p>The binding part of a previous case is the ratio decidendi (the reason for the decision), while obiter dicta (side remarks) are not binding but may be persuasive.</p>
+                                        
+                                        <p>For example, if the Supreme Court of New South Wales makes a decision about contract interpretation, the District Courts and Local Courts of NSW must follow this decision when facing similar contract issues. This is because these lower courts are bound by precedents from higher courts in the same state hierarchy.</p>
+                                        
+                                        <p>However, if a judge in the Supreme Court of Queensland is considering a similar contract issue, they are not bound by the NSW Supreme Court's decision because the courts are in different state hierarchies. Nevertheless, they might find the reasoning persuasive and choose to follow it.</p>
+                                        
+                                        <p>Similarly, the High Court of Australia is not bound by its own previous decisions and can overrule them, though it rarely does so. When the High Court establishes a precedent, all Australian courts are bound by it because the High Court sits at the apex of the Australian court system.</p>
+                                        
+                                        <p>In practice, this system provides legal certainty and consistency while allowing the law to develop and adapt through careful distinction of cases and occasional overruling of outdated precedents.</p>
+                                    </div>
+                                    <div class="chinese">
+                                        <p>先例原则（遵循先例）是澳大利亚普通法系统中的一项基本原则，要求"类似案件应当以类似方式判决"。根据这一原则，法院必须遵循同一等级体系中较高法院的判决，当案件涉及类似的事实和法律问题时。</p>
+                                        
+                                        <p>先前案例的具有约束力的部分是判决理由（作出判决的原因），而附带意见（附带评论）不具约束力，但可能具有说服力。</p>
+                                        
+                                        <p>例如，如果新南威尔士州最高法院就合同解释作出判决，新南威尔士州的区域法院和地方法院在面对类似合同问题时必须遵循这一判决。这是因为这些低级法院受同一州等级体系中较高法院先例的约束。</p>
+                                        
+                                        <p>然而，如果昆士兰州最高法院的法官正在考虑类似的合同问题，他们不受新南威尔士州最高法院判决的约束，因为这些法院属于不同的州等级体系。尽管如此，他们可能会发现其推理具有说服力，并选择遵循它。</p>
+                                        
+                                        <p>同样，澳大利亚高等法院不受其自身先前判决的约束，可以推翻它们，尽管很少这样做。当高等法院确立先例时，所有澳大利亚法院都受其约束，因为高等法院位于澳大利亚法院系统的顶端。</p>
+                                        
+                                        <p>在实践中，这一系统提供了法律确定性和一致性，同时允许法律通过谨慎区分案例和偶尔推翻过时先例来发展和适应。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="practice-tips" class="section">
+            <div class="section-header">
+                <h2>Practice Tips (练习技巧)</h2>
+            </div>
+            
+            <div class="section-content">
+                <div class="bilingual-text">
+                    <div class="english">
+                        <h3>Tips for Multiple-Choice Questions</h3>
+                        <ul class="icon-list">
+                            <li>Read each question carefully, paying attention to key words like "NOT," "EXCEPT," or "MOST LIKELY"</li>
+                            <li>Eliminate obviously incorrect answers first</li>
+                            <li>Look for answers that use absolute terms like "always" or "never" as these are often incorrect</li>
+                            <li>When unsure, try applying the answer to a hypothetical scenario to test it</li>
+                            <li>Review your constitutional principles and key legal concepts regularly</li>
+                        </ul>
+                        
+                        <h3>Tips for IPAC Problem Solving</h3>
+                        <ul class="icon-list">
+                            <li><strong>I</strong>ssue: Clearly identify all legal issues in the scenario</li>
+                            <li><strong>P</strong>rinciple: State the relevant legal principles and cite cases if possible</li>
+                            <li><strong>A</strong>pplication: Apply the principles to the specific facts of the case</li>
+                            <li><strong>C</strong>onclusion: Provide a clear conclusion with practical advice</li>
+                            <li>Focus on organization and structure in your answer</li>
+                            <li>Consider counterarguments to show depth of analysis</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <h3>多项选择题技巧</h3>
+                        <ul class="icon-list">
+                            <li>仔细阅读每个问题，注意关键词如"不是"、"除了"或"最可能"</li>
+                            <li>首先排除明显不正确的答案</li>
+                            <li>寻找使用绝对词语如"总是"或"从不"的答案，因为这些通常是不正确的</li>
+                            <li>当不确定时，尝试将答案应用于假设情景来测试它</li>
+                            <li>定期复习宪法原则和关键法律概念</li>
+                        </ul>
+                        
+                        <h3>IPAC问题解决技巧</h3>
+                        <ul class="icon-list">
+                            <li><strong>问题</strong>：明确识别情景中的所有法律问题</li>
+                            <li><strong>原则</strong>：陈述相关法律原则并尽可能引用案例</li>
+                            <li><strong>应用</strong>：将原则应用于案例的具体事实</li>
+                            <li><strong>结论</strong>：提供清晰的结论和实用建议</li>
+                            <li>在你的回答中注重组织和结构</li>
+                            <li>考虑反驳论点以显示分析深度</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+    <h3>Key Concept Summary (关键概念总结)</h3>
+    <table class="comparison-table">
+        <tr>
+            <th>Concept</th>
+            <th>Definition</th>
+            <th>Application</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Separation of Powers</div>
+                    <div class="chinese">三权分立</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Division of government into legislature, executive, and judiciary</div>
+                    <div class="chinese">政府分为立法、行政和司法三部分</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Prevents concentration of power and ensures checks and balances</div>
+                    <div class="chinese">防止权力集中，确保制衡</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Division of Powers</div>
+                    <div class="chinese">权力划分</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Distribution of law-making authority between federal and state governments</div>
+                    <div class="chinese">联邦和州政府之间的立法权分配</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Allows for different laws at federal and state levels</div>
+                    <div class="chinese">允许联邦和州级层面存在不同的法律</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Doctrine of Precedent</div>
+                    <div class="chinese">先例原则</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Principle requiring like cases to be decided alike</div>
+                    <div class="chinese">要求类似案件应以类似方式判决的原则</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Creates consistency and predictability in legal decisions</div>
+                    <div class="chinese">在法律判决中创造一致性和可预测性</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Constitutional Inconsistency</div>
+                    <div class="chinese">宪法不一致</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Conflict between Commonwealth and state laws</div>
+                    <div class="chinese">联邦法律和州法律之间的冲突</div>
+                </div>
+            </td>
+            <td>
+                <div class="bilingual-table-cell">
+                    <div>Commonwealth law prevails to the extent of inconsistency (Section 109)</div>
+                    <div class="chinese">联邦法律在不一致的范围内优先（第109条）</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+            </div>
+        </section>
+    </main>
+
+    <a href="#" class="back-to-top" id="back-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </a>
+
+    <footer>
+        <p>Australian Legal System Practice Questions - UNSW Preparation Program - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Add dynamic circles to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const circleCount = 15;
+            
+            for (let i = 0; i < circleCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                div.style.animationDelay = `${Math.random() * 5}s`;
+                div.style.animation = `moveAround ${Math.random() * 20 + 10}s infinite alternate ease-in-out`;
+                div.style.position = 'absolute';
+                div.style.borderRadius = '50%';
+                div.style.backgroundColor = 'white';
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Handle navigation
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Scroll to target section
+                    const targetId = button.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+        
+        // Handle scroll animations
+        function setupScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            const backToTop = document.getElementById('back-to-top');
+            
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= window.innerHeight - 100 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Function to handle scroll
+            function handleScroll() {
+                // Show/hide back to top button
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                // Animate sections when they come into view
+                sections.forEach(section => {
+                    if (isInViewport(section)) {
+                        section.classList.add('visible');
+                    }
+                });
+                
+                // Update active nav button based on scroll position
+                let closestSection = null;
+                let closestDistance = Infinity;
+                
+                sections.forEach(section => {
+                    const distance = Math.abs(section.getBoundingClientRect().top - 100);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestSection = section;
+                    }
+                });
+                
+                if (closestSection) {
+                    const targetId = closestSection.id;
+                    document.querySelectorAll('.nav-button').forEach(btn => {
+                        if (btn.getAttribute('data-target') === targetId) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                }
+            }
+            
+            // Initial call to handleScroll
+            handleScroll();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Back to top button click handler
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Toggle answer visibility
+        function toggleAnswer(answerId) {
+            const answerBox = document.getElementById(answerId);
+            answerBox.classList.toggle('visible');
+            
+            // Update progress bar
+            updateProgress();
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            const totalAnswers = document.querySelectorAll('.answer-box').length;
+            const visibleAnswers = document.querySelectorAll('.answer-box.visible').length;
+            const progressBar = document.getElementById('progress-bar');
+            
+            const progressPercent = (visibleAnswers / totalAnswers) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        }
+        
+        // Add animations to CSS
+        function setupAdditionalStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes moveAround {
+                    0% { transform: translate(0, 0); }
+                    100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+      // Initialize everything when DOM is loaded 
+document.addEventListener('DOMContentLoaded', () => { 
+    setupHeaderAnimation(); 
+    setupNavigation(); 
+    setupScrollAnimations(); 
+    setupAdditionalStyles(); 
+    updateProgress(); 
+    
+    // Automatically make the first section visible 
+    document.querySelector('.section').classList.add('visible'); 
+    
+    // Set first nav button as active 
+    document.querySelector('.nav-button').classList.add('active');
+    
+    // Add click handlers to multiple choice options
+    const multipleChoiceOptions = document.querySelectorAll('.multiple-choice li');
+    multipleChoiceOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // If already selected, do nothing
+            if (option.classList.contains('selected')) {
+                return;
+            }
+            
+            // Remove selection from siblings
+            const parentList = option.parentElement;
+            parentList.querySelectorAll('li').forEach(li => {
+                li.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+            
+            // Check if correct
+            if (option.classList.contains('correct')) {
+                option.style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
+            } else {
+                option.style.backgroundColor = 'rgba(244, 67, 54, 0.2)';
+                
+                // Highlight the correct option
+                parentList.querySelector('.correct').style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
+            }
+        });
+    });
+    
+    // Add animation class to question boxes on hover
+    const questionBoxes = document.querySelectorAll('.question-box');
+    questionBoxes.forEach(box => {
+        box.addEventListener('mouseenter', () => {
+            box.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+        });
+        
+        box.addEventListener('mouseleave', () => {
+            box.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.1)';
+        });
+    });
+    
+    // Add scroll indicator
+    const scrollIndicator = document.createElement('div');
+    scrollIndicator.classList.add('scroll-indicator');
+    scrollIndicator.style.position = 'fixed';
+    scrollIndicator.style.top = '0';
+    scrollIndicator.style.left = '0';
+    scrollIndicator.style.height = '4px';
+    scrollIndicator.style.backgroundColor = 'var(--accent-color)';
+    scrollIndicator.style.zIndex = '1000';
+    scrollIndicator.style.width = '0%';
+    document.body.appendChild(scrollIndicator);
+    
+    // Update scroll indicator on scroll
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        const totalHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollPercentage = (scrollPosition / totalHeight) * 100;
+        scrollIndicator.style.width = `${scrollPercentage}%`;
+    });
+    
+    // Add custom tooltip for practice tips
+    const tipsList = document.querySelectorAll('#practice-tips .icon-list li');
+    tipsList.forEach(tip => {
+        tip.style.cursor = 'pointer';
+        tip.addEventListener('click', () => {
+            // Toggle highlight for the tip
+            if (tip.style.backgroundColor === 'rgba(94, 95, 177, 0.1)') {
+                tip.style.backgroundColor = 'transparent';
+            } else {
+                tip.style.backgroundColor = 'rgba(94, 95, 177, 0.1)';
+                tip.style.padding = '0.5rem 1rem 0.5rem 2rem';
+                tip.style.borderRadius = '5px';
+            }
+        });
+    });
+    
+    // Initialize timer for study session
+    let studyTimeInSeconds = 0;
+const timerDisplay = document.createElement('div');
+timerDisplay.id = 'study-timer'; // Add this ID
+timerDisplay.style.position = 'fixed';
+timerDisplay.style.bottom = '20px';
+timerDisplay.style.left = '20px';
+timerDisplay.style.backgroundColor = 'var(--primary-color)';
+timerDisplay.style.color = 'white';
+timerDisplay.style.padding = '10px 15px';
+timerDisplay.style.borderRadius = '25px';
+timerDisplay.style.fontSize = '0.9rem';
+timerDisplay.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+timerDisplay.style.zIndex = '100';
+timerDisplay.innerHTML = 'Study Time: 00:00:00';
+document.body.appendChild(timerDisplay);
+    
+    // Update timer every second
+    setInterval(() => {
+        studyTimeInSeconds++;
+        const hours = Math.floor(studyTimeInSeconds / 3600).toString().padStart(2, '0');
+        const minutes = Math.floor((studyTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+        const seconds = (studyTimeInSeconds % 60).toString().padStart(2, '0');
+        timerDisplay.innerHTML = `Study Time: ${hours}:${minutes}:${seconds}`;
+    }, 1000);
+    
+    // Create theme toggle switch
+    const themeToggle = document.createElement('button');
+themeToggle.id = 'theme-toggle'; // Add this ID
+themeToggle.style.position = 'fixed';
+themeToggle.style.bottom = '20px';
+themeToggle.style.left = '170px';
+themeToggle.style.backgroundColor = 'var(--primary-color)';
+themeToggle.style.color = 'white';
+themeToggle.style.border = 'none';
+themeToggle.style.padding = '10px 15px';
+themeToggle.style.borderRadius = '25px';
+themeToggle.style.fontSize = '0.9rem';
+themeToggle.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+themeToggle.style.cursor = 'pointer';
+themeToggle.style.zIndex = '100';
+themeToggle.innerHTML = '🌙 Dark Mode';
+document.body.appendChild(themeToggle);
+    
+    // Theme toggle functionality
+    let darkMode = false;
+    themeToggle.addEventListener('click', () => {
+        darkMode = !darkMode;
+        if (darkMode) {
+            document.body.style.backgroundColor = '#1a1a2e';
+            document.body.style.color = '#e6e6e6';
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.backgroundColor = '#16213e';
+                section.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+            });
+            document.querySelectorAll('.question-box').forEach(box => {
+                box.style.backgroundColor = '#16213e';
+            });
+            document.querySelectorAll('.multiple-choice li').forEach(option => {
+                if (!option.classList.contains('selected')) {
+                    option.style.backgroundColor = '#0f3460';
+                    option.style.color = '#e6e6e6';
+                }
+            });
+            themeToggle.innerHTML = '☀️ Light Mode';
+// Fix for table text in dark mode
+document.querySelectorAll('.comparison-table td, .comparison-table th').forEach(cell => {
+    cell.style.color = '#e6e6e6';
+});
+document.querySelectorAll('.comparison-table tr:nth-child(even)').forEach(row => {
+    row.style.backgroundColor = '#253055';
+});
+document.querySelectorAll('.comparison-table tr:nth-child(odd) td').forEach(cell => {
+    cell.style.backgroundColor = '#1e2747';
+});
+// Fix for example boxes and answer boxes text in dark mode
+document.querySelectorAll('.example-box, .model-answer, .answer-box, .scenario').forEach(box => {
+    box.style.backgroundColor = '#1e2747';
+    box.style.color = '#e6e6e6';
+});
+document.querySelectorAll('.bilingual-text .chinese').forEach(text => {
+    text.style.color = '#b0b0c0';
+});
+        } else {
+            document.body.style.backgroundColor = 'var(--white-bg)';
+            document.body.style.color = 'var(--dark-text)';
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.backgroundColor = 'white';
+                section.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+            });
+            document.querySelectorAll('.question-box').forEach(box => {
+                box.style.backgroundColor = 'white';
+            });
+            document.querySelectorAll('.multiple-choice li').forEach(option => {
+                if (!option.classList.contains('selected')) {
+                    option.style.backgroundColor = 'var(--light-accent)';
+                    option.style.color = 'var(--dark-text)';
+                }
+            });
+            themeToggle.innerHTML = '🌙 Dark Mode';
+// Reset table styles in light mode
+document.querySelectorAll('.comparison-table th').forEach(cell => {
+    cell.style.color = 'white';
+});
+document.querySelectorAll('.comparison-table td').forEach(cell => {
+    cell.style.color = 'var(--dark-text)';
+    cell.style.backgroundColor = '';
+});
+document.querySelectorAll('.comparison-table tr:nth-child(even)').forEach(row => {
+    row.style.backgroundColor = '#fafafa';
+});
+// Reset example boxes and answer boxes text in light mode
+document.querySelectorAll('.example-box').forEach(box => {
+    box.style.backgroundColor = '#fff8e1';
+    box.style.color = 'var(--dark-text)';
+});
+document.querySelectorAll('.model-answer').forEach(box => {
+    box.style.backgroundColor = '#f0f7ff';
+    box.style.color = 'var(--dark-text)';
+});
+document.querySelectorAll('.answer-box').forEach(box => {
+    box.style.backgroundColor = '#f5f5f5';
+    box.style.color = 'var(--dark-text)';
+});
+document.querySelectorAll('.scenario').forEach(box => {
+    box.style.backgroundColor = '#e8f4fd';
+    box.style.color = 'var(--dark-text)';
+});
+document.querySelectorAll('.bilingual-text .chinese').forEach(text => {
+    text.style.color = 'var(--med-text)';
+});
+        }
+    });
+});
+    </script>
+</body>
+</html>

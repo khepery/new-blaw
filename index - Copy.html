@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Legal System - Course Units</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #3b82f6;
+            --light-accent: #e8eaf6;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            
+            /* Unit specific colors */
+            --unit1-color: #1a237e;
+            --unit1-light: #e8eaf6;
+            --unit2-color: #2c3e50;
+            --unit2-light: #f9f2cc;
+            --unit3-color: #1b5e20;
+            --unit3-light: #e8f5e9;
+            --unit4-color: #b71c1c;
+            --unit4-light: #ffebee;
+            --unit5-color: #4a148c;
+            --unit5-light: #f3e5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .intro-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .unit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .unit-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .unit-card.unit1 .unit-banner {
+            background: linear-gradient(90deg, var(--unit1-color), var(--accent-color));
+        }
+        
+        .unit-card.unit2 .unit-banner {
+            background: linear-gradient(90deg, var(--unit2-color), var(--accent-color));
+        }
+        
+        .unit-card.unit3 .unit-banner {
+            background: linear-gradient(90deg, var(--unit3-color), var(--accent-color));
+        }
+        
+        .unit-card.unit4 .unit-banner {
+            background: linear-gradient(90deg, var(--unit4-color), var(--accent-color));
+        }
+        
+        .unit-card.unit5 .unit-banner {
+            background: linear-gradient(90deg, var(--unit5-color), var(--accent-color));
+        }
+        
+        .unit-banner {
+            height: 8px;
+        }
+        
+        .unit-icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .unit-card.unit1 .unit-icon {
+            background-color: var(--unit1-light);
+        }
+        
+        .unit-card.unit2 .unit-icon {
+            background-color: var(--unit2-light);
+        }
+        
+        .unit-card.unit3 .unit-icon {
+            background-color: var(--unit3-light);
+        }
+        
+        .unit-card.unit4 .unit-icon {
+            background-color: var(--unit4-light);
+        }
+        
+        .unit-card.unit5 .unit-icon {
+            background-color: var(--unit5-light);
+        }
+        
+        .unit-card.unit1 .unit-icon svg {
+            fill: var(--unit1-color);
+        }
+        
+        .unit-card.unit2 .unit-icon svg {
+            fill: var(--unit2-color);
+        }
+        
+        .unit-card.unit3 .unit-icon svg {
+            fill: var(--unit3-color);
+        }
+        
+        .unit-card.unit4 .unit-icon svg {
+            fill: var(--unit4-color);
+        }
+        
+        .unit-card.unit5 .unit-icon svg {
+            fill: var(--unit5-color);
+        }
+        
+        .unit-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .unit-icon svg {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .unit-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .unit-card.unit1 h3 {
+            color: var(--unit1-color);
+        }
+        
+        .unit-card.unit2 h3 {
+            color: var(--unit2-color);
+        }
+        
+        .unit-card.unit3 h3 {
+            color: var(--unit3-color);
+        }
+        
+        .unit-card.unit4 h3 {
+            color: var(--unit4-color);
+        }
+        
+        .unit-card.unit5 h3 {
+            color: var(--unit5-color);
+        }
+        
+        .unit-card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .unit-link {
+            display: block;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-bottom: 0.75rem;
+        }
+        
+        .unit-card.unit1 .unit-link:hover {
+            background-color: var(--unit1-color);
+        }
+        
+        .unit-card.unit2 .unit-link:hover {
+            background-color: var(--unit2-color);
+        }
+        
+        .unit-card.unit3 .unit-link:hover {
+            background-color: var(--unit3-color);
+        }
+        
+        .unit-card.unit4 .unit-link:hover {
+            background-color: var(--unit4-color);
+        }
+        
+        .unit-card.unit5 .unit-link:hover {
+            background-color: var(--unit5-color);
+        }
+        
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .chinese {
+            font-size: 0.9rem;
+            color: var(--med-text);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .unit-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .animate-rotate {
+            animation: rotate 12s linear infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Australian Legal System</h1>
+            <p>Comprehensive Learning Resource</p>
+        </div>
+    </header>
+    
+    <main>
+        <section class="intro-section">
+            <h2>Welcome to the Australian Legal System Course</h2>
+            <p>This comprehensive course covers the Australian legal system, business law, and related legal principles. Navigate through the five units below to explore different aspects of Australian law.</p>
+        </section>
+        
+        <div class="unit-grid">
+            <!-- Unit 1 Card -->
+            <div class="unit-card unit1">
+                <div class="unit-banner"></div>
+                <div class="unit-icon-container">
+                    <div class="unit-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="unit-content">
+                    <h3 class="bilingual">
+                        <span>Unit 1: Australian Legal System</span>
+                        <span class="chinese">单元1：澳大利亚法律体系</span>
+                    </h3>
+                    <p>Explore the fundamental structure of the Australian legal system, including court hierarchy, legal principles, terminology, and practice questions.</p>
+                    <a href="unit1.html" class="unit-link">Explore Unit 1</a>
+                </div>
+            </div>
+            
+           <!-- Unit 2 Card -->
+<div class="unit-card unit2">
+    <div class="unit-banner"></div>
+    <div class="unit-icon-container">
+        <div class="unit-icon animate-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+            </svg>
+        </div>
+    </div>
+    <div class="unit-content">
+        <h3 class="bilingual">
+            <span>Unit 2: Business Law</span>
+            <span class="chinese">单元2：商业法</span>
+        </h3>
+        <p>Learn about different business structures in Australia, including sole traders, partnerships, and companies, along with key legal concepts and case law.</p>
+        <a href="unit2.html" class="unit-link">Explore Unit 2</a>
+        <a href="business-mindmap.html" class="unit-link">Interactive Mind Map</a>
+    </div>
+</div>
+            
+            <!-- Unit 3 Card -->
+            <div class="unit-card unit3">
+                <div class="unit-banner"></div>
+                <div class="unit-icon-container">
+                    <div class="unit-icon animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 14H7c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h10c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1zm-3-5H8v-2h6v2zm2-4H8v-2h8v2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="unit-content">
+                    <h3 class="bilingual">
+                        <span>Unit 3: Contract Law</span>
+                        <span class="chinese">单元3：合同法</span>
+                    </h3>
+                    <p>Understand the principles of contract law, including formation, terms, breach, and remedies within the Australian legal context.</p>
+                    <a href="unit3.html" class="unit-link">Explore Unit 3</a>
+                </div>
+            </div>
+            
+            <!-- Unit 4 Card -->
+            <div class="unit-card unit4">
+                <div class="unit-banner"></div>
+                <div class="unit-icon-container">
+                    <div class="unit-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="unit-content">
+                    <h3 class="bilingual">
+                        <span>Unit 4: Consumer Law</span>
+                        <span class="chinese">单元4：消费者法</span>
+                    </h3>
+                    <p>Discover Australian consumer protection laws, including the Australian Consumer Law (ACL), consumer rights, warranties, and remedies.</p>
+                    <a href="unit4.html" class="unit-link">Explore Unit 4</a>
+                </div>
+            </div>
+            
+            <!-- Unit 5 Card -->
+            <div class="unit-card unit5">
+                <div class="unit-banner"></div>
+                <div class="unit-icon-container">
+                    <div class="unit-icon animate-rotate">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v3H8v2h3v3h2v-3h3v-2h-3z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="unit-content">
+                    <h3 class="bilingual">
+                        <span>Unit 5: Employment Law</span>
+                        <span class="chinese">单元5：劳动法</span>
+                    </h3>
+                    <p>Study Australian employment law, including workplace rights and obligations, Fair Work system, and employment contracts.</p>
+                    <a href="unit5.html" class="unit-link">Explore Unit 5</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Australian Legal System Learning Resource - UNSW Preparation Program - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+        });
+    </script>
+</body>
+</html>

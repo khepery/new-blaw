@@ -1,0 +1,3803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <title>Ultra Pro Space Invaders - Educational Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            user-select: none; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: auto;
+            height: auto;
+            margin: auto;
+            background: #000;
+            overflow: hidden;
+            aspect-ratio: auto;
+        }
+
+        #gameCanvas {
+            display: block;
+            background: #000;
+            touch-action: none;
+        }
+
+        /* Intro Screen */
+        #introScreen {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #001140, #000050);
+            padding: 40px;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 20px #0ff;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            font-size: 14px;
+            color: #0ff;
+            text-shadow: 0 0 5px #0ff;
+            z-index: 5;
+        }
+
+        #introScreen h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        #introScreen p {
+            font-size: 12px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        #introStartBtn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #222;
+            border: 2px solid #0ff;
+            color: #0ff;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 60%;
+            transition: background 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+            text-shadow: 0 0 5px #0ff;
+        }
+
+        #introStartBtn:hover {
+            background: #333;
+            box-shadow: 0 0 15px #0ff;
+        }
+
+        /* Settings Screen - Will be removed from functionality but kept in CSS */
+        #settingsScreen {
+            display: none; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 64, 0.95);
+            padding: 20px;
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            color: #0ff;
+            text-align: center;
+            z-index: 5;
+            width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #settingsScreen h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .difficulty-selector {
+            margin: 15px 0;
+        }
+
+        .difficulty-selector button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            background: #333;
+            border: 1px solid #0ff;
+            color: #0ff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .difficulty-selector button.active {
+            background: #0ff;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .quiz-option {
+            margin: 10px;
+            padding: 10px 20px;
+            background: #222;
+            border: 2px solid #0ff;
+            color: #0ff;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80%;
+            transition: background 0.3s, box-shadow 0.3s;
+            font-size: 14px;
+            text-shadow: 0 0 5px #0ff;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background: #333;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        .upload-section {
+            margin-bottom: 20px;
+        }
+
+        .import-tip {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        #questionList {
+            height: 150px;
+            margin: 10px 0;
+            color: #0ff;
+            background: rgba(0, 0, 64, 1);
+            overflow-y: auto;
+            padding: 5px;
+            font-size: 12px;
+            border: 1px solid #0aa;
+        }
+
+        #questionForm {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 64, 0.9);
+            padding: 20px;
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            color: #0ff;
+            text-align: center;
+            z-index: 6; 
+            width: 80%;
+        }
+
+        #questionForm h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #questionForm select, #questionForm input, #questionForm textarea {
+            background: rgba(0, 5, 40, 0.8);
+            border: 1px solid #0ff;
+            padding: 8px;
+            color: #fff;
+            margin: 5px;
+        }
+        
+        #score, #powerups, #wave, #pauseBtn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        #powerups {
+            top: 30px;
+        }
+
+        #wave {
+            top: 50px;
+        }
+
+        #pauseBtn {
+            top: 10px;
+            right: 220px;
+            left: auto;
+            background: rgba(0, 0, 30, 0.7);
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #soundBtn {
+            position: absolute;
+            top: 10px;
+            right: 320px;
+            background: rgba(0, 0, 30, 0.7);
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        #healthBarContainer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 200px;
+            height: 20px;
+            border: 2px solid #0ff;
+            background: #000;
+            z-index: 1;
+        }
+
+        #healthBar {
+            width: 100%;
+            height: 100%;
+            background: #0f0;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        #powerupMessage {
+            display: none;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 64, 0.9);
+            padding: 20px;
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            color: #0ff;
+            font-size: 14px;
+            text-align: center;
+            z-index: 6;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at center, rgba(0, 0, 128, 0.9), rgba(0, 0, 64, 0.9));
+            padding: 20px;
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            color: #0ff;
+            width: 80%;
+            text-align: center;
+            font-size: 14px;
+            text-shadow: 0 0 5px #0ff;
+            z-index: 6;
+        }
+
+        .quiz-container h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Added styling for Chinese translation in questions */
+        .quiz-translation {
+            font-size: 14px;
+            color: #8af;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .quiz-timer {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #ff0;
+        }
+
+        /* Game Over Screen */
+        #gameOverScreen {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #f00;
+            border-radius: 10px;
+            color: #f00;
+            text-align: center;
+            width: 80%;
+            padding: 20px;
+            z-index: 6;
+        }
+
+        #gameOverScreen h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Game Stats */
+        #gameStats {
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        #gameStats div {
+            margin: 5px 0;
+        }
+
+        /* Pause Screen */
+        #pauseScreen {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 64, 0.9);
+            padding: 20px;
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            color: #0ff;
+            text-align: center;
+            z-index: 7;
+            width: 60%;
+        }
+
+        #pauseScreen h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #controlsGuide {
+            text-align: left;
+            font-size: 12px;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(0, 0, 40, 0.5);
+            border-radius: 5px;
+        }
+
+        .particle {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Category selector */
+        .category-selector {
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 0 20px;
+        }
+        
+        .category-checkbox {
+            margin: 5px;
+        }
+
+        #helpBtn {
+            position: absolute;
+            top: 50px;
+            right: 320px;
+            background: rgba(0, 0, 30, 0.7);
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        /* Help screen */
+        #helpScreen {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 64, 0.95);
+            padding: 20px;
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            color: #0ff;
+            text-align: left;
+            z-index: 7;
+            width: 70%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        #helpScreen h2 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        /* Added for the option translation */
+        .option-translation {
+            display: block;
+            font-size: 12px;
+            color: #8af;
+            margin-top: 4px;
+            font-style: italic;
+        }
+    </style>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body oncontextmenu="return false;">
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="score">Score: 0</div>
+        <div id="powerups">Power-ups: None</div>
+        <div id="wave">Wave: 1</div>
+        <button id="pauseBtn">⏸️ Pause</button>
+        <button id="soundBtn">🔊 Sound</button>
+        <button id="helpBtn">❓ Help</button>
+        <div id="healthBarContainer">
+            <div id="healthBar"></div>
+        </div>
+
+        <!-- Intro Screen -->
+        <!-- Intro Screen -->
+<div id="introScreen">
+    <div id="loadingIndicator" style="position: absolute; top: 20px; left: 0; right: 0; text-align: center; color: #0ff;">
+        Loading game assets... <span id="loadingProgress">0%</span>
+    </div>
+    <h1>BUSINESS LAW SPACE INVADERS</h1>
+    <p>
+        Welcome, defender!<br>
+        The galaxy is under threat from endless waves of cosmic invaders.<br>
+        Pilot your ship, blast enemies, and prove your knowledge in Australian law quizzes!<br>
+        Answer questions correctly to gain power-ups and progress through waves.<br>
+        Wrong answers cost health, so choose carefully!<br>
+        Game always pauses during quizzes for better focus!
+    </p>
+    <button id="introStartBtn">ENTER THE BATTLE</button>
+</div>
+
+        <!-- Settings Screen - Will be kept in HTML but bypassed in JS -->
+        <div id="settingsScreen">
+            <h2>Customize Your Game</h2>
+            
+            <div class="difficulty-selector">
+                <span>Difficulty: </span>
+                <button data-difficulty="easy" class="active">Easy</button>
+                <button data-difficulty="medium">Medium</button>
+                <button data-difficulty="hard">Hard</button>
+            </div>
+            
+            <div id="questionList"></div>
+            <div class="category-selector" id="categorySelector">
+                <!-- Categories will be added here dynamically -->
+            </div>
+            
+            <button id="startGameBtn" class="quiz-option">Start Game</button>
+        </div>
+
+        <!-- Quiz Container - Modified to include translations -->
+        <div class="quiz-container" id="quizContainer">
+            <h2 id="questionText"></h2>
+            <div id="questionTranslation" class="quiz-translation"></div>
+            <div id="quizTimer" class="quiz-timer"></div>
+            <div id="quizCategory" style="margin-bottom: 10px; font-size: 12px;"></div>
+            <div id="options"></div>
+        </div>
+
+        <!-- Power-up Message -->
+        <div id="powerupMessage"></div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen">
+            <h2>Game Over!</h2>
+            <div id="gameStats">
+                <div>Final Score: <span id="finalScore">0</span></div>
+                <div>Waves Completed: <span id="wavesCompleted">0</span></div>
+                <div>Enemies Destroyed: <span id="enemiesDestroyed">0</span></div>
+                <div>Correct Answers: <span id="correctAnswers">0</span> / <span id="totalQuestions">0</span></div>
+            </div>
+            <button id="restartButton" class="quiz-option">Restart Game</button>
+            <button id="backToMenuButton" class="quiz-option">Back to Menu</button>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen">
+            <h2>Game Paused</h2>
+            <div id="controlsGuide">
+                <p>Controls:</p>
+                <p>→ Move Right | ← Move Left</p>
+                <p>Space or Mouse Click to Shoot</p>
+                <p>P key or Pause button to Pause/Resume</p>
+                <p>M key or Sound button to Mute/Unmute</p>
+            </div>
+            <button id="resumeButton" class="quiz-option">Resume Game</button>
+            <button id="quitButton" class="quiz-option">Quit to Menu</button>
+        </div>
+
+        <!-- Help Screen -->
+        <div id="helpScreen">
+            <h2>Game Help</h2>
+            <h3>Basic Controls</h3>
+            <p>- Arrow keys or mouse to move your ship</p>
+            <p>- Space bar, mouse click, or touch to shoot</p>
+            <p>- P key or Pause button to pause the game</p>
+            <p>- M key or Sound button to toggle sound</p>
+            
+            <h3>Game Mechanics</h3>
+            <p>- Destroy enemies to score points</p>
+            <p>- Special enemies (flashing) give better rewards</p>
+            <p>- Answer quiz questions correctly to earn power-ups</p>
+            <p>- Wrong answers reduce your health</p>
+            <p>- Complete all waves to win</p>
+            
+            <h3>Power-ups</h3>
+            <p>- Rapid Fire: Shoot faster for 10 seconds</p>
+            <p>- Shield: Protect from enemy shots for 10 seconds</p>
+            <p>- Double Damage: Deal double damage for 10 seconds</p>
+            
+            <h3>Quiz System</h3>
+            <p>- Quizzes appear after special events</p>
+            <p>- Game always pauses during quizzes</p>
+            <p>- Quizzes are about Australian legal system</p>
+            <p>- Timer shows remaining time to answer</p>
+            
+            <button id="closeHelpBtn" class="quiz-option">Close Help</button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+<audio id="shootSound" src="./shoot.mp3" preload="auto"></audio>
+<audio id="explosionSound" src="./explosion.mp3" preload="auto"></audio>
+<audio id="powerupSound" src="./powerup.mp3" preload="auto"></audio>
+<audio id="quizSound" src="./quiz.mp3" preload="auto"></audio>
+<audio id="gameOverSound" src="./gameover.mp3" preload="auto"></audio>
+<audio id="backgroundMusic" src="./background.mp3" preload="auto" loop></audio>
+<audio id="correctSound" src="./correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="./wrong.mp3" preload="auto"></audio>
+<audio id="levelUpSound" src="./powerup.mp3" preload="auto"></audio>
+<script>
+// Game Canvas and Context
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// UI Elements
+const introScreen = document.getElementById('introScreen');
+const introStartBtn = document.getElementById('introStartBtn');
+const settingsScreen = document.getElementById('settingsScreen');
+const startGameBtn = document.getElementById('startGameBtn');
+const questionList = document.getElementById('questionList');
+const quizContainer = document.getElementById('quizContainer');
+const questionText = document.getElementById('questionText');
+const questionTranslation = document.getElementById('questionTranslation'); // Added for Chinese translation
+const optionsContainer = document.getElementById('options');
+const quizTimer = document.getElementById('quizTimer');
+const quizCategory = document.getElementById('quizCategory');
+const scoreDisplay = document.getElementById('score');
+const powerupsDisplay = document.getElementById('powerups');
+const waveDisplay = document.getElementById('wave');
+const healthBar = document.getElementById('healthBar');
+const powerupMessage = document.getElementById('powerupMessage');
+const gameOverScreen = document.getElementById('gameOverScreen');
+const finalScoreDisplay = document.getElementById('finalScore');
+const wavesCompletedDisplay = document.getElementById('wavesCompleted');
+const enemiesDestroyedDisplay = document.getElementById('enemiesDestroyed');
+const correctAnswersDisplay = document.getElementById('correctAnswers');
+const totalQuestionsDisplay = document.getElementById('totalQuestions');
+const restartButton = document.getElementById('restartButton');
+const backToMenuButton = document.getElementById('backToMenuButton');
+const pauseBtn = document.getElementById('pauseBtn');
+const soundBtn = document.getElementById('soundBtn');
+const helpBtn = document.getElementById('helpBtn');
+const pauseScreen = document.getElementById('pauseScreen');
+const resumeButton = document.getElementById('resumeButton');
+const quitButton = document.getElementById('quitButton');
+const helpScreen = document.getElementById('helpScreen');
+const closeHelpBtn = document.getElementById('closeHelpBtn');
+const difficultyButtons = document.querySelectorAll('.difficulty-selector button');
+const categorySelector = document.getElementById('categorySelector');
+
+// Audio Elements
+const shootSound = document.getElementById('shootSound');
+const explosionSound = document.getElementById('explosionSound');
+const powerupSound = document.getElementById('powerupSound');
+const quizSound = document.getElementById('quizSound');
+const gameOverSound = document.getElementById('gameOverSound');
+const backgroundMusic = document.getElementById('backgroundMusic');
+const correctSound = document.getElementById('correctSound');
+const wrongSound = document.getElementById('wrongSound');
+const levelUpSound = document.getElementById('powerupSound'); // Reuse powerup sound for level up
+
+// Event Listeners
+// Replace the existing introStartBtn event listener
+introStartBtn.addEventListener('click', () => {
+    // Initialize sound first with user interaction
+    initSoundWithUserInteraction();
+    
+    introScreen.style.display = 'none';
+    // Set difficulty to easy by default
+    gameDifficulty = 'easy';
+    applyDifficultySettings();
+    resetGameState();
+    initializeGameState();
+    initEnemies();
+    
+    // Start game with initial quiz
+    gameActive = true;
+    gameRunning = false;
+    
+    // Try to play background music after user interaction
+    if (soundEnabled) {
+        backgroundMusic.currentTime = 0;
+        backgroundMusic.play().catch(e => {
+            console.warn('Error playing background music:', e);
+            // Show a button to manually enable sound if needed
+        });
+    }
+    
+    showInitialQuiz();
+});
+
+// Game state variables
+let score = 0;
+let gameRunning = false; 
+let gameActive = false;
+let gamePaused = false;
+let soundEnabled = true;
+let activePowerups = [];
+let currentWave = 1;
+let lastFrameTime = performance.now();
+let quizSession = [];
+let quizQuestionIndex = 0;
+let destroyedNormalEnemies = 0;
+let totalEnemiesDestroyed = 0;
+let totalCorrectAnswers = 0;
+let totalQuestionsAsked = 0;
+let gameDifficulty = 'easy'; // Default difficulty
+let quizTimerValue = 0;
+let quizTimerInterval = null;
+let activeCategories = new Set();
+let particles = [];
+
+// Add this near the start of the script, after audio elements are defined
+function preloadAudio() {
+    const audioSources = [
+        './shoot.mp3',
+        './explosion.mp3',
+        './powerup.mp3',
+        './quiz.mp3',
+        './gameover.mp3',
+        './background.mp3',
+        './correct.mp3',
+        './wrong.mp3'
+    ];
+    
+    // Create an array to store the audio elements
+    window.audioCache = [];
+    
+    // Preload each audio file
+    audioSources.forEach(src => {
+        const audio = new Audio();
+        audio.src = src;
+        // Set to load but not play
+        audio.preload = 'auto';
+        audio.load();
+        window.audioCache.push(audio);
+    });
+}
+
+// Call the preload function early
+preloadAudio();
+
+// Add this function after all the audio element definitions
+function initSoundWithUserInteraction() {
+    // Create a one-time initialization function
+    if (!window.soundInitDone) {
+        // First try to unlock all audio elements
+        const audioElements = document.querySelectorAll('audio');
+        
+        // Set very low volume temporarily for initialization
+        const originalVolumes = [];
+        audioElements.forEach((audio, index) => {
+            originalVolumes[index] = audio.volume;
+            audio.volume = 0.01;
+        });
+        
+        // Play and immediately pause all sounds to unlock them
+        const playPromises = [];
+        audioElements.forEach((audio) => {
+            const promise = audio.play().catch(e => console.log('Audio init error:', e));
+            playPromises.push(promise);
+        });
+        
+        // After all have attempted to play, pause them and restore volume
+        Promise.allSettled(playPromises).then(() => {
+            audioElements.forEach((audio, index) => {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.volume = originalVolumes[index];
+            });
+            
+            // Now try to play background music specifically
+            if (soundEnabled && gameActive) {
+                backgroundMusic.play().catch(e => {
+                    console.warn('Background music still failed to play:', e);
+                });
+            }
+            
+            window.soundInitDone = true;
+        });
+    }
+}
+
+// Add this function after the initSoundWithUserInteraction function
+function showSoundEnableButton() {
+    // Only show if not already shown
+    if (document.getElementById('soundEnableBtn')) return;
+    
+    const enableBtn = document.createElement('button');
+    enableBtn.id = 'soundEnableBtn';
+    enableBtn.innerText = '🔊 Enable Music';
+    enableBtn.style.position = 'absolute';
+    enableBtn.style.top = '100px';
+    enableBtn.style.right = '10px';
+    enableBtn.style.zIndex = '1000';
+    enableBtn.style.padding = '10px';
+    enableBtn.style.background = 'rgba(0, 0, 30, 0.7)';
+    enableBtn.style.border = '1px solid #0ff';
+    enableBtn.style.color = '#0ff';
+    enableBtn.style.borderRadius = '5px';
+    enableBtn.style.cursor = 'pointer';
+    
+    // Add click handler
+    enableBtn.addEventListener('click', () => {
+        if (soundEnabled) {
+            backgroundMusic.currentTime = 0;
+            backgroundMusic.play().catch(e => console.warn('Still failed:', e));
+        }
+        // Remove the button
+        document.body.removeChild(enableBtn);
+    });
+    
+    document.body.appendChild(enableBtn);
+}
+
+// Debug helper function
+function debugLog(message) {
+    console.log(`[GAME DEBUG] ${message}`);
+    
+    // For critical messages, also show on screen for testing
+    if (message.includes("ERROR") || message.includes("CRITICAL")) {
+        const debugElement = document.createElement('div');
+        debugElement.style.position = 'absolute';
+        debugElement.style.top = '100px';
+        debugElement.style.left = '10px';
+        debugElement.style.color = '#ff0000';
+        debugElement.style.background = 'rgba(0,0,0,0.7)';
+        debugElement.style.padding = '5px';
+        debugElement.style.zIndex = '9999';
+        debugElement.textContent = message;
+        document.body.appendChild(debugElement);
+        
+        // Remove after 5 seconds
+        setTimeout(() => {
+            document.body.removeChild(debugElement);
+        }, 5000);
+    }
+}
+
+function checkBrowserCompatibility() {
+    debugLog("Checking browser compatibility...");
+// Check for canvas support
+    if (!canvas.getContext) {
+        alert("Your browser doesn't support HTML5 canvas, which is required for this game. Please use a modern browser.");
+        return false;
+    }
+    
+    // Check for audio support
+    const audio = document.createElement('audio');
+    if (!audio.canPlayType) {
+        console.warn("Your browser doesn't fully support HTML5 audio. Sound will be disabled.");
+        soundEnabled = false;
+    }
+    
+    // Check if audio format is supported
+    if (audio.canPlayType && !audio.canPlayType('audio/mpeg') && !audio.canPlayType('audio/mp3')) {
+        console.warn("Your browser doesn't support MP3 audio. Sound will be disabled.");
+        soundEnabled = false;
+    }
+    
+    return true;
+}
+
+function setGameState(active, running, paused) {
+    gameActive = active;
+    gameRunning = running;
+    gamePaused = paused;
+    
+    // Update music state based on game state
+    try {
+        if (soundEnabled) {
+            if (active && running && !paused) {
+                backgroundMusic.play().catch(e => console.warn('Error playing music:', e));
+            } else {
+                backgroundMusic.pause();
+            }
+        }
+    } catch (e) {
+        console.warn('Error managing background music:', e);
+    }
+}
+
+// -------------------------------------------------------
+// MODIFIED: Added the 20 quiz questions from the Word document
+// Each question includes English question, Chinese translation, 
+// options (with English and Chinese), and the correct answer index
+// -------------------------------------------------------
+// -------------------------------------------------------
+// MODIFIED: Added the 20 quiz questions from the Word document
+// Each question includes English question, Chinese translation, 
+// options (with English and Chinese), and the correct answer index
+// -------------------------------------------------------
+const questions = [
+    { 
+        question: "Which of the following statements is true? Under the doctrine of the separation of powers the members of parliaments:", 
+        translation: "以下哪项陈述是正确的？根据权力分立原则，议会成员：",
+        options: [
+            { text: "has the power to interpret laws on education.", translation: "有权解释有关教育的法律。" },
+            { text: "has to follow the precedent set by the High Court of Australia.", translation: "必须遵循澳大利亚高等法院设定的先例。" },
+            { text: "has the power to prevail over state law under s 109 of the Australia Constitution.", translation: "根据澳大利亚宪法第109条有权凌驾于州法律之上。" },
+            { text: "has the power to make and amend laws.", translation: "有权制定和修改法律。" }
+        ], 
+        correct: 3,
+        category: "Australian Law"
+    },
+    { 
+        question: "Which of the following CANNOT be referred to as \"Common Law\"?", 
+        translation: "以下哪项不能被称为普通法？",
+        options: [
+            { text: "Precedent.", translation: "先例。" },
+            { text: "Case law.", translation: "判例法。" },
+            { text: "Enacted law.", translation: "成文法。" },
+            { text: "Judges' decisions.", translation: "法官的决定。" }
+        ], 
+        correct: 2,
+        category: "Australian Law"
+    },
+    { 
+        question: "Which of the following statements involving criminal law is NOT correct?", 
+        translation: "以下关于刑法的说法哪项不正确？",
+        options: [
+            { text: "Examples of criminal law are the charges of murder, or fraud.", translation: "刑法的例子包括谋杀或欺诈指控。" },
+            { text: "It is a dispute between an individual and another legal entity.", translation: "它是个人与另一法律实体之间的争议。" },
+            { text: "The Crown (or prosecution) must prove its case beyond reasonable doubt.", translation: "王室（或检方）必须证明其案件确实无疑。" },
+            { text: "The offender can be punished either by fine or imprisonment.", translation: "罪犯可以通过罚款或监禁来惩罚。" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "What is the name used for a person who commences a civil action?", 
+        translation: "对提起民事诉讼的人使用什么名称？",
+        options: [
+            { text: "Accused.", translation: "被告人。" },
+            { text: "Defendant.", translation: "被告。" },
+            { text: "Plaintiff.", translation: "原告。" },
+            { text: "Respondent.", translation: "答辩人。" }
+        ], 
+        correct: 2,
+        category: "Australian Law"
+    },
+    { 
+        question: "Section 109 of the Australian Constitution provides that if a statute made by a state legislature is inconsistent with a statute made by the federal legislature:", 
+        translation: "澳大利亚宪法第109条规定，如果州立法机构制定的法规与联邦立法机构制定的法规不一致：",
+        options: [
+            { text: "both the federal law and state law will be made invalid to the extent of the inconsistency.", translation: "联邦法律和州法律在不一致的范围内均无效。" },
+            { text: "both the federal law and state law will be valid.", translation: "联邦法律和州法律均有效。" },
+            { text: "the federal law shall prevail, and the state law will be invalid to the extent of the inconsistency.", translation: "联邦法律应当优先，州法律在不一致的范围内无效。" },
+            { text: "the state law shall prevail, and the federal law will be invalid to the extent of the inconsistency.", translation: "州法律应当优先，联邦法律在不一致的范围内无效。" }
+        ], 
+        correct: 2,
+        category: "Australian Law"
+    },
+    { 
+        question: "A decision by the Supreme Court of NSW is binding on the:", 
+        translation: "新南威尔士州最高法院的决定对以下哪一项有约束力：",
+        options: [
+            { text: "Federal Court of Australia.", translation: "澳大利亚联邦法院。" },
+            { text: "High Court of Australia.", translation: "澳大利亚高等法院。" },
+            { text: "Lower Courts of Queensland.", translation: "昆士兰州的下级法院。" },
+            { text: "District Courts of NSW.", translation: "新南威尔士州的地区法院。" }
+        ], 
+        correct: 3,
+        category: "Australian Law"
+    },
+    { 
+        question: "Establishing laws regarding education, health, and local government are examples under which power?", 
+        translation: "制定关于教育、健康和地方政府的法律是哪种权力的例子？",
+        options: [
+            { text: "Executive power.", translation: "行政权力。" },
+            { text: "Residual power.", translation: "剩余权力。" },
+            { text: "Exclusive power.", translation: "专属权力。" },
+            { text: "Legislature power.", translation: "立法权力。" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "The term 'civil law' can refer to those legal systems whose laws are based on Roman law. It can also refer to the body of laws:", 
+        translation: "'民法'一词可以指基于罗马法的法律体系。它也可以指：",
+        options: [
+            { text: "that is created by judges", translation: "由法官创建的法律" },
+            { text: "that does not relate to criminal offences.", translation: "与刑事犯罪无关的法律。" },
+            { text: "that establish what conduct is criminal and the punishments for engaging in such conduct", translation: "确立哪些行为是犯罪以及从事此类行为的惩罚的法律" },
+            { text: "that is based on fairness and justice", translation: "基于公平和正义的法律" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "Which of the following statements is NOT the purpose of the law?", 
+        translation: "以下哪项陈述不是法律的目的？",
+        options: [
+            { text: "The purpose of the law is to regulate the conduct of the individuals.", translation: "法律的目的是规范个人的行为。" },
+            { text: "To grant arbitrary power to a particular government body.", translation: "向特定政府机构授予任意权力。" },
+            { text: "Providing a legal system to hear and settle disputes by an independent and impartial process.", translation: "提供通过独立和公正程序听取和解决纠纷的法律制度。" },
+            { text: "Determining the rights, duties and obligation of people who are engaged in everyday transactions.", translation: "确定从事日常交易的人的权利、责任和义务。" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "The ability to create different laws for Australian states, territories and the Commonwealth occurs because of the:", 
+        translation: "为澳大利亚各州、领地和联邦创建不同法律的能力是由于：",
+        options: [
+            { text: "court system of hierarchy.", translation: "法院等级制度。" },
+            { text: "separation of power.", translation: "权力分立。" },
+            { text: "division of power.", translation: "权力划分。" },
+            { text: "case law from common law courts.", translation: "普通法法院的判例法。" }
+        ], 
+        correct: 2,
+        category: "Australian Law"
+    },
+    { 
+        question: "Civil law involves the disputes:", 
+        translation: "民法涉及的纠纷：",
+        options: [
+            { text: "Between individuals and the Crown.", translation: "个人与王室之间。" },
+            { text: "Between corporations only.", translation: "仅在公司之间。" },
+            { text: "Between legal entities including persons, corporations or government.", translation: "在包括个人、公司或政府在内的法律实体之间。" },
+            { text: "Between government only.", translation: "仅在政府之间。" }
+        ], 
+        correct: 2,
+        category: "Australian Law"
+    },
+    { 
+        question: "Under Australian democracy, 'unelected' judges make laws that determine the way people live. Parliaments, on the other hand, are elected by voters so in this indirect way the electors can determine the laws that people live by. In consideration to the above statement which of the following would be classed as the supreme law?", 
+        translation: "在澳大利亚民主制下，未经选举的法官制定决定人们生活方式的法律。另一方面，议会由选民选举产生，因此选民可以间接决定人们生活的法律。考虑到上述说法，以下哪一项会被归类为最高法律？",
+        options: [
+            { text: "Common law", translation: "普通法" },
+            { text: "Acts of legislation", translation: "立法法案" },
+            { text: "Equity law", translation: "衡平法" },
+            { text: "Doctrine of precedent", translation: "先例原则" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "Which of the following statements of doctrine of precedent is NOT correct?", 
+        translation: "以下关于先例原则的说法哪项不正确？",
+        options: [
+            { text: "The basis of doctrine of precedent is: like case should be decided alike.", translation: "先例原则的基础是：相似案件应相似裁决。" },
+            { text: "The reasons given for deciding a case is called \"obiter dicta\" which constitutes a binding precedent.", translation: "判决案件的理由被称为附带意见，构成有约束力的先例。" },
+            { text: "The cases with similar facts should be decided in the same way as the higher court in the same judiciary hierarchy.", translation: "具有相似事实的案件应当以与同一司法等级中更高法院相同的方式裁决。" },
+            { text: "In Australia, both the commonwealth and the states have adopted a hierarchical court system.", translation: "在澳大利亚，联邦和各州都采用了分层次的法院系统。" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "Under the concept of 'separation of powers' the function of the executive is to:", 
+        translation: "在权力分立概念下，行政部门的职能是：",
+        options: [
+            { text: "administer the law.", translation: "执行法律。" },
+            { text: "evaluate the law.", translation: "评估法律。" },
+            { text: "interpret the law.", translation: "解释法律。" },
+            { text: "make and amend the law.", translation: "制定和修改法律。" }
+        ], 
+        correct: 0,
+        category: "Australian Law"
+    },
+    { 
+        question: "Which of the following statements of federation is correct:", 
+        translation: "以下关于联邦制的说法哪项是正确的：",
+        options: [
+            { text: "Each colony was granted more power to make their own laws.", translation: "每个殖民地获得了更多制定自己法律的权力。" },
+            { text: "Each colony became a state with its own parliament that enacted law for the state.", translation: "每个殖民地成为一个州，拥有自己的议会，为该州制定法律。" },
+            { text: "Each colony was able to retain its law-making powers upon federation.", translation: "每个殖民地在联邦制下能够保留其立法权。" },
+            { text: "Federation is a process of uniting six British colonies during the meeting in 1890s.", translation: "联邦制是在1890年代的会议中统一六个英国殖民地的过程。" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "An example of a State court is the:", 
+        translation: "州法院的例子是：",
+        options: [
+            { text: "Family Court.", translation: "家庭法院。" },
+            { text: "Federal Circuit Court.", translation: "联邦巡回法院。" },
+            { text: "High Court.", translation: "高等法院。" },
+            { text: "Local Court.", translation: "地方法院。" }
+        ], 
+        correct: 3,
+        category: "Australian Law"
+    },
+    { 
+        question: "Which of the following statement is the appropriate description of residual powers?", 
+        translation: "以下哪项说法是对剩余权力的恰当描述？",
+        options: [
+            { text: "Residual power is when the states agreed to federate, they decided that some laws should exclusively made by commonwealth.", translation: "剩余权力是指当各州同意联合时，它们决定某些法律应由联邦专属制定。" },
+            { text: "Residual power is if the Constitution has not given the Commonwealth specific powers to make laws in a certain area, only the states can enact valid laws.", translation: "剩余权力是指如果宪法没有赋予联邦在某个领域制定法律的特定权力，则只有各州可以制定有效法律。" },
+            { text: "Residual powers allow states to make valid laws in the areas of customs and excise, military forces, currencies, etc.", translation: "剩余权力允许各州在海关和消费税、军事力量、货币等领域制定有效法律。" },
+            { text: "Commonwealth and states parliament cannot exercise their law-making power on the same matter.", translation: "联邦和州议会不能对同一事项行使其立法权。" }
+        ], 
+        correct: 1,
+        category: "Australian Law"
+    },
+    { 
+        question: "Unenacted law is also known as?", 
+        translation: "未制定法也被称为？",
+        options: [
+            { text: "Precedent.", translation: "先例。" },
+            { text: "Statute law.", translation: "成文法。" },
+            { text: "Acts of parliament.", translation: "议会法案。" },
+            { text: "Legislation", translation: "立法" }
+        ], 
+        correct: 0,
+        category: "Australian Law"
+    },
+    { 
+        question: "Under the doctrine of precedent, a decision by the Supreme Court of Queensland is binding on the:", 
+        translation: "根据先例原则，昆士兰州最高法院的决定对以下哪一项有约束力：",
+        options: [
+            { text: "Supreme Court of Queensland.", translation: "昆士兰州最高法院。" },
+            { text: "High Court of Australia.", translation: "澳大利亚高等法院。" },
+            { text: "District Courts of NSW.", translation: "新南威尔士州的地区法院。" },
+            { text: "Local Courts of Queensland.", translation: "昆士兰州的地方法院。" }
+        ], 
+        correct: 3,
+        category: "Australian Law"
+    },
+    { 
+        question: "As a result of the injustices that sometimes occurred with the application of the common law in the early UK court system, which system was developed to provide more flexible remedies that were inadequate within common law system?", 
+        translation: "由于英国早期法院系统中普通法的应用有时会出现不公正现象，为提供普通法体系中不足的更灵活补救措施，发展了哪种系统？",
+        options: [
+            { text: "Court system of hierarchy.", translation: "分级法院系统。" },
+            { text: "Separation of power.", translation: "权力分立。" },
+            { text: "Equity.", translation: "衡平法。" },
+            { text: "Case law from common law courts.", translation: "普通法法院的判例法。" }
+        ], 
+        correct: 2,
+        category: "Australian Law"
+    }
+];
+
+// Track used questions
+let usedQuestions = [];
+
+// Game assets
+const playerShipImage = new Image();
+const enemyShipImage = new Image();
+const specialEnemyShipImage = new Image();
+const powerupImage = new Image();
+const asteroidImage = new Image();
+const explosionImage = new Image();
+const shootingStarImage = new Image();
+const shieldImage = new Image();
+
+// Asset loading tracker
+let imagesToLoad = 0;
+let imagesLoaded = 0;
+let assetsLoaded = false;
+
+function imageLoaded() {
+    imagesLoaded++;
+    
+    // Update loading progress
+    const progress = Math.round((imagesLoaded / imagesToLoad) * 100);
+    const loadingProgress = document.getElementById('loadingProgress');
+    if (loadingProgress) {
+        loadingProgress.textContent = progress + '%';
+    }
+    
+    if (imagesLoaded >= imagesToLoad) {
+        assetsLoaded = true;
+        // Hide loading indicator
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+        showIntroScreen();
+    }
+}
+
+function loadGameImages() {
+debugLog("Loading game images...");
+    // Reset counters
+    imagesToLoad = 0;
+    imagesLoaded = 0;
+    
+    // Helper function to handle image loading
+    const loadImage = (img, src, fallbackColor) => {
+        imagesToLoad++;
+        img.onload = () => {
+            imagesLoaded++;
+            
+            // Update loading progress
+            const progress = Math.round((imagesLoaded / imagesToLoad) * 100);
+            const loadingProgress = document.getElementById('loadingProgress');
+            if (loadingProgress) {
+                loadingProgress.textContent = progress + '%';
+            }
+            
+            if (imagesLoaded >= imagesToLoad) {
+                assetsLoaded = true;
+                // Hide loading indicator
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+                showIntroScreen();
+            }
+        };
+        img.onerror = () => { 
+            console.warn(`Failed to load image: ${src} - Using fallback`);
+            // Create a fallback colored rectangle
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = 50;
+            tempCanvas.height = 50;
+            tempCtx.fillStyle = fallbackColor;
+            tempCtx.fillRect(0, 0, 50, 50);
+            img.src = tempCanvas.toDataURL();
+            imagesLoaded++;
+            
+            // Update loading progress
+            const progress = Math.round((imagesLoaded / imagesToLoad) * 100);
+            const loadingProgress = document.getElementById('loadingProgress');
+            if (loadingProgress) {
+                loadingProgress.textContent = progress + '%';
+            }
+            
+            if (imagesLoaded >= imagesToLoad) {
+                assetsLoaded = true;
+                // Hide loading indicator
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                if (loadingIndicator) {
+                    loadingIndicator.style.display = 'none';
+                }
+                showIntroScreen();
+            }
+        };
+        img.src = src;
+    };
+
+    // Load all game images with fallbacks
+loadImage(playerShipImage, './playerShip.png', '#0f0');
+loadImage(enemyShipImage, './enemyShip.png', '#f00');
+loadImage(specialEnemyShipImage, './specialEnemyShip.png', '#ff0');
+loadImage(powerupImage, './powerup.png', '#0ff');
+loadImage(asteroidImage, './asteroid.png', '#888');
+loadImage(explosionImage, './explosion.png', '#f80');
+loadImage(shootingStarImage, './shootingStar.png', '#fff');
+// Either comment out this line or create the file:
+// loadImage(shieldImage, './shield.png', '#00f');
+    
+    // Add a timeout in case images never load
+    setTimeout(() => {
+        if (!assetsLoaded) {
+            console.warn('Timeout waiting for images to load. Starting game anyway.');
+            assetsLoaded = true;
+            showIntroScreen();
+        }
+    }, 5000); // 5 second timeout
+}
+
+// Sound toggle function - modified version
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    soundBtn.textContent = soundEnabled ? '🔊 Sound' : '🔇 Muted';
+    
+    // Make sure audio is initialized with user interaction
+    initSoundWithUserInteraction();
+    
+    try {
+        if (soundEnabled) {
+            // Play background music if the game is active
+            if (gameActive) {
+                // Reset to beginning
+                backgroundMusic.currentTime = 0;
+                backgroundMusic.play().catch(e => {
+                    console.warn('Error playing music:', e);
+                    // If still failing, show button
+                    showSoundEnableButton();
+                });
+            }
+        } else {
+            // Always pause music when toggling sound off
+            backgroundMusic.pause();
+        }
+    } catch (e) {
+        console.warn('Error toggling sound:', e);
+    }
+}
+
+function checkAllImagesLoaded() {
+    if (imagesLoaded >= imagesToLoad) {
+        assetsLoaded = true;
+        showIntroScreen();
+    }
+}
+
+// Sound handling with error fallbacks
+function playSound(sound) {
+    if (!soundEnabled) return;
+    
+    try {
+        if (sound && sound.readyState >= 2) { // HAVE_CURRENT_DATA or higher
+            sound.currentTime = 0;
+            sound.play().catch(err => {
+                console.warn(`Error playing sound: ${err.message}`);
+                // If error is about autoplay, add one-time click event listener to resume
+                if (err.name === 'NotAllowedError') {
+                    document.addEventListener('click', function resumeAudioOnce() {
+                        sound.play().catch(e => console.warn('Still failed to play audio:', e));
+                        document.removeEventListener('click', resumeAudioOnce);
+                    }, { once: true });
+                }
+            });
+        }
+    } catch (e) {
+        console.warn(`Error with sound playback: ${e.message}`);
+    }
+}
+
+// Initialize and load assets
+loadGameImages();
+
+// Player object
+const player = {
+    x: canvas.width / 2 - 25,
+    y: canvas.height - 60,
+    width: 50,
+    height: 50,
+    speed: 5,
+    bullets: [],
+    powerups: {
+        rapidFire: false,
+        shield: false,
+        doubleDamage: false
+    },
+    health: 100,
+    maxHealth: 100,
+    shootCooldown: 0,
+    shootInterval: 500, // Normal shooting interval
+    invulnerable: false,
+    invulnerableTimer: 0
+};
+
+// Game objects
+let enemies = [];
+let enemyBullets = [];
+
+const enemyTypes = [
+    { points: 10, name: 'Raw Materials', isSpecial: false, color: '#f00' },
+    { points: 20, name: 'Labor', isSpecial: false, color: '#f80' },
+    { points: 30, name: 'Capital Goods', isSpecial: false, color: '#ff0' },
+    { points: 50, name: 'Special Enemy', isSpecial: true, color: '#f0f' }
+];
+
+// Enemy timing variables - will be adjusted based on difficulty
+let enemyShootInterval = 5000;
+let enemySpeedMultiplier = 1.0;
+
+let powerUpItems = [];
+let stars = [];
+let asteroids = [];
+let shootingStars = [];
+let explosions = [];
+
+// Game UI Functions
+function showIntroScreen() {
+debugLog("Showing intro screen...");
+    // Hide loading indicator once intro is shown
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+    }
+    
+    introScreen.style.display = 'block';
+    gameActive = false;
+    clearCanvas();
+}
+
+// Difficulty settings still exist but will be pre-selected
+function applyDifficultySettings() {
+    // Adjust game parameters based on difficulty
+    switch(gameDifficulty) {
+        case 'easy':
+            player.maxHealth = 120;
+            player.health = player.maxHealth;
+            enemySpeedMultiplier = 0.8;
+            enemyShootInterval = 6000;
+            break;
+        case 'medium':
+            player.maxHealth = 100;
+            player.health = player.maxHealth;
+            enemySpeedMultiplier = 1.0;
+            enemyShootInterval = 5000;
+            break;
+        case 'hard':
+            player.maxHealth = 80;
+            player.health = player.maxHealth;
+            enemySpeedMultiplier = 1.2;
+            enemyShootInterval = 4000;
+            break;
+    }
+    updateHealthBar();
+}
+
+function resetGameState() {
+    // Reset game counters and state
+    currentWave = 1;
+    destroyedNormalEnemies = 0;
+    totalEnemiesDestroyed = 0;
+    totalCorrectAnswers = 0;
+    totalQuestionsAsked = 0;
+    score = 0;
+    
+    // Reset player state
+    player.health = player.maxHealth;
+    player.bullets = [];
+    player.powerups.rapidFire = false;
+    player.powerups.shield = false;
+    player.powerups.doubleDamage = false;
+    player.invulnerable = false;
+    player.invulnerableTimer = 0;
+    
+    // Reset game objects
+    enemies = [];
+    enemyBullets = [];
+    powerUpItems = [];
+    activePowerups = [];
+    particles = [];
+    
+    // Reset questions
+    usedQuestions = [];
+    
+    // Update UI
+    updateHealthBar();
+    updatePowerupsDisplay();
+    waveDisplay.textContent = `Wave: ${currentWave}`;
+    scoreDisplay.textContent = `Score: ${score}`;
+}
+
+// Initial quiz at game start
+function showInitialQuiz() {
+    if (questions.length === 0) {
+        handleGameOver();
+        return;
+    }
+    
+    // Always pause gameplay during quiz
+    gameRunning = false;
+    quizSession = [];
+    quizQuestionIndex = 0;
+    
+    let question = getRandomQuestion();
+    if (!question) {
+        handleGameOver();
+        return;
+    }
+    
+    quizSession.push(question);
+    displayQuizQuestion('initial');
+    playSound(quizSound);
+}
+
+// Get a random question, filtered by active categories if any
+function getRandomQuestion() {
+    let availableQuestions = questions.filter(q => !usedQuestions.includes(q));
+    
+    if (availableQuestions.length === 0) {
+        return null;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+    const question = availableQuestions[randomIndex];
+    usedQuestions.push(question);
+    return question;
+}
+
+// MODIFIED: Display quiz question with both English and Chinese translations
+function displayQuizQuestion(eventType = 'none') {
+    // Force game to pause
+    gamePaused = true;
+    gameRunning = false;
+    
+    if (quizQuestionIndex >= quizSession.length) {
+        clearQuizTimer();
+        quizContainer.style.display = 'none';
+        
+        // Resume game after quiz is done
+        gamePaused = false;
+        gameRunning = true;
+        gameActive = true;
+        
+        // If no enemies alive, init again to ensure gameplay is visible
+        if (!enemies.some(e => e.alive)) {
+            initEnemies();
+        }
+        return;
+    }
+    
+     const q = quizSession[quizQuestionIndex];
+     quizContainer.style.display = 'block';
+
+    // Display both English question and Chinese translation
+    questionText.textContent = q.question;
+    questionTranslation.textContent = q.translation;
+    
+    // Show category if available
+    if (q.category) {
+        quizCategory.textContent = `Category: ${q.category}`;
+        quizCategory.style.display = 'block';
+    } else {
+        quizCategory.style.display = 'none';
+    }
+    
+    optionsContainer.innerHTML = '';
+
+    // Add options as buttons with translations
+    q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        
+        // Create option with both English and Chinese
+        btn.innerHTML = `${opt.text}<span class="option-translation">${opt.translation}</span>`;
+        
+        btn.onclick = () => handleQuizAnswer(idx === q.correct, eventType);
+        optionsContainer.appendChild(btn);
+    });
+    
+    // Start quiz timer based on difficulty
+    startQuizTimer(getDifficultyQuizTime());
+}
+
+// Add this AFTER the displayQuizQuestion function ends
+function ensureGameObjectsVisible() {
+    // Force redraw of all game elements
+    clearCanvas();
+    drawStars();
+    drawAsteroids();
+    drawShootingStars();
+    drawExplosions();
+    drawParticles();
+    
+    // Force redraw of enemies and player
+    drawEnemiesStatic();
+    drawPlayerStatic();
+    
+    // Log that visibility has been restored
+    console.log("Restoring game objects visibility");
+}
+
+// Get quiz time based on difficulty
+function getDifficultyQuizTime() {
+    switch(gameDifficulty) {
+        case 'easy': return 30; // 30 seconds
+        case 'medium': return 20; // 20 seconds
+        case 'hard': return 10; // 10 seconds
+        default: return 30;
+    }
+}
+
+// Start the quiz timer
+function startQuizTimer(seconds) {
+    // Clear any existing timer
+    if (quizTimerInterval) {
+        clearInterval(quizTimerInterval);
+        quizTimerInterval = null;
+    }
+    
+    quizTimerValue = seconds;
+    updateQuizTimerDisplay();
+    console.log("Starting quiz timer: " + seconds + " seconds");
+    
+    quizTimerInterval = setInterval(function() {
+        quizTimerValue--;
+        console.log("Timer: " + quizTimerValue);
+        updateQuizTimerDisplay();
+        
+        if (quizTimerValue <= 0) {
+            clearInterval(quizTimerInterval);
+            quizTimerInterval = null;
+            // Time's up - treat as wrong answer
+            handleQuizAnswer(false, 'timeout');
+        }
+    }, 1000);
+}
+
+// Update quiz timer display
+function updateQuizTimerDisplay() {
+    quizTimer.textContent = `Time: ${quizTimerValue}s`;
+    
+    // Change color based on time remaining
+    if (quizTimerValue <= 5) {
+        quizTimer.style.color = '#f00'; // Red when time is low
+    } else if (quizTimerValue <= 10) {
+        quizTimer.style.color = '#ff0'; // Yellow when time is medium
+    } else {
+        quizTimer.style.color = '#0f0'; // Green when plenty of time
+    }
+}
+
+// Clear the quiz timer
+function clearQuizTimer() {
+    if (quizTimerInterval) {
+        clearInterval(quizTimerInterval);
+        quizTimerInterval = null;
+    }
+}
+
+// Handle quiz answer selection
+function handleQuizAnswer(isCorrect, eventType) {
+    clearQuizTimer();
+    totalQuestionsAsked++;
+    
+    if (isCorrect) {
+        totalCorrectAnswers++;
+        playSound(correctSound);
+        
+        // Award power-ups based on event type
+        if (eventType === 'destroySpecial') {
+            activatePowerup('shield');
+        } else if (eventType === 'collectPowerup') {
+            activatePowerup('rapidFire');
+        } else if (eventType === 'destroy5Normal') {
+            activatePowerup('doubleDamage');
+        } else if (eventType === 'wave') {
+            // Random power-up for completing a wave
+            const randomPowerup = ['shield', 'rapidFire', 'doubleDamage'][Math.floor(Math.random() * 3)];
+            activatePowerup(randomPowerup);
+            
+            // Bonus health recovery between waves (scaled by difficulty)
+            let healthBonus = 0;
+            switch(gameDifficulty) {
+                case 'easy': healthBonus = 30; break;
+                case 'medium': healthBonus = 20; break;
+                case 'hard': healthBonus = 10; break;
+            }
+            
+            player.health = Math.min(player.health + healthBonus, player.maxHealth);
+            updateHealthBar();
+        }
+        
+        // Award bonus points for correct answer
+        score += 50;
+        scoreDisplay.textContent = `Score: ${score}`;
+    } else {
+        playSound(wrongSound);
+        
+        // Health penalty based on difficulty
+        let healthPenalty = 0;
+        switch(gameDifficulty) {
+            case 'easy': healthPenalty = 8; break; // 8% health penalty
+            case 'medium': healthPenalty = 10; break; // 10% health penalty
+            case 'hard': healthPenalty = 15; break; // 15% health penalty
+        }
+        
+        player.health = Math.max(player.health - (player.maxHealth * (healthPenalty/100)), 0);
+        updateHealthBar();
+        
+        // Create damage effect
+        createExplosionParticles(player.x + player.width/2, player.y + player.height/2, 15, '#f00');
+        playSound(explosionSound);
+        
+        // Make player briefly invulnerable after taking damage
+        player.invulnerable = true;
+        player.invulnerableTimer = 2000; // 2 seconds of invulnerability
+        
+        if (player.health <= 0) {
+            handleGameOver();
+            return;
+        }
+    }
+
+    quizQuestionIndex++;
+    if (quizQuestionIndex < quizSession.length) {
+        displayQuizQuestion(eventType);
+    } else {
+        quizContainer.style.display = 'none';
+        
+        // Check if we're out of questions
+        let availableQuestions = questions.filter(q => !usedQuestions.includes(q));
+        
+        if (availableQuestions.length === 0) {
+            handleGameOver("WIN"); // Win condition if all questions are used
+        } else {
+            // Quiz done, resume gameplay
+            gamePaused = false; // This line ensures the game unpauses
+            gameRunning = true;
+            gameActive = true;
+            
+            // Add this to force visibility
+            setTimeout(ensureGameObjectsVisible, 100);
+            
+            // If no enemies, init them now:
+            if (!enemies.some(e => e.alive)) {
+                initEnemies();
+            }
+        }
+    }
+} // <-- THIS CLOSING BRACE WAS MISSING
+
+// Power-up activation
+function activatePowerup(type) {
+    player.powerups[type] = true;
+    
+    // Find any existing powerups of the same type
+    const existingIndex = activePowerups.findIndex(p => p.type === type);
+    if (existingIndex >= 0) {
+        // Just reset the timer if same powerup already active
+        activePowerups[existingIndex].remainingTime = 10000; // 10 seconds
+    } else {
+        // Otherwise add a new powerup entry
+        activePowerups.push({ type, remainingTime: 10000 });
+    }
+    
+    updatePowerupsDisplay();
+    
+    // Display appropriate message
+    let msg = '';
+    if (type === 'rapidFire') msg = 'Rapid Fire Activated!';
+    else if (type === 'shield') msg = 'Shield Activated!';
+    else if (type === 'doubleDamage') msg = 'Double Damage Activated!';
+    else msg = 'Power-up Activated!';
+    
+    showPowerupMessage(msg);
+    playSound(powerupSound);
+}
+
+// Update power-ups display
+function updatePowerupsDisplay() {
+    if (activePowerups.length === 0) {
+        powerupsDisplay.textContent = 'Power-ups: None';
+        return;
+    }
+    
+    const activeNames = activePowerups.map(p => {
+        // Convert camelCase to readable format
+        let name = p.type.replace(/([A-Z])/g, ' $1').trim();
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    });
+    
+    powerupsDisplay.textContent = `Power-ups: ${activeNames.join(', ')}`;
+}
+
+// Update health bar
+function updateHealthBar() {
+    const hp = (player.health / player.maxHealth) * 100;
+    healthBar.style.width = hp + '%';
+    
+    // Color based on health percentage
+    if (hp > 60) {
+        healthBar.style.background = '#0f0'; // Green
+    } else if (hp > 30) {
+        healthBar.style.background = '#ff0'; // Yellow
+    } else {
+        healthBar.style.background = '#f00'; // Red
+    }
+}
+
+// Show powerup message
+function showPowerupMessage(message, callback) {
+    powerupMessage.textContent = message;
+    powerupMessage.style.display = 'block';
+    
+    // Force game to pause
+    gamePaused = true;
+    gameRunning = false;
+    
+    setTimeout(() => {
+    powerupMessage.style.display = 'none';
+    
+    if (callback) {
+        // Call the callback instead of resuming game
+        callback();
+    } else {
+        // Only if no callback, check if we should resume
+        let availableQuestions = questions.filter(q => !usedQuestions.includes(q));
+        
+        if (availableQuestions.length === 0) {
+            handleGameOver("WIN");
+        } else {
+            // Resume game only if there's no callback
+            gamePaused = false;
+            gameRunning = true;
+            gameActive = true;
+            
+            // Add this to force visibility after resuming
+            setTimeout(ensureGameObjectsVisible, 100);
+            
+            // If no enemies are alive, init again:
+            if (!enemies.some(e => e.alive)) {
+                initEnemies();
+            }
+        }
+    }
+}, 2000); // 2 seconds display time
+}
+
+// Handle game over
+function handleGameOver(outcome = "LOSE") {
+    setGameState(false, false, false);
+    clearQuizTimer();
+
+    // Update final statistics
+    finalScoreDisplay.textContent = score;
+    wavesCompletedDisplay.textContent = currentWave - 1;
+    enemiesDestroyedDisplay.textContent = totalEnemiesDestroyed;
+    correctAnswersDisplay.textContent = totalCorrectAnswers;
+    totalQuestionsDisplay.textContent = totalQuestionsAsked;
+    
+    // Get game over title element
+    const gameOverTitle = document.querySelector('#gameOverScreen h2');
+    
+    // Customize message based on outcome
+    if (outcome === "WIN" && player.health > 0 && totalQuestionsAsked === questions.length) {
+        gameOverTitle.textContent = "Victory!";
+        gameOverTitle.style.color = "#0f0";
+        gameOverScreen.style.borderColor = "#0f0";
+        playSound(powerupSound); // Use powerup sound for win
+    } else if (outcome === "INVASION") {
+        // New case for invasion
+        gameOverTitle.textContent = "Invasion! Business Law is lost!";
+        gameOverTitle.style.color = "#f00";
+        gameOverScreen.style.borderColor = "#f00";
+        playSound(gameOverSound);
+    } else {
+        // Everything else is just Game Over
+        gameOverTitle.textContent = "Game Over!";
+        gameOverTitle.style.color = "#f00";
+        gameOverScreen.style.borderColor = "#f00";
+        playSound(gameOverSound);
+    }
+    
+    gameOverScreen.style.display = 'block';
+    
+    // Stop background music
+    try {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+    } catch (e) {
+        console.warn('Error stopping background music:', e);
+    }
+}
+
+// Game restart handling
+restartButton.addEventListener('click', () => {
+    gameOverScreen.style.display = 'none';
+    // Reset everything
+    resetGameState();
+    
+    // Initialize and start
+    initializeGameState();
+    initEnemies();
+    
+    try {
+        if (soundEnabled) {
+            backgroundMusic.currentTime = 0;
+            backgroundMusic.play().catch(e => console.warn('Error playing music:', e));
+        }
+    } catch (e) {
+        console.warn('Error playing background music:', e);
+    }
+    
+    // Start with initial quiz
+    gameActive = true;
+    gameRunning = false;
+    showInitialQuiz();
+});
+
+// Back to menu button handler
+backToMenuButton.addEventListener('click', () => {
+    gameOverScreen.style.display = 'none';
+    gameRunning = false;
+    gameActive = false;
+    gamePaused = false;
+    
+    // Make sure no quiz is showing
+    quizContainer.style.display = 'none';
+    clearQuizTimer();
+    
+    // Clear any active power-up message
+    powerupMessage.style.display = 'none';
+    
+    // Stop any ongoing sounds
+    try {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+    } catch (e) {
+        console.warn('Error stopping music:', e);
+    }
+    
+    showIntroScreen();
+});
+
+// Pause button handler
+pauseBtn.addEventListener('click', () => {
+    // Toggle pause regardless of quiz state
+    if (gamePaused) {
+        // If already paused, unpause
+        pauseScreen.style.display = 'none';
+        gamePaused = false;
+    } else {
+        // If not paused, pause and show pause screen
+        pauseScreen.style.display = 'block';
+        gamePaused = true;
+    }
+    
+    // Handle music
+    try {
+        if (gamePaused) {
+            backgroundMusic.pause();
+        } else if (soundEnabled && gameActive) {
+            backgroundMusic.play().catch(e => console.warn('Error with music:', e));
+        }
+    } catch (e) {
+        console.warn('Error toggling pause music:', e);
+    }
+});
+
+// Help button event handlers
+closeHelpBtn.addEventListener('click', () => {
+    helpScreen.style.display = 'none';
+});
+
+// Sound toggle handling
+soundBtn.addEventListener('click', () => {
+    toggleSound();
+});
+
+// Help button handler
+helpBtn.addEventListener('click', () => {
+    // Show help screen regardless of game state
+    helpScreen.style.display = 'block';
+    
+    // If game is running, pause it
+    if (gameRunning && !gamePaused) {
+        togglePause();
+    }
+});
+
+// Sound toggle function
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    soundBtn.textContent = soundEnabled ? '🔊 Sound' : '🔇 Muted';
+    
+    try {
+        if (soundEnabled) {
+            // For quiz scenario: if game is active, try to play music
+            // regardless of pause/quiz state
+            if (gameActive) {
+                backgroundMusic.currentTime = 0; // Reset to beginning
+                backgroundMusic.play().catch(e => {
+                    console.warn('Error playing music:', e);
+                    // Try again with user interaction hack
+                    document.addEventListener('click', function resumeOnce() {
+                        backgroundMusic.play().catch(e => console.warn('Still failed:', e));
+                        document.removeEventListener('click', resumeOnce);
+                    }, { once: true });
+                });
+            }
+        } else {
+            // Always pause music when toggling sound off
+            backgroundMusic.pause();
+        }
+    } catch (e) {
+        console.warn('Error toggling sound:', e);
+    }
+}
+
+// Toggle pause state
+function togglePause() {
+    // Toggle pause state
+    gamePaused = !gamePaused;
+    
+    if (gamePaused) {
+        pauseScreen.style.display = 'block';
+        setGameState(gameActive, false, true);
+    } else {
+        pauseScreen.style.display = 'none';
+        
+        // Only set gameRunning to true if no quiz is active
+        if (quizContainer.style.display !== 'block' && powerupMessage.style.display !== 'block') {
+            setGameState(gameActive, true, false);
+        } else {
+            setGameState(gameActive, false, false);
+        }
+    }
+}
+
+// Show quiz for game events
+function showQuizForEvent(eventType, numberOfQuestions = 1) {
+    let available = questions.filter(q => !usedQuestions.includes(q));
+    
+    if (available.length === 0) {
+        handleGameOver("WIN"); // Win if all questions used
+        return;
+    }
+
+    // Limit number of questions to what's available
+    if (available.length < numberOfQuestions) {
+        numberOfQuestions = available.length;
+    }
+
+    // Always pause gameplay during quiz for better concentration
+    gamePaused = true;
+    gameRunning = false;
+    
+    // Reset quiz session
+    quizSession = [];
+    quizQuestionIndex = 0;
+
+    // Get questions based on event type
+    for (let i = 0; i < numberOfQuestions; i++) {
+        let q = getRandomQuestion();
+        if (!q) break;
+        quizSession.push(q);
+    }
+
+    if (quizSession.length === 0) {
+        handleGameOver("WIN");
+        return;
+    }
+
+    // Show appropriate message based on event type
+    let eventMessage;
+    switch(eventType) {
+        case 'destroySpecial':
+            eventMessage = "Special Enemy Destroyed!";
+            break;
+        case 'destroy5Normal':
+            eventMessage = "Combat Efficiency Bonus!";
+            break;
+        case 'collectPowerup':
+            eventMessage = "Power-up Collected!";
+            break;
+        case 'wave':
+            eventMessage = `Wave ${currentWave - 1} Completed!`;
+            break;
+        case 'initial':
+            eventMessage = "Ready For Battle!";
+            break;
+        default:
+            eventMessage = "Quiz Time!";
+    }
+    
+    // Show event message before quiz appears with longer delay
+    // Pass the displayQuiz function as a callback
+    showPowerupMessage(eventMessage, function() {
+        // Add a short delay before showing the question
+        setTimeout(() => {
+            // Display first question only after powerup message is gone
+            displayQuizQuestion(eventType);
+            
+            // Play quiz sound
+            playSound(quizSound);
+        }, 500);
+    });
+}
+
+// Resume and quit buttons in pause screen
+resumeButton.addEventListener('click', () => {
+    togglePause();
+});
+
+quitButton.addEventListener('click', () => {
+    pauseScreen.style.display = 'none';
+    gamePaused = false;
+    gameRunning = false;
+    gameActive = false;
+    
+    try {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+    } catch (e) {
+        console.warn('Error stopping music:', e);
+    }
+    
+    showIntroScreen();
+});
+// Keyboard event handlers
+const keys = { left: false, right: false, space: false };
+
+window.addEventListener('keydown', e => {
+    if (e.key === 'p' || e.key === 'P') {
+        // Only toggle pause if game is active
+        if (gameActive && quizContainer.style.display === 'none') {
+            togglePause();
+        }
+    } else if (e.key === 'm' || e.key === 'M') {
+        toggleSound();
+    } else if (e.key === 'h' || e.key === 'H') {
+        if (gameActive) {
+            helpScreen.style.display = 'block';
+            if (gameRunning) {
+                togglePause();
+            }
+        }
+    }
+
+    if (!gameRunning || gamePaused) return; // Ignore gameplay inputs when paused
+
+    if (e.key === 'ArrowLeft') keys.left = true;
+    if (e.key === 'ArrowRight') keys.right = true;
+    if (e.key === ' ') keys.space = true;
+});
+
+document.addEventListener('keyup', e => {
+    if (!gameRunning || gamePaused) return; // Ignore gameplay inputs when paused
+    
+    if (e.key === 'ArrowLeft') keys.left = false;
+    if (e.key === 'ArrowRight') keys.right = false;
+    if (e.key === ' ') keys.space = false;
+});
+
+// Mouse events
+let isMousePressed = false;
+
+canvas.addEventListener('mousedown', (e) => {
+    if (!gameRunning || gamePaused) return; // Ignore inputs when paused
+    isMousePressed = true;
+    keys.space = true; // Simulate spacebar shooting
+});
+
+canvas.addEventListener('mouseup', () => {
+    if (!gameRunning || gamePaused) return;
+    isMousePressed = false;
+    keys.space = false;
+});
+
+canvas.addEventListener('mouseleave', () => {
+    if (!gameRunning || gamePaused) return;
+    isMousePressed = false;
+    keys.space = false;
+});
+
+canvas.addEventListener('mousemove', e => {
+    if (!gameRunning || gamePaused) return; // Prevent ship movement when game is paused
+    
+    let rect = canvas.getBoundingClientRect();
+    let mouseX = e.clientX - rect.left;
+    
+    // Move player ship to mouse X position
+    player.x = mouseX - player.width / 2;
+    
+    // Keep player within game boundaries
+    if (player.x < 0) player.x = 0;
+    if (player.x > canvas.width - player.width) player.x = canvas.width - player.width;
+});
+
+// Touch events for mobile
+let isTouching = false;
+let touchStartX = 0;
+
+// Replace existing touch event handlers with these improved versions
+canvas.addEventListener('touchstart', e => {
+    if (!gameRunning || gamePaused) return;
+    
+    e.preventDefault(); // Prevent browser from handling the touch
+    if (e.touches.length === 1) {
+        const rect = canvas.getBoundingClientRect();
+        isTouching = true;
+        touchStartX = e.touches[0].clientX - rect.left;
+        
+        // Move player ship to initial touch position
+        player.x = touchStartX - (player.width / 2);
+        
+        // Keep player within boundaries
+        if (player.x < 0) player.x = 0;
+        if (player.x > canvas.width - player.width) player.x = canvas.width - player.width;
+        
+        keys.space = true; // Shoot when touching
+    }
+}, {passive: false});
+
+canvas.addEventListener('touchmove', e => {
+    if (!gameRunning || gamePaused) return;
+    
+    e.preventDefault(); // Prevent scrolling
+    if (isTouching && e.touches.length === 1) {
+        const rect = canvas.getBoundingClientRect();
+        let touchX = e.touches[0].clientX - rect.left;
+        
+        // Move player ship directly to touch position (horizontally)
+        player.x = touchX - (player.width / 2);
+        
+        // Keep player within boundaries
+        if (player.x < 0) player.x = 0;
+        if (player.x > canvas.width - player.width) player.x = canvas.width - player.width;
+    }
+}, { passive: false });
+
+canvas.addEventListener('touchend', e => {
+    if (!gameRunning || gamePaused) return;
+    
+    e.preventDefault();
+    if (isTouching) {
+        isTouching = false;
+        keys.space = false; // Stop shooting when touch ends
+    }
+}, {passive: false});
+
+// Create particle effects
+// Add this near the particle creation function
+function createExplosionParticles(x, y, count, color) {
+    // Limit maximum particles to prevent performance issues
+    const maxParticles = 100;
+    if (particles.length > maxParticles) {
+        // Remove oldest particles first
+        particles.splice(0, count);
+    }
+    
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: x,
+            y: y,
+            size: 1 + Math.random() * 3,
+            speed: 1 + Math.random() * 3,
+            angle: Math.random() * Math.PI * 2,
+            color: color || '#f80',
+            alpha: 1,
+            life: 30 + Math.random() * 20
+        });
+    }
+}
+
+// Update particles
+function updateParticles(deltaTime) {
+    for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += Math.cos(p.angle) * p.speed * (deltaTime / 16.67);
+        p.y += Math.sin(p.angle) * p.speed * (deltaTime / 16.67);
+        p.alpha -= 0.02 * (deltaTime / 16.67);
+        p.life -= 1 * (deltaTime / 16.67);
+        
+        if (p.alpha <= 0 || p.life <= 0) {
+            particles.splice(i, 1);
+        }
+    }
+}
+
+// Draw particles
+function drawParticles() {
+    for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+}
+
+// Initialize stars
+function initStars() {
+    stars = [];
+    for (let i = 0; i < 100; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5, // Slightly larger stars
+            speed: Math.random() * 0.5 + 0.5
+        });
+    }
+}
+
+// Update stars
+function updateStars(deltaTime) {
+    // For stars, keep them moving even when paused but at reduced speed
+    const speedFactor = (gamePaused || !gameRunning) ? 0.1 : 1.0;
+    
+    for (let i = 0; i < stars.length; i++) {
+        let star = stars[i];
+        
+        // Parallax effect - stars move at different speeds based on size
+        star.y += star.speed * speedFactor * (deltaTime / 16.67); 
+        
+        // Twinkle effect for some stars
+        if (Math.random() < 0.001) {
+            star.size = Math.random() * 2 + 0.5;
+        }
+        
+        // If the star moves off the bottom of the screen, reset it at the top
+        if (star.y > canvas.height) {
+            star.y = 0;
+            star.x = Math.random() * canvas.width;
+            star.size = Math.random() * 2 + 0.5;
+            star.speed = Math.random() * 0.5 + 0.5;
+        }
+    }
+    
+    // Occasionally add a shooting star
+    if (Math.random() < 0.005 && shootingStars.length < 3 && !gamePaused && gameRunning) {
+        shootingStars.push({
+            x: Math.random() * canvas.width,
+            y: 0,
+            length: 30 + Math.random() * 30,
+            speed: 3 + Math.random() * 3,
+            angle: Math.PI / 4 + (Math.random() * Math.PI / 4)
+        });
+    }
+}
+
+// Draw stars
+function drawStars() {
+    for (let i = 0; i < stars.length; i++) {
+        let star = stars[i];
+        
+        // Create twinkling effect
+        const twinkle = 0.7 + (Math.sin(Date.now() * 0.003 + i) * 0.3);
+        
+        // Different star colors based on size
+        if (star.size < 1) {
+            ctx.fillStyle = `rgba(200, 200, 255, ${twinkle})`;
+        } else if (star.size < 1.5) {
+            ctx.fillStyle = `rgba(220, 220, 255, ${twinkle})`;
+        } else {
+            ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
+        }
+        
+        // Draw the star
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Initialize asteroids
+function initAsteroids() {
+    asteroids = [];
+    for (let i = 0; i < 5; i++) {
+        asteroids.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: 30 + Math.random() * 20,
+            speed: 1 + Math.random(),
+            direction: Math.random() * Math.PI * 2,
+            rotation: 0,
+            rotationSpeed: (Math.random() - 0.5) * 0.02,
+            isExploding: false,
+            explosionTimer: 0
+        });
+    }
+}
+
+// Initialize shooting stars
+function initShootingStars() {
+    shootingStars = [];
+}
+
+// Initialize explosions
+function initExplosions() {
+    explosions = [];
+}
+
+// Initialize enemies
+function initEnemies() {
+    enemies = [];
+    enemyBullets = [];
+    
+    // Adjust enemy configuration based on wave and difficulty
+    let rows = 4 + Math.min(Math.floor(currentWave / 3), 2); // Max 6 rows
+    let cols = 7 + Math.min(Math.floor(currentWave / 2), 3); // Max 10 cols
+    
+    // Calculate spacing to use full width of canvas
+    const colSpacing = canvas.width / (cols + 1);
+    const rowSpacing = 50;
+    
+    // Scale speed based on wave and difficulty
+    let baseSpeed = 1 + (currentWave * 0.1);
+    let enemySpeed = baseSpeed * enemySpeedMultiplier;
+    
+    // Scale shoot interval based on wave and difficulty
+    let waveAdjustedInterval = Math.max(2000, enemyShootInterval - (currentWave * 300));
+    
+    // Increase chance of special enemies based on wave
+    let specialEnemyChance = 0.08 + (currentWave * 0.02);
+    if (specialEnemyChance > 0.35) specialEnemyChance = 0.35; // Cap at 35%
+    
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            let isSpecial = Math.random() < specialEnemyChance;
+            const enemyType = isSpecial ? enemyTypes[3] : enemyTypes[Math.floor(Math.random() * 3)];
+            
+            enemies.push({
+                x: colSpacing + j * colSpacing - 20, // Center enemies and adjust for width
+                y: 50 + i * rowSpacing,
+                width: 40,
+                height: 40,
+                type: enemyType,
+                alive: true,
+                health: isSpecial ? currentWave + 1 : currentWave,
+                dx: enemySpeed * (Math.random() > 0.5 ? 1 : -1),
+                dy: 0,
+                shootTimer: Math.random() * waveAdjustedInterval,
+                flashTimer: 0,
+                waveSine: Math.random() * Math.PI * 2,
+                waveAmplitude: isSpecial ? 0.5 + Math.random() * 0.5 : 0
+            });
+        }
+    }
+    
+    // Update wave display
+    waveDisplay.textContent = `Wave: ${currentWave}`;
+    
+    // Play level up sound for waves after the first
+    if (currentWave > 1) {
+        playSound(levelUpSound);
+    }
+}
+
+// These functions handle game rendering based on state
+function drawBackgroundStatic() {
+    // Draw stars
+    drawStars();
+    
+    // Draw asteroids
+    drawAsteroids();
+    
+    // Draw shooting stars
+    drawShootingStars();
+}
+
+function drawEnemiesStatic() {
+    // Draw all enemies
+    for (let i = 0; i < enemies.length; i++) {
+        if (enemies[i].alive) {
+            drawEnemy(enemies[i]);
+        }
+    }
+    
+    // Draw enemy bullets
+    for (let i = 0; i < enemyBullets.length; i++) {
+        let bullet = enemyBullets[i];
+        
+        if (bullet.special) {
+            ctx.save();
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#f0f';
+            ctx.fillStyle = '#f0f';
+            ctx.beginPath();
+            ctx.arc(bullet.x, bullet.y, bullet.width/2, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+        } else {
+            ctx.fillStyle = '#f00';
+            ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        }
+    }
+    
+    // Draw power-up items
+    for (let i = 0; i < powerUpItems.length; i++) {
+        let item = powerUpItems[i];
+        
+        ctx.save();
+        ctx.translate(item.x + item.width/2, item.y + item.height/2);
+        if (item.rotation !== undefined) {
+            ctx.rotate(item.rotation);
+        }
+        
+        // Add glow effect for powerups
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#0ff';
+        
+        // Draw the image centered
+        ctx.drawImage(
+            powerupImage, 
+            -item.width/2, 
+            -item.height/2, 
+            item.width, 
+            item.height
+        );
+        ctx.restore();
+    }
+}
+
+function drawPlayerStatic() {
+    // Draw player
+    drawPlayer();
+    
+    // Draw player bullets
+    for (let i = 0; i < player.bullets.length; i++) {
+        let bullet = player.bullets[i];
+        
+        let bulletColor = '#fff';
+        
+        if (player.powerups.doubleDamage && player.powerups.rapidFire) {
+            bulletColor = '#f0f';
+        } else if (player.powerups.doubleDamage) {
+            bulletColor = '#f88';
+        } else if (player.powerups.rapidFire) {
+            bulletColor = '#0ff';
+        }
+        
+        ctx.fillStyle = bulletColor;
+        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+    }
+}
+
+function initializeGameState() {
+    updateHealthBar();
+    updatePowerupsDisplay();
+    initStars();
+    initAsteroids();
+    initShootingStars();
+    initExplosions();
+    clearCanvas();
+    
+    // Reset canvas size to ensure proper dimensions
+    resizeCanvas();
+    
+    // Apply difficulty settings
+    applyDifficultySettings();
+// Add this line to optimize for mobile
+    optimizeForMobile();
+}
+
+// Make sure the canvas size is updated when window resizes
+function resizeCanvas() {
+    // Get container dimensions
+    const container = document.getElementById('gameContainer');
+    let containerWidth = container.clientWidth;
+    let containerHeight = container.clientHeight;
+    
+    // Ensure minimum reasonable dimensions
+    if (containerWidth < 400) containerWidth = window.innerWidth;
+    if (containerHeight < 300) containerHeight = window.innerHeight;
+    
+    // Set canvas dimensions
+    canvas.width = containerWidth;
+    canvas.height = containerHeight;
+    
+    // Center the player
+    player.x = (canvas.width / 2) - (player.width / 2);
+    player.y = canvas.height - 60;
+    
+    // Update background elements sizes
+    initStars(); // Reinitialize stars after resize
+    
+    // Force redraw
+    if (gameActive) {
+        clearCanvas();
+        drawStars();
+        drawPlayer();
+    }
+    
+    console.log(`Canvas resized to ${canvas.width}x${canvas.height}`);
+}
+
+// Add window resize event handler
+window.addEventListener('resize', () => {
+    resizeCanvas();
+});
+
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Add this function before gameLoop
+function enforceQuizPause() {
+    // If quiz is visible, force pause regardless of other state
+    if (quizContainer.style.display === 'block' || powerupMessage.style.display === 'block') {
+        gamePaused = true;
+        gameRunning = false;
+    }
+}
+
+// Run game logic functions in main game loop
+// Run game logic functions in main game loop
+function runGameLogic(deltaTime) {
+    // Update player ship
+    updatePlayer(deltaTime);
+    
+    // Update enemies
+    updateEnemies(deltaTime);
+    
+    // Check if enemies have reached the bottom - add this line
+    if (checkEnemyPositions()) return;
+    
+    // Update bullets
+    updatePlayerBullets(deltaTime);
+    updateEnemyBullets(deltaTime);
+    
+    // Update power-up items
+    updatePowerUpItems(deltaTime);
+    
+    // Update active powerups
+    updateActivePowerups(deltaTime);
+    
+    // Check for wave completion
+    checkWaveCompletion();
+}
+
+// Check for wave completion
+function checkWaveCompletion() {
+    // If all enemies are destroyed, move to next wave
+    if (!enemies.some(e => e.alive)) {
+        // Increase wave counter
+        currentWave++;
+        initAsteroids();
+
+        // Show wave completed quiz
+        gameRunning = false;
+        // Make sure player is not being damaged during wave transition
+        player.invulnerable = true;
+        player.invulnerableTimer = 3000;
+        
+        // Show quiz - completion triggers initEnemies for next wave
+        showQuizForEvent('wave');
+    }
+}
+
+// Add this function to check if enemies have reached the player's area
+function checkEnemyPositions() {
+    // Define the boundary (player area starts at 80% of screen height)
+    const boundaryY = canvas.height * 0.8;
+    
+    // Check if any enemy has crossed the boundary
+    for (let i = 0; i < enemies.length; i++) {
+        if (enemies[i].alive && enemies[i].y > boundaryY) {
+            // Enemy has reached the player's area - trigger game over
+            handleGameOver("INVASION");
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// Game loop
+// Game loop
+function gameLoop(timestamp) {
+    requestAnimationFrame(gameLoop);
+
+    if (!gameActive) {
+        clearCanvas();
+        return;
+    }
+
+    let deltaTime = timestamp - lastFrameTime;
+    lastFrameTime = timestamp;
+
+    // Cap deltaTime to prevent large jumps on tab switch
+    if (deltaTime > 100) deltaTime = 100;
+    
+    // Add debugging to track game state
+    if (Math.random() < 0.01) { // Only log occasionally to avoid console spam
+        console.log(`Game state: active=${gameActive}, running=${gameRunning}, paused=${gamePaused}, enemies=${enemies.length}`);
+    }
+    
+    // Add this line to enforce pause if questions are visible
+    enforceQuizPause();
+
+    // Update background elements regardless of game state
+    updateStars(deltaTime);
+    updateAsteroids(deltaTime);
+    updateShootingStars(deltaTime);
+    updateExplosions(deltaTime);
+    updateParticles(deltaTime);
+
+    // Clear and redraw
+    clearCanvas();
+    drawStars();
+    drawAsteroids();
+    drawShootingStars();
+    drawExplosions();
+    drawParticles();
+
+    // Always try to draw game objects, even when paused
+    drawEnemiesStatic();
+    drawPlayerStatic();
+    
+    if (gameRunning && !gamePaused) {
+        // Only run game logic if game is running and not paused
+        runGameLogic(deltaTime);
+    }
+}
+
+// Start the game initialization
+
+// Draw enemy ship
+function drawEnemy(enemy) {
+    // Draw flashing effect when hit
+    if (enemy.flashTimer > 0 && Math.floor(Date.now() / 50) % 2 === 0) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = 0.8;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+        ctx.restore();
+        return;
+    }
+    
+    // Draw special enemy with flashing effect
+    if (enemy.type.isSpecial) {
+        ctx.save();
+        
+        // Pulsating glow for special enemies
+        const pulseIntensity = (Math.sin(Date.now() * 0.01) + 1) * 0.5;
+        ctx.shadowBlur = 10 + pulseIntensity * 5;
+        ctx.shadowColor = enemy.type.color;
+        
+        // Draw the enemy with the special image
+        ctx.drawImage(
+            specialEnemyShipImage,
+            enemy.x,
+            enemy.y,
+            enemy.width,
+            enemy.height
+        );
+        
+        ctx.restore();
+    } else {
+        // Draw regular enemy
+        ctx.drawImage(
+            enemyShipImage,
+            enemy.x,
+            enemy.y,
+            enemy.width,
+            enemy.height
+        );
+    }
+}
+
+// Update player ship
+function updatePlayer(deltaTime) {
+    // Move player based on keyboard input
+    if (keys.left) {
+        player.x -= player.speed * (deltaTime / 16.67);
+    }
+    if (keys.right) {
+        player.x += player.speed * (deltaTime / 16.67);
+    }
+    
+    // Keep player within game boundaries
+    if (player.x < 0) player.x = 0;
+    if (player.x > canvas.width - player.width) player.x = canvas.width - player.width;
+    
+    // Handle player invulnerability timer
+    if (player.invulnerable) {
+        player.invulnerableTimer -= deltaTime;
+        if (player.invulnerableTimer <= 0) {
+            player.invulnerable = false;
+        }
+    }
+    
+    // Handle shooting cooldown
+    if (player.shootCooldown > 0) {
+        player.shootCooldown -= deltaTime;
+    }
+    
+    // Player shooting based on shoot interval (adjusted for rapid fire powerup)
+    const currentShootInterval = player.powerups.rapidFire ? player.shootInterval / 3 : player.shootInterval;
+    
+    if (keys.space && player.shootCooldown <= 0) {
+        // Create new bullet
+        let bulletWidth = 3;
+        let bulletHeight = 15;
+        
+        player.bullets.push({
+            x: player.x + player.width / 2 - bulletWidth / 2,
+            y: player.y - bulletHeight,
+            width: bulletWidth,
+            height: bulletHeight,
+            speed: 10,
+            damage: player.powerups.doubleDamage ? 2 : 1
+        });
+        
+        // Reset cooldown
+        player.shootCooldown = currentShootInterval;
+        
+        // Play shoot sound
+        playSound(shootSound);
+    }
+}
+
+// Draw player ship
+function drawPlayer() {
+    // If player is invulnerable, flicker the ship
+    if (player.invulnerable && Math.floor(Date.now() / 100) % 2 === 0) {
+        return; // Skip drawing to create flicker effect
+    }
+    
+    // Draw shield effect if active
+    if (player.powerups.shield) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(
+            player.x + player.width/2, 
+            player.y + player.height/2, 
+            player.width * 0.75, 
+            0, 
+            Math.PI * 2
+        );
+        ctx.strokeStyle = '#0ff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        // Add glow effect
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#0ff';
+        ctx.stroke();
+        ctx.restore();
+    }
+    
+    // Draw the player ship image
+    ctx.drawImage(
+        playerShipImage, 
+        player.x, 
+        player.y, 
+        player.width, 
+        player.height
+    );
+    
+    // Add engine flame effect
+    ctx.save();
+    ctx.beginPath();
+    
+    // Flame shape varies slightly with time for animation
+    const flameHeight = 15 + Math.sin(Date.now() * 0.01) * 5;
+    const flameWidth = 10 + Math.sin(Date.now() * 0.02) * 2;
+    
+    ctx.moveTo(player.x + player.width/2, player.y + player.height);
+    ctx.quadraticCurveTo(
+        player.x + player.width/2 - flameWidth/2, 
+        player.y + player.height + flameHeight/2,
+        player.x + player.width/2, 
+        player.y + player.height + flameHeight
+    );
+    ctx.quadraticCurveTo(
+        player.x + player.width/2 + flameWidth/2, 
+        player.y + player.height + flameHeight/2,
+        player.x + player.width/2, 
+        player.y + player.height
+    );
+    
+    // Create gradient for flame
+    const gradient = ctx.createLinearGradient(
+        player.x + player.width/2, 
+        player.y + player.height,
+        player.x + player.width/2, 
+        player.y + player.height + flameHeight
+    );
+    gradient.addColorStop(0, '#f80');
+    gradient.addColorStop(0.5, '#f00');
+    gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+    
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.restore();
+}
+
+// Update enemies
+function updateEnemies(deltaTime) {
+    let allEnemiesMoveDown = false;
+    let enemiesAtEdge = false;
+    
+    // Check if any enemy is at screen edge
+    for (let i = 0; i < enemies.length; i++) {
+        const enemy = enemies[i];
+        if (!enemy.alive) continue;
+        
+        if ((enemy.x <= 10 && enemy.dx < 0) || 
+            (enemy.x >= canvas.width - enemy.width - 10 && enemy.dx > 0)) {
+            enemiesAtEdge = true;
+            break;
+        }
+    }
+    
+    // If enemies hit edge, reverse direction and move down
+    if (enemiesAtEdge) {
+        allEnemiesMoveDown = true;
+        for (let i = 0; i < enemies.length; i++) {
+            if (enemies[i].alive) {
+                enemies[i].dx *= -1;
+            }
+        }
+    }
+    
+    // Update each enemy
+    for (let i = 0; i < enemies.length; i++) {
+        let enemy = enemies[i];
+        if (!enemy.alive) continue;
+        
+        // Move horizontally
+        enemy.x += enemy.dx * (deltaTime / 16.67);
+        
+        // Move down if needed
+        if (allEnemiesMoveDown) {
+            enemy.y += 20;
+        }
+        
+        // Add wave motion for special enemies
+        if (enemy.waveAmplitude > 0) {
+            enemy.waveSine += 0.05 * (deltaTime / 16.67);
+            enemy.y += Math.sin(enemy.waveSine) * enemy.waveAmplitude;
+        }
+        
+        // Update shoot timer and fire if ready
+        enemy.shootTimer -= deltaTime;
+        if (enemy.shootTimer <= 0) {
+            // Only shoot if in view
+            if (enemy.y > 0 && enemy.y < canvas.height) {
+                // Create enemy bullet
+                const bulletWidth = enemy.type.isSpecial ? 10 : 5;
+                const bulletHeight = enemy.type.isSpecial ? 10 : 10;
+                
+                enemyBullets.push({
+                    x: enemy.x + enemy.width/2 - bulletWidth/2,
+                    y: enemy.y + enemy.height,
+                    width: bulletWidth,
+                    height: bulletHeight,
+                    speed: enemy.type.isSpecial ? 4 : 3,
+                    special: enemy.type.isSpecial,
+                    damage: enemy.type.isSpecial ? 20 : 10
+                });
+            }
+            
+            // Reset timer (random interval between min and max)
+            const baseInterval = enemyShootInterval * (enemy.type.isSpecial ? 0.8 : 1);
+            enemy.shootTimer = baseInterval * (0.8 + Math.random() * 0.4);
+        }
+        
+        // Update flash timer
+        if (enemy.flashTimer > 0) {
+            enemy.flashTimer -= deltaTime;
+        }
+    }
+}
+
+// Update player bullets
+function updatePlayerBullets(deltaTime) {
+    for (let i = player.bullets.length - 1; i >= 0; i--) {
+        let bullet = player.bullets[i];
+        bullet.y -= bullet.speed * (deltaTime / 16.67);
+        
+        let bulletHit = false;
+
+        // Check bullet collision with enemies
+        for (let j = 0; j < enemies.length; j++) {
+            let enemy = enemies[j];
+            if (enemy.alive && 
+                bullet.x < enemy.x + enemy.width &&
+                bullet.x + bullet.width > enemy.x &&
+                bullet.y < enemy.y + enemy.height &&
+                bullet.y + bullet.height > enemy.y) {
+                
+                // Calculate damage based on powerups
+                let dmg = bullet.damage || 1;
+                enemy.health -= dmg;
+                
+                // Add flash effect on hit
+                enemy.flashTimer = 200;
+                
+                // Create hit particles
+                createExplosionParticles(
+                    bullet.x + bullet.width/2, 
+                    bullet.y, 
+                    5, 
+                    enemy.type.isSpecial ? '#ff0' : '#f88'
+                );
+                
+                if (enemy.health <= 0) {
+                    enemy.alive = false;
+                    score += enemy.type.points;
+                    scoreDisplay.textContent = `Score: ${score}`;
+                    totalEnemiesDestroyed++;
+                    
+                    // Create explosion effect
+                    createExplosionParticles(
+                        enemy.x + enemy.width/2,
+                        enemy.y + enemy.height/2,
+                        enemy.type.isSpecial ? 30 : 20,
+                        enemy.type.isSpecial ? '#ff0' : '#f80'
+                    );
+                    playSound(explosionSound);
+                    
+                    // Create a new explosion animation
+                    explosions.push({
+                        x: enemy.x + enemy.width/2,
+                        y: enemy.y + enemy.height/2,
+                        size: enemy.width * 1.5,
+                        timer: 500,
+                        currentFrame: 0,
+                        totalFrames: 8
+                    });
+                    
+                    // Handle special enemy destruction - trigger quiz
+                    if (enemy.type.isSpecial) {
+                        gameRunning = false;
+                        showQuizForEvent('destroySpecial');
+                    } else {
+                        // Regular enemy destroyed
+                        destroyedNormalEnemies++;
+                        if (destroyedNormalEnemies >= 10) {
+                            gameRunning = false;
+                            showQuizForEvent('destroy5Normal');
+                            destroyedNormalEnemies = 0;
+                        }
+                        
+                        // Random chance to drop a power-up
+                        if (Math.random() < 0.15) { // 15% chance
+                            powerUpItems.push({
+                                x: enemy.x + enemy.width/2 - 15,
+                                y: enemy.y + enemy.height,
+                                width: 30,
+                                height: 30,
+                                type: 'random',
+                                dy: 2,
+                                rotation: 0,
+                                rotationSpeed: 0.05
+                            });
+                        }
+                    }
+                }
+                
+                // Remove the bullet
+                player.bullets.splice(i, 1);
+                bulletHit = true;
+                break;
+            }
+        }
+
+        if (bulletHit) continue;
+
+        // Check bullet collision with asteroids
+        for (let a = 0; a < asteroids.length; a++) {
+            let asteroid = asteroids[a];
+            if (!asteroid.isExploding &&
+                bullet.x < asteroid.x + asteroid.size &&
+                bullet.x + bullet.width > asteroid.x &&
+                bullet.y < asteroid.y + asteroid.size &&
+                bullet.y + bullet.height > asteroid.y) {
+                
+                asteroid.isExploding = true;
+                asteroid.explosionTimer = 500;
+                
+                // Create asteroid explosion
+                explosions.push({
+                    x: asteroid.x + asteroid.size / 2,
+                    y: asteroid.y + asteroid.size / 2,
+                    size: asteroid.size * 1.5,
+                    timer: 500,
+                    currentFrame: 0,
+                    totalFrames: 8
+                });
+
+                // Create particle effect
+                createExplosionParticles(
+                    asteroid.x + asteroid.size / 2,
+                    asteroid.y + asteroid.size / 2,
+                    15,
+                    '#aaa'
+                );
+                
+                playSound(explosionSound);
+                
+                // Award small points for asteroid destruction
+                score += 5;
+                scoreDisplay.textContent = `Score: ${score}`;
+                
+                // Remove bullet
+                player.bullets.splice(i, 1);
+                bulletHit = true;
+                break;
+            }
+        }
+
+        // Remove bullets that go off screen
+        if (!bulletHit && bullet.y < -20) {
+            player.bullets.splice(i, 1);
+        }
+    }
+}
+
+// Update enemy bullets
+function updateEnemyBullets(deltaTime) {
+    for (let i = enemyBullets.length - 1; i >= 0; i--) {
+        let bullet = enemyBullets[i];
+        bullet.y += bullet.speed * (deltaTime / 16.67);
+        
+        // Check collision with player
+        if (
+            bullet.x < player.x + player.width && 
+            bullet.x + bullet.width > player.x &&
+            bullet.y < player.y + player.height && 
+            bullet.y + bullet.height > player.y
+        ) {
+            // Check if player has shield or is invulnerable
+            if (!player.powerups.shield && !player.invulnerable) {
+                // Apply damage
+                player.health -= bullet.damage || 10;
+                updateHealthBar();
+                
+                // Create hit effect
+                createExplosionParticles(
+                    bullet.x, 
+                    bullet.y, 
+                    10, 
+                    bullet.special ? '#f0f' : '#f00'
+                );
+                
+                // Play sound
+                playSound(explosionSound);
+                
+                // Make player briefly invulnerable after hit
+                player.invulnerable = true;
+                player.invulnerableTimer = 1000; // 1 second of invulnerability
+                
+                // Check if player is dead
+                if (player.health <= 0) {
+                    handleGameOver();
+                }
+            } else {
+                // Shield blocks the shot - create shield impact effect
+                createExplosionParticles(
+                    bullet.x, 
+                    bullet.y, 
+                    5, 
+                    '#0ff'
+                );
+            }
+            
+            // Remove the bullet
+            enemyBullets.splice(i, 1);
+            continue;
+        }
+
+        // Remove bullets that go off screen
+        if (bullet.y > canvas.height + 20) {
+            enemyBullets.splice(i, 1);
+        }
+    }
+}
+
+// Update power-up items
+function updatePowerUpItems(deltaTime) {
+    for (let i = powerUpItems.length - 1; i >= 0; i--) {
+        let item = powerUpItems[i];
+        
+        // Update position
+        item.y += item.dy * (deltaTime / 16.67);
+        
+        // Add rotation effect for visual appeal
+        if (item.rotation !== undefined) {
+            item.rotation += item.rotationSpeed * (deltaTime / 16.67);
+        }
+        
+        // Check collision with player
+        if (
+            item.x < player.x + player.width && 
+            item.x + item.width > player.x &&
+            item.y < player.y + player.height && 
+            item.y + item.height > player.y
+        ) {
+            // Remove the powerup
+            powerUpItems.splice(i, 1);
+            
+            // Create collection effect
+            createExplosionParticles(
+                item.x + item.width/2, 
+                item.y + item.height/2, 
+                15, 
+                '#0ff'
+            );
+            
+            // Pause game and show quiz
+            gameRunning = false; 
+            showQuizForEvent('collectPowerup');
+            playSound(powerupSound);
+            continue;
+        }
+
+        // Remove if off screen
+        if (item.y > canvas.height + 20) {
+            powerUpItems.splice(i, 1);
+        }
+    }
+}
+
+// Draw shooting stars
+function drawShootingStars() {
+    for (let i = 0; i < shootingStars.length; i++) {
+        let star = shootingStars[i];
+        
+        // Draw the shooting star as a line with gradient
+        ctx.save();
+        
+        // Create linear gradient for the tail
+        const gradient = ctx.createLinearGradient(
+            star.x, 
+            star.y, 
+            star.x - Math.cos(star.angle) * star.length,
+            star.y - Math.sin(star.angle) * star.length
+        );
+        
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+        gradient.addColorStop(0.3, 'rgba(100, 255, 255, 0.5)');
+        gradient.addColorStop(1, 'rgba(100, 255, 255, 0)');
+        
+        // Draw shooting star tail
+        ctx.beginPath();
+        ctx.moveTo(star.x, star.y);
+        ctx.lineTo(
+            star.x - Math.cos(star.angle) * star.length,
+            star.y - Math.sin(star.angle) * star.length
+        );
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = gradient;
+        ctx.stroke();
+        
+        // Draw star head
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        
+        ctx.restore();
+    }
+}
+
+// Update shooting stars
+function updateShootingStars(deltaTime) {
+    // Don't update if game is paused
+    if (gamePaused || !gameRunning) return;
+    
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+        let star = shootingStars[i];
+        
+        // Calculate velocity components from angle and speed
+        const speedX = Math.cos(star.angle) * star.speed;
+        const speedY = Math.sin(star.angle) * star.speed;
+        
+        // Update position
+        star.x += speedX * (deltaTime / 16.67);
+        star.y += speedY * (deltaTime / 16.67);
+        
+        // Create trail particles
+        if (Math.random() < 0.3) {
+            particles.push({
+                x: star.x,
+                y: star.y,
+                size: 1 + Math.random(),
+                speed: 0.2,
+                angle: Math.random() * Math.PI * 2,
+                color: '#fff',
+                alpha: 0.7,
+                life: 30 + Math.random() * 20
+            });
+        }
+        
+        // Remove if off screen
+        if (star.x > canvas.width + 100 || star.y > canvas.height + 100 || star.x < -100) {
+            shootingStars.splice(i, 1);
+        }
+    }
+}
+
+// Draw asteroids 
+function drawAsteroids() {
+    for (let i = 0; i < asteroids.length; i++) {
+        let asteroid = asteroids[i];
+        
+        // Skip drawing if exploding (explosion is handled separately)
+        if (asteroid.isExploding) {
+            continue;
+        }
+        
+        // Draw with rotation for more dynamic appearance
+        ctx.save();
+        ctx.translate(
+            asteroid.x + asteroid.size/2, 
+            asteroid.y + asteroid.size/2
+        );
+        ctx.rotate(asteroid.rotation);
+        
+        // Draw the asteroid image centered
+        ctx.drawImage(
+            asteroidImage, 
+            -asteroid.size/2, 
+            -asteroid.size/2, 
+            asteroid.size, 
+            asteroid.size
+        );
+        
+        ctx.restore();
+    }
+}
+
+// Update asteroids
+function updateAsteroids(deltaTime) {
+    // Don't update if game is paused
+    if (gamePaused || !gameRunning) return;
+    
+    for (let i = asteroids.length - 1; i >= 0; i--) {
+        let asteroid = asteroids[i];
+
+        if (asteroid.isExploding) {
+            // Count down the explosion timer
+            asteroid.explosionTimer -= deltaTime;
+            
+            // If explosion is finished, remove the asteroid
+            if (asteroid.explosionTimer <= 0) {
+                asteroids.splice(i, 1);
+            }
+            
+            // Skip moving/rotating if it's exploding
+            continue;
+        }
+
+        // Update position
+        asteroid.x += Math.cos(asteroid.direction) * asteroid.speed * (deltaTime / 16.67);
+        asteroid.y += Math.sin(asteroid.direction) * asteroid.speed * (deltaTime / 16.67);
+        
+        // Update rotation
+        asteroid.rotation += asteroid.rotationSpeed * (deltaTime / 16.67);
+
+        // Wrap around screen edges with some margin
+        const margin = asteroid.size * 2;
+        if (asteroid.x < -margin) asteroid.x = canvas.width + margin / 2;
+        if (asteroid.x > canvas.width + margin) asteroid.x = -margin / 2;
+        if (asteroid.y < -margin) asteroid.y = canvas.height + margin / 2;
+        if (asteroid.y > canvas.height + margin) asteroid.y = -margin / 2;
+        
+        // Check collision with player if not invulnerable
+        if (!player.invulnerable && !asteroid.isExploding &&
+            asteroid.x < player.x + player.width && 
+            asteroid.x + asteroid.size > player.x &&
+            asteroid.y < player.y + player.height && 
+            asteroid.y + asteroid.size > player.y) {
+            
+            if (!player.powerups.shield) {
+                // Damage player
+                player.health -= 15; // Asteroids do significant damage
+                updateHealthBar();
+                
+                // Make player briefly invulnerable
+                player.invulnerable = true;
+                player.invulnerableTimer = 1500;
+                
+                // Create hit effect
+                createExplosionParticles(
+                    player.x + player.width/2, 
+                    player.y + player.height/2, 
+                    20, 
+                    '#f00'
+                );
+                
+                playSound(explosionSound);
+                
+                // Check if player is dead
+                if (player.health <= 0) {
+                    handleGameOver();
+                }
+            }
+            
+            // Start asteroid explosion
+            asteroid.isExploding = true;
+            asteroid.explosionTimer = 500;
+            
+            // Create explosion effect
+            explosions.push({
+                x: asteroid.x + asteroid.size / 2,
+                y: asteroid.y + asteroid.size / 2,
+                size: asteroid.size * 1.5,
+                timer: 500,
+                currentFrame: 0,
+                totalFrames: 8
+            });
+            
+            // Create particle effect
+            createExplosionParticles(
+                asteroid.x + asteroid.size / 2,
+                asteroid.y + asteroid.size / 2,
+                25,
+                '#aaa'
+            );
+        }
+    }
+}
+
+// Update active powerups
+function updateActivePowerups(deltaTime) {
+    for (let i = activePowerups.length - 1; i >= 0; i--) {
+        let powerup = activePowerups[i];
+        
+        // Decrease remaining time
+        powerup.remainingTime -= deltaTime;
+        
+        // Draw countdown indicator around player for active powerups
+        if (powerup.type === 'shield' && player.powerups.shield) {
+            // Shield powerup visual countdown - pulsing effect
+            const pulseRate = 0.005;
+            const baseSize = 35;
+            const pulseAmount = 5;
+            const remainingRatio = powerup.remainingTime / 10000; // 10 seconds total
+            const pulseSize = baseSize + Math.sin(Date.now() * pulseRate) * pulseAmount;
+            
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(
+                player.x + player.width/2, 
+                player.y + player.height/2, 
+                pulseSize, 
+                0, 
+                Math.PI * 2 * remainingRatio
+            );
+            ctx.strokeStyle = '#0ff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Warning flash when powerup about to expire (< 2 seconds)
+        if (powerup.remainingTime < 2000 && Math.floor(Date.now() / 200) % 2 === 0) {
+            // Create visual indicator - small particles at player position
+            const colors = {
+                'shield': '#0ff',
+                'rapidFire': '#ff0',
+                'doubleDamage': '#f88'
+            };
+            
+            if (Math.random() < 0.2) {
+                particles.push({
+                    x: player.x + Math.random() * player.width,
+                    y: player.y + Math.random() * player.height,
+                    size: 1 + Math.random() * 1.5,
+                    speed: 1,
+                    angle: Math.random() * Math.PI * 2,
+                    color: colors[powerup.type] || '#fff',
+                    alpha: 0.7,
+                    life: 20
+                });
+            }
+        }
+
+        // Remove expired powerups
+        if (powerup.remainingTime <= 0) {
+            player.powerups[powerup.type] = false;
+            activePowerups.splice(i, 1);
+            updatePowerupsDisplay();
+            
+            // Create expiration effect
+            createExplosionParticles(
+                player.x + player.width/2, 
+                player.y + player.height/2, 
+                10, 
+                '#888'
+            );
+        }
+    }
+}
+
+// Draw explosions
+function drawExplosions() {
+    for (let i = 0; i < explosions.length; i++) {
+        let explosion = explosions[i];
+        
+        // If using spritesheet animation
+        if (explosion.currentFrame !== undefined) {
+            // Since we're using a single image, simulate animation with scale and opacity
+            const progress = explosion.currentFrame / (explosion.totalFrames - 1);
+            const scale = 1 + progress * 0.5; // Grows slightly as animation progresses
+            const opacity = 1 - progress; // Fades out as animation progresses
+            
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            ctx.drawImage(
+                explosionImage, 
+                explosion.x - (explosion.size * scale)/2, 
+                explosion.y - (explosion.size * scale)/2, 
+                explosion.size * scale, 
+                explosion.size * scale
+            );
+            ctx.restore();
+        } else {
+            // Fallback to static explosion
+            ctx.drawImage(
+                explosionImage, 
+                explosion.x - explosion.size/2, 
+                explosion.y - explosion.size/2, 
+                explosion.size, 
+                explosion.size
+            );
+        }
+    }
+}
+
+// Update explosions
+function updateExplosions(deltaTime) {
+    for (let i = explosions.length - 1; i >= 0; i--) {
+        let explosion = explosions[i];
+        
+        // Count down timer
+        explosion.timer -= deltaTime;
+        
+        // Update animation frame
+        if (explosion.totalFrames) {
+            // Advance frame based on timer
+            explosion.currentFrame = Math.min(
+                Math.floor((1 - explosion.timer / 500) * explosion.totalFrames),
+                explosion.totalFrames - 1
+            );
+        }
+        
+        // Remove explosion when timer runs out
+        if (explosion.timer <= 0) {
+            explosions.splice(i, 1);
+        }
+    }
+}
+
+// Draw player and bullets when game is paused
+function drawPlayerStatic() {
+    // Draw player
+    drawPlayer();
+    
+    // Draw player bullets
+    for (let i = 0; i < player.bullets.length; i++) {
+        let bullet = player.bullets[i];
+        
+        let bulletColor = '#fff';
+        
+        if (player.powerups.doubleDamage && player.powerups.rapidFire) {
+            bulletColor = '#f0f';
+        } else if (player.powerups.doubleDamage) {
+            bulletColor = '#f88';
+        } else if (player.powerups.rapidFire) {
+            bulletColor = '#0ff';
+        }
+        
+        ctx.fillStyle = bulletColor;
+        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+    }
+}
+
+// Function to optimize the UI for mobile devices
+// Improved mobile optimization function
+function optimizeForMobile() {
+    // Check if we're on a mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    // Only apply mobile optimizations if on a mobile device
+    if (isMobile) {
+        console.log("Mobile device detected - applying optimizations");
+        
+        // 1. SLOW DOWN ENEMIES EVEN MORE ON MOBILE
+        // Apply a stronger speed reduction for enemies on mobile
+        enemySpeedMultiplier *= 0.4; // Reduce enemy speed by 60% on mobile
+        
+        // 2. LOCK TO PORTRAIT ORIENTATION
+        // Add meta tag to force portrait orientation
+        const orientationMeta = document.createElement('meta');
+        orientationMeta.name = 'viewport';
+        orientationMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, orientation=portrait';
+        document.head.appendChild(orientationMeta);
+        
+        // 3. IMPROVED MOBILE STYLES WITH FIXES FOR IDENTIFIED ISSUES
+        const mobileStyles = document.createElement('style');
+        mobileStyles.textContent = `
+            /* Greatly increase font sizes for better readability */
+            body {
+                font-size: 16px;
+            }
+            
+            /* Fix canvas dimensions to use space properly */
+            #gameCanvas {
+                height: 90vh !important;
+                margin-bottom: 0 !important;
+                touch-action: none;
+            }
+            
+            /* Make sure player's ship is fully visible */
+            #gameContainer {
+                position: relative;
+                height: 90vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            
+            /* Fix quiz container to stay within screen bounds */
+            .quiz-container {
+                width: 90% !important;
+                max-width: 90vw !important;
+                padding: 20px 10px !important;
+                left: 50% !important;
+                transform: translateX(-50%) translateY(-50%) !important;
+                border-radius: 8px !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+            }
+            
+            /* Improve quiz question text */
+            #questionText {
+                font-size: 20px !important;
+                line-height: 1.4 !important;
+                margin-bottom: 15px !important;
+                text-shadow: 0 0 8px #0ff !important;
+            }
+            
+            /* Fix quiz translation text */
+            #questionTranslation {
+                font-size: 16px !important;
+                line-height: 1.4 !important;
+                margin: 10px 0 20px 0 !important;
+            }
+            
+            /* Make quiz timer larger */
+            #quizTimer {
+                font-size: 24px !important;
+                margin: 10px 0 !important;
+            }
+            
+            /* Fix quiz option buttons */
+            .quiz-option {
+                width: 90% !important;
+                margin: 10px auto !important;
+                padding: 15px 10px !important;
+                font-size: 18px !important;
+                line-height: 1.3 !important;
+                box-sizing: border-box !important;
+                display: block !important;
+                text-align: center !important;
+            }
+            
+            /* Fix option translation text */
+            .option-translation {
+                font-size: 16px !important;
+                margin-top: 8px !important;
+            }
+            
+            /* Fix spacing of control buttons to prevent overlapping */
+            #pauseBtn, #soundBtn, #helpBtn {
+                padding: 8px 14px !important;
+                font-size: 16px !important;
+                position: absolute !important;
+                top: 10px !important;
+                border-radius: 6px !important;
+                z-index: 50 !important;
+            }
+            
+            #pauseBtn {
+                right: 10px !important;
+            }
+            
+            #soundBtn {
+                right: 85px !important; /* Fixed spacing */
+            }
+            
+            #helpBtn {
+                right: 160px !important; /* Fixed spacing */
+            }
+            
+            /* Improve health bar visibility */
+            #healthBarContainer {
+                width: 45% !important;
+                height: 25px !important;
+                top: 45px !important;
+                right: 10px !important;
+                border-width: 2px !important;
+            }
+            
+            /* Make score, wave and other text more visible */
+            #score, #powerups, #wave {
+                font-size: 16px !important;
+                text-shadow: 0 0 4px #000 !important;
+                background: rgba(0,0,0,0.6) !important;
+                padding: 5px !important;
+                border-radius: 5px !important;
+                position: absolute !important;
+                left: 10px !important;
+            }
+            
+            #score {
+                top: 10px !important;
+            }
+            
+            #powerups {
+                top: 40px !important;
+            }
+            
+            #wave {
+                top: 70px !important;
+            }
+            
+            /* Improve pause and game over screens */
+            #gameOverScreen, #pauseScreen, #helpScreen {
+                width: 90% !important;
+                max-width: 90vw !important;
+                padding: 20px 15px !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Improve intro screen */
+            #introScreen {
+                width: 90% !important;
+                max-width: 90vw !important;
+                padding: 25px 15px !important;
+                box-sizing: border-box !important;
+            }
+            
+            #introScreen h1 {
+                font-size: 28px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            #introStartBtn {
+                padding: 15px 25px !important;
+                font-size: 20px !important;
+                width: 80% !important;
+                margin: 20px auto 10px auto !important;
+            }
+        `;
+        document.head.appendChild(mobileStyles);
+        
+        // 4. IMPROVE TOUCH HANDLING
+        // Make the default canvas touch handling better
+        canvas.addEventListener('touchmove', function(e) {
+            if (!gameRunning || gamePaused) return;
+            
+            e.preventDefault(); // Prevent scrolling
+            
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const touchX = touch.clientX - rect.left;
+            
+            // Move player ship slightly ahead of touch position for better visibility
+            player.x = touchX - (player.width / 2);
+            
+            // Apply bounds
+            if (player.x < 0) player.x = 0;
+            if (player.x > canvas.width - player.width) player.x = canvas.width - player.width;
+        }, { passive: false });
+        
+        // 5. ADJUST CANVAS AND PLAYER POSITIONING
+        function adjustCanvasForMobile() {
+            // Calculate optimal canvas height based on viewport 
+            // (leaving room for UI elements and making sure player is fully visible)
+            const viewportHeight = window.innerHeight;
+            
+            // Set canvas height to 90% of viewport
+            canvas.height = viewportHeight * 0.9;
+            
+            // Adjust player position to be visible at the bottom
+            // Position player higher up from the bottom to ensure visibility
+            player.y = canvas.height - 80;
+        }
+        
+        // Run initial adjustment
+        adjustCanvasForMobile();
+        
+        // Add resize and orientation change listeners
+        window.addEventListener('resize', adjustCanvasForMobile);
+        window.addEventListener('orientationchange', function() {
+            // Small delay to ensure dimensions are updated
+            setTimeout(adjustCanvasForMobile, 100);
+        });
+        
+        // 6. SHOW ORIENTATION WARNING IF IN LANDSCAPE
+        function checkOrientation() {
+            if (window.orientation === 90 || window.orientation === -90) {
+                if (!document.getElementById('orientationWarning')) {
+                    const warning = document.createElement('div');
+                    warning.id = 'orientationWarning';
+                    warning.style.position = 'fixed';
+                    warning.style.top = '0';
+                    warning.style.left = '0';
+                    warning.style.width = '100%';
+                    warning.style.padding = '10px';
+                    warning.style.background = 'rgba(255,0,0,0.8)';
+                    warning.style.color = 'white';
+                    warning.style.textAlign = 'center';
+                    warning.style.zIndex = '10000';
+                    warning.style.fontSize = '16px';
+                    warning.textContent = 'Please rotate your device to portrait mode for the best experience';
+                    document.body.appendChild(warning);
+                }
+            } else {
+                const warning = document.getElementById('orientationWarning');
+                if (warning) warning.remove();
+            }
+        }
+        
+        // Check orientation initially and on change
+        if ('orientation' in window) {
+            checkOrientation();
+            window.addEventListener('orientationchange', checkOrientation);
+        }
+    }
+}
+
+function startFresh() {
+debugLog("Starting game initialization...");
+    // Add console log for debugging
+    console.log("Starting game initialization...");
+    
+    // Initialize particles array
+    particles = [];
+
+    // Make sure canvas is properly sized
+    resizeCanvas();
+    
+    // Initialize stars and background elements
+    initStars();
+    initAsteroids();
+    initShootingStars();
+    
+    // Initialize game state
+    initializeGameState();
+    
+    console.log("Game initialized, starting game loop...");
+
+    // Start the game loop
+    lastFrameTime = performance.now();
+debugLog("Game initialized, starting game loop...");
+    requestAnimationFrame(gameLoop);
+}
+
+// Check browser compatibility before starting
+if (checkBrowserCompatibility()) {
+    // Initial call to start the game
+    startFresh();
+} else {
+    // Show a message if browser is incompatible
+    document.getElementById('introScreen').innerHTML = '<h1>Browser Not Supported</h1><p>Your browser doesn\'t support features needed for this game. Please use a modern browser like Chrome, Firefox, Edge, or Safari.</p>';
+    document.getElementById('introScreen').style.display = 'block';
+}
+
+// The rest of the game mechanics implementations (updatePlayer, updateEnemies, etc.)
+    // are intentionally omitted to keep this part focused on the game loop
+    // They would include the core gameplay mechanics like shooting, collision detection, etc.
+</script>
+</body>
+</html>

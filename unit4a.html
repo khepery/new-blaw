@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4: Tort of Negligence - Interactive Learning Hub</title>
+    <!-- Link to the consolidated and refactored app_styles.css -->
+    <link rel="stylesheet" href="app_styles.css">
+    <!-- Tailwind CSS CDN (v3) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[var(--light-bg)] text-[var(--dark-text)] leading-relaxed">
+    <header class="bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-[var(--light-text)] py-8 md:py-12 px-4 text-center relative overflow-hidden">
+                        <div class="header-animation absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="floating-scale text-4xl md:text-5xl text-white/10" style="top: 10%; left: 5%; animation-delay: -2s;">⚖️</div>
+            <div class="floating-scale text-4xl md:text-5xl text-white/10" style="top: 60%; right: 10%; animation-delay: -4s;">📚</div>
+            <div class="floating-scale text-4xl md:text-5xl text-white/10" style="bottom: 20%; left: 15%; animation-delay: -6s;">🏛️</div>
+            <div class="floating-scale text-4xl md:text-5xl text-white/10" style="top: 30%; right: 25%; animation-delay: -8s;">⚡</div>
+            <div class="floating-scale text-4xl md:text-5xl text-white/10" style="top: 75%; left: 35%; animation-delay: -10s;">💡</div>
+        </div>
+        <div class="header-content relative z-10">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 md:mb-4 animate-fadeInDown">Unit 4: Tort of Negligence <span class="text-2xl md:text-3xl opacity-90 italic text-[var(--light-text)]">侵权法之疏忽</span></h1>
+            <p class="text-base md:text-lg">Master the fundamentals of negligence law. <span class="text-sm md:text-base opacity-90 italic text-[var(--light-text)]">掌握疏忽法的基础知识。</span></p>
+        </div>
+    </header>
+
+        <nav class="bg-[var(--primary-color)] py-2 px-4 sticky top-0 z-[1000] shadow-md relative">
+        <!-- Back button -->
+        <a href="index.html" title="Back to Main Menu" class="absolute top-1/2 left-4 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors no-underline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links max-w-6xl mx-auto flex flex-wrap justify-center gap-x-2 gap-y-1">
+            <li><a href="#intro" class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)] active">Introduction <span class="chinese-text-nav">介绍</span></a></li>
+            <li><a href="#unit4-1" class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Unit 4.1: Elements <span class="chinese-text-nav">要素</span></a></li>
+            <li><a href="#unit4-2" class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Unit 4.2: Harm & Defenses <span class="chinese-text-nav">损害与抗辩</span></a></li>
+            <li><a href="#unit4-3" class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Unit 4.3: Application <span class="chinese-text-nav">应用</span></a></li>
+            <li><a href="#summary" class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Summary <span class="chinese-text-nav">总结</span></a></li>
+        </ul>
+
+        <!-- Dark Mode Toggle -->
+        <div id="darkModeToggle" class="absolute top-1/2 right-4 -translate-y-1/2 z-20 cursor-pointer p-2 rounded-full">
+            <span id="sunIcon" title="Activate light mode">☀️</span>
+            <span id="moonIcon" title="Activate dark mode" class="hidden">🌙</span>
+        </div>
+    </nav>
+
+    
+    <main class="max-w-6xl mx-auto p-4 md:p-8">
+        <!-- Progress Visualization will be inserted here by JS -->
+
+        <section id="intro" class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2 class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">Welcome to Unit 4! <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">欢迎来到第四单元！</span></h2>
+            <p class="mb-4 text-base">In this unit, you'll learn about the tort of negligence - one of the most important areas of civil law. We'll explore how the law protects people from harm caused by others' carelessness.</p>
+            <p class="chinese-text-body mb-4 text-sm">在本单元中，您将学习侵权法中的疏忽 - 这是民法中最重要的领域之一。我们将探讨法律如何保护人们免受他人疏忽造成的伤害。</p>
+            
+            <div class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">What is a Tort? <span class="text-base opacity-90 italic text-gray-600">什么是侵权？</span></h4>
+                <p class="mb-2 text-base">A tort is a civil wrong (not a crime) that causes harm to someone. The injured person can sue for compensation.</p>
+                <p class="chinese-text-body text-sm">侵权是造成某人伤害的民事过错（不是犯罪）。受伤的人可以起诉要求赔偿。</p>
+            </div>
+             <div class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
+                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">What is Negligence? <span class="text-base opacity-90 italic text-gray-600">什么是疏忽？</span></h4>
+                <p class="mb-2 text-base">A failure to exercise the standard of care that a reasonably prudent person would have exercised in a similar situation. It involves harm caused by carelessness, not intentional harm.</p>
+                <p class="chinese-text-body text-sm">未能在类似情况下采取一个合理谨慎的人本应采取的注意标准。它涉及因疏忽造成的伤害，而非故意伤害。</p>
+            </div>
+        </section>
+        
+        <section id="unit4-1" class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2 class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">Unit 4.1: Elements of Negligence <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">疏忽的要素</span></h2>
+            <p class="mb-6 text-base">To establish negligence, four key elements must be proven: Duty of Care, Breach of Duty, Causation, and Remoteness.</p>
+            <p class="chinese-text-body mb-6 text-sm">要确定疏忽，必须证明四个关键要素：注意义务、违反义务、因果关系和损害的可预见性（非遥远性）。</p>
+            
+            <div class="topic-grid grid grid-cols-1 gap-8 mb-8">
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🛡️</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">1. Duty of Care (DOC) <span class="text-lg opacity-90 italic">注意义务</span></h3>
+                            <p class="text-sm opacity-90">The legal obligation to be careful. <span class="text-xs opacity-90 italic">谨慎的法律义务。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">What is Duty of Care? <span class="text-sm opacity-90 italic text-gray-600">什么是注意义务？</span></h4>
+                            <p class="text-base mb-1">A legal obligation which is imposed on an individual requiring adherence to a standard of reasonable care while performing any acts that could foreseeably harm others.</p>
+                            <p class="chinese-text-body text-sm mb-2">一项施加于个人的法律义务，要求其在从事任何可预见会伤害他人的行为时，遵守合理的注意标准。</p>
+                            <p class="text-base mt-2"><strong>Legal Principle:</strong> The duty of care is a legal requirement that an individual must exercise a level of care towards others that is reasonable in all circumstances. This duty is established through the "neighbour principle".</p>
+                            <p class="chinese-text-body text-sm"><strong>法律原则：</strong>注意义务是一项法律要求，个人必须在所有情况下对他人尽到合理的注意。这项义务通过"邻人原则"确立。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">The Neighbour Principle <span class="text-sm opacity-90 italic">邻人原则</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">"You must take reasonable care to avoid acts or omissions which you can reasonably foresee would be likely to injure your neighbour." A neighbour is anyone who is closely and directly affected by one's actions.</p>
+                                    <p class="chinese-text-body text-sm mb-2">"您必须采取合理的注意，避免您可以合理预见会伤害邻人的作为或不作为。"邻人是指任何因您的行为而受到密切和直接影响的人。</p>
+                                    <div class="info-box case-box mt-4 bg-amber-50 border-l-4 border-[var(--warning-color)] p-4 rounded-lg relative">
+                                        <h4 class="text-[var(--warning-color)] font-semibold text-base mb-1">Donoghue v Stevenson [1932] AC 562</h4>
+                                        <p class="text-sm mb-1"><strong>Facts:</strong> Mrs. Donoghue consumed ginger beer that contained a decomposed snail. She became ill and sued the manufacturer.</p>
+                                        <p class="text-sm"><strong>Decision:</strong> The manufacturer owed a duty of care to the consumer, establishing the principle that one must take reasonable care to avoid acts or omissions likely to harm one's neighbour.</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>事实：</strong>多诺休夫人喝了含有腐烂蜗牛的姜汁啤酒。她生病了并起诉了制造商。</p>
+                                        <p class="chinese-text-body text-sm"><strong>判决：</strong>制造商对消费者负有注意义务，确立了必须采取合理注意以避免可能伤害邻人的作为或不作为的原则。</p>
+                                    </div>
+                                    <div class="info-box example-box mt-4 bg-emerald-50 border-l-4 border-[var(--success-color)] p-4 rounded-lg relative">
+                                        <p class="text-sm mb-1"><strong>Simple Example:</strong> When driving a car, you owe a duty of care to other road users (drivers, pedestrians, cyclists) and your passengers because they could be injured by your driving.</p>
+                                        <p class="chinese-text-body text-sm"><strong>简单例子：</strong>驾驶汽车时，您对其他道路使用者（司机、行人、骑自行车的人）和您的乘客负有注意义务，因为他们可能会因您的驾驶而受伤。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">⚠️</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">2. Breach of Duty <span class="text-lg opacity-90 italic">违反义务</span></h3>
+                            <p class="text-sm opacity-90">Failing to meet the required standard of care. <span class="text-xs opacity-90 italic">未能达到要求的注意标准。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                         <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">What is a Breach of Duty of Care? <span class="text-sm opacity-90 italic text-gray-600">什么是违反注意义务？</span></h4>
+                            <p class="text-base">This occurs when the defendant fails to meet the standard of care required.</p><p class="chinese-text-body text-sm">当被告未能达到所要求的注意标准时，即构成违反注意义务。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Requirements to Establish Breach (Civil Liability Act 2002 (NSW) s5B(1)) <span class="text-sm opacity-90 italic">确立违约的要求</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">A person is not negligent in failing to take precautions against a risk of harm unless:</p>
+                                    <ol class="list-decimal ml-5 text-base">
+                                        <li class="mb-1">The risk was foreseeable (the person knew or ought to have known). <span class="chinese-text-body text-sm">风险是可预见的（此人知道或理应知道）。</span></li>
+                                        <li class="mb-1">The risk was not insignificant. <span class="chinese-text-body text-sm">风险并非微不足道。</span></li>
+                                        <li class="mb-1">A reasonable person in the person's position would have taken those precautions. <span class="chinese-text-body text-sm">处于此人位置的合理人士会采取那些预防措施。</span></li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Reasonable Person Test (s5B(2)) <span class="text-sm opacity-90 italic">合理人测试</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">The court considers:</p>
+                                    <ol class="list-decimal ml-5 text-base" style="list-style-type: lower-alpha;">
+                                        <li class="mb-1">Probability that harm would occur if care were not taken. <span class="chinese-text-body text-sm">如果不小心，发生伤害的可能性。</span> (Bolton v Stone)</li>
+                                        <li class="mb-1">Likely seriousness of harm. <span class="chinese-text-body text-sm">伤害的可能严重性。</span> (Paris v Stepney Borough Council)</li>
+                                        <li class="mb-1">Burden of taking precautions. <span class="chinese-text-body text-sm">采取预防措施的负担。</span></li>
+                                        <li class="mb-1">Social utility of the activity creating the risk. <span class="chinese-text-body text-sm">产生风险活动的社会效用。</span></li>
+                                    </ol>
+                                    <div class="info-box case-box mt-4 bg-amber-50 border-l-4 border-[var(--warning-color)] p-4 rounded-lg relative">
+                                        <h4 class="text-[var(--warning-color)] font-semibold text-base mb-1">Bolton v Stone [1951] AC 850</h4>
+                                        <p class="text-sm mb-1"><strong>Facts:</strong> Cricket ball hit someone outside the ground. Only happened 6-10 times in 30 years.</p>
+                                        <p class="text-sm"><strong>Decision:</strong> Risk too small - no breach. (Low probability of harm)</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>事实：</strong>板球击中场外某人。30年内仅发生6-10次。</p><p class="chinese-text-body text-sm"><strong>判决：</strong>风险太小 - 未违约。（伤害概率低）</p>
+                                    </div>
+                                    <div class="info-box case-box mt-4 bg-amber-50 border-l-4 border-[var(--warning-color)] p-4 rounded-lg relative">
+                                        <h4 class="text-[var(--warning-color)] font-semibold text-base mb-1">Paris v Stepney Borough Council [1950] UKHL 3</h4>
+                                        <p class="text-sm mb-1"><strong>Facts:</strong> One-eyed worker not given safety goggles, lost his good eye.</p>
+                                        <p class="text-sm"><strong>Decision:</strong> Higher duty because consequences more serious for him.</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>事实：</strong>独眼工人未获安全护目镜，导致其好眼失明。</p><p class="chinese-text-body text-sm"><strong>判决：</strong>因对其后果更严重，故注意义务更高。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Causation Card -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🔗</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">3. Causation <span class="text-lg opacity-90 italic">因果关系</span></h3>
+                            <p class="text-sm opacity-90">The link between the breach and the harm. <span class="text-xs opacity-90 italic">违约与损害之间的联系。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">What is Causation? <span class="text-sm opacity-90 italic text-gray-600">什么是因果关系？</span></h4>
+                            <p class="text-base">Did the breach of duty of care cause the loss suffered?</p>
+                            <p class="chinese-text-body text-sm">违反注意义务是否导致了所遭受的损失？</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Factual Causation (Civil Liability Act 2002 (NSW) s5D(1)(a)) <span class="text-sm opacity-90 italic">事实因果关系</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">The breach was a necessary condition of the occurrence of the harm ("factual causation").</p>
+                                    <p class="chinese-text-body text-sm mb-2">违约是损害发生的必要条件（"事实因果关系"）。</p>
+                                    <p class="text-base mt-2"><strong>Common Law Test: "But for" test.</strong> Would the harm have occurred "but for" the defendant's conduct?</p>
+                                    <ul class="list-disc ml-5 text-base">
+                                        <li class="mb-1">If NO: Causation is established. <span class="chinese-text-body text-sm">如果"否"：因果关系成立。</span></li>
+                                        <li class="mb-1">If YES: Causation is not established. <span class="chinese-text-body text-sm">如果"是"：因果关系不成立。</span></li>
+                                    </ul>
+                                    <div class="info-box example-box mt-4 bg-emerald-50 border-l-4 border-[var(--success-color)] p-4 rounded-lg relative">
+                                        <p class="text-sm mb-1"><strong>Example:</strong> Shop owner doesn't clean spilled oil. Customer slips and breaks leg.</p>
+                                        <p class="text-sm mb-1"><strong>But for test:</strong> But for the failure to clean the spill, would the customer have been injured?</p>
+                                        <p class="text-sm"><strong>Answer:</strong> NO - so causation is established!</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>例子：</strong>店主未清理溢油。顾客滑倒摔断腿。</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>"若非"测试：</strong>若非未清理溢油，顾客会受伤吗？</p>
+                                        <p class="chinese-text-body text-sm"><strong>答案：</strong>不会 —— 因此因果关系成立！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Remoteness Card -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🔭</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">4. Remoteness <span class="text-lg opacity-90 italic">遥远性</span></h3>
+                            <p class="text-sm opacity-90">Was the type of harm foreseeable? <span class="text-xs opacity-90 italic">损害类型是否可预见？</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                           <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">What is Remoteness? <span class="text-sm opacity-90 italic text-gray-600">什么是遥远性？</span></h4>
+                           <p class="text-base">The harm caused must not be too remote from the breach.</p>
+                           <p class="chinese-text-body text-sm">造成的损害不得与违约行为相距太远。</p>
+                        </div>
+                        <div class="accordion my-4">
+                             <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Scope of Liability (Civil Liability Act 2002 (NSW) s5D(1)(b)) <span class="text-sm opacity-90 italic">责任范围</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">It is appropriate for the scope of the defendant's liability to extend to the harm caused ("scope of liability"). Defendant will not be liable for damage considered too remote.</p>
+                                    <p class="chinese-text-body text-sm mb-2">被告的责任范围延伸至所造成的损害是适当的（"责任范围"）。被告不对被认为过于遥远的损害负责。</p>
+                                    <p class="text-base mt-2"><strong>Common Law Test: Reasonable Foreseeability.</strong> Was the type of damage reasonably foreseeable as a consequence of their carelessness?</p>
+                                    <ul class="list-disc ml-5 text-base">
+                                        <li class="mb-1">If not foreseeable (too remote): Defendant is not liable. <span class="chinese-text-body text-sm">如果不可预见（过于遥远）：被告不承担责任。</span></li>
+                                        <li class="mb-1">If foreseeable (not too remote): Defendant is liable. <span class="chinese-text-body text-sm">如果可预见（并非过于遥远）：被告承担责任。</span></li>
+                                    </ul>
+                                    <div class="info-box example-box mt-4 bg-emerald-50 border-l-4 border-[var(--success-color)] p-4 rounded-lg relative">
+                                        <p class="text-sm mb-1"><strong>Foreseeable damages:</strong> Car crash → Medical bills ✓, Lost wages ✓, Car repairs ✓</p>
+                                        <p class="text-sm"><strong>Too remote:</strong> Car crash → Victim's house gets burgled while in hospital ✗</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>可预见的损害：</strong>车祸 → 医疗费用 ✓, 工资损失 ✓, 车辆维修 ✓</p>
+                                        <p class="chinese-text-body text-sm"><strong>过于遥远：</strong>车祸 → 受害者住院期间房屋被盗 ✗</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-section bg-sky-50 mt-4 p-6 rounded-xl">
+                 <h3 class="text-[var(--secondary-color)] text-xl font-semibold mb-3">Summary of Negligence Elements <span class="text-lg opacity-90 italic">疏忽要素总结</span></h3>
+                 <ul class="list-disc ml-5 text-base space-y-2">
+                    <li><strong>Duty of Care:</strong> Established by Neighbour principle (Donoghue v Stevenson). <span class="chinese-text-body text-sm"><strong>注意义务：</strong>由邻人原则确立（Donoghue v Stevenson案）。</span></li>
+                    <li><strong>Breach of Duty:</strong> s5B(1) & (2) Civil Liability Act 2002 (NSW); Reasonable person test (Bolton v Stone, Paris v Stepney Borough Council). <span class="chinese-text-body text-sm"><strong>违反义务：</strong>《2002年民事责任法（新南威尔士州）》第5B(1)和(2)条；合理人测试（Bolton v Stone案，Paris v Stepney Borough Council案）。</span></li>
+                    <li><strong>Causation:</strong> s5D(1)(a) Civil Liability Act 2002 (NSW); "But for" test. <span class="chinese-text-body text-sm"><strong>因果关系：</strong>《2002年民事责任法（新南威尔士州）》第5D(1)(a)条；"若非"测试。</span></li>
+                    <li><strong>Remoteness:</strong> s5D(1)(b) Civil Liability Act 2002 (NSW); Reasonable foreseeability of harm. <span class="chinese-text-body text-sm"><strong>遥远性：</strong>《2002年民事责任法（新南威尔士州）》第5D(1)(b)条；损害的合理可预见性。</span></li>
+                 </ul>
+            </div>
+            <button id="quizBtn_unit4_1_mcq" class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Unit 4.1 Quiz <span class="text-sm opacity-90 italic">4.1单元测验</span></button>
+            <button id="knowledgeCheckBtn_kc_unit4_1" class="btn btn-warning mt-6 inline-block px-5 py-2.5 bg-[var(--warning-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#d39e00] hover:-translate-y-0.5 hover:shadow-md">Unit 4.1 Knowledge Check <span class="text-sm opacity-90 italic">4.1单元知识检验</span></button>
+            <div id="kc_unit4_1" class="knowledge-check-box bg-yellow-50 border border-yellow-400 rounded-lg p-6 mt-6 shadow-sm hidden">
+                <h4 class="text-yellow-700 text-xl font-semibold border-b-2 border-yellow-500 pb-2 mb-4">Test Your Knowledge <span class="text-lg opacity-90 italic">检验您的知识</span></h4>
+                <div class="knowledge-check-content space-y-4">
+                    <div class="knowledge-check-item">
+                        <p class="mb-3 text-base">Donoghue v Stevenson established the '<span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="neighbour"></span>' principle, that is, referred to by Lord Atkin as "You must take reasonable care to avoid <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="acts"></span> or <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="omissions"></span> which you can reasonably foresee would be likely to injure your neighbour. Who then, in law, is my neighbour? The answer seems to be – persons who are so <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="closely"></span> and <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="directly"></span> affected by my conduct that I ought reasonably to have them in contemplation as being so affected when I am directing my mind to the acts and omissions which are called in question."</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">The elements of the tort of negligence are: There must be the existence of a <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="duty"></span> to take reasonable care... There must be a <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="breach"></span> of that duty... There must be compensable damage or injury <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="caused"></span> by the breach, and not too <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="remote"></span> from the breach...</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">Breach of duty of care occurs when the <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="defendant"></span> fails to meet the <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="standard of care"></span> to prevent the foreseeable risk... Section 5B(1) and Section 5B(2) of the <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="Civil Liability"></span> Act 2002 (NSW) must be satisfied...</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">The test for remoteness of damage is a test of reasonable <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="foreseeability"></span>... Section <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="5D"></span> of the Civil Liability Act 2002 (NSW) must be satisfied...</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">The test for causation usually to be applied in common law is the <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="&quot;but for&quot;"></span> test... Section <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="5D"></span> of the Civil Liability Act 2002 (NSW) must be satisfied...</p>
+                    </div>
+                </div>
+                <div class="knowledge-check-buttons flex flex-wrap gap-2 mt-4">
+                    <button id="checkAnswersBtn_kc_unit4_1" class="btn btn-success inline-block px-5 py-2.5 bg-[var(--success-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#1e7e34] hover:-translate-y-0.5 hover:shadow-md">Check My Answers <span class="text-sm opacity-90 italic">检查我的答案</span></button>
+                    <button id="revealAnswersBtn_kc_unit4_1" class="btn btn-info inline-block px-5 py-2.5 bg-[#17a2b8] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#117a8b] hover:-translate-y-0.5 hover:shadow-md">Reveal Answers <span class="text-sm opacity-90 italic">显示答案</span></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="unit4-2" class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+             <h2 class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">Unit 4.2: Recognizing Different Types of Harm and Defenses <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">识别不同类型的损害和抗辩</span></h2>
+            <p class="mb-6 text-base">This unit explores the various types of harm compensable in negligence and the defenses available to a defendant.</p>
+            <p class="chinese-text-body mb-6 text-sm">本单元探讨疏忽案中可获赔偿的各种损害类型以及被告可用的抗辩理由。</p>
+            
+            <div class="topic-grid grid grid-cols-1 gap-8 mb-8">
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">💔</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Types of Harm <span class="text-lg opacity-90 italic">损害类型</span></h3>
+                            <p class="text-sm opacity-90">Understanding what losses can be claimed. <span class="text-xs opacity-90 italic">了解可以索赔哪些损失。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">Harm <span class="text-sm opacity-90 italic text-gray-600">损害</span></h4>
+                            <p class="text-base">Any type of damage or injury suffered by a person, which can be physical, property damage, economic, or pure economic loss.</p>
+                            <p class="chinese-text-body text-sm">个人遭受的任何类型的损害或伤害，可以是身体上的、财产上的、经济上的或纯粹经济上的损失。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Physical Injury <span class="text-sm opacity-90 italic">身体伤害</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">Harm to a person's body, including bruises, broken bones, or other bodily harm.</p>
+                                    <p class="chinese-text-body text-sm mb-2">对人身体的伤害，包括瘀伤、骨折或其他身体伤害。</p>
+                                    <div class="info-box scenario-box mt-4 bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                                        <h4 class="text-purple-600 font-semibold text-base mb-1">Scenario: Mr. Lee slipped on oil <span class="text-sm opacity-90 italic text-gray-600">场景：李先生滑倒在油渍上</span></h4>
+                                        <p class="text-sm mb-1">Mr. Lee slipped on a spilled bottle of oil while shopping at the supermarket. Mr. Lee's leg is now broken.</p>
+                                        <p class="chinese-text-body text-sm mb-1">李先生在超市购物时滑倒在一瓶溢出的油上。李先生的腿现在骨折了。</p>
+                                        <p class="text-sm"><strong>Kind of Harm:</strong> Physical injury (broken leg) and Economic loss (medical bills, possible loss of wages).</p>
+                                        <p class="chinese-text-body text-sm"><strong>损害类型：</strong>身体伤害（腿部骨折）和经济损失（医疗费用，可能的工资损失）。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Property Damage <span class="text-sm opacity-90 italic">财产损害</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">Harm to someone's property, such as breaking a window or damaging a car.</p>
+                                    <p class="chinese-text-body text-sm mb-2">对他人财产的损害，例如打破窗户或损坏汽车。</p>
+                                    <div class="info-box scenario-box mt-4 bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                                        <h4 class="text-purple-600 font-semibold text-base mb-1">Scenario: Mr. Lee's window broken by golf ball <span class="text-sm opacity-90 italic text-gray-600">场景：李先生的窗户被高尔夫球打破</span></h4>
+                                        <p class="text-sm mb-1">Mr. Lee lives next to a golf course. A ball from one of the golfers playing on the course strays and breaks Mr. Lee's window.</p>
+                                        <p class="chinese-text-body text-sm mb-1">李先生住在一个高尔夫球场旁边。一个在高尔夫球场打球的人打出的球偏离方向，打破了李先生的窗户。</p>
+                                        <p class="text-sm"><strong>Kind of Harm:</strong> Property damage (broken window) and Economic loss (cost of repairs).</p>
+                                        <p class="chinese-text-body text-sm"><strong>损害类型：</strong>财产损害（窗户破损）和经济损失（维修费用）。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Economic Loss <span class="text-sm opacity-90 italic">经济损失</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">Financial loss that can include loss of wages, medical bills, or costs incurred due to property damage.</p>
+                                    <p class="chinese-text-body text-sm mb-2">财务损失，可能包括工资损失、医疗费用或因财产损失而产生的费用。</p>
+                                    <p class="text-base">This is often <em>consequential</em> economic loss, meaning it flows from physical injury or property damage.</p>
+                                    <p class="chinese-text-body text-sm">这通常是<em>间接</em>经济损失，意味着它是由人身伤害或财产损失引起的。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Pure Economic Loss <span class="text-sm opacity-90 italic">纯粹经济损失</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">Financial loss not resulting from physical injury or property damage, such as a loss in share value.</p>
+                                    <p class="chinese-text-body text-sm mb-2">并非由人身伤害或财产损失导致的财务损失，例如股票价值损失。</p>
+                                    <div class="info-box scenario-box mt-4 bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                                        <h4 class="text-purple-600 font-semibold text-base mb-1">Scenario: Mr. Lee's share value drops <span class="text-sm opacity-90 italic text-gray-600">场景：李先生的股票价值下跌</span></h4>
+                                        <p class="text-sm mb-1">Mr. Lee purchases $10,000 worth of shares. The share price falls significantly and his shares are now worth half the original value.</p>
+                                        <p class="chinese-text-body text-sm mb-1">李先生购买了价值10,000美元的股票。股价大幅下跌，他的股票现在只值原价的一半。</p>
+                                        <p class="text-sm"><strong>Kind of Harm:</strong> Pure economic loss (loss in share value). No physical injury or property damage involved.</p>
+                                        <p class="chinese-text-body text-sm"><strong>损害类型：</strong>纯粹经济损失（股票价值损失）。不涉及人身伤害或财产损失。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Negligent Misstatement Card -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🗣️</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Negligent Misstatement <span class="text-lg opacity-90 italic">疏忽性失实陈述</span></h3>
+                            <p class="text-sm opacity-90">Careless advice causing financial loss. <span class="text-xs opacity-90 italic">粗心建议导致财务损失。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">Negligent Misstatement <span class="text-sm opacity-90 italic text-gray-600">疏忽性失实陈述</span></h4>
+                            <p class="text-base mb-1">Providing incorrect information or advice that causes someone to suffer financial loss. A duty of care requires individuals to exercise reasonable care to avoid harm to others. This principle extends to negligent words and statements.</p>
+                            <p class="chinese-text-body text-sm">提供不正确的信息或建议，导致他人遭受财务损失。注意义务要求个人采取合理的谨慎措施以避免对他人造成伤害。这一原则延伸适用于疏忽的言语和陈述。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Duty of Care in Negligent Misstatement <span class="text-sm opacity-90 italic">疏忽性失实陈述中的注意义务</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">The defendant will owe a duty of care to the plaintiff if there is a "special relationship" between the parties. This is established through the "Barwick test" (Mutual Life and Citizens' Assurance v Evatt).</p>
+                                    <p class="chinese-text-body text-sm mb-2">如果双方之间存在"特殊关系"，则被告对原告负有注意义务。这通过"巴威克测试"确立（Mutual Life and Citizens' Assurance v Evatt案）。</p>
+                                    <h4 class="text-base font-semibold text-[var(--dark-text)] mt-3 mb-2">Barwick Test Requirements <span class="text-sm opacity-90 italic text-gray-600">巴威克测试要求</span></h4>
+                                    <ol class="list-decimal ml-5 text-base space-y-1">
+                                        <li><strong>Assumption of Responsibility:</strong> The speaker must realize they are being trusted. <span class="chinese-text-body text-sm"><strong>承担责任：</strong>说话者必须意识到自己受到信任。</span></li>
+                                        <li><strong>Serious or Business Nature:</strong> The subject matter must be serious or business-related. <span class="chinese-text-body text-sm"><strong>严肃或商业性质：</strong>主题必须是严肃的或与业务相关的。</span></li>
+                                        <li><strong>Intended Reliance:</strong> The speaker must know (or should know) the recipient intended to act on the advice. <span class="chinese-text-body text-sm"><strong>预期依赖：</strong>说话者必须知道（或应该知道）接受者打算根据该建议采取行动。</span></li>
+                                        <li><strong>Reasonable Reliance:</strong> It must be reasonable for the recipient to rely on the advice. <span class="chinese-text-body text-sm"><strong>合理依赖：</strong>接受者依赖该建议必须是合理的。</span></li>
+                                    </ol>
+                                    <p class="text-base mt-2 mb-2"><strong>Factors for Reasonable Reliance:</strong> Capacity of parties (skills, knowledge), nature of subject matter, occasion of advice (social/business).</p>
+                                    <p class="chinese-text-body text-sm"><strong>合理依赖的因素：</strong>双方的能力（技能、知识），主题的性质，提供建议的场合（社交/商业）。</p>
+                                    <div class="info-box case-box mt-4 bg-amber-50 border-l-4 border-[var(--warning-color)] p-4 rounded-lg relative">
+                                        <h4 class="text-[var(--warning-color)] font-semibold text-base mb-1">Hedley Byrne & Co Ltd v Heller and Partners Ltd [1963] UKHL 4</h4>
+                                        <p class="text-sm mb-1"><strong>Facts:</strong> Advertising agent (Hedley Byrne) relied on a bank reference (from Heller) to extend credit to a client. Client defaulted. Heller had issued a disclaimer.</p>
+                                        <p class="text-sm"><strong>Decision:</strong> Established principle of negligent misstatement but Heller not liable due to disclaimer. Emphasized "special relationship".</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>事实：</strong>广告代理商（Hedley Byrne）依赖银行（Heller）的信用证明向客户提供信贷。客户违约。Heller曾发出免责声明。</p><p class="chinese-text-body text-sm"><strong>判决：</strong>确立了疏忽性失实陈述的原则，但由于免责声明，Heller不承担责任。强调了"特殊关系"。</p>
+                                    </div>
+                                    <div class="info-box case-box mt-4 bg-amber-50 border-l-4 border-[var(--warning-color)] p-4 rounded-lg relative">
+                                        <h4 class="text-[var(--warning-color)] font-semibold text-base mb-1">Shaddock v Parramatta City Council [1981] HCA 59</h4>
+                                        <p class="text-sm mb-1"><strong>Facts:</strong> Shaddock relied on incorrect information from the council about road widening, leading to financial loss.</p>
+                                        <p class="text-sm"><strong>Decision:</strong> Council owed a duty of care. Broadened scope: special relationship can exist even if advisor doesn't profess special skills.</p>
+                                        <p class="chinese-text-body text-sm mt-1"><strong>事实：</strong>Shaddock依赖市政会关于道路拓宽的错误信息，导致财务损失。</p><p class="chinese-text-body text-sm"><strong>判决：</strong>市政会负有注意义务。扩大了范围：即使顾问不声称拥有特殊技能，也可能存在特殊关系。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Vicarious Liability Card -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">👥</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Vicarious Liability <span class="text-lg opacity-90 italic">替代责任</span></h3>
+                            <p class="text-sm opacity-90">One party responsible for another's actions. <span class="text-xs opacity-90 italic">一方对他方行为负责。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">Vicarious Liability <span class="text-sm opacity-90 italic text-gray-600">替代责任</span></h4>
+                            <p class="text-base mb-1">A legal principle where one party (e.g., an employer) is held responsible for the negligent actions of another (e.g., an employee), if those actions occurred in the course of employment.</p>
+                            <p class="chinese-text-body text-sm">一项法律原则，指一方（例如雇主）对另一方（例如雇员）的疏忽行为承担责任，前提是这些行为发生在雇佣过程中。</p>
+                        </div>
+                        <div class="info-box scenario-box mt-4 bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                            <h4 class="text-purple-600 font-semibold text-base mb-1">Scenario: Negligent Tax Advice <span class="text-sm opacity-90 italic text-gray-600">场景：疏忽的税务建议</span></h4>
+                            <p class="text-sm mb-1">Mr. Lee has been given advice by his tax accountant, Mrs. Smith, who works for Jones & Jones Taxation Accountants. Mrs. Smith negligently advised Mr. Lee on a complex tax issue.</p>
+                            <p class="chinese-text-body text-sm mb-1">李先生的税务会计师史密斯夫人（为琼斯与琼斯税务会计师事务所工作）就一个复杂的税务问题向李先生提供了疏忽的建议。</p>
+                            <p class="text-sm"><strong>Explanation:</strong> Mr. Lee can sue Jones & Jones Taxation Accountants as they have vicarious liability for the actions of their employee, Mrs. Smith, performed in the course of her employment.</p>
+                            <p class="chinese-text-body text-sm"><strong>解释：</strong>李先生可以起诉琼斯与琼斯税务会计师事务所，因为他们对其雇员史密斯夫人在其雇佣过程中所做行为负有替代责任。</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Defenses Card -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🛡️</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Defenses to Negligence <span class="text-lg opacity-90 italic">疏忽的抗辩</span></h3>
+                            <p class="text-sm opacity-90">Arguments to reduce or avoid liability. <span class="text-xs opacity-90 italic">减少或避免责任的论点。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box definition-box bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 rounded-lg relative mb-4">
+                            <h4 class="text-[var(--secondary-color)] font-semibold text-base mb-1">Defenses <span class="text-sm opacity-90 italic text-gray-600">抗辩</span></h4>
+                            <p class="text-base mb-1">A plea is a legal statement which may be used to mitigate or defend the liability of a defendant.</p>
+                            <p class="chinese-text-body text-sm">抗辩是一种法律陈述，可用于减轻或辩护被告的责任。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Contributory Negligence <span class="text-sm opacity-90 italic">共同过失</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">A defense where the plaintiff's own negligence contributed to their harm, potentially reducing the liability of the defendant. The court may reduce damages proportionally.</p>
+                                    <p class="chinese-text-body text-sm mb-2">一种抗辩理由，即原告自身的疏忽导致了其损害，可能减少被告的责任。法院可以按比例减少赔偿金。</p>
+                                    <div class="info-box scenario-box mt-4 bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                                        <h4 class="text-purple-600 font-semibold text-base mb-1">Scenario: Cyclist at Night <span class="text-sm opacity-90 italic text-gray-600">场景：夜间骑车人</span></h4>
+                                        <p class="text-sm mb-1">Mrs. Smith is riding a bicycle at night on a freeway. She is wearing black clothing and has no light on the back of her bicycle. Mr. Lee, distracted by his mobile phone, strikes Mrs. Smith with his truck. She sues Mr. Lee.</p>
+                                        <p class="chinese-text-body text-sm mb-1">史密斯夫人在高速公路上夜间骑自行车。她穿着黑色衣服，自行车尾部没有灯。李先生开车时因看手机分心，用卡车撞了史密斯夫人。她起诉李先生。</p>
+                                        <p class="text-sm"><strong>Possible Defense for Mr. Lee:</strong> Contributory negligence. Mr. Lee could argue that Mrs. Smith contributed to her harm by riding without proper visibility measures, which may reduce his liability.</p>
+                                        <p class="chinese-text-body text-sm"><strong>李先生可能的抗辩：</strong>共同过失。李先生可以辩称，史密斯夫人因未采取适当的能见度措施而导致了自身伤害，这可能会减轻他的责任。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Voluntary Assumption of Risk (Volenti non fit injuria) <span class="text-sm opacity-90 italic">自愿承担风险</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">A complete defense where the plaintiff knowingly and voluntarily exposed themselves to a risk. Requires: 1. Full knowledge of the risk. 2. Voluntary acceptance of the risk.</p>
+                                    <p class="chinese-text-body text-sm mb-2">一种完全抗辩，指原告明知并自愿将自己置于风险之中。要求：1. 完全了解风险。2. 自愿接受风险。</p>
+                                     <div class="info-box scenario-box mt-4 bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                                        <h4 class="text-purple-600 font-semibold text-base mb-1">Scenario: Riding with a Drunk Driver <span class="text-sm opacity-90 italic text-gray-600">场景：与醉酒司机同乘</span></h4>
+                                        <p class="text-sm mb-1">Mrs. Smith is at a party. She accepts the offer of a ride home in a car with Mr. Lee, who she knows has been drinking. There is a serious accident and Mrs. Smith is injured. She sues Mr. Lee.</p>
+                                        <p class="chinese-text-body text-sm mb-1">史密斯夫人在一个派对上。她接受了李先生的提议，搭乘他的车回家，她知道李先生喝了酒。发生了一起严重事故，史密斯夫人受伤。她起诉李先生。</p>
+                                        <p class="text-sm"><strong>Possible Defense for Mr. Lee:</strong> Voluntary assumption of risk. If Mrs. Smith knew Mr. Lee had been drinking and still chose to ride with him, Mr. Lee could argue that she voluntarily assumed the risk of harm.</p>
+                                        <p class="chinese-text-body text-sm"><strong>李先生可能的抗辩：</strong>自愿承担风险。如果史密斯夫人知道李先生喝了酒，仍然选择搭乘他的车，李先生可以辩称她自愿承担了受伤的风险。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Disclaimer <span class="text-sm opacity-90 italic">免责声明</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">A statement that denies responsibility, which can limit liability in certain situations (e.g., Hedley Byrne v Heller).</p>
+                                    <p class="chinese-text-body text-sm">否认责任的声明，可以在某些情况下限制责任（例如，Hedley Byrne v Heller案）。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                  <span class="font-medium">Professional Standard (s.5O Civil Liability Act 2002 NSW) <span class="text-sm opacity-90 italic">专业标准</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <p class="text-base mb-2">A professional is not liable in negligence if it is established that the professional acted in a manner that was widely accepted in Australia by peer professional opinion as competent professional practice. However, this cannot be relied on if the court considers the opinion irrational.</p>
+                                    <p class="chinese-text-body text-sm">如果确定专业人士的行为方式在澳大利亚被同行专业意见广泛接受为称职的专业实践，则该专业人士不因疏忽承担责任。但是，如果法院认为该意见不合理，则不能依赖此条。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="quizBtn_unit4_2_mcq" class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Unit 4.2 Quiz <span class="text-sm opacity-90 italic">4.2单元测验</span></button>
+            <button id="knowledgeCheckBtn_kc_unit4_2" class="btn btn-warning mt-6 inline-block px-5 py-2.5 bg-[var(--warning-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#d39e00] hover:-translate-y-0.5 hover:shadow-md">Unit 4.2 Knowledge Check <span class="text-sm opacity-90 italic">4.2单元知识检验</span></button>
+            <div id="kc_unit4_2" class="knowledge-check-box bg-yellow-50 border border-yellow-400 rounded-lg p-6 mt-6 shadow-sm hidden">
+                 <h4 id="kc_unit4_2_title" class="text-yellow-700 text-xl font-semibold border-b-2 border-yellow-500 pb-2 mb-4">Test Your Knowledge <span class="text-lg opacity-90 italic">检验您的知识</span></h4>
+                 <div class="knowledge-check-content space-y-4">
+                    <div class="knowledge-check-item">
+                        <p class="mb-3 text-base">Under the doctrine of <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="vicarious liability/vicarious"></span>, one person is <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="liable"></span> for the wrongful act of another person because of the legal relationship between them... It arises most frequently within the relationship of <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="employer"></span> and <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="employee"></span>.</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">A <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="plea"></span> is a legal statement which may be used to <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="mitigate"></span> or <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="defend"></span> the liability of a defendant.</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base">Voluntary assumption of risk is a <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="complete"></span> defense where no <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="damages"></span> will be awarded to the plaintiff. Two things must be established: 1. The plaintiff had full <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="knowledge"></span> of the risk. 2. The plaintiff <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="voluntarily"></span> accepted that particular risk.</p>
+                    </div>
+                 </div>
+                <div class="knowledge-check-buttons flex flex-wrap gap-2 mt-4">
+                    <button id="checkAnswersBtn_kc_unit4_2" class="btn btn-success inline-block px-5 py-2.5 bg-[var(--success-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#1e7e34] hover:-translate-y-0.5 hover:shadow-md">Check My Answers <span class="text-sm opacity-90 italic">检查我的答案</span></button>
+                    <button id="revealAnswersBtn_kc_unit4_2" class="btn btn-info inline-block px-5 py-2.5 bg-[#17a2b8] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#117a8b] hover:-translate-y-0.5 hover:shadow-md">Reveal Answers <span class="text-sm opacity-90 italic">显示答案</span></button>
+                </div>
+            </div>
+        </section>
+<section id="unit4-3" class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2 class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">Unit 4.3: Negligence in Action (Application Scenarios) <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">疏忽的实际应用（应用场景）</span></h2>
+            <p class="mb-6 text-base">Apply your understanding of negligence to various practical scenarios. Use the IPAC (Issue, Principle, Application, Conclusion) method to analyze these situations.</p>
+            <p class="chinese-text-body mb-6 text-sm">将您对疏忽的理解应用于各种实际场景。使用IPAC（问题、原则、应用、结论）方法分析这些情况。</p>
+            <div class="topic-grid grid grid-cols-1 gap-8 mb-8">
+                <!-- Scenario 1: Duty of Care Application -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🚗</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Scenario 1: Duty of Care <span class="text-lg opacity-90 italic">场景1：注意义务</span></h3>
+                            <p class="text-sm opacity-90">Analyzing a driving incident. <span class="text-xs opacity-90 italic">分析驾驶事故。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box scenario-box bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                            <h4 class="text-purple-600 font-semibold text-base mb-1">The Distracted Driver <span class="text-sm opacity-90 italic text-gray-600">分心的司机</span></h4>
+                            <p class="text-base mb-1">Mr. Lee is driving his car along a road at night. Mrs. Smith is cycling on the side of the road next to Mr. Lee's car. Mr. Lee is talking on his mobile phone and is distracted. Mr. Lee did not see Mrs. Smith and his car hits her bicycle. Mrs. Smith is injured.</p>
+                            <p class="chinese-text-body text-sm">李先生晚上开车在路上行驶。史密斯夫人骑自行车在李先生汽车旁边的路边。李先生正在打手机，注意力分散。李先生没有看到史密斯夫人，他的车撞到了她的自行车。史密斯夫人受伤了。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Analysis: Does Mr. Lee owe Mrs. Smith a duty of care? <span class="text-sm opacity-90 italic">分析：李先生是否对史密斯夫人负有注意义务？</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <div class="scenario-analysis">
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Issue <span class="text-sm opacity-90 italic">问题</span></h5>
+                                        <p class="text-base mb-2">Does Mr. Lee owe Mrs. Smith a duty of care?</p>
+                                        <p class="chinese-text-body text-sm mb-2">李先生是否对史密斯夫人负有注意义务？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Principle <span class="text-sm opacity-90 italic">原则</span></h5>
+                                        <p class="text-base mb-2">The "neighbour principle" from Donoghue v Stevenson is applicable. This principle establishes that one must take reasonable care to avoid acts or omissions which can be reasonably foreseen to injure their "neighbour." A neighbour is anyone who is closely and directly affected by one's act.</p>
+                                        <p class="chinese-text-body text-sm mb-2">Donoghue v Stevenson案中的"邻人原则"适用。该原则规定，个人必须采取合理的注意，避免可合理预见的会伤害其"邻人"的作为或不作为。"邻人"是指任何因其行为而受到密切和直接影响的人。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Application <span class="text-sm opacity-90 italic">应用</span></h5>
+                                        <p class="text-base mb-2">Mr. Lee owes Mrs. Smith a duty of care because she is a reasonably foreseeable plaintiff. Mrs. Smith, being on the road close to Mr. Lee, would be directly affected by his actions (driving while distracted), especially given that he was distracted while driving.</p>
+                                        <p class="chinese-text-body text-sm mb-2">李先生对史密斯夫人负有注意义务，因为她是可合理预见的原告。史密斯夫人在靠近李先生的路上，会直接受到他行为（分心驾驶）的影响，特别是考虑到他开车时分心了。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Conclusion <span class="text-sm opacity-90 italic">结论</span></h5>
+                                        <p class="text-base">Yes, Mr. Lee owes Mrs. Smith a duty of care.</p>
+                                        <p class="chinese-text-body text-sm">是的，李先生对史密斯夫人负有注意义务。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scenario 2: Breach of Duty Application -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">⚾</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Scenario 2: Breach of Duty <span class="text-lg opacity-90 italic">场景2：违反义务</span></h3>
+                            <p class="text-sm opacity-90">Analyzing the golf course scenario. <span class="text-xs opacity-90 italic">分析高尔夫球场情景。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box scenario-box bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                            <h4 class="text-purple-600 font-semibold text-base mb-1">The Golf Ball Incident <span class="text-sm opacity-90 italic text-gray-600">高尔夫球事件</span></h4>
+                            <p class="text-base mb-1">Mr. Lee lives a few streets away from the Smith Golf Course which is the largest golf course in Sydney. While washing his car in his driveway Mr. Lee was hit on the head by a golf ball from Smith Golf Course. Mr. Lee wants to sue the Smith Golf Course for compensation for his head injuries. Mr. Lee argues that Smith Golf Course should have built a higher fence.</p>
+                            <p class="chinese-text-body text-sm">李先生住在距离史密斯高尔夫球场（悉尼最大的高尔夫球场）几条街的地方。李先生在自家车道上洗车时，被来自史密斯高尔夫球场的高尔夫球击中头部。李先生想起诉史密斯高尔夫球场，要求赔偿他的头部伤害。李先生认为史密斯高尔夫球场应该建造更高的围栏。</p>
+                            <p class="text-base mt-2">The height of the fence surrounding the golf course was fifteen metres. Witnesses testified that over a ten-year period since the construction of the fence only five to ten golf balls have been hit over it. To build a higher fence would require a large amount of time, effort and money on the part of Smith Golf Course.</p>
+                            <p class="chinese-text-body text-sm">环绕高尔夫球场的围栏高度为15米。证人证明，自围栏建成以来的十年间，只有五到十个高尔夫球被打过围栏。建造更高的围栏将需要史密斯高尔夫球场投入大量的时间、精力和金钱。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Analysis: Has Smith Golf Course breached its duty of care? <span class="text-sm opacity-90 italic">分析：史密斯高尔夫球场是否违反了注意义务？</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <div class="scenario-analysis">
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Issue <span class="text-sm opacity-90 italic">问题</span></h5>
+                                        <p class="text-base mb-2">Has the Smith Golf Course breached its duty of care to Mr. Lee?</p>
+                                        <p class="chinese-text-body text-sm mb-2">史密斯高尔夫球场是否违反了对李先生的注意义务？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Principle <span class="text-sm opacity-90 italic">原则</span></h5>
+                                        <p class="text-base mb-2">Under Section 5B(1) of the Civil Liability Act 2002 (NSW), a person is not negligent in failing to take precautions against a risk of harm unless: (a) the risk was foreseeable, (b) the risk was not insignificant, and (c) a reasonable person in the person's position would have taken those precautions.</p>
+                                        <p class="chinese-text-body text-sm mb-2">根据《2002年民事责任法》（新南威尔士州）第5B(1)条，除非：(a)风险是可预见的，(b)风险并非微不足道，以及(c)处于此人位置的合理人士会采取那些预防措施，否则一个人未能采取预防措施对抗伤害风险不构成疏忽。</p>
+                                        
+                                        <p class="text-base mb-2">Section 5B(2) requires consideration of: (a) probability of harm (Bolton v Stone), (b) likely seriousness of harm (Paris v Stepney Borough Council), (c) burden of taking precautions, and (d) social utility of the activity.</p>
+                                        <p class="chinese-text-body text-sm mb-2">第5B(2)条要求考虑：(a)伤害概率(Bolton v Stone)，(b)伤害可能的严重性(Paris v Stepney Borough Council)，(c)采取预防措施的负担，以及(d)活动的社会效用。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Application <span class="text-sm opacity-90 italic">应用</span></h5>
+                                        <p class="text-base mb-2">Applying Bolton v Stone, the probability of harm was very low - only 5-10 balls had escaped in 10 years despite the golf course being the largest in Sydney. The fence was already 15 meters high, showing significant precautions had been taken. Building a higher fence would be a considerable burden in terms of time, effort, and cost to the golf course.</p>
+                                        <p class="chinese-text-body text-sm mb-2">应用Bolton v Stone案，伤害概率非常低 - 尽管高尔夫球场是悉尼最大的，但10年内只有5-10个球逃过围栏。围栏已经有15米高，表明已采取了重大预防措施。建造更高的围栏对高尔夫球场而言将是时间、精力和成本方面的重大负担。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Conclusion <span class="text-sm opacity-90 italic">结论</span></h5>
+                                        <p class="text-base">No, the Smith Golf Course has not breached its duty of care to Mr. Lee. The risk was extremely small, and the existing precautions were reasonable given the low probability of harm occurring.</p>
+                                        <p class="chinese-text-body text-sm">不，史密斯高尔夫球场没有违反对李先生的注意义务。风险极小，考虑到伤害发生的低概率，现有的预防措施是合理的。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scenario 3: Causation Application -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🚙</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Scenario 3: Causation <span class="text-lg opacity-90 italic">场景3：因果关系</span></h3>
+                            <p class="text-sm opacity-90">Analyzing a car collision case. <span class="text-xs opacity-90 italic">分析汽车碰撞案例。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box scenario-box bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                            <h4 class="text-purple-600 font-semibold text-base mb-1">The Car Collision <span class="text-sm opacity-90 italic text-gray-600">汽车碰撞</span></h4>
+                            <p class="text-base mb-1">Mr. Lee is driving his car along a road at night with his headlights on and is traveling in a straight line within the speed limit. Mrs. Smith is driving her car in the opposite direction. Mrs. Smith is talking on her mobile phone. Mrs. Smith did not see the markings on the road because she is distracted and drives across the center of the road and collides with Mr. Lee's car.</p>
+                            <p class="chinese-text-body text-sm">李先生晚上开着车灯在道路上直线行驶，没有超速。史密斯夫人驾车从相反方向驶来。史密斯夫人正在打手机。由于分心，史密斯夫人没有看到路上的标记，越过道路中心线，与李先生的车相撞。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Analysis: Can causation be established? <span class="text-sm opacity-90 italic">分析：因果关系是否成立？</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <div class="scenario-analysis">
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Issue <span class="text-sm opacity-90 italic">问题</span></h5>
+                                        <p class="text-base mb-2">Has causation been established between Mrs. Smith's breach of duty and Mr. Lee's damage?</p>
+                                        <p class="chinese-text-body text-sm mb-2">史密斯夫人违反义务与李先生的损害之间的因果关系是否成立？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Principle <span class="text-sm opacity-90 italic">原则</span></h5>
+                                        <p class="text-base mb-2">Section 5D(1)(a) of the Civil Liability Act 2002 (NSW) requires that the negligence was a necessary condition of the occurrence of the harm ("factual causation").</p>
+                                        <p class="chinese-text-body text-sm mb-2">《2002年民事责任法》（新南威尔士州）第5D(1)(a)条要求疏忽是损害发生的必要条件（"事实因果关系"）。</p>
+                                        
+                                        <p class="text-base mb-2">The common law test is the "but for" test: Would the harm have occurred "but for" the defendant's negligent conduct?</p>
+                                        <p class="chinese-text-body text-sm mb-2">普通法测试是"若非"测试：若非被告的疏忽行为，损害是否会发生？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Application <span class="text-sm opacity-90 italic">应用</span></h5>
+                                        <p class="text-base mb-2">Applying the "but for" test: But for Mrs. Smith's distraction and driving across the center of the road, would the collision have occurred? The answer is clearly no. Mr. Lee was driving properly - in a straight line, within the speed limit, with headlights on. The collision occurred only because Mrs. Smith crossed the center line while distracted by her phone.</p>
+                                        <p class="chinese-text-body text-sm mb-2">应用"若非"测试：若非史密斯夫人分心和越过道路中心线，碰撞是否会发生？答案显然是不会。李先生在正确驾驶 - 直线行驶，未超速，开着车灯。碰撞发生仅是因为史密斯夫人在被手机分心时越过了中心线。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Conclusion <span class="text-sm opacity-90 italic">结论</span></h5>
+                                        <p class="text-base">Yes, causation is established. Mrs. Smith's breach of duty (distracted driving) directly caused the collision with Mr. Lee's car.</p>
+                                        <p class="chinese-text-body text-sm">是的，因果关系成立。史密斯夫人违反义务（分心驾驶）直接导致了与李先生车辆的碰撞。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scenario 4: Remoteness Application -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">🏠</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Scenario 4: Remoteness <span class="text-lg opacity-90 italic">场景4：遥远性</span></h3>
+                            <p class="text-sm opacity-90">Analyzing scope of liability. <span class="text-xs opacity-90 italic">分析责任范围。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box scenario-box bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                            <h4 class="text-purple-600 font-semibold text-base mb-1">The House Damage Case <span class="text-sm opacity-90 italic text-gray-600">房屋损坏案例</span></h4>
+                            <p class="text-base mb-1">Mr. Lee was negligently driving his car and crashed into Mrs. Smith's house resulting in $50,000 worth of damage. Consequently, Mrs. Smith has temporarily relocated to another house costing $500 in rent per week. On the first night in the new house, she was burgled and the burglar shot her in the leg. Mrs. Smith has incurred significant medical expenses and she is also unable to work for a month while she recovers.</p>
+                            <p class="chinese-text-body text-sm">李先生疏忽驾驶他的车，撞到了史密斯夫人的房子，造成了价值5万美元的损失。因此，史密斯夫人暂时搬到了另一栋房子，每周租金为500美元。在新房子的第一晚，她遭到入室盗窃，盗贼射伤了她的腿。史密斯夫人产生了大量医疗费用，而且在康复期间一个月无法工作。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Analysis: Which losses are within Mr. Lee's scope of liability? <span class="text-sm opacity-90 italic">分析：哪些损失在李先生的责任范围内？</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <div class="scenario-analysis">
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Issue <span class="text-sm opacity-90 italic">问题</span></h5>
+                                        <p class="text-base mb-2">Which of the losses suffered by Mrs. Smith are within Mr. Lee's scope of liability?</p>
+                                        <p class="chinese-text-body text-sm mb-2">史密斯夫人遭受的哪些损失在李先生的责任范围内？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Principle <span class="text-sm opacity-90 italic">原则</span></h5>
+                                        <p class="text-base mb-2">Section 5D(1)(b) of the Civil Liability Act 2002 (NSW) requires that it is appropriate for the scope of the defendant's liability to extend to the harm caused ("scope of liability"). Defendant will not be liable for damage considered too remote.</p>
+                                        <p class="chinese-text-body text-sm mb-2">《2002年民事责任法》（新南威尔士州）第5D(1)(b)条要求被告的责任范围适当地延伸至所造成的损害（"责任范围"）。被告不对被认为过于遥远的损害负责。</p>
+                                        
+                                        <p class="text-base mb-2">The common law test is reasonable foreseeability: Was the type of damage reasonably foreseeable as a consequence of the defendant's carelessness?</p>
+                                        <p class="chinese-text-body text-sm mb-2">普通法测试是合理可预见性：损害类型是否作为被告疏忽的后果而合理可预见？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Application <span class="text-sm opacity-90 italic">应用</span></h5>
+                                        <p class="text-base mb-2">The $50,000 damage to the house is clearly within Mr. Lee's scope of liability as it is a direct and foreseeable consequence of his negligent driving.</p>
+                                        <p class="chinese-text-body text-sm mb-2">5万美元的房屋损失显然在李先生的责任范围内，因为这是他疏忽驾驶的直接和可预见后果。</p>
+                                        
+                                        <p class="text-base mb-2">The temporary relocation costs ($500 per week) are also reasonably foreseeable - it is natural that Mrs. Smith would need alternative accommodation while her house is repaired.</p>
+                                        <p class="chinese-text-body text-sm mb-2">临时搬迁费用（每周500美元）也是合理可预见的 - 史密斯夫人在房屋维修期间需要替代住所是自然的。</p>
+                                        
+                                        <p class="text-base mb-2">However, the burglary and shooting at the temporary accommodation are too remote from Mr. Lee's negligent driving. These events involve an independent third party criminal act that breaks the chain of causation. It would not be reasonably foreseeable that Mrs. Smith would be burgled and shot as a consequence of Mr. Lee's negligent driving.</p>
+                                        <p class="chinese-text-body text-sm mb-2">然而，在临时住所发生的入室盗窃和枪击事件与李先生的疏忽驾驶相距太远。这些事件涉及独立第三方的犯罪行为，打破了因果关系链。史密斯夫人会因李先生的疏忽驾驶而遭到入室盗窃和枪击是不合理可预见的。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Conclusion <span class="text-sm opacity-90 italic">结论</span></h5>
+                                        <p class="text-base">The $50,000 damage to the house and the temporary relocation rent are within Mr. Lee's scope of liability. The medical bills and inability to work due to the burglary and shooting are not reasonably foreseeable and hence too remote.</p>
+                                        <p class="chinese-text-body text-sm">房屋的5万美元损失和临时搬迁租金在李先生的责任范围内。由于入室盗窃和枪击导致的医疗费用和无法工作不是合理可预见的，因此过于遥远。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scenario 5: Negligent Misstatement Application -->
+                <div class="topic-card bg-white rounded-xl overflow-hidden shadow-[var(--card-shadow)] flex flex-col border-2 border-transparent transition-all duration-300 ease-linear hover:transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[var(--hover-shadow)] hover:border-[var(--accent-color)]">
+                    <div class="topic-header bg-gradient-to-br from-[var(--secondary-color)] to-blue-400 text-white px-6 py-4 flex items-center">
+                        <span class="icon text-3xl mr-3">📊</span>
+                        <div class="topic-header-text">
+                            <h3 class="text-xl font-semibold mb-1 text-white">Scenario 5: Negligent Misstatement <span class="text-lg opacity-90 italic">场景5：疏忽性失实陈述</span></h3>
+                            <p class="text-sm opacity-90">Analyzing investment advice case. <span class="text-xs opacity-90 italic">分析投资建议案例。</span></p>
+                        </div>
+                    </div>
+                    <div class="topic-content p-6 flex-grow">
+                        <div class="info-box scenario-box bg-purple-50 border-l-4 border-purple-600 p-4 rounded-lg relative">
+                            <h4 class="text-purple-600 font-semibold text-base mb-1">The Investment Advice Case <span class="text-sm opacity-90 italic text-gray-600">投资建议案例</span></h4>
+                            <p class="text-base mb-1">Mr. Lee is 54 years old and has, for many years, worked in the construction industry. Mr. Lee recently inherited a sum of $100,000 from his deceased father and he has no other significant assets. Mr. Lee is planning his retirement and he has decided to invest in some shares using the inheritance money. Mr. Lee has no prior experience in shares investment and financial planning.</p>
+                            <p class="chinese-text-body text-sm">李先生54岁，多年来一直在建筑行业工作。李先生最近从已故父亲那里继承了10万美元，他没有其他重要资产。李先生正在计划退休，他决定用继承的钱投资一些股票。李先生没有股票投资和财务规划的经验。</p>
+                            
+                            <p class="text-base mt-2">Mr. Lee approached Mrs. Smith who works for Smart Investments Pty Ltd, a well-known investment advisory company. Mr. Lee makes an appointment with Mrs. Smith and during the meeting in her office, Mr. Lee asks Mrs. Smith whether she thinks Essette Airlines is a good investment. Mr. Lee made it very clear to Mrs. Smith that he will only be able to retire if the investment is successful. Due to having many other clients demanding her time, Mrs. Smith advised Mr. Lee in writing that Essette Airlines had good financial performance based on a newspaper paper article she had read and without doing further research. Mrs. Smith provided this advice with a disclaimer.</p>
+                            <p class="chinese-text-body text-sm">李先生找到了在Smart Investments Pty Ltd（一家知名投资咨询公司）工作的史密斯夫人。李先生与史密斯夫人预约会面，在她办公室的会议上，李先生询问史密斯夫人是否认为Essette航空公司是一个好的投资。李先生非常明确地告诉史密斯夫人，只有投资成功，他才能退休。由于有许多其他客户需要她的时间，史密斯夫人根据她读过的报纸文章，在没有进行进一步研究的情况下，以书面形式建议李先生Essette航空公司有良好的财务表现。史密斯夫人在建议中附有免责声明。</p>
+                            
+                            <p class="text-base mt-2">A simple further research by Mrs. Smith would have indicated that Essette Airlines was not a good investment. Mr. Lee was nervous and told Mrs. Smith that he was reluctant to invest the whole of $100,000 in one company. Mrs. Smith assures Mr. Lee that it is a good investment. Acting on this advice, Mr. Lee invested his inheritance in Essette Airlines. Soon after Mr. Lee invested, the share price of Essette Airlines fell significantly. As a result, Mr. Lee lost half of his inheritance money.</p>
+                            <p class="chinese-text-body text-sm">史密斯夫人简单的进一步研究就会表明Essette航空公司不是一个好的投资。李先生很紧张，告诉史密斯夫人他不愿意将全部10万美元投资于一家公司。史密斯夫人向李先生保证这是一个很好的投资。根据这一建议，李先生将他的继承资金投资于Essette航空公司。李先生投资后不久，Essette航空公司的股价大幅下跌。结果，李先生损失了一半的继承资金。</p>
+                        </div>
+                        <div class="accordion my-4">
+                            <div class="accordion-item bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-300">
+                                <div class="accordion-header bg-[var(--primary-color)] text-white px-6 py-4 cursor-pointer flex justify-between items-center transition-colors duration-300 hover:bg-[var(--secondary-color)]">
+                                    <span class="font-medium">Analysis: Negligent Misstatement Case <span class="text-sm opacity-90 italic">分析：疏忽性失实陈述案例</span></span><span class="arrow text-lg transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content bg-white border-t border-gray-300 p-6 hidden">
+                                    <div class="scenario-analysis">
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Issue <span class="text-sm opacity-90 italic">问题</span></h5>
+                                        <p class="text-base mb-2">Has Mrs. Smith/Smart Investments breached their duty of care to Mr. Lee through negligent misstatement? What defenses might be available?</p>
+                                        <p class="chinese-text-body text-sm mb-2">史密斯夫人/Smart Investments是否通过疏忽性失实陈述违反了对李先生的注意义务？可能有哪些抗辩？</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Principle <span class="text-sm opacity-90 italic">原则</span></h5>
+                                        <p class="text-base mb-2">For negligent misstatement, a special relationship must exist (Hedley Byrne v Heller). The Barwick test requires: (1) Assumption of responsibility, (2) Serious/business nature, (3) Intended reliance, (4) Reasonable reliance.</p>
+                                        <p class="chinese-text-body text-sm mb-2">对于疏忽性失实陈述，必须存在特殊关系(Hedley Byrne v Heller)。巴威克测试要求：(1)承担责任，(2)严肃/商业性质，(3)预期依赖，(4)合理依赖。</p>
+                                        
+                                        <p class="text-base mb-2">Section 5O of the Civil Liability Act 2002 (NSW) applies to professionals, who are not liable if they acted in a manner widely accepted by peer professional opinion as competent professional practice.</p>
+                                        <p class="chinese-text-body text-sm mb-2">《2002年民事责任法》（新南威尔士州）第5O条适用于专业人士，如果他们的行为方式被同行专业意见广泛接受为称职的专业实践，则不承担责任。</p>
+                                        
+                                        <p class="text-base mb-2">A disclaimer may provide a defense as in Hedley Byrne v Heller.</p>
+                                        <p class="chinese-text-body text-sm mb-2">免责声明可能提供抗辩，如Hedley Byrne v Heller案。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Application <span class="text-sm opacity-90 italic">应用</span></h5>
+                                        <p class="text-base mb-2">A special relationship exists: Mrs. Smith assumed responsibility as a professional investment advisor; the advice was of a serious financial nature; Mrs. Smith knew Mr. Lee intended to rely on her advice for retirement planning; and it was reasonable for Mr. Lee to rely on an investment professional when he had no experience himself.</p>
+                                        <p class="chinese-text-body text-sm mb-2">存在特殊关系：史密斯夫人作为专业投资顾问承担责任；建议具有严肃的财务性质；史密斯夫人知道李先生打算依赖她的建议进行退休规划；李先生自己没有经验，依赖投资专业人士是合理的。</p>
+                                        
+                                        <p class="text-base mb-2">Mrs. Smith breached her duty by basing advice on a newspaper article without further research, which would not meet the standard of "competent professional practice" under s.5O. This would be particularly true since Mr. Lee made it clear this was his only significant asset for retirement.</p>
+                                        <p class="chinese-text-body text-sm mb-2">史密斯夫人仅基于报纸文章而未进行进一步研究给出建议，违反了她的义务，这不符合第5O条下"称职的专业实践"标准。尤其是因为李先生明确表示这是他退休的唯一重要资产。</p>
+                                        
+                                        <p class="text-base mb-2">However, the disclaimer may provide a defense if it was clear and specific. The effectiveness of the disclaimer would depend on its wording and prominence, similar to Hedley Byrne v Heller.</p>
+                                        <p class="chinese-text-body text-sm mb-2">然而，如果免责声明清晰明确，可能提供抗辩。免责声明的有效性取决于其措辞和显著性，类似于Hedley Byrne v Heller案。</p>
+                                        
+                                        <h5 class="font-bold text-[var(--primary-color)] mt-3 mb-1 text-base">Conclusion <span class="text-sm opacity-90 italic">结论</span></h5>
+                                        <p class="text-base">Mrs. Smith and Smart Investments have likely breached their duty of care through negligent misstatement, as they failed to conduct proper research before giving investment advice. The disclaimer may provide a defense, but its effectiveness would depend on its specific wording and whether it was reasonable for Mr. Lee to still rely on the advice despite the disclaimer.</p>
+                                        <p class="chinese-text-body text-sm">史密斯夫人和Smart Investments可能通过疏忽性失实陈述违反了注意义务，因为他们在提供投资建议前未进行适当研究。免责声明可能提供抗辩，但其有效性取决于其具体措辞，以及尽管有免责声明，李先生依赖该建议是否合理。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="quizBtn_unit4_3_mcq" class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Unit 4.3 Quiz <span class="text-sm opacity-90 italic">4.3单元测验</span></button>
+            <button id="knowledgeCheckBtn_kc_unit4_3" class="btn btn-warning mt-6 inline-block px-5 py-2.5 bg-[var(--warning-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#d39e00] hover:-translate-y-0.5 hover:shadow-md">Unit 4.3 Knowledge Check <span class="text-sm opacity-90 italic">4.3单元知识检验</span></button>
+            <div id="kc_unit4_3" class="knowledge-check-box bg-yellow-50 border border-yellow-400 rounded-lg p-6 mt-6 shadow-sm hidden">
+                <h4 id="kc_unit4_3_title" class="text-yellow-700 text-xl font-semibold border-b-2 border-yellow-500 pb-2 mb-4">Test Your Knowledge <span class="text-lg opacity-90 italic">检验您的知识</span></h4>
+                <div class="knowledge-check-content space-y-4">
+                    <div class="knowledge-check-item">
+                        <p class="mb-3 text-base">Even if the plaintiff has successfully established all four elements of the tort of negligence, the <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="defendant"></span> can still avoid liability, either <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="partially"></span> or <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="completely"></span>, if they can establish the existence of a defense.</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base"><span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="Contributory negligence"></span> is when the defendant establishes that the plaintiff's own negligence contributed to the <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="harm"></span> suffered, the damages paid to the plaintiff will be <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="reduced"></span> proportionally.</p>
+                    </div>
+                    <div class="knowledge-check-item">
+                        <p class="mt-2 mb-3 text-base"><span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="Voluntary assumption of risk"></span> is when the defendant can establish that the plaintiff was fully aware of the risk at the time the harm was caused and they <span class="blank-container inline-block relative mx-1"><input type="text" class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]" data-answer="voluntarily"></span> assumed that risk.</p>
+                    </div>
+                </div>
+                <div class="knowledge-check-buttons flex flex-wrap gap-2 mt-4">
+                    <button id="checkAnswersBtn_kc_unit4_3" class="btn btn-success inline-block px-5 py-2.5 bg-[var(--success-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#1e7e34] hover:-translate-y-0.5 hover:shadow-md">Check My Answers <span class="text-sm opacity-90 italic">检查我的答案</span></button>
+                    <button id="revealAnswersBtn_kc_unit4_3" class="btn btn-info inline-block px-5 py-2.5 bg-[#17a2b8] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#117a8b] hover:-translate-y-0.5 hover:shadow-md">Reveal Answers <span class="text-sm opacity-90 italic">显示答案</span></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quiz Modal -->
+        <div id="quizModal" class="fixed inset-0 bg-black/75 flex items-center justify-center p-4 z-[2000] hidden">
+            <div class="quiz-modal-content bg-[var(--quiz-card-bg)] p-6 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative" role="dialog" aria-labelledby="quizModalTitle">
+                <button class="quiz-close-btn absolute top-2.5 right-4 text-3xl text-gray-500 hover:text-[var(--accent-color)] bg-transparent border-none cursor-pointer leading-none" aria-label="Close quiz">&times;</button>
+                <h2 id="quizModalTitle" class="text-2xl font-semibold text-[var(--primary-color)] text-center mb-6">Quick Quiz <span class="text-xl opacity-90 italic">快速测验</span></h2>
+                <div id="quizContentContainer">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div class="mt-6 flex flex-wrap justify-center gap-2">
+                    <button id="checkAnswersBtn" class="btn btn-success inline-block px-5 py-2.5 bg-[var(--success-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#1e7e34] hover:-translate-y-0.5 hover:shadow-md">Check Answers <span class="text-sm opacity-90 italic">检查答案</span></button>
+                    <button id="closeQuizModalBtn" class="btn bg-gray-300 hover:bg-gray-400 text-[var(--dark-text)] inline-block px-5 py-2.5 no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:-translate-y-0.5 hover:shadow-md">Close Quiz <span class="text-sm opacity-90 italic">关闭测验</span></button>
+                </div>
+            </div>
+        </div>
+        
+        <section id="summary" class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
+            <h2 class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">Unit 4 Recap: Key Concepts in Negligence <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">第四单元回顾：疏忽的关键概念</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 rounded-lg shadow-lg bg-blue-50 border-l-4 border-blue-500">
+                    <h4 class="text-blue-700 font-semibold text-xl mb-2">The Four Elements <span class="text-lg opacity-90 italic">四个要素</span></h4>
+                    <p class="text-base mb-2">A successful negligence claim requires proving all four:</p>
+                    <p class="chinese-text-body text-sm mb-2">一个成功的疏忽索赔需要证明以下所有四个要素：</p>
+                    <ol class="list-decimal ml-5 mt-2 text-base space-y-1">
+                        <li><strong>Duty of Care:</strong> Based on the 'neighbour principle' (Donoghue v Stevenson). <span class="chinese-text-body text-sm"><strong>注意义务：</strong>基于"邻人原则"（Donoghue v Stevenson案）。</span></li>
+                        <li><strong>Breach of Duty:</strong> Failing the 'reasonable person' test (s.5B CLA; Bolton v Stone, Paris v Stepney). <span class="chinese-text-body text-sm"><strong>违反义务：</strong>未能通过"合理人"测试（《民事责任法》第5B条；Bolton v Stone案，Paris v Stepney案）。</span></li>
+                        <li><strong>Causation:</strong> The 'but for' test (s.5D(1)(a) CLA). <span class="chinese-text-body text-sm"><strong>因果关系：</strong>"若非"测试（《民事责任法》第5D(1)(a)条）。</span></li>
+                        <li><strong>Remoteness:</strong> Harm must be reasonably foreseeable (s.5D(1)(b) CLA). <span class="chinese-text-body text-sm"><strong>遥远性：</strong>损害必须是合理可预见的（《民事责任法》第5D(1)(b)条）。</span></li>
+                    </ol>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-lg bg-green-50 border-l-4 border-green-500">
+                    <h4 class="text-green-700 font-semibold text-xl mb-2">Types of Harm & Misstatement <span class="text-lg opacity-90 italic">损害类型与失实陈述</span></h4>
+                    <p class="text-base mb-2">Recognized harms include physical injury, property damage, and economic loss (both consequential and pure).</p>
+                    <p class="chinese-text-body text-sm mb-2">公认的损害包括人身伤害、财产损失和经济损失（包括间接和纯粹经济损失）。</p>
+                    <p class="text-base mt-2"><strong>Negligent Misstatement:</strong> Special rules apply for careless advice causing financial loss, requiring a "special relationship" (Hedley Byrne, Barwick Test).</p>
+                    <p class="chinese-text-body text-sm"><strong>疏忽性失实陈述：</strong>对于因疏忽建议导致财务损失的情况，适用特殊规则，要求存在"特殊关系"（Hedley Byrne案，巴威克测试）。</p>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-lg bg-yellow-50 border-l-4 border-yellow-500">
+                    <h4 class="text-yellow-700 font-semibold text-xl mb-2">Important Defenses <span class="text-lg opacity-90 italic">重要抗辩</span></h4>
+                    <p class="text-base mb-2">Defendants may raise defenses such as:</p>
+                    <p class="chinese-text-body text-sm mb-2">被告可以提出以下抗辩理由：</p>
+                    <ul class="list-disc ml-5 mt-2 text-base space-y-1">
+                        <li><strong>Contributory Negligence:</strong> Plaintiff's own carelessness contributed to harm. <span class="chinese-text-body text-sm"><strong>共同过失：</strong>原告自身的疏忽导致了损害。</span></li>
+                        <li><strong>Voluntary Assumption of Risk:</strong> Plaintiff knowingly accepted the risk. <span class="chinese-text-body text-sm"><strong>自愿承担风险：</strong>原告明知并接受了风险。</span></li>
+                        <li><strong>Disclaimers:</strong> Can limit liability if clear and properly communicated. <span class="chinese-text-body text-sm"><strong>免责声明：</strong>如果清晰且妥善传达，可以限制责任。</span></li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 rounded-lg shadow-lg bg-red-50 border-l-4 border-red-500">
+                    <h4 class="text-red-700 font-semibold text-xl mb-2">Liability Considerations <span class="text-lg opacity-90 italic">责任考量</span></h4>
+                     <p class="text-base mb-2"><strong>Vicarious Liability:</strong> Employers can be liable for employees' negligence during employment.</p>
+                     <p class="chinese-text-body text-sm mb-2"><strong>替代责任：</strong>雇主可能对其雇员在雇佣期间的疏忽行为承担责任。</p>
+                     <p class="text-base mt-2"><strong>Professional Standards (s.5O CLA):</strong> Professionals are judged by peer-accepted competent practice.</p>
+                     <p class="chinese-text-body text-sm"><strong>专业标准（《民事责任法》第5O条）：</strong>专业人士以同行公认的合格实践为评判标准。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 px-4 bg-[var(--primary-color)] text-[var(--light-bg)] mt-8">
+        <p>&copy; <span id="currentYear">2024</span> Interactive Learning Hub. All rights reserved.</p>
+        <p class="text-sm opacity-90 italic"><span id="currentYearChinese">2024</span> 互动学习中心。版权所有。</p>
+    </footer>
+    
+    <!-- Link to the consolidated app_script.js -->
+    <script src="app_script.js"></script>
+</body>
+</html>

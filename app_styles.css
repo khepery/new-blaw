@@ -1,0 +1,538 @@
+/* app_styles.css - REFACTORED WITH IMPROVEMENTS FROM UNTITLED-1.CSS */
+
+/* Global Variables from :root (Retained for theme consistency) */
+:root {
+    --primary-color: #2c3e50; /* Dark Blue-Grey / Slate-700 */
+    --secondary-color: #3498db; /* Bright Blue / Sky-600 */
+    --accent-color: #e74c3c; /* Red / Rose-500 */
+    --success-color: #27ae60; /* Green / Emerald-500 */
+    --warning-color: #f39c12; /* Yellow-Orange / Amber-500 */
+    --light-bg: #ecf0f1; /* Light Grey / Gray-100 */
+    --dark-text: #2c3e50; /* Slate-700 */
+    --light-text: #ffffff; /* White */
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+    /* Quiz Specific (Retained for potential use in Tailwind arbitrary values) */
+    --quiz-card-bg: #ffffff;
+    --quiz-option-bg: #f8f9fa;
+    --quiz-option-hover-bg: #e9ecef;
+    --quiz-option-selected-bg: #d1eaff;
+    --quiz-option-selected-border: #007bff;
+    --quiz-correct-bg: #d4edda;
+    --quiz-correct-border: var(--success-color);
+    --quiz-incorrect-bg: #f8d7da;
+    --quiz-incorrect-border: var(--accent-color);
+}
+
+/* Base styles (Minimal - Tailwind preflight handles most resets) */
+* {
+    /* margin: 0; Preflight handles this */
+    /* padding: 0; Preflight handles this */
+    box-sizing: border-box; /* Good practice to keep, though preflight includes it */
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ensure consistent font */
+}
+
+body {
+    /* background-color: var(--light-bg); Will be set on body tag with Tailwind */
+    /* color: var(--dark-text); Will be set on body tag with Tailwind */
+    line-height: 1.6; /* Can be set with Tailwind leadings if preferred */
+}
+
+/* Styles for Pseudo-elements and complex states that are harder with pure Tailwind */
+
+/* Accordion arrow rotation - Keep */
+.accordion-header .arrow {
+    transition: transform 0.3s ease;
+    /* font-size: 1.2rem; Can be text-lg or text-xl */
+}
+.accordion-item.active .accordion-header .arrow {
+    transform: rotate(180deg);
+}
+/* Accordion content visibility and animation - Keep slideDown animation part */
+.accordion-content {
+    /* display: none; Will be handled by 'hidden' class from Tailwind */
+    /* background: white; Will be Tailwind bg-white */
+    /* border-top: 1px solid #ddd; Will be Tailwind border-t border-gray-300 */
+    /* padding: 1.5rem; Will be Tailwind p-6 */
+}
+.accordion-item.active .accordion-content {
+    /* display: block; Will be handled by removing 'hidden' class */
+    animation: slideDown 0.4s ease-out;
+}
+
+/* Info Box Labels (::before) - Keep */
+.info-box::before {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: white; /* Tailwind: bg-white */
+    padding: 2px 10px; /* Tailwind: px-2.5 py-0.5 (approx) */
+    font-weight: bold; /* Tailwind: font-bold */
+    border-radius: 4px; /* Tailwind: rounded-sm */
+    font-size: 0.9em; /* Tailwind: text-sm */
+    border: 1px solid; /* Uses currentColor by default, which is fine */
+}
+.definition-box::before { content: '📖 Definition / 定义'; border-color: var(--secondary-color); color: var(--secondary-color); }
+.case-box::before { content: '🏛️ Case Study / 案例分析'; border-color: var(--warning-color); color: var(--warning-color); }
+.example-box::before { content: '💡 Example / 例子'; border-color: var(--success-color); color: var(--success-color); }
+.scenario-box::before { content: '📝 Scenario / 场景'; border-color: #8e44ad; color: #8e44ad; }
+
+/* Quiz Option Button States - Keep if !important is critical, otherwise aim for Tailwind */
+/* These are specific and use !important. Can be overridden in Tailwind with `!` prefix, e.g. `bg-green-100!`.
+   For now, keeping them to ensure functionality isn't broken before HTML changes.
+   Ideally, these would also be managed by adding/removing more specific Tailwind classes
+   or using data attributes for styling if Tailwind JIT allows. */
+.quiz-option-btn.correct {
+    background-color: var(--quiz-correct-bg) !important;
+    border-color: var(--quiz-correct-border) !important;
+    color: #155724 !important; /* Consider text-green-800 */
+}
+.quiz-option-btn.incorrect {
+    background-color: var(--quiz-incorrect-bg) !important;
+    border-color: var(--quiz-incorrect-border) !important;
+    color: #721c24 !important; /* Consider text-red-800 */
+}
+
+/* IMPROVED FLASHCARD STYLES FROM UNTITLED-1.CSS */
+.card-content {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    min-height: 200px;
+}
+
+.card-content.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background-color: #f9fafb;
+}
+
+/* IMPROVED TOOLTIP STYLING FROM UNTITLED-1.CSS */
+.tooltip-container {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    max-width: 20rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeInTooltip 0.2s ease-out;
+    z-index: 3000;
+    pointer-events: none;
+}
+
+.tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 15px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--primary-color);
+}
+
+/* IMPROVED KNOWLEDGE CHECK STYLING FROM UNTITLED-1.CSS */
+.knowledge-check-box {
+    background-color: #fffbeb;
+    border: 1px solid #fbbf24;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.knowledge-check-item {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0.375rem;
+}
+
+.blank-input {
+    border: 2px dashed var(--accent-color);
+    background-color: transparent;
+    padding: 0.25rem 0.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 100px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.blank-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.blank-input.correct {
+    border-color: var(--success-color);
+    background-color: rgba(110, 231, 183, 0.2);
+}
+
+.blank-input.incorrect {
+    border-color: var(--accent-color);
+    background-color: rgba(252, 165, 165, 0.2);
+}
+
+/* Achievement Notification Animation - Keep */
+.achievement-notification {
+    /* position, bottom, right, background, radius, padding, shadow, display, align-items, gap
+       will be handled by Tailwind utilities on the HTML element */
+    animation: slideInNotification 0.5s ease-out forwards;
+    /* z-index will be Tailwind z-30 (or similar) */
+}
+
+/* Floating scales animation relies on .floating-scale having position: absolute and animation.
+   The individual positioning (top, left, right, bottom, animation-delay) should be inline style
+   or highly specific classes if Tailwind is not used for that.
+   We'll keep .floating-scale base if it's just for animation + absolute.
+*/
+.floating-scale {
+    position: absolute;
+    /* font-size and color will be Tailwind */
+    animation: float 20s infinite ease-in-out;
+}
+
+/* IMPROVED ANIMATIONS FROM UNTITLED-1.CSS */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(5deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(-10px) rotate(-5deg); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; max-height: 0; transform: translateY(-10px); }
+    to { opacity: 1; max-height: 1000px; transform: translateY(0); }
+}
+
+@keyframes slideInNotification {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInTooltip {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* IMPROVED CHINESE TEXT STYLING FROM UNTITLED-1.CSS */
+.chinese-text-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+.chinese-text-nav {
+    font-size: 0.85rem;
+}
+
+/* Improved tooltip styling */
+.tooltip {
+    pointer-events: auto !important;
+    animation: fadeInTooltip 0.3s ease-out;
+}
+
+.tooltip-english {
+    font-weight: 500;
+}
+
+.tooltip-chinese {
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Fix z-index to ensure tooltips appear above other elements */
+.legal-term {
+    position: relative;
+    z-index: 10;
+}
+
+@keyframes fadeInTooltip {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Duck scroll button styles */
+.scroll-top-btn {
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.scroll-top-btn:hover {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(243, 156, 18, 0.7);
+}
+
+@keyframes waddle {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-5px) rotate(-5deg); }
+    50% { transform: translateY(0) rotate(0); }
+    75% { transform: translateY(-5px) rotate(5deg); }
+}
+
+.waddle-animation {
+    animation: waddle 0.5s ease;
+}
+
+/* Add this to app_styles.css */
+.accordion-item .accordion-content {
+    color: #2c3e50 !important; /* Enforce dark text color */
+}
+
+.accordion-content p, 
+.accordion-content li, 
+.accordion-content span {
+    color: #2c3e50 !important; /* Apply to all text elements */
+}
+
+/* Fix specifically for the Voluntary Assumption of Risk drawer */
+.accordion-item:nth-child(2) .accordion-content {
+    color: #2c3e50 !important;
+}
+
+/* Make sure accordion content is visible */
+.accordion-content.active {
+    display: block !important;
+}
+
+/* Fix for accordion content text visibility */
+.accordion-content p,
+.accordion-content li,
+.accordion-content span,
+.accordion-content div,
+.accordion-content strong,
+.accordion-content em {
+    color: #2c3e50 !important; /* Force dark text color */
+}
+
+/* Make sure the second accordion item's text is clearly visible */
+.accordion-item:nth-child(2) .accordion-content * {
+    color: #2c3e50 !important;
+}
+
+/* Ensure all accordion text is visible */
+.accordion-header {
+    color: white !important; /* Header text */
+}
+
+.accordion-header span.font-medium {
+    color: white !important;
+}
+
+.accordion-header span.arrow {
+    color: white !important;
+}
+
+/* For the specific case of Voluntary Assumption of Risk panel */
+.accordion-header:contains("Voluntary Assumption of Risk") + .accordion-content p,
+.accordion-header:contains("自愿承担风险") + .accordion-content p {
+    color: #2c3e50 !important;
+}
+
+/* Force white text in dark accordion headers */
+.accordion-header {
+    color: white !important;
+}
+
+.accordion-header * {
+    color: white !important;
+}
+
+/* Special fix for Voluntary Assumption of Risk section */
+.accordion-header:nth-child(1) span,
+.accordion-header:nth-child(2) span,
+.accordion-header:nth-child(3) span,
+.accordion-header:nth-child(4) span {
+    color: white !important;
+}
+
+/* Make dotted underlines white in accordion headers */
+.accordion-header .legal-term {
+    color: white !important;
+    border-bottom-color: white !important;
+}
+
+/* Change underline color on hover */
+.accordion-header .legal-term:hover {
+    color: #ffffff !important;
+    border-bottom-color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* --- DEFINITIVE DARK MODE & CONTRAST STYLES --- */
+
+/* 1. Base Dark Mode Theme */
+body.dark-mode {
+    --light-bg: #111827; /* A very dark blue/gray */
+    --dark-text: #f9fafb; /* Off-white for main text */
+    --quiz-card-bg: #1f2937; /* A slightly lighter dark blue/gray */
+}
+
+/* 2. General Element Overrides */
+body.dark-mode .bg-white {
+    background-color: #1f2937; /* Dark card background */
+}
+body.dark-mode .bg-gray-50,
+body.dark-mode .bg-light-accent { /* Catches classes like e8eaf6 */
+    background-color: #374151; /* A medium dark gray */
+}
+body.dark-mode .bg-gray-100 {
+    background-color: #1f2937;
+}
+
+/* 3. Universal Text Color Fixes (High Specificity) */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode div,
+body.dark-mode span,
+body.dark-mode strong {
+    color: #f9fafb !important; /* Force all text to be light */
+}
+/* Override for less important text like Chinese translations */
+body.dark-mode .chinese-text-body,
+body.dark-mode .chinese-text-nav {
+    color: #9ca3af !important; /* A lighter gray for subtitles */
+}
+
+/* 4. Specific Component Background & Text Fixes */
+body.dark-mode .info-box {
+    background-color: #1f2937 !important;
+    border-color: #38bdf8 !important; /* A bright blue for borders */
+}
+body.dark-mode .accordion-content {
+    background-color: #374151;
+    border-color: #4b5569;
+}
+body.dark-mode .topic-card {
+    border-color: #374151;
+}
+body.dark-mode .knowledge-check-box {
+    background-color: #451a03; /* Dark orange */
+    border-color: #fb923c; /* Bright orange */
+}
+body.dark-mode .blank-input {
+    border-color: #f87171; /* Bright red */
+    color: #f1f5f9 !important;
+}
+body.dark-mode .quiz-question-card {
+    background-color: #374151;
+    border-color: #4b5569;
+}
+
+/* 5. Specific Color Overrides (from both unit4a.html and unit5.html) */
+
+/* Blue variants */
+body.dark-mode .text-\[var\(--primary-color)\],
+body.dark-mode .text-\[var\(--secondary-color)\],
+body.dark-mode .text-blue-700,
+body.dark-mode .text-blue-800,
+body.dark-mode .text-blue-900 {
+    color: #60a5fa !important; /* A bright, readable blue */
+}
+body.dark-mode .bg-blue-50,
+body.dark-mode .bg-blue-100,
+body.dark-mode .bg-\[var\(--unit1-light)\] {
+    background-color: #1e3a8a;
+}
+
+/* Green variants */
+body.dark-mode .text-green-700,
+body.dark-mode .text-green-800,
+body.dark-mode .text-green-900 {
+    color: #4ade80 !important; /* A bright, readable green */
+}
+body.dark-mode .bg-green-50,
+body.dark-mode .bg-green-100 {
+    background-color: #166534;
+}
+
+/* Yellow variants */
+body.dark-mode .text-yellow-700,
+body.dark-mode .text-yellow-800 {
+    color: #facc15 !important; /* A bright, readable yellow */
+}
+body.dark-mode .bg-yellow-50,
+body.dark-mode .bg-yellow-100 {
+    background-color: #422006;
+}
+
+/* Red variants */
+body.dark-mode .text-red-700,
+body.dark-mode .text-red-800 {
+    color: #f87171 !important; /* A bright, readable red */
+}
+body.dark-mode .bg-red-50,
+body.dark-mode .bg-red-100 {
+    background-color: #7f1d1d;
+}
+
+/* Purple variants */
+body.dark-mode .text-purple-600 {
+    color: #c084fc !important; /* A bright, readable purple */
+}
+body.dark-mode .bg-purple-50,
+body.dark-mode .bg-purple-100 {
+    background-color: #581c87;
+}
+
+/* Orange variants */
+body.dark-mode .text-orange-700,
+body.dark-mode .text-orange-900 {
+    color: #fb923c !important; /* A bright, readable orange */
+}
+body.dark-mode .bg-orange-50 {
+    background-color: #7c2d12;
+}
+
+
+/* 6. Dark Mode Toggle Button Style & Glow */
+#darkModeToggle {
+    animation: glow 3s ease-in-out infinite;
+}
+@keyframes glow {
+    0% { box-shadow: 0 0 2px rgba(255, 255, 180, 0.4); }
+    50% { box-shadow: 0 0 8px rgba(255, 255, 180, 0.8); }
+    100% { box-shadow: 0 0 2px rgba(255, 255, 180, 0.4); }
+}

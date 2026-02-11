@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1: Australian Legal System - Learning Hub</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #3b82f6;
+            --light-accent: #e8eaf6;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .intro-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-banner {
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .card-icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Increased space for the icon */
+            margin-bottom: 20px; /* More space below icon */
+            position: relative;
+        }
+        
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--light-accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .card-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--primary-color);
+        }
+        
+        .card-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .card-link {
+            display: block;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .card-link:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .chinese {
+            font-size: 0.9rem;
+            color: var(--med-text);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .back-to-main:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .animate-rotate {
+            animation: rotate 12s linear infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 3s ease-in-out infinite;
+        }
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+    /* Better spacing for smaller screens */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Adjust header text size */
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* Make cards more compact */
+    .card-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+    
+    /* Slightly smaller icons for mobile */
+    .card-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Adjust intro section padding */
+    .intro-section {
+        padding: 1.5rem;
+    }
+    
+    /* Improve tap targets */
+    .card-link {
+        padding: 1rem;
+    }
+    
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    /* Further adjust spacing */
+    main {
+        padding: 1rem 0.75rem;
+    }
+    
+    .card {
+        border-radius: 6px;
+    }
+    
+    /* Make text more readable */
+    .card h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Optimized buttons for touch */
+    .card-link {
+        padding: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+    
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Unit 1: Australian Legal System</h1>
+            <p>Comprehensive Learning Resource</p>
+        </div>
+    </header>
+    
+    <main>
+        <section class="intro-section">
+            <h2>Welcome to Your Australian Legal System Guide</h2>
+            <p>This resource provides comprehensive information about the Australian legal system, covering court hierarchy, legal principles, terminology, and practice questions. Navigate through the various topics using the cards below.</p>
+        </section>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Australian Legal System Overview</span>
+                        <span class="chinese">澳大利亚法律体系概述</span>
+                    </h3>
+                    <p>Learn about the fundamental structure of the Australian legal system, including key principles, sources of law, and how it operates.</p>
+                    <a href="Australian Legal System Overview (澳大利亚法律体系概述).html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Australian Court System</span>
+                        <span class="chinese">澳大利亚法院系统</span>
+                    </h3>
+                    <p>Understand the hierarchy of courts in Australia, including federal and state systems, and how they function together.</p>
+                    <a href="australian court system.html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Sources of Law in Australia</span>
+                        <span class="chinese">澳大利亚法律的来源</span>
+                    </h3>
+                    <p>Discover the origins of Australian law, including statute law, common law, and their historical development.</p>
+                    <a href="Sources of Law in Australia (澳大利亚法律的来源).html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 2h2v5l-1-.75L12 10V5zM5 5h5v10H5V5zm14 14H5v-2h14v2zm0-5h-8V5h8v9z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Key Legal Principles and Doctrines</span>
+                        <span class="chinese">关键法律原则和学说</span>
+                    </h3>
+                    <p>Learn about precedent, division of powers, separation of powers, and the structure of Australia's federation.</p>
+                    <a href="key legal principles and doctrines.html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M11 11h2v2h-2zm0-4h2v2h-2zm0 8h2v2h-2zm6-8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-4 8c0 2.21 1.79 4 4 4s4-1.79 4-4-1.79-4-4-4-4 1.79-4 4zm4-2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM5 7c0 2.21 1.79 4 4 4s4-1.79 4-4-1.79-4-4-4-4 1.79-4 4zm4-2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-4 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Business Law Terminology</span>
+                        <span class="chinese">商法术语</span>
+                    </h3>
+                    <p>Master essential legal terms and concepts used in Australian business law and legal practice.</p>
+                    <a href="business law terms.html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>IPAC Problem Solving Guide</span>
+                        <span class="chinese">IPAC 问题解决指南</span>
+                    </h3>
+                    <p>Learn the systematic IPAC method for solving legal problems and answering legal questions effectively.</p>
+                    <a href="IPAC Problem Solving Guide.html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Practice Questions</span>
+                        <span class="chinese">练习题</span>
+                    </h3>
+                    <p>Test your knowledge with multiple-choice and short-answer questions covering various aspects of Australian law.</p>
+                    <a href="practice questions.html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <!-- NEW TILE FOR SPACE INVADERS GAME -->
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-rotate">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83v-4.7l6-2.25 6 2.25v4.7z"/>
+                            <path d="M9.5 9h5v1.5h-5V9zm0 2.5h5V13h-5v-1.5z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Interactive Learning Game</span>
+                        <span class="chinese">互动学习游戏</span>
+                    </h3>
+                    <p>Test your legal knowledge through an engaging Space Invaders-style game with quiz questions to reinforce your understanding of Australian law.</p>
+                    <a href="legal-space-invaders.html" class="card-link">Play Game</a>
+                </div>
+            </div>
+            <!-- END OF NEW TILE -->
+            
+        </div>
+    </main>
+    
+    <footer>
+        <p>Australian Legal System Learning Resource - UNSW Preparation Program - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+        });
+    </script>
+</body>
+</html>
