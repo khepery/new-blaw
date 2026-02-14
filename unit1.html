@@ -264,6 +264,196 @@
         .animate-bounce {
             animation: bounce 3s ease-in-out infinite;
         }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 24px;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .intro-section,
+        body.dark-mode .card {
+            background-color: #16213e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .card h3 {
+            color: #64b5f6;
+        }
+        
+        body.dark-mode .card p {
+            color: #b0bec5;
+        }
+        
+        body.dark-mode .chinese {
+            color: #90a4ae;
+        }
+        
+        body.dark-mode footer {
+            background-color: #0d1117;
+        }
+        
+        body.dark-mode .repetition-box {
+            background: #1e3a5f;
+            border-left-color: #64b5f6;
+        }
+        
+        body.dark-mode .elaboration-box {
+            background: #2e4f2f;
+            border-left-color: #81c784;
+        }
+        
+        body.dark-mode .organization-box {
+            background: #4a3f2f;
+            border-left-color: #ffb74d;
+        }
+        
+        body.dark-mode .visualization-box {
+            background: #4a2f4f;
+            border-left-color: #ba68c8;
+        }
+        
+        body.dark-mode .testing-box {
+            background: #4f2f2f;
+            border-left-color: #e57373;
+        }
+        
+        /* Kangaroo Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            transition: transform 0.3s;
+        }
+        
+        .back-to-top:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .back-to-top.hopping {
+            animation: hop 1s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        @keyframes hop {
+            0% { transform: translateY(0) scale(1); }
+            30% { transform: translateY(-50px) scale(1.1); }
+            50% { transform: translateY(-80px) scale(1.15); }
+            70% { transform: translateY(-50px) scale(1.1); }
+            100% { transform: translateY(-2000px) scale(0.5); opacity: 0; }
+        }
+        
+        /* Australian Flag Easter Egg */
+        .aussie-flag-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s;
+            user-select: none;
+        }
+        
+        .aussie-flag-trigger:hover {
+            transform: scale(1.2);
+        }
+        
+        .flag-wave {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 200px;
+            z-index: 10000;
+            animation: waveFlag 2s ease-in-out;
+            pointer-events: none;
+        }
+        
+        @keyframes waveFlag {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+            25% { transform: translate(-50%, -50%) scale(1) rotate(10deg); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2) rotate(-10deg); opacity: 1; }
+            75% { transform: translate(-50%, -50%) scale(1) rotate(10deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+        }
+        
+        /* Memory Science Boxes */
+        .repetition-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .elaboration-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .organization-box {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .visualization-box {
+            background: #f3e5f5;
+            border-left: 5px solid #9c27b0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .testing-box {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
 /* Mobile Responsiveness Improvements */
 @media (max-width: 768px) {
     /* Better spacing for smaller screens */
@@ -351,7 +541,11 @@
         </svg>
     </a>
     
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode 切换夜间模式">🌙</button>
+    <button class="back-to-top" id="backToTop" title="🦘 Let me hop you back up! 让我跳回顶部！">🦘</button>
+    
     <header>
+        <div class="aussie-flag-trigger" id="aussieFlagTrigger" title="Click for a surprise! 点击惊喜！">🇦🇺</div>
         <div class="header-animation" id="header-animation"></div>
         <div class="header-content">
             <h1>Unit 1: Australian Legal Foundation</h1>
@@ -566,6 +760,62 @@
                 headerBg.appendChild(div);
             }
         }
+        
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Back to Top Kangaroo Button
+        window.onscroll = function() {
+            const backToTop = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        };
+        
+        document.getElementById('backToTop').addEventListener('click', function() {
+            this.classList.add('hopping');
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+            
+            setTimeout(() => {
+                this.classList.remove('hopping');
+            }, 1000);
+        });
+        
+        // Australian Flag Easter Egg
+        document.getElementById('aussieFlagTrigger').addEventListener('click', function() {
+            const flagWave = document.createElement('div');
+            flagWave.className = 'flag-wave';
+            flagWave.textContent = '🇦🇺';
+            document.body.appendChild(flagWave);
+            
+            setTimeout(() => {
+                document.body.removeChild(flagWave);
+            }, 2000);
+        });
         
         // Initialize header animation when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
