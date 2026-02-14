@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 0: Introduction to Business Environments - Business Environments</title>
+    <style>
+        :root {
+            --primary-color: #00796b;
+            --secondary-color: #00897b;
+            --accent-color: #26a69a;
+            --light-accent: #e0f2f1;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .intro-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-banner {
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .card-icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Increased space for the icon */
+            margin-bottom: 20px; /* More space below icon */
+            position: relative;
+        }
+        
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--light-accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .card-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--primary-color);
+        }
+        
+        .card-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .card-link {
+            display: block;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .card-link:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .chinese {
+            font-size: 0.9rem;
+            color: var(--med-text);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .back-to-main:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        /* Animation keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .animate-rotate {
+            animation: rotate 12s linear infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 3s ease-in-out infinite;
+        }
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+    /* Better spacing for smaller screens */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Adjust header text size */
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* Make cards more compact */
+    .card-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+    
+    /* Slightly smaller icons for mobile */
+    .card-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Adjust intro section padding */
+    .intro-section {
+        padding: 1.5rem;
+    }
+    
+    /* Improve tap targets */
+    .card-link {
+        padding: 1rem;
+    }
+    
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    /* Further adjust spacing */
+    main {
+        padding: 1rem 0.75rem;
+    }
+    
+    .card {
+        border-radius: 6px;
+    }
+    
+    /* Make text more readable */
+    .card h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Optimized buttons for touch */
+    .card-link {
+        padding: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+    
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Unit 0: Introduction to Business Environments</h1>
+            <p>Business Environments - FS2025</p>
+        </div>
+    </header>
+    
+    <main>
+        <section class="intro-section">
+            <h2>Welcome to Unit 0: Introduction to Business Environments</h2>
+            <p>This unit provides an introduction to the Business Environments course, including learning outcomes, assessment structure, and foundational concepts for legal thinking in business contexts. Navigate through the various topics using the cards below.</p>
+        </section>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Course Overview</span>
+                        <span class="chinese">课程概述</span>
+                    </h3>
+                    <p>Comprehensive introduction to Business Environments covering legal, economic, and social contexts of modern business.</p>
+                    <a href="#course-overview" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Assessment Structure</span>
+                        <span class="chinese">评估结构</span>
+                    </h3>
+                    <p>Detailed breakdown of assessment tasks, weightings, and submission requirements for the course.</p>
+                    <a href="#assessment" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V9.3l7-3.11V13z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Learning Outcomes</span>
+                        <span class="chinese">学习成果</span>
+                    </h3>
+                    <p>Understand what you will achieve by completing this course and how it prepares you for professional practice.</p>
+                    <a href="#learning-outcomes" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Introduction to Legal Thinking</span>
+                        <span class="chinese">法律思维入门</span>
+                    </h3>
+                    <p>Learn foundational concepts for approaching legal problems using the IPAC method.</p>
+                    <a href="IPAC Problem Solving Guide.html" class="card-link">Explore</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Course Outline</span>
+                        <span class="chinese">课程大纲</span>
+                    </h3>
+                    <p>Review the official FS2025 Business Environments course outline and weekly schedule.</p>
+                    <a href="FS2025 Business Environments Course Outline TNE.pdf" class="card-link" target="_blank">View PDF</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Detailed Content Sections -->
+        <section id="course-overview" class="intro-section" style="margin-top: 3rem;">
+            <h2 style="color: var(--primary-color);">Course Overview 课程概述</h2>
+            
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #e0f2f1; border-left: 4px solid var(--primary-color); border-radius: 4px;">
+                <h3 style="color: var(--primary-color);">What is Business Environments? 什么是商业环境？</h3>
+                <p>Business Environments (BE) is a comprehensive course that examines the legal, regulatory, economic, and social contexts in which businesses operate. This course provides essential knowledge for understanding how businesses interact with their environment and comply with legal obligations.</p>
+                <p style="color: #666; font-size: 0.95em; margin-top: 0.5rem;">商业环境是一门综合性课程，研究企业运营的法律、监管、经济和社会环境。本课程提供了理解企业如何与环境互动并遵守法律义务的基本知识。</p>
+            </div>
+
+            <h3 style="color: var(--primary-color); margin-top: 2rem;">Course Structure 课程结构</h3>
+            <div style="margin: 1.5rem 0;">
+                <p><strong>12 Units spanning 13 weeks:</strong></p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>Unit 0:</strong> Introduction to Business Environments</li>
+                    <li><strong>Unit 1:</strong> Australian Legal Foundation</li>
+                    <li><strong>Unit 2:</strong> Australian Legal System</li>
+                    <li><strong>Unit 3:</strong> Business Structures</li>
+                    <li><strong>Unit 4:</strong> Contracts Part 1</li>
+                    <li><strong>Unit 5:</strong> Contracts Part 2</li>
+                    <li><strong>Unit 6:</strong> Negligence Part 1</li>
+                    <li><strong>Unit 7:</strong> Negligence Part 2 & Misstatement</li>
+                    <li><strong>Unit 8:</strong> Consumer Protection</li>
+                    <li><strong>Unit 9-11:</strong> Sustainability (Parts 1-3)</li>
+                </ul>
+            </div>
+
+            <h3 style="color: var(--primary-color); margin-top: 2rem;">Why Study Business Environments? 为什么学习商业环境？</h3>
+            <div style="margin: 1.5rem 0;">
+                <ul style="margin-left: 2rem;">
+                    <li><strong>Legal Compliance:</strong> Understand legal obligations and avoid costly mistakes 理解法律义务并避免代价高昂的错误</li>
+                    <li><strong>Risk Management:</strong> Identify and mitigate business risks 识别和减轻商业风险</li>
+                    <li><strong>Strategic Decision-Making:</strong> Make informed decisions considering legal and ethical implications 考虑法律和道德影响做出明智决策</li>
+                    <li><strong>Sustainability:</strong> Integrate ESG principles into business practices 将ESG原则融入商业实践</li>
+                    <li><strong>Professional Development:</strong> Essential knowledge for business careers 商业职业生涯的基本知识</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="assessment" class="intro-section" style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--primary-color);">Assessment Structure 评估结构</h2>
+            
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">Assessment Tasks 评估任务</h3>
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #f0f7ff; border-radius: 8px;">
+                    <h4 style="color: #333;">1. Tutorial Participation (10%)</h4>
+                    <p><strong>Format:</strong> Active participation in weekly tutorials 每周辅导课的积极参与</p>
+                    <p><strong>Purpose:</strong> Engage with course materials and develop critical thinking skills</p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>Preparation: Complete pre-tutorial readings and activities</li>
+                        <li>Engagement: Contribute to discussions and group activities</li>
+                        <li>Professionalism: Attend regularly and participate constructively</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #fff3e0; border-radius: 8px;">
+                    <h4 style="color: #333;">2. Mid-Semester Assessment (40%)</h4>
+                    <p><strong>Format:</strong> Written assignment or examination 书面作业或考试</p>
+                    <p><strong>Coverage:</strong> Units 0-5 (Legal foundations, business structures, contracts)</p>
+                    <p><strong>Skills Assessed:</strong></p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>Understanding of legal principles</li>
+                        <li>Application of IPAC method</li>
+                        <li>Analysis of case law</li>
+                        <li>Written communication skills</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #e8f5e9; border-radius: 8px;">
+                    <h4 style="color: #333;">3. Final Examination (50%)</h4>
+                    <p><strong>Format:</strong> Comprehensive final exam 综合期末考试</p>
+                    <p><strong>Coverage:</strong> All units (0-11) with emphasis on Units 6-11</p>
+                    <p><strong>Question Types:</strong></p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>Multiple choice questions (knowledge and application)</li>
+                        <li>Short answer questions (explanation and analysis)</li>
+                        <li>Problem-solving scenarios (IPAC method)</li>
+                        <li>Essay questions (critical analysis and evaluation)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #ffebee; border-left: 4px solid #c62828; border-radius: 4px;">
+                <h4 style="color: #c62828;">Important Dates 重要日期</h4>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>Week 1-6:</strong> Regular tutorial participation</li>
+                    <li><strong>Week 7:</strong> Mid-Semester Break</li>
+                    <li><strong>Around Week 8-9:</strong> Mid-Semester Assessment</li>
+                    <li><strong>Week 8-13:</strong> Continued tutorial participation</li>
+                    <li><strong>Examination Period:</strong> Final Examination</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Note:</strong> Specific dates will be confirmed in the course outline and Moodle.</p>
+            </div>
+        </section>
+
+        <section id="learning-outcomes" class="intro-section" style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--primary-color);">Course Learning Outcomes 课程学习成果</h2>
+            
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #e0f2f1; border-left: 4px solid var(--primary-color); border-radius: 4px;">
+                <p>Upon successful completion of this course, students will be able to:</p>
+                <p style="color: #666; font-size: 0.95em;">成功完成本课程后，学生将能够：</p>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">1. Legal Knowledge 法律知识</h3>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>LO1:</strong> Demonstrate understanding of the Australian legal system and its application to business 展示对澳大利亚法律体系及其在商业中应用的理解</li>
+                    <li><strong>LO2:</strong> Identify and explain key legal principles in contracts, torts, and business structures 识别并解释合同、侵权和商业结构中的关键法律原则</li>
+                    <li><strong>LO3:</strong> Apply consumer protection laws and understand compliance obligations 应用消费者保护法并理解合规义务</li>
+                </ul>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">2. Analytical Skills 分析技能</h3>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>LO4:</strong> Analyze legal problems using structured problem-solving methods (IPAC) 使用结构化问题解决方法(IPAC)分析法律问题</li>
+                    <li><strong>LO5:</strong> Evaluate case law and apply precedents to business scenarios 评估判例法并将先例应用于商业场景</li>
+                    <li><strong>LO6:</strong> Critically assess business decisions from legal and ethical perspectives 从法律和道德角度批判性评估商业决策</li>
+                </ul>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">3. Sustainability & Ethics 可持续发展与道德</h3>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>LO7:</strong> Understand ESG (Environmental, Social, Governance) frameworks and their business applications 理解ESG框架及其商业应用</li>
+                    <li><strong>LO8:</strong> Evaluate corporate social responsibility and sustainability practices 评估企业社会责任和可持续发展实践</li>
+                    <li><strong>LO9:</strong> Apply environmental law and climate change legislation to business contexts 将环境法和气候变化立法应用于商业环境</li>
+                </ul>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">4. Professional Skills 专业技能</h3>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>LO10:</strong> Communicate legal concepts clearly in both written and oral formats 以书面和口头形式清晰地传达法律概念</li>
+                    <li><strong>LO11:</strong> Research and reference legal materials using appropriate citation methods 使用适当的引用方法研究和引用法律材料</li>
+                    <li><strong>LO12:</strong> Work effectively in teams to solve legal business problems 有效团队合作解决法律商业问题</li>
+                </ul>
+            </div>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #fff3e0; border-left: 4px solid #ff6f00; border-radius: 4px;">
+                <h4 style="color: #ff6f00;">Graduate Attributes 毕业生素质</h4>
+                <p>This course contributes to developing UNSW graduate attributes including:</p>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li>Scholarly excellence and lifelong learning</li>
+                    <li>Critical and creative thinking</li>
+                    <li>Professional and ethical practice</li>
+                    <li>Social and environmental awareness</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+        });
+    </script>
+</body>
+</html>

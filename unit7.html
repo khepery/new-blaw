@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 7 单元7: Tort of Negligence II 侵权法之过失II - Negligent Misstatement 过失性陈述</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
+            min-height: 100vh;
+        }
+
+        :root {
+            --primary-color: #ff6f00;
+            --secondary-color: #ffb74d;
+            --accent-color: #f57c00;
+            --text-color: #333;
+            --bg-light: #fff8e1;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            margin-top: 1rem;
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+        }
+
+        .subsection {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+
+        .subsection h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .case-box {
+            background: #fff3e0;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: #ffecb3;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .step {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--accent-color);
+            border-radius: 3px;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .question-box {
+            background: #ffe0b2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px dashed var(--primary-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <header>
+        <h1>Unit 7 单元7</h1>
+        <h2>Tort of Negligence (II) 侵权法之过失（二）</h2>
+        <h3>Negligent Misstatement 过失性陈述</h3>
+    </header>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Overview 概述
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <ul>
+                    <li><span class="highlight">Negligent misstatement 过失性陈述</span>: negligent 过失的 words 言词 and advice 建议</li>
+                    <li><span class="highlight">Duty of care 注意义务</span>: "Special relationship 特殊关系"</li>
+                    <li><span class="highlight">Breach 违反</span>: Revision 复习 and Section 5O 第5O条</li>
+                    <li><span class="highlight">Causation 因果关系</span> and <span class="highlight">Remoteness 远因原则</span>: Revision 复习</li>
+                    <li><span class="highlight">Remedies 救济措施</span> in tort 侵权法</li>
+                    <li><span class="highlight">Defences 抗辩</span></li>
+                    <li><span class="highlight">Vicarious liability 替代责任</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Legislation and Cases -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Legislation 立法 and Cases 案例
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Legislation 立法</h3>
+                    <ul>
+                        <li><span class="highlight">Civil Liability Act 2002 (NSW) 2002年民事责任法（新南威尔士州）</span></li>
+                        <li><span class="highlight">Section 5O 第5O条</span></li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>Cases 案例</h3>
+                    <ul>
+                        <li><span class="highlight">Hedley Byrne & Co Ltd v Heller & Partners Ltd 赫德利·伯恩公司诉赫勒合伙人有限公司案</span></li>
+                        <li><span class="highlight">Mutual Life & Citizens' Assurance v Evatt 互助人寿与公民保险公司诉埃瓦特案</span></li>
+                        <li><span class="highlight">Shaddock & Associates v Parramatta City Council 沙多克及其合伙人诉帕拉马塔市议会案</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Negligent Misstatement Introduction -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Negligent Misstatement 过失性陈述 - Introduction 介绍
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <p><span class="highlight">Definition 定义</span>: The giving 提供 of careless 粗心的 advice 建议 that leads 导致 to economic loss 经济损失.</p>
+                
+                <div class="subsection">
+                    <h3>Historical Background 历史背景</h3>
+                    <ul>
+                        <li>Earlier law 早期法律 did not award 裁定 damages 损害赔偿 for negligent advice 过失建议 where 当 the damage 损害 resulted 产生 from words 言词, not physical action 实际行为 or omission 不作为.</li>
+                        <li>The law 法律 changed 改变 with Hedley Byrne & Co Ltd v Heller and Partners Ltd [1964] AC 465</li>
+                        <li>The duty 义务 of advisers 顾问 covers 涵盖 both careless statements 粗心陈述 and the failure 未能 to disclose 披露 information 信息 that should have been disclosed 应当披露的.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hedley Byrne Case -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Hedley Byrne Case 赫德利·伯恩案 [1964] AC 465
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="case-box">
+                    <div class="case-title">Hedley Byrne & Co Ltd v Heller & Partners Ltd 赫德利·伯恩公司诉赫勒合伙人有限公司案</div>
+                    
+                    <div class="subsection">
+                        <h3>Facts 事实</h3>
+                        <ul>
+                            <li><span class="highlight">Hedley Byrne 赫德利·伯恩</span> (an advertising agent 广告代理商) was about 将要 to place 下达 some orders 订单 for advertising 广告 for its client 客户 (Easipower Ltd 易斯力公司)</li>
+                            <li>Before 在...之前 placing 下达 the orders 订单, Hedley Byrne asked 要求 its bank 银行 to contact 联系 the client's bank 客户银行 (Heller & Partners 赫勒合伙人) for a credit check 信用检查.</li>
+                            <li>Heller & Partners replied 回复 in a letter 信函:
+                                <ul>
+                                    <li>"For your private use 私人使用 and without responsibility 无需承担责任 on the part 方面 of this bank 本银行 or its officials 官员..."</li>
+                                    <li>"Re Easipower Ltd: Respectably 值得尊敬地 constituted 组建的 company 公司, considered 认为 good 良好 for its ordinary 普通的 business engagements 商业活动. Your figures 数额 are larger 更大 than we are accustomed 习惯于 to see."</li>
+                                </ul>
+                            </li>
+                            <li>HB relied 依赖 on this bank reference 银行推荐信 and placed 下达 large orders 大额订单.</li>
+                            <li>Easipower went into liquidation 进入清算.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Issue 争议点</h3>
+                        <p>Hedley Byrne sued 起诉 Heller & Partners for <span class="highlight">negligent misstatement 过失性陈述</span>.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Decision 判决</h3>
+                        <ul>
+                            <li>Heller & Partners <span class="highlight">assumed 承担 responsibility 责任</span>. They knew 知道 why 为何 Hedley Byrne wanted 需要 a credit reference 信用参考 and why 为何.</li>
+                            <li>Hedley Byrne <span class="highlight">relied 依赖</span> on their skill 技能 and judgment 判断.</li>
+                            <li>Negligent misstatement 过失性陈述 depends 取决于 on a <span class="highlight">'special relationship' '特殊关系'</span> between 之间 the parties 当事方 and there was 存在 a special relationship 特殊关系 between 之间 the parties 当事方.</li>
+                            <li>However 然而, the bank 银行 was not liable 不承担责任 because 因为 there was an <span class="highlight">exclusion clause 免责条款</span> in the letter 信函.</li>
+                            <li>"without responsibility 无需承担责任 on the part 方面 of this bank 本银行 or its officials 官员"</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Significance 重要意义</h3>
+                        <ul>
+                            <li>The case 案例 <span class="highlight">established 确立</span> the tort 侵权 of negligent misstatement 过失性陈述 and the principle 原则 of responsibility 责任 for negligent misstatement 过失性陈述.</li>
+                            <li>Law 法律 will impose 强加 a duty of care 注意义务 when 当 there is a <span class="highlight">'special relationship' '特殊关系'</span> between 之间 parties 当事方.</li>
+                            <li>'Special relationship' '特殊关系' is an application 应用 of the 'who is my neighbour? 谁是我的邻居？' principle 原则 of Donoghue v Stevenson 多诺霍诉史蒂文森案.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barwick Test -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                The Barwick Test 巴威克测试 - Special Relationship 特殊关系
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="case-box">
+                    <div class="case-title">Mutual Life & Citizens' Assurance v Evatt 互助人寿与公民保险公司诉埃瓦特案 [1968] HCA 74</div>
+                    
+                    <div class="subsection">
+                        <h3>Facts 事实</h3>
+                        <ul>
+                            <li>A policyholder 保单持有人 of MLC 互助人寿公司 asked 询问 for advice 建议 on the investment performance 投资表现 of HG Palmer HG帕尔默公司.</li>
+                            <li>An 'officer' '官员' of MLC advised 建议 that HG Palmer would continue 继续 to be financially stable 财务稳定 and that it would be safe 安全 to invest more 投资更多 in it.</li>
+                            <li>Relying 依赖 on this advice 建议, the policyholder 保单持有人 invested further 进一步投资.</li>
+                            <li>HG Palmer went into liquidation 进入清算, and the policy holder 保单持有人 lost 损失 his investment 投资.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Issue 争议点</h3>
+                        <p>Whether 是否 MLC is negligent 过失?</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Decision 判决</h3>
+                        <ul>
+                            <li>MLC assurance 保险公司 is not negligent 并非过失 – no duty of care 无注意义务</li>
+                            <li>MLC Assurance's business 业务 did not include 不包括 giving advice 提供建议 on investments 投资, and it did not claim 声称 to have 拥有 the necessary 必要的 skill 技能 and competence 能力 to give 提供 such advice 此类建议 and to exercise 行使 the necessary 必要的 diligence 勤勉 to give 提供 reliable 可靠的 advice 建议.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>The Barwick Test 巴威克测试 (4 Steps 4个步骤)</h3>
+                    <p><span class="highlight">Negligent misstatement 过失性陈述 — is there a 'special relationship' 是否存在'特殊关系'?</span></p>
+                    
+                    <div class="step">
+                        <h4>Step 1 第1步: Assumption of Responsibility 承担责任</h4>
+                        <p>The speaker 陈述人 must realise 认识到 that the speaker 陈述人 is being trusted 被信任 by the recipient 接收人 of the information 信息 or advice 建议 to give 提供 information 信息 which 哪些 the recipient 接收人 believes 相信 the speaker 陈述人 has 拥有 or has access to 有权获取.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Step 2 第2步: Serious or Business Nature 严肃或商业性质</h4>
+                        <p>The subject matter 主题 of the information 信息 or advice 建议 must be of a <span class="highlight">'serious 严肃的 or business nature 商业性质'</span>.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Step 3 第3步: Awareness of Intent to Act 知悉行动意图</h4>
+                        <p>The speaker 陈述人 must be aware 知悉 — or the circumstances 情况 must show 表明 that the speaker 陈述人 should be aware 应当知悉 — that the recipient 接收人 intended 打算 to act upon 依据 the information 信息 or advice 建议. This excludes 排除 advice 建议 given 给予 at a social occasion 社交场合 with no thought 未考虑 of its possible 可能的 legal consequences 法律后果.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Step 4 第4步: Reasonable Reliance 合理依赖</h4>
+                        <p>It must be reasonable 合理的 for the recipient 接收人 to ask for 请求 and to rely on 依赖 what the speaker 陈述人 says 所说.</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>Court 法院 will look at 考虑 the circumstances 情况 justifying 证明...合理 reasonable reliance 合理依赖:</strong></p>
+                        <ul>
+                            <li><span class="highlight">Capacity of parties 当事人能力</span>: Respective 各自的 skills 技能, knowledge 知识, experience 经验</li>
+                            <li><span class="highlight">Nature of subject matter 主题性质</span>: Serious 严肃 / business 商业</li>
+                            <li><span class="highlight">Occasion 场合</span> when the advice 建议 was given 给予: Social 社交 / business context 商业背景</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shaddock Case -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Shaddock Case 沙多克案 - Broadening the Scope 扩大范围
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="case-box">
+                    <div class="case-title">Shaddock & Associates Pty Ltd v Parramatta City Council 沙多克及其合伙人有限公司诉帕拉马塔市议会案 (1981) 150 CLR 225</div>
+                    
+                    <div class="subsection">
+                        <h3>Facts 事实</h3>
+                        <ul>
+                            <li><span class="highlight">Shaddock 沙多克</span> (a property development company 房地产开发公司) was considering 考虑 purchasing 购买 a property 房产 in Parramatta 帕拉马塔 for redevelopment 再开发.</li>
+                            <li>Shaddock's solicitor 律师 made 进行 two oral inquiries 口头询问 and one written inquiry 书面询问 to Parramatta City Council 帕拉马塔市议会 regarding 关于 any planned 计划的 road widening 道路拓宽 that might affect 影响 the property 房产.</li>
+                            <li>The Council 市议会, through 通过 its officers 官员, orally informed 口头告知 Shaddock's solicitor 律师 that there were no such proposals 无此类提案.</li>
+                            <li>The written response 书面回复 (a certificate 证明) from the Council 市议会 also did not disclose 未披露 any planned 计划的 road widening 道路拓宽.</li>
+                            <li>Relying 依赖 on this information 信息, Shaddock purchased 购买 the property 房产.</li>
+                            <li>After 之后 the purchase 购买, it was discovered 发现 that there was a proposal 提案 to widen 拓宽 the road 道路, which significantly 显著地 affected 影响 the value 价值 of the property 房产 and the feasibility 可行性 of their redevelopment plans 再开发计划.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Issue 争议点</h3>
+                        <ul>
+                            <li>Whether 是否 the Council 市议会 owed 负有 a duty of care 注意义务 to Shaddock to provide 提供 accurate 准确的 information 信息?</li>
+                            <li>Whether 是否 the provision 提供 of incorrect 不正确的 information 信息 constituted 构成 a negligent misstatement 过失性陈述 for which 对此 the Council 市议会 could be held liable 可被追究责任.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Decision 判决</h3>
+                        <ul>
+                            <li>The Council 市议会 did owe 确实负有 a duty of care 注意义务 to Shaddock & Associates.</li>
+                            <li>The Council's officers 官员 had been negligent 存在过失 in providing 提供 incorrect 不正确的 information 信息.</li>
+                            <li><span class="highlight">Public authorities 公共机构</span> could be held liable 可被追究责任 for negligent misstatements 过失性陈述 if it was reasonable 合理的 for the recipient 接收人 of the information 信息 to rely on 依赖 it and they did rely on 确实依赖 it to their detriment 对其不利.</li>
+                            <li>The Council 市议会 is a <span class="highlight">public body 公共机构</span>. It followed 遵循 the practice 做法 of supplying 提供 information 信息 upon which 基于此 the recipients 接收人 are likely 可能 to rely 依赖 for serious purposes 严肃目的.</li>
+                            <li><span class="highlight">Skills were not required 不需要技能</span>; a public body 公共机构 might be specially 特别地 competent 有能力 to supply 提供 material 材料 which 哪些 it had 拥有 in its possession 掌握 for the purposes 目的 of its public functions 公共职能.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Significance 重要意义</h3>
+                        <ul>
+                            <li><span class="highlight">Broadened 拓宽</span> the scope 范围 of duty of care 注意义务.</li>
+                            <li>Special relationship 特殊关系 can exist 可以存在 even when 即使:
+                                <ul>
+                                    <li>advisor 顾问 does not profess 声称 to possess 拥有 any actual 实际的 skill 技能 or judgment 判断</li>
+                                    <li>advisee 被建议人 did not pay 未支付 for the advice 建议</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breach of Duty -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Breach of Duty of Care 违反注意义务 - Section 5B & 5O 第5B条和第5O条
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Section 5B of the Civil Liability Act 2002 (NSW) 2002年民事责任法（新南威尔士州）第5B条</h3>
+                    <div class="case-box">
+                        <p><strong>(1) A person 人 is not negligent 并非过失 in failing 未能 to take 采取 precautions 预防措施 against 针对 a risk 风险 of harm 损害 unless 除非:</strong></p>
+                        <ul>
+                            <li><strong>(a)</strong> the risk 风险 was foreseeable 可预见的 (that is 即, it is a risk 风险 of which 对此 the person 人 knew 知道 or ought to have known 应当知道), and</li>
+                            <li><strong>(b)</strong> the risk 风险 was not insignificant 并非微不足道, and</li>
+                            <li><strong>(c)</strong> in the circumstances 情况下, a reasonable person 理性人 in the person's position 处于该人的位置 would have taken 会采取 those precautions 这些预防措施.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Section 5O - Standard of Care for Professionals 专业人士的注意标准</h3>
+                    <div class="case-box">
+                        <p><span class="highlight">Section 5O of the Civil Liability Act 2002 (NSW) 2002年民事责任法（新南威尔士州）第5O条</span> defines 界定 the standard of care 注意标准 in circumstances 情况 where 当 the defendant 被告 is a professional 专业人士 acting 行事 in his or her professional capacity 以专业身份.</p>
+                        
+                        <ul>
+                            <li>A professional 专业人士 is not liable 不承担责任 in negligence 过失 if it is established 确立 that the professional 专业人士 acted 行事 in a manner 方式 that was <span class="highlight">widely accepted 广泛接受 in Australia 在澳大利亚 by peer professional opinion 同行专业意见 as competent professional practice 称职的专业实践</span>.</li>
+                            <li>A court 法院 is not bound 不受约束 by the peer professional opinion 同行专业意见 if the Court 法院 considers 认为 the opinion 意见 to be irrational 不合理.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remedies -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Remedies in Tort 侵权救济 - Damages 损害赔偿
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Damages 损害赔偿</h3>
+                    <ul>
+                        <li>An award 裁定 of monetary sum 金钱数额 to provide 提供 compensation 补偿 for the damage suffered 遭受的损害.</li>
+                        <li><span class="highlight">Purpose 目的</span> of damages 损害赔偿 in tort 侵权 is <span class="highlight">compensation 补偿</span> – aims 旨在 to put 使...处于 plaintiff 原告 in the position 位置 in which 在其中 they would have been 本应处于 if the tort 侵权 had not been committed 未发生 (not to punish 惩罚 wrongdoer 侵权人)</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Compensation for 赔偿：</h3>
+                    <ul>
+                        <li><span class="highlight">Loss of earning capacity 丧失收入能力</span></li>
+                        <li><span class="highlight">Medical expenses 医疗费用</span> (e.g. 例如, hospital 医院, physiotherapy 物理治疗)</li>
+                        <li><span class="highlight">Rehabilitation expenses 康复费用</span> (e.g. 例如, wheelchairs 轮椅)</li>
+                        <li><span class="highlight">Personal care 个人护理</span> including 包括 gratuitous care 无偿护理</li>
+                        <li><span class="highlight">Pain and suffering 痛苦和折磨</span></li>
+                        <li><span class="highlight">Loss of amenities 丧失生活便利</span>, such as 诸如 the inability 无法 to enjoy 享受 normal activities 正常活动 as a result 作为结果 (for example 例如, of loss 丧失 of limb 肢体)</li>
+                        <li><span class="highlight">Loss of faculty 丧失机能</span> (such as 诸如 permanent 永久的 unconsciousness 无意识)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Defences -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Defences 抗辩
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>1. Contributory Negligence 共同过失</h3>
+                    <div class="case-box">
+                        <p>A person 人 must not be careless 粗心 towards 对 themselves 自己, and if they are 如果是, any compensation 任何补偿 will be reduced 减少 (apportioned 分配) to show 表明 that they contributed 贡献 to the injury 伤害.</p>
+                        
+                        <p><strong>Example 例子:</strong></p>
+                        <ul>
+                            <li>If X negligently 过失地 drives 驾驶 into and injures 伤害 Y, who negligently 过失地 stepped off 走下 the footpath 人行道 in front of 在...前面 X's car 汽车, Y can still sue 起诉 for damages 损害赔偿.</li>
+                            <li>If the court 法院 is prepared 准备 to award 裁定 Y damages 损害赔偿 of $100,000, but decides 决定 that Y was 20% to blame 应负责任 for his injury 伤害, the award 裁定 would be reduced 减少 to $80,000.</li>
+                        </ul>
+
+                        <p><strong>Under the Civil Liability Act 根据民事责任法:</strong></p>
+                        <ul>
+                            <li>The court 法院 can reduce 减少 liability 责任 by 100% if a court 法院 thinks 认为 that it is just 公正的 and equitable 公平的 to do so 这样做.</li>
+                            <li>A 100% reduction 减少 in liability 责任 would defeat 挫败 the claim 索赔 for damages 损害赔偿.</li>
+                        </ul>
+
+                        <p><strong>To be 'contributory' 成为'共同的':</strong></p>
+                        <ul>
+                            <li>Plaintiff's原告的 own negligence 自身过失 must contribute 促成 to cause 导致 the damage 损害, and</li>
+                            <li>Plaintiff 原告 failed 未能 to take 采取 reasonable care 合理注意 for their own safety 自身安全.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>2. Voluntary Assumption of Risk 自愿承担风险</h3>
+                    <div class="case-box">
+                        <p>A person 人 cannot complain 投诉 of damage 损害 which results 产生 from a risk 风险 they have consented 同意 to take 承担.</p>
+                        
+                        <p><strong>Examples 例子:</strong></p>
+                        <ul>
+                            <li>Voluntarily 自愿地 accepting 接受 a lift 搭车 with a drunk driver 醉酒司机</li>
+                            <li>Involving 涉及 risky 危险的 recreational activities 娱乐活动 like bungy jumping 蹦极跳</li>
+                        </ul>
+
+                        <p><span class="highlight">Complete defence 完全抗辩</span>: no damages awarded 不裁定损害赔偿</p>
+
+                        <p><strong>Requirements 要求:</strong></p>
+                        <ul>
+                            <li><span class="highlight">Knowledge 知悉</span>: Plaintiff 原告 had full knowledge 充分知悉 and appreciation 认识 of the risk 风险, and</li>
+                            <li><span class="highlight">Voluntary action 自愿行为</span>: Plaintiff 原告 voluntarily 自愿地 (freely 自由地 and willingly 心甘情愿地) made 做出 the choice 选择 to undertake 承担 the risk 风险.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>3. Disclaimer 免责声明</h3>
+                    <div class="case-box">
+                        <p>A disclaimer 免责声明 is a legal statement 法律声明 which may be used 可能被用于 to remove 消除 or reduce 减少 liability 责任 of a defendant 被告.</p>
+                        
+                        <ul>
+                            <li>The law 法律 of negligence 过失 interprets 解释 disclaimers 免责声明 strictly 严格地 which means 意味着 that they may not be effective 可能无效.</li>
+                            <li>An exclusion clause 免责条款 only excludes 仅排除 negligence 过失 if it clearly 清楚地 says so 这样说.</li>
+                        </ul>
+
+                        <p><strong>Example 例子:</strong> In Hedley Byrne case 赫德利·伯恩案, the disclaimer 免责声明 "without responsibility 无需承担责任" was effective 有效的.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vicarious Liability -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Vicarious Liability 替代责任
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Definition 定义</h3>
+                    <div class="case-box">
+                        <p>One person 一个人 is responsible 负责 for the wrongful act 不法行为 of another person 另一个人 because of 因为 the legal relationship 法律关系 between them 之间, even if 即使 the first person 第一个人 is not personally 亲自 at fault 有过错.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Employers 雇主 and Employees 雇员</h3>
+                    <div class="case-box">
+                        <ul>
+                            <li><span class="highlight">Employers 雇主</span> are vicariously liable 承担替代责任 to third parties 第三方 for the actions 行为 of their <span class="highlight">employees 雇员</span> in the course of 在...过程中 their employment 雇佣.</li>
+                            <li>The unlawful action 不法行为 must be within 在...范围内 the scope 范围 of the employee's 雇员的 actual 实际的 or implied 默示的 authority 权限, or incidental to 附带于 it.</li>
+                            <li>Employers 雇主 are <span class="highlight">not vicariously liable 不承担替代责任</span> for the actions 行为 of employees 雇员 who act 行事 outside 在...之外 the scope 范围 of employment 雇佣.</li>
+                            <li>An <span class="highlight">independent contractor 独立承包商</span> is not an employee 并非雇员.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Example 例子</h3>
+                    <p>Johnny runs 经营 a restaurant 餐厅. Johnny will be liable 将承担责任 for any harmful conduct 有害行为 by his employees 雇员 at the restaurant 餐厅 while 当 the employees 雇员 are carrying out 执行 their duties 职责 within 在...范围内 their scope of employment 雇佣范围.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tutorial Questions -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Tutorial Questions 辅导问题
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <div class="question-box">
+                    <div class="question-title">Question 1 问题1: Vicarious Liability 替代责任</div>
+                    <p><strong>Facts 事实:</strong></p>
+                    <p>Andy 安迪 has been given 获得 advice 建议 by his tax accountant 税务会计师, Fiona 菲奥娜, who works for 工作于 Jones & Jones Taxation Accountants 琼斯琼斯税务会计师事务所. Fiona negligently 过失地 advised 建议 Andy on a complex 复杂的 tax issue 税务问题.</p>
+                    <p><strong>Question 问题:</strong> Can Andy sue 起诉 Jones & Jones Taxation Accountants 琼斯琼斯税务会计师事务所?</p>
+                    <p><strong>Answer 答案:</strong> Yes 是的. Under 根据 vicarious liability 替代责任, employers 雇主 (Jones & Jones) are liable 承担责任 for the negligent acts 过失行为 of their employees 雇员 (Fiona) when 当 acting 行事 within 在...范围内 the scope of employment 雇佣范围. Giving tax advice 提供税务建议 is within 在...范围内 Fiona's scope of employment 雇佣范围.</p>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 2 问题2: Voluntary Assumption of Risk 自愿承担风险</div>
+                    <p><strong>Facts 事实:</strong></p>
+                    <p>Kathy 凯茜 is at a party 聚会. She accepts 接受 the offer 提议 of a ride home 搭车回家 in a car 汽车 with Tim 蒂姆. She knows 知道 that Tim has been drinking 饮酒 a lot 大量 of alcohol 酒精 at the party 聚会. While 当 driving home 开车回家, there is a serious accident 严重事故 and Kathy is injured 受伤. Kathy is suing 起诉 Tim for compensation 补偿 of her medical expenses 医疗费用 under 根据 tort of negligence 过失侵权.</p>
+                    <p><strong>Question 问题:</strong> What possible defences 可能的抗辩 could Tim use 使用?</p>
+                    <p><strong>Answer 答案:</strong> <span class="highlight">Voluntary assumption of risk 自愿承担风险</span> - Kathy had knowledge 知悉 that Tim was drunk 醉酒 and voluntarily 自愿地 chose 选择 to accept 接受 the ride 搭车. This is a complete defence 完全抗辩.</p>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 3 问题3: Contributory Negligence 共同过失</div>
+                    <p><strong>Facts 事实:</strong></p>
+                    <p>Ava 艾娃 is riding 骑 a bicycle 自行车 at night 晚上 on a freeway 高速公路. She is wearing 穿着 black clothing 黑色衣服 and there is no light 没有灯 on the back 后面 of her bicycle 自行车. Ben 本 is talking 通话 on his mobile phone 手机 whilst 当 driving 驾驶 a truck 卡车 close to 靠近 where 哪里 Ava is riding 骑行 her bicycle 自行车. Distracted 分心, Ben's truck 卡车 leaves 离开 its lane 车道 and strikes 撞击 Ava. Ava is suing 起诉 Ben for compensation 补偿 under 根据 tort of negligence 过失侵权.</p>
+                    <p><strong>Question 问题:</strong> What possible defences 可能的抗辩 could Ben use 使用?</p>
+                    <p><strong>Answer 答案:</strong> <span class="highlight">Contributory negligence 共同过失</span> - Ava was negligent 过失 by:
+                        <ul>
+                            <li>Riding 骑行 on a freeway 高速公路 (dangerous 危险)</li>
+                            <li>Wearing 穿着 black clothing 黑色衣服 at night 晚上 (poor visibility 能见度差)</li>
+                            <li>No light 无灯 on bicycle 自行车</li>
+                        </ul>
+                        The court 法院 would likely 可能 apportion 分配 liability 责任 between 之间 Ben and Ava.
+                    </p>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 4 问题4: Lisa's Case - Negligent Misstatement 丽莎案 - 过失性陈述 (IPAC Analysis IPAC分析)</div>
+                    
+                    <p><strong>Facts 事实:</strong></p>
+                    <p>Lisa 丽莎 is a 30-year-old 30岁的 marketing professional 营销专业人士 who has been working 工作 in the industry 行业 for over 超过 8 years 年. Recently 最近, Lisa received 收到 a significant 重大的 bonus 奖金 of $40,000 from her employer 雇主 for her outstanding 杰出的 performance 表现. Lisa has always wanted 一直想要 to start 开始 her own 自己的 online business 在线业务 and decides 决定 to use 使用 the bonus 奖金 to launch 启动 an e-commerce store 电子商务商店. However 然而, she has no prior experience 无先前经验 in running 经营 an online business 在线业务.</p>
+
+                    <p>Lisa approaches 接洽 Mark 马克, a business advisor 商业顾问 at Startup Success Pty Ltd 创业成功有限公司 ("Startup Success"), a reputable 声誉良好的 business consultancy firm 商业咨询公司. During 在 a paid consultation 付费咨询 at Mark's office 办公室, Lisa asks 询问 Mark if he thinks 认为 selling 销售 eco-friendly products 环保产品 online would be a profitable 有利可图的 venture 企业. Lisa makes it clear 明确表示 to Mark that her ability 能力 to succeed 成功 and achieve 实现 financial independence 财务独立 depends on 取决于 the success 成功 of this business 业务.</p>
+
+                    <p>Due to 由于 his busy schedule 繁忙的日程 and numerous 众多的 clients 客户, Mark advises 建议 Lisa in writing 书面 that selling 销售 eco-friendly products 环保产品 online is a lucrative 有利可图的 market 市场 based on 基于 a brief conversation 简短对话 he had 有 with a colleague 同事, without 未 conducting 进行 any further research 进一步研究. Mark includes 包含 a disclaimer 免责声明 in his advice 建议.</p>
+
+                    <p>A simple 简单的 further investigation 进一步调查 by Mark would have revealed 会揭示 that the market 市场 for eco-friendly products 环保产品 was already 已经 saturated 饱和 and highly competitive 高度竞争. Lisa expresses 表达 her concerns 担忧 about investing 投资 all her bonus 奖金 in this venture 企业, but Mark reassures 安慰 her that it is a sound 稳妥的 investment 投资.</p>
+
+                    <p>Relying on 依赖 Mark's advice 建议, Lisa invests 投资 her entire 全部的 bonus 奖金 in setting up 建立 the e-commerce store 电子商务商店. Shortly after 之后不久 launching 启动, Lisa struggles 挣扎 to attract 吸引 customers 客户 due to 由于 the saturated market 饱和市场, resulting in 导致 significant 重大的 financial loss 财务损失.</p>
+
+                    <div style="margin-top: 1rem;">
+                        <p><strong>Issue 争议点:</strong></p>
+                        <ul>
+                            <li>Whether 是否 Startup Success owes 负有 Lisa a duty of care 注意义务?</li>
+                            <li>Whether 是否 Startup Success breached 违反 that duty 义务?</li>
+                            <li>Whether 是否 the breach 违反 caused 导致 Lisa's loss 损失?</li>
+                            <li>What defences 抗辩 are available 可用?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 5 问题5: Zoe's Case - In-Class Presentation 佐伊案 - 课堂演示</div>
+                    
+                    <p><strong>Facts 事实:</strong></p>
+                    <p>Zoe 佐伊, a first-time 首次 homebuyer 购房者, sought 寻求 advice 建议 from Shane 肖恩, a reputable 声誉良好的 real estate agent 房地产经纪人, about purchasing 购买 a property 房产 in a newly developed 新开发的 suburb 郊区. Shane assured 保证 Zoe that the property 房产 was a sound 稳妥的 investment 投资, highlighting 强调 its potential 潜力 for significant 重大的 appreciation 增值 in value 价值 due to 由于 upcoming 即将到来的 infrastructure projects 基础设施项目 in the area 地区.</p>
+
+                    <p>Shane had been recommended 被推荐 to Zoe by a trusted 信任的 friend 朋友 who had successfully 成功地 purchased 购买 property 房产 through 通过 him. Shane had over 超过 15 years 年 of experience 经验 in the real estate market 房地产市场 and was known for 以...闻名 his market insights 市场洞察. Shane provided 提供 Zoe with detailed 详细的 market analysis reports 市场分析报告 and projections 预测, which he claimed 声称 were based on 基于 thorough research 彻底研究. Shane explicitly 明确地 assured 保证 Zoe that the property 房产 was a low-risk 低风险 investment 投资 with high potential 高潜力 for future gains 未来收益.</p>
+
+                    <p>Zoe did not conduct 进行 her own research 自己的研究 or seek 寻求 a second opinion 第二意见 from another 另一个 real estate professional 房地产专业人士. Zoe ignored 忽视 several 几个 warning signs 警告信号, such as 诸如 local news reports 当地新闻报道 about potential delays 潜在延迟 in the infrastructure projects 基础设施项目. Zoe did not thoroughly review 彻底审查 the financial implications 财务影响 and risks 风险 associated with 与...相关 the property purchase 房产购买, despite 尽管 having access to 有权获取 various 各种 resources 资源.</p>
+
+                    <p>Relying on 依赖 Shane's advice 建议, Zoe purchased 购买 the property 房产. However 然而, it was later 后来 discovered 发现 that the infrastructure projects 基础设施项目 were delayed 延迟 indefinitely 无限期地, and the property value 房产价值 plummeted 暴跌. Further investigation 进一步调查 revealed 揭示 that Shane had not verified 核实 the status 状态 of the infrastructure projects 基础设施项目 and had relied on 依赖 outdated information 过时信息.</p>
+
+                    <p><strong>Task 任务:</strong> Discuss 讨论 Zoe's case 案件 in terms of 就...而言 all the elements 要素 she needs 需要 to establish 确立 to be successful 成功 in a negligence action 过失诉讼 against 针对 Shane. Advise 建议 Zoe of any possible defences 可能的抗辩 that Shane may use 可能使用.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Terms -->
+        <div class="section">
+            <h2 class="section-title" onclick="toggleSection(this)">
+                Key Terms 关键术语
+                <span class="toggle-icon">▼</span>
+            </h2>
+            <div class="section-content">
+                <ul>
+                    <li><span class="highlight">Negligent Misstatement 过失性陈述</span>: The giving 提供 of careless 粗心的 advice 建议 that leads 导致 to economic loss 经济损失</li>
+                    <li><span class="highlight">Vicarious Liability 替代责任</span>: One person 一个人 is responsible 负责 for the wrongful act 不法行为 of another 另一个 due to 由于 their legal relationship 法律关系</li>
+                    <li><span class="highlight">Contributory Negligence 共同过失</span>: When 当 the plaintiff 原告 contributed 贡献 to their own injury 伤害 through 通过 their negligence 过失</li>
+                    <li><span class="highlight">Voluntary Assumption of Risk 自愿承担风险</span>: When 当 a person 人 knowingly 明知 and voluntarily 自愿地 accepts 接受 a risk 风险</li>
+                    <li><span class="highlight">Disclaimer 免责声明</span>: A legal statement 法律声明 that may remove 消除 or reduce 减少 liability 责任</li>
+                    <li><span class="highlight">Special Relationship 特殊关系</span>: A relationship 关系 where 当 the law 法律 imposes 强加 a duty of care 注意义务 for negligent misstatement 过失性陈述</li>
+                    <li><span class="highlight">Reasonable Reliance 合理依赖</span>: It must be reasonable 合理的 for the recipient 接收人 to rely on 依赖 the advice 建议</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / documentHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Toggle Section
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
+            
+            content.classList.toggle('collapsed');
+            icon.classList.toggle('rotated');
+        }
+
+        // Initially expand all sections
+        window.addEventListener('load', () => {
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => {
+                section.classList.remove('collapsed');
+            });
+        });
+    </script>
+</body>
+</html>

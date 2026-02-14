@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australian Legal System - Course Units</title>
+    <title>Business Environments - Course Units</title>
     <!-- Google Font for Retro Look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +22,8 @@
             --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
             /* Unit specific colors */
+            --unit0-color: #00796b;
+            --unit0-light: #e0f2f1;
             --unit1-color: #1a237e;
             --unit1-light: #e8eaf6;
             --unit2-color: #2c3e50;
@@ -32,6 +34,18 @@
             --unit4-light: #ffebee;
             --unit5-color: #4a148c;
             --unit5-light: #f3e5f5;
+            --unit6-color: #e65100;
+            --unit6-light: #fff3e0;
+            --unit7-color: #ff6f00;
+            --unit7-light: #fff8e1;
+            --unit8-color: #00838f;
+            --unit8-light: #e0f7fa;
+            --unit9-color: #33691e;
+            --unit9-light: #f1f8e9;
+            --unit10-color: #4527a0;
+            --unit10-light: #ede7f6;
+            --unit11-color: #37474f;
+            --unit11-light: #eceff1;
 
             /* IPAC Tool Specific Colors */
             --ipac-tool-color: #00695c;
@@ -139,39 +153,74 @@
         .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem; }
         .unit-card { background-color: white; border-radius: 8px; overflow: hidden; box-shadow: var(--box-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; height: 100%; display: flex; flex-direction: column; }
         .unit-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        .unit-card.unit0 .unit-banner { background: linear-gradient(90deg, var(--unit0-color), var(--accent-color)); }
         .unit-card.unit1 .unit-banner { background: linear-gradient(90deg, var(--unit1-color), var(--accent-color)); }
         .unit-card.unit2 .unit-banner { background: linear-gradient(90deg, var(--unit2-color), var(--accent-color)); }
         .unit-card.unit3 .unit-banner { background: linear-gradient(90deg, var(--unit3-color), var(--accent-color)); }
         .unit-card.unit4 .unit-banner { background: linear-gradient(90deg, var(--unit4-color), var(--accent-color)); }
         .unit-card.unit5 .unit-banner { background: linear-gradient(90deg, var(--unit5-color), var(--accent-color)); }
+        .unit-card.unit6 .unit-banner { background: linear-gradient(90deg, var(--unit6-color), var(--accent-color)); }
+        .unit-card.unit7 .unit-banner { background: linear-gradient(90deg, var(--unit7-color), var(--accent-color)); }
+        .unit-card.unit8 .unit-banner { background: linear-gradient(90deg, var(--unit8-color), var(--accent-color)); }
+        .unit-card.unit9 .unit-banner { background: linear-gradient(90deg, var(--unit9-color), var(--accent-color)); }
+        .unit-card.unit10 .unit-banner { background: linear-gradient(90deg, var(--unit10-color), var(--accent-color)); }
+        .unit-card.unit11 .unit-banner { background: linear-gradient(90deg, var(--unit11-color), var(--accent-color)); }
         .unit-banner { height: 8px; }
         .unit-icon-container { display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px; position: relative; }
+        .unit-card.unit0 .unit-icon { background-color: var(--unit0-light); }
         .unit-card.unit1 .unit-icon { background-color: var(--unit1-light); }
         .unit-card.unit2 .unit-icon { background-color: var(--unit2-light); }
         .unit-card.unit3 .unit-icon { background-color: var(--unit3-light); }
         .unit-card.unit4 .unit-icon { background-color: var(--unit4-light); }
         .unit-card.unit5 .unit-icon { background-color: var(--unit5-light); }
+        .unit-card.unit6 .unit-icon { background-color: var(--unit6-light); }
+        .unit-card.unit7 .unit-icon { background-color: var(--unit7-light); }
+        .unit-card.unit8 .unit-icon { background-color: var(--unit8-light); }
+        .unit-card.unit9 .unit-icon { background-color: var(--unit9-light); }
+        .unit-card.unit10 .unit-icon { background-color: var(--unit10-light); }
+        .unit-card.unit11 .unit-icon { background-color: var(--unit11-light); }
+        .unit-card.unit0 .unit-icon svg { fill: var(--unit0-color); }
         .unit-card.unit1 .unit-icon svg { fill: var(--unit1-color); }
         .unit-card.unit2 .unit-icon svg { fill: var(--unit2-color); }
         .unit-card.unit3 .unit-icon svg { fill: var(--unit3-color); }
         .unit-card.unit4 .unit-icon svg { fill: var(--unit4-color); }
         .unit-card.unit5 .unit-icon svg { fill: var(--unit5-color); }
+        .unit-card.unit6 .unit-icon svg { fill: var(--unit6-color); }
+        .unit-card.unit7 .unit-icon svg { fill: var(--unit7-color); }
+        .unit-card.unit8 .unit-icon svg { fill: var(--unit8-color); }
+        .unit-card.unit9 .unit-icon svg { fill: var(--unit9-color); }
+        .unit-card.unit10 .unit-icon svg { fill: var(--unit10-color); }
+        .unit-card.unit11 .unit-icon svg { fill: var(--unit11-color); }
         .unit-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: relative; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 1; }
         .unit-icon svg { width: 35px; height: 35px; }
         .unit-content { padding: 0 2rem 2rem; flex-grow: 1; display: flex; flex-direction: column; }
         .unit-card h3 { font-size: 1.5rem; margin-bottom: 1rem; text-align: center; }
+        .unit-card.unit0 h3 { color: var(--unit0-color); }
         .unit-card.unit1 h3 { color: var(--unit1-color); }
         .unit-card.unit2 h3 { color: var(--unit2-color); }
         .unit-card.unit3 h3 { color: var(--unit3-color); }
         .unit-card.unit4 h3 { color: var(--unit4-color); }
         .unit-card.unit5 h3 { color: var(--unit5-color); }
+        .unit-card.unit6 h3 { color: var(--unit6-color); }
+        .unit-card.unit7 h3 { color: var(--unit7-color); }
+        .unit-card.unit8 h3 { color: var(--unit8-color); }
+        .unit-card.unit9 h3 { color: var(--unit9-color); }
+        .unit-card.unit10 h3 { color: var(--unit10-color); }
+        .unit-card.unit11 h3 { color: var(--unit11-color); }
         .unit-card p { margin-bottom: 1.5rem; flex-grow: 1; }
         .unit-link { display: block; background-color: var(--accent-color); color: white; text-align: center; padding: 0.8rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; margin-bottom: 0.75rem; }
+        .unit-card.unit0 .unit-link:hover { background-color: var(--unit0-color); }
         .unit-card.unit1 .unit-link:hover { background-color: var(--unit1-color); }
         .unit-card.unit2 .unit-link:hover { background-color: var(--unit2-color); }
         .unit-card.unit3 .unit-link:hover { background-color: var(--unit3-color); }
         .unit-card.unit4 .unit-link:hover { background-color: var(--unit4-color); }
         .unit-card.unit5 .unit-link:hover { background-color: var(--unit5-color); }
+        .unit-card.unit6 .unit-link:hover { background-color: var(--unit6-color); }
+        .unit-card.unit7 .unit-link:hover { background-color: var(--unit7-color); }
+        .unit-card.unit8 .unit-link:hover { background-color: var(--unit8-color); }
+        .unit-card.unit9 .unit-link:hover { background-color: var(--unit9-color); }
+        .unit-card.unit10 .unit-link:hover { background-color: var(--unit10-color); }
+        .unit-card.unit11 .unit-link:hover { background-color: var(--unit11-color); }
         .bilingual { display: flex; flex-direction: column; gap: 0.5rem; }
         .chinese { font-size: 0.9rem; color: var(--med-text); }
         footer { text-align: center; padding: 2rem; background-color: var(--primary-color); color: var(--light-text); margin-top: 3rem; }
@@ -221,16 +270,16 @@
         <header>
             <div class="header-animation" id="header-animation"></div>
             <div class="header-content">
-                <h1>Australian Legal System</h1>
-                <p>Comprehensive Learning Resource</p>
+                <h1>Business Environments</h1>
+                <p>FS2025 Interactive Learning Resource</p>
             </div>
         </header>
 
         <main>
             <section class="intro-section">
-                <h2>Welcome to the Australian Legal System Course</h2>
-                <p>This comprehensive course covers the Australian legal system, business law, and related legal principles.
-                    Navigate through the five units below to explore different aspects of Australian law. You can also find
+                <h2>Welcome to Business Environments (商业环境)</h2>
+                <p>This comprehensive course covers business environments, the Australian legal system, and related legal principles.
+                    Navigate through the twelve units below (Unit 0 through Unit 11) to explore different aspects of law in business contexts. You can also find
                     helpful tools below.</p>
             </section>
 
@@ -257,6 +306,27 @@
             </section>
 
             <div class="unit-grid">
+                <!-- Unit 0: Introduction to Business Environments -->
+                <div class="unit-card unit0">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-pulse">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V9.3l7-3.11V13z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 0: Introduction to Business Environments</span>
+                            <span class="chinese">单元0：商业环境概论</span>
+                        </h3>
+                        <p>Introduction to the Business Environments course, learning outcomes, assessment structure, and foundational concepts for legal thinking in business contexts.</p>
+                        <a href="unit0.html" class="unit-link">Explore Unit 0</a>
+                    </div>
+                </div>
+
+                <!-- Unit 1: Australian Legal Foundation -->
                 <div class="unit-card unit1">
                     <div class="unit-banner"></div>
                     <div class="unit-icon-container">
@@ -268,8 +338,8 @@
                     </div>
                     <div class="unit-content">
                         <h3 class="bilingual">
-                            <span>Unit 1: Australian Legal System</span>
-                            <span class="chinese">单元1：澳大利亚法律体系</span>
+                            <span>Unit 1: Australian Legal Foundation</span>
+                            <span class="chinese">单元1：澳大利亚法律基础</span>
                         </h3>
                         <p>Explore the fundamental structure of the Australian legal system, including court hierarchy,
                             legal principles, terminology, and practice questions.</p>
@@ -277,6 +347,7 @@
                     </div>
                 </div>
 
+                <!-- Unit 2: Australian Legal System -->
                 <div class="unit-card unit2">
                     <div class="unit-banner"></div>
                     <div class="unit-icon-container">
@@ -289,16 +360,16 @@
                     </div>
                     <div class="unit-content">
                         <h3 class="bilingual">
-                            <span>Unit 2: Business Law</span>
-                            <span class="chinese">单元2：商业法</span>
+                            <span>Unit 2: Australian Legal System</span>
+                            <span class="chinese">单元2：澳大利亚法律体系</span>
                         </h3>
-                        <p>Learn about different business structures in Australia, including sole traders, partnerships, and
-                            companies, along with key legal concepts and case law.</p>
+                        <p>Learn about the Australian legal system structure, sources of law, court systems, and legal processes.</p>
                         <a href="unit2.html" class="unit-link">Explore Unit 2</a>
                         <a href="business-mindmap.html" class="unit-link">Interactive Mind Map</a>
                     </div>
                 </div>
 
+                <!-- Unit 3: Business Structures -->
                 <div class="unit-card unit3">
                     <div class="unit-banner"></div>
                     <div class="unit-icon-container">
@@ -311,17 +382,15 @@
                     </div>
                     <div class="unit-content">
                         <h3 class="bilingual">
-                            <span>Unit 3: Contract Law</span>
-                            <span class="chinese">单元3：合同法</span>
+                            <span>Unit 3: Business Structures</span>
+                            <span class="chinese">单元3：商业结构</span>
                         </h3>
-                        <p class="bilingual">
-                            <span>Understanding Agreements, Terms, and Legal Consequences.</span>
-                            <span class="chinese">理解协议、条款及法律后果。</span>
-                        </p>
+                        <p>Understanding different business structures in Australia, including sole traders, partnerships, companies, and their legal implications.</p>
                         <a href="unit3.html" class="unit-link">Explore Unit 3</a>
                     </div>
                 </div>
 
+                <!-- Unit 4: Contracts Part 1 -->
                 <div class="unit-card unit4">
                     <div class="unit-banner"></div>
                     <div class="unit-icon-container">
@@ -333,37 +402,158 @@
                     </div>
                     <div class="unit-content">
                         <h3 class="bilingual">
-                            <span>Unit 4: Tort of Negligence</span>
-                            <span class="chinese">单元4：侵权法之过失</span>
+                            <span>Unit 4: Contracts Part 1</span>
+                            <span class="chinese">单元4：合同法（一）</span>
                         </h3>
-                        <p>Master the fundamentals of negligence law, including duty of care, breach, causation, and defenses through interactive case studies.</p>
-                        <a href="unit4a.html" class="unit-link">Explore Unit 4</a>
+                        <p>Learn the fundamentals of contract formation: offer and acceptance, intention to create legal relations, consideration, capacity, and legality.</p>
+                        <a href="unit4.html" class="unit-link">Explore Unit 4</a>
                     </div>
                 </div>
 
+                <!-- Unit 5: Contracts Part 2 -->
                 <div class="unit-card unit5">
                     <div class="unit-banner"></div>
                     <div class="unit-icon-container">
                         <div class="unit-icon animate-rotate">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v-2h-2z"/>
+                               <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
                             </svg>
                         </div>
                     </div>
                     <div class="unit-content">
                         <h3 class="bilingual">
-                            <span>Unit 5: Consumer Protection Law</span>
-                            <span class="chinese">单元5：消费者保护法</span>
+                            <span>Unit 5: Contracts Part 2</span>
+                            <span class="chinese">单元5：合同法（二）</span>
                         </h3>
-                        <p>Study Australian consumer law, including misleading conduct and consumer guarantees, through interactive quizzes and games.</p>
+                        <p>Study contract terms, exclusion clauses, vitiating factors, discharge of contracts, and remedies for breach.</p>
                         <a href="unit5.html" class="unit-link">Explore Unit 5</a>
+                    </div>
+                </div>
+
+                <!-- Unit 6: Negligence Part 1 -->
+                <div class="unit-card unit6">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-pulse">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 6: Negligence Part 1</span>
+                            <span class="chinese">单元6：疏忽法（一）</span>
+                        </h3>
+                        <p>Master the fundamentals of negligence law: duty of care, breach of duty, causation, remoteness of damage, and the neighbor principle.</p>
+                        <a href="unit6.html" class="unit-link">Explore Unit 6</a>
+                    </div>
+                </div>
+
+                <!-- Unit 7: Negligence Part 2 & Misstatement -->
+                <div class="unit-card unit7">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-float">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 7: Negligence Part 2 &amp; Misstatement</span>
+                            <span class="chinese">单元7：疏忽法（二）与疏忽误述</span>
+                        </h3>
+                        <p>Explore professional negligence, negligent misstatement, Hedley Byrne v Heller, pure economic loss, and defenses to negligence.</p>
+                        <a href="unit7.html" class="unit-link">Explore Unit 7</a>
+                    </div>
+                </div>
+
+                <!-- Unit 8: Consumer Protection -->
+                <div class="unit-card unit8">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-bounce">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 8: Consumer Protection</span>
+                            <span class="chinese">单元8：消费者保护</span>
+                        </h3>
+                        <p>Study Australian Consumer Law (ACL), misleading and deceptive conduct, consumer guarantees, unfair contract terms, and remedies.</p>
+                        <a href="unit8.html" class="unit-link">Explore Unit 8</a>
+                    </div>
+                </div>
+
+                <!-- Unit 9: Sustainability Part 1 -->
+                <div class="unit-card unit9">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-pulse">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.66c.48.17.98.26 1.34.26C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 9: Sustainability Part 1</span>
+                            <span class="chinese">单元9：可持续发展（一）</span>
+                        </h3>
+                        <p>Introduction to sustainability in business, ESG (Environmental, Social, Governance), corporate social responsibility, and stakeholder theory.</p>
+                        <a href="unit9.html" class="unit-link">Explore Unit 9</a>
+                    </div>
+                </div>
+
+                <!-- Unit 10: Sustainability Part 2 -->
+                <div class="unit-card unit10">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-float">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zm0 18c-3.35 0-6-2.57-6-6.2 0-2.34 1.95-5.44 6-9.14 4.05 3.7 6 6.79 6 9.14 0 3.63-2.65 6.2-6 6.2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 10: Sustainability Part 2</span>
+                            <span class="chinese">单元10：可持续发展（二）</span>
+                        </h3>
+                        <p>Environmental law and regulation, climate change legislation, carbon pricing, and corporate environmental responsibility.</p>
+                        <a href="unit10.html" class="unit-link">Explore Unit 10</a>
+                    </div>
+                </div>
+
+                <!-- Unit 11: Sustainability Part 3 -->
+                <div class="unit-card unit11">
+                    <div class="unit-banner"></div>
+                    <div class="unit-icon-container">
+                        <div class="unit-icon animate-rotate">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V7.3l7-3.11v8.8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="unit-content">
+                        <h3 class="bilingual">
+                            <span>Unit 11: Sustainability Part 3</span>
+                            <span class="chinese">单元11：可持续发展（三）</span>
+                        </h3>
+                        <p>Social sustainability, governance frameworks, sustainable business practices, and future trends in business environments.</p>
+                        <a href="unit11.html" class="unit-link">Explore Unit 11</a>
                     </div>
                 </div>
             </div>
         </main>
     
         <footer>
-            <p>Australian Legal System Learning Resource - UNSW Preparation Program - Coroiu Marius</p>
+            <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
             <p>© 2025 All Rights Reserved</p>
         </footer>
     </div>

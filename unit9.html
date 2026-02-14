@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 9: Sustainability Part 1 - Business Environments</title>
+    <style>
+        :root {
+            --primary-color: #33691e;
+            --secondary-color: #558b2f;
+            --accent-color: #689f38;
+            --light-accent: #f1f8e9;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --light-text: #f8fafc;
+            --med-text: #64748b;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Back to Main Button */
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .back-to-main:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .back-to-main {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-to-main svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+    
+    <header>
+        <div class="header-animation" id="header-animation"></div>
+        <div class="header-content">
+            <h1>Unit 9: Sustainability Part 1</h1>
+            <p>Business Environments - FS2025</p>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content-card">
+            <h2>Unit 9: Sustainability Part 1 
+                <span style="display: block; font-size: 0.8em; color: #666; margin-top: 0.5rem;">单元9：可持续发展（一）</span>
+            </h2>
+            
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-left: 4px solid #33691e; border-radius: 4px;">
+                <h3 style="color: #33691e; margin-bottom: 1rem;">Welcome to Unit 9 欢迎来到第九单元</h3>
+                <p style="margin-bottom: 0.5rem;">This unit introduces sustainability concepts in business, focusing on ESG principles and corporate social responsibility.</p>
+                <p style="color: #666; font-size: 0.95em;">本单元介绍商业中的可持续发展概念，重点关注ESG原则和企业社会责任。</p>
+            </div>
+
+            <h3 style="color: #33691e; margin-top: 2rem;">Topics Covered 涵盖主题</h3>
+            
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">1. Introduction to Sustainability in Business 商业中的可持续发展概论</h4>
+                <p>Sustainability means meeting present needs without compromising future generations' ability to meet their needs.</p>
+                <p style="color: #666; font-size: 0.95em;">可持续发展意味着满足当前需求的同时不损害未来世代满足其需求的能力。</p>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">2. ESG (Environmental, Social, Governance) ESG（环境、社会、治理）</h4>
+                <p><strong>Environmental 环境:</strong> Climate change, pollution, resource use, biodiversity 气候变化、污染、资源使用、生物多样性</p>
+                <p><strong>Social 社会:</strong> Human rights, labor practices, community relations, diversity 人权、劳工实践、社区关系、多样性</p>
+                <p><strong>Governance 治理:</strong> Board composition, ethics, transparency, accountability 董事会组成、道德、透明度、问责制</p>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">3. Corporate Social Responsibility (CSR) 企业社会责任</h4>
+                <p>A business model where companies integrate social and environmental concerns into their operations and stakeholder interactions.</p>
+                <p style="color: #666; font-size: 0.95em;">一种商业模式，公司将社会和环境关切融入其运营和利益相关者互动中。</p>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">4. Stakeholder Theory 利益相关者理论</h4>
+                <p>Businesses should consider all stakeholders (employees, customers, suppliers, communities), not just shareholders.</p>
+                <p style="color: #666; font-size: 0.95em;">企业应考虑所有利益相关者（员工、客户、供应商、社区），而不仅仅是股东。</p>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">5. Triple Bottom Line 三重底线</h4>
+                <p>Measuring success beyond profit:</p>
+                <p style="color: #666; font-size: 0.95em;">衡量利润之外的成功：</p>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>People 人:</strong> Social impact 社会影响</li>
+                    <li><strong>Planet 地球:</strong> Environmental impact 环境影响</li>
+                    <li><strong>Profit 利润:</strong> Economic performance 经济表现</li>
+                </ul>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">6. Sustainable Development Goals (SDGs) 可持续发展目标</h4>
+                <p>The United Nations' 17 global goals for sustainable development by 2030, addressing poverty, inequality, climate change, and more.</p>
+                <p style="color: #666; font-size: 0.95em;">联合国到2030年实现可持续发展的17个全球目标，涉及贫困、不平等、气候变化等。</p>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <h4 style="color: #333; margin-bottom: 0.5rem;">7. Business Ethics and Sustainability 商业道德与可持续发展</h4>
+                <p>The moral principles guiding business decisions toward sustainable practices.</p>
+                <p style="color: #666; font-size: 0.95em;">指导商业决策走向可持续实践的道德原则。</p>
+            </div>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-left: 4px solid #33691e; border-radius: 4px;">
+                <h4 style="color: #33691e; margin-bottom: 0.5rem;">Key Learning Outcomes 主要学习成果</h4>
+                <p style="margin-bottom: 0.5rem;">By the end of this unit, you should be able to:</p>
+                <p style="color: #666; font-size: 0.95em; margin-bottom: 1rem;">在本单元结束时，您应该能够：</p>
+                <ul style="margin-left: 2rem;">
+                    <li>Define sustainability and its importance in business 定义可持续发展及其在商业中的重要性</li>
+                    <li>Explain ESG principles and their application 解释ESG原则及其应用</li>
+                    <li>Understand corporate social responsibility 理解企业社会责任</li>
+                    <li>Apply stakeholder theory to business decisions 将利益相关者理论应用于商业决策</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
+        <p>© 2025 All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
+                }
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
+        }
+        
+        // Animation keyframes
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes float {
+                    0% { transform: translateY(0px); }
+                    50% { transform: translateY(-10px); }
+                    100% { transform: translateY(0px); }
+                }
+            </style>
+        `);
+        
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+            initializeInteractiveFeatures();
+        });
+        
+        // Interactive Features
+        function initializeInteractiveFeatures() {
+            // Add collapsible functionality to sections
+            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
+            contentDivs.forEach((div, index) => {
+                if (div.querySelector('h4')) {
+                    makeCollapsible(div, index);
+                }
+            });
+            
+            // Add progress tracking
+            addProgressTracker();
+            
+            // Add interactive hover effects
+            addHoverEffects();
+        }
+        
+        function makeCollapsible(element, index) {
+            const header = element.querySelector('h4');
+            if (!header) return;
+            
+            // Wrap content in collapsible container
+            const content = Array.from(element.children).slice(1);
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'collapsible-content';
+            contentWrapper.style.maxHeight = '2000px';
+            contentWrapper.style.overflow = 'hidden';
+            contentWrapper.style.transition = 'max-height 0.4s ease';
+            
+            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
+            content.forEach(child => child.remove());
+            element.appendChild(contentWrapper);
+            
+            // Make header clickable
+            header.style.cursor = 'pointer';
+            header.style.userSelect = 'none';
+            header.style.position = 'relative';
+            header.style.paddingRight = '30px';
+            header.style.transition = 'all 0.3s';
+            
+            // Add toggle icon
+            const icon = document.createElement('span');
+            icon.innerHTML = '▼';
+            icon.style.position = 'absolute';
+            icon.style.right = '0';
+            icon.style.top = '50%';
+            icon.style.transform = 'translateY(-50%)';
+            icon.style.transition = 'transform 0.3s';
+            icon.style.fontSize = '0.8em';
+            header.appendChild(icon);
+            
+            // Add click handler
+            header.addEventListener('click', function() {
+                const isCollapsed = contentWrapper.style.maxHeight === '0px';
+                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
+                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
+                header.style.color = isCollapsed ? '#33691e' : '#666';
+            });
+            
+            // Add hover effect
+            header.addEventListener('mouseenter', function() {
+                header.style.color = '#33691e';
+                header.style.transform = 'translateX(5px)';
+            });
+            
+            header.addEventListener('mouseleave', function() {
+                if (contentWrapper.style.maxHeight !== '0px') {
+                    header.style.color = '#333';
+                }
+                header.style.transform = 'translateX(0)';
+            });
+        }
+        
+        function addProgressTracker() {
+            // Create progress indicator
+            const progressBar = document.createElement('div');
+            progressBar.id = 'reading-progress';
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(90deg, #33691e, #689f38);
+                z-index: 9999;
+                transition: width 0.2s ease;
+            `;
+            document.body.appendChild(progressBar);
+            
+            // Update progress on scroll
+            window.addEventListener('scroll', function() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 100;
+                progressBar.style.width = progress + '%';
+            });
+            
+            // Add "Back to Top" button
+            const backToTop = document.createElement('button');
+            backToTop.innerHTML = '↑';
+            backToTop.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #33691e, #558b2f);
+                color: white;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(51, 105, 30, 0.3);
+            `;
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            document.body.appendChild(backToTop);
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.style.opacity = '1';
+                    backToTop.style.transform = 'scale(1)';
+                } else {
+                    backToTop.style.opacity = '0';
+                    backToTop.style.transform = 'scale(0.8)';
+                }
+            });
+            
+            backToTop.addEventListener('mouseenter', function() {
+                backToTop.style.transform = 'scale(1.1)';
+            });
+            
+            backToTop.addEventListener('mouseleave', function() {
+                backToTop.style.transform = 'scale(1)';
+            });
+        }
+        
+        function addHoverEffects() {
+            // Add subtle animation to list items
+            const listItems = document.querySelectorAll('ul li, ol li');
+            listItems.forEach(item => {
+                item.style.transition = 'all 0.2s';
+                item.style.paddingLeft = '0';
+                
+                item.addEventListener('mouseenter', function() {
+                    item.style.paddingLeft = '10px';
+                    item.style.color = '#33691e';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    item.style.paddingLeft = '0';
+                    item.style.color = '';
+                });
+            });
+            
+            // Add interactive highlights to key terms
+            const contentCard = document.querySelector('.content-card');
+            if (contentCard) {
+                const strongElements = contentCard.querySelectorAll('strong');
+                strongElements.forEach(strong => {
+                    strong.style.cursor = 'help';
+                    strong.style.transition = 'all 0.2s';
+                    strong.style.position = 'relative';
+                    
+                    strong.addEventListener('mouseenter', function() {
+                        strong.style.color = '#33691e';
+                        strong.style.textShadow = '0 0 10px rgba(51, 105, 30, 0.3)';
+                    });
+                    
+                    strong.addEventListener('mouseleave', function() {
+                        strong.style.color = '';
+                        strong.style.textShadow = '';
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>
