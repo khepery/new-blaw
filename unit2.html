@@ -8,8 +8,8 @@
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #34495e;
-            --accent-color: #f1c40f;
-            --light-accent: #f9f2cc;
+            --accent-color: #3498db;
+            --light-accent: #d6eaf8;
             --light-bg: #f8f9fa;
             --dark-text: #2c3e50;
             --light-text: #ecf0f1;
@@ -294,6 +294,46 @@
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="%232c3e50"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v4h-4v2h4v4h2v-4h4v-2h-4V8z"/></svg>');
         }
         
+        .highlight-box {
+            background: #d6eaf8;
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .key-terms-box {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .case-study-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .common-mistakes-box {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
         .info-card {
             background-color: white;
             border-radius: 10px;
@@ -374,31 +414,186 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: transparent;
+            border: none;
+            font-size: 40px;
             cursor: pointer;
-            box-shadow: var(--box-shadow);
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(20px);
-            text-decoration: none;
-            z-index: 100;
+            z-index: 1000;
+            display: none;
+            transition: transform 0.3s;
         }
         
         .back-to-top.visible {
-            opacity: 1;
-            transform: translateY(0);
+            display: block;
         }
         
-        .back-to-top svg {
-            width: 24px;
-            height: 24px;
+        .back-to-top:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .back-to-top.soaring {
+            animation: soar 1s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        @keyframes soar {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+            100% { transform: translateY(-2000px) scale(0.5); opacity: 0; }
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 24px;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .gavel-icon {
+            display: inline-block;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .gavel-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .gavel-icon.banging {
+            animation: bang 0.5s ease-in-out;
+        }
+        
+        @keyframes bang {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(-15deg) translateY(-5px); }
+            50% { transform: rotate(0deg) translateY(0); }
+            75% { transform: rotate(15deg) translateY(-5px); }
+        }
+        
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode header {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        
+        body.dark-mode .section {
+            background-color: #16213e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .section h2 {
+            color: #5dade2;
+        }
+        
+        body.dark-mode .section h3 {
+            color: #85c1e9;
+        }
+        
+        body.dark-mode .section h4 {
+            color: #aed6f1;
+        }
+        
+        body.dark-mode nav {
+            background-color: #16213e;
+        }
+        
+        body.dark-mode .nav-button {
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+        
+        body.dark-mode .nav-button:hover,
+        body.dark-mode .nav-button.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        body.dark-mode .example-box {
+            background: #0d47a1;
+            color: white;
+            border-left-color: #3498db;
+        }
+        
+        body.dark-mode .highlight-box {
+            background: #263238;
+            border-left-color: #5dade2;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .warning-box {
+            background: #e65100;
+            color: white;
+        }
+        
+        body.dark-mode .key-terms-box {
+            background: #1b5e20;
+            color: white;
+        }
+        
+        body.dark-mode .case-study-box {
+            background: #4a148c;
+            color: white;
+        }
+        
+        body.dark-mode .common-mistakes-box {
+            background: #b71c1c;
+            color: white;
+        }
+        
+        body.dark-mode .info-card {
+            background-color: #263238;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .comparison-table {
+            background-color: #16213e;
+        }
+        
+        body.dark-mode .comparison-table th {
+            background-color: #34495e;
+            color: white;
+        }
+        
+        body.dark-mode .comparison-table td {
+            background-color: #263238;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode footer {
+            background-color: #16213e;
+        }
+        
+        body.dark-mode .structure-node {
+            background-color: #263238;
+            color: #e0e0e0;
         }
         
         footer {
@@ -1257,11 +1452,13 @@
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
     </a>
+    
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode 切换夜间模式">🌙</button>
 
     <header>
         <div class="header-animation" id="header-animation"></div>
         <div class="header-content">
-            <h1>Unit 2: Australian Legal System</h1>
+            <h1>Unit 2: Australian Legal System <span class="gavel-icon" id="gavelIcon" title="Click the gavel! 点击法槌！">⚖️</span></h1>
             <p>Business Environments - FS2025</p>
         </div>
     </header>
@@ -2098,11 +2295,7 @@
         </section>
     </main>
 
-    <a href="#" class="back-to-top" id="back-to-top">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
-            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-        </svg>
-    </a>
+    <button class="back-to-top" id="backToTop" title="🦅 Let me soar you back up! 让我带你回到顶部！">🦅</button>
 
     <footer>
         <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
@@ -2183,7 +2376,7 @@
         // Handle scroll animations
         function setupScrollAnimations() {
             const sections = document.querySelectorAll('.section');
-            const backToTop = document.getElementById('back-to-top');
+            const backToTop = document.getElementById('backToTop');
             
             // Function to check if element is in viewport
             function isInViewport(element) {
@@ -2243,10 +2436,20 @@
             // Back to top button click handler
             backToTop.addEventListener('click', function(e) {
                 e.preventDefault();
+                
+                // Add soaring animation
+                backToTop.classList.add('soaring');
+                
+                // Scroll to top
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
+                
+                // Reset animation after it completes
+                setTimeout(() => {
+                    backToTop.classList.remove('soaring');
+                }, 1000);
             });
         }
         
@@ -2585,6 +2788,52 @@
             // Make all sections visible initially
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.add('visible');
+            });
+            
+            // Dark mode toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+                darkModeToggle.textContent = '☀️';
+            }
+            
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    darkModeToggle.textContent = '☀️';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    darkModeToggle.textContent = '🌙';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            
+            // Gavel easter egg
+            const gavelIcon = document.getElementById('gavelIcon');
+            let bangCount = 0;
+            
+            gavelIcon.addEventListener('click', () => {
+                gavelIcon.classList.add('banging');
+                bangCount++;
+                
+                // Remove animation class after it completes
+                setTimeout(() => {
+                    gavelIcon.classList.remove('banging');
+                }, 500);
+                
+                // Easter egg: after 3 bangs, show a message
+                if (bangCount === 3) {
+                    const originalText = gavelIcon.title;
+                    gavelIcon.title = '⚖️ Order in the court! 法庭秩序！';
+                    setTimeout(() => {
+                        gavelIcon.title = originalText;
+                        bangCount = 0;
+                    }, 3000);
+                }
             });
         });
     </script>
