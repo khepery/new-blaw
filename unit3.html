@@ -675,28 +675,62 @@
         .back-to-main svg { width: 24px; height: 24px; fill: white; }
 
         #scrollToTopBtn {
-            display: none; 
+            display: none;
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 100;
+            background-color: transparent;
             border: none;
-            outline: none;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+        
+        #scrollToTopBtn:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        #scrollToTopBtn.lifting {
+            animation: lift 1s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        @keyframes lift {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+            100% { transform: translateY(-2000px) scale(0.5); opacity: 0; }
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
             background-color: var(--primary-color);
             color: white;
-            cursor: pointer;
-            padding: 0;
+            border: none;
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 24px;
         }
-        #scrollToTopBtn:hover {
+        
+        .dark-mode-toggle:hover {
             background-color: var(--secondary-color);
             transform: scale(1.1);
         }
-        #scrollToTopBtn svg { width: 24px; height: 24px; vertical-align: middle; }
         
         footer {
             text-align: center;
@@ -704,7 +738,174 @@
             background-color: var(--primary-color);
             color: var(--light-text);
             margin-top: 3rem;
-        }        .modal {
+        }
+        
+        /* Memory Science Boxes - 5 color-coded types */
+        .highlight-box {
+            background: var(--light-accent);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .example-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .key-terms-box {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .case-study-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .section,
+        body.dark-mode .content-card {
+            background-color: #16213e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode header {
+            background: linear-gradient(135deg, #0d3818, #1b5e20);
+        }
+        
+        body.dark-mode .section h2,
+        body.dark-mode .section-title h2 {
+            color: #81c784;
+        }
+        
+        body.dark-mode .section h3,
+        body.dark-mode .content-card h3 {
+            color: #a5d6a7;
+        }
+        
+        body.dark-mode .section h4,
+        body.dark-mode .content-card h4 {
+            color: #c8e6c9;
+        }
+        
+        body.dark-mode .highlight-box {
+            background: #263238;
+            border-left-color: #81c784;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .warning-box {
+            background: #e65100;
+            color: white;
+        }
+        
+        body.dark-mode .example-box {
+            background: #0d47a1;
+            color: white;
+        }
+        
+        body.dark-mode .key-terms-box {
+            background: #1b5e20;
+            color: white;
+        }
+        
+        body.dark-mode .case-study-box {
+            background: #4a148c;
+            color: white;
+        }
+        
+        body.dark-mode .chinese,
+        body.dark-mode .chinese-text {
+            color: #b0bec5;
+        }
+        
+        body.dark-mode footer {
+            background-color: #0d3818;
+        }
+        
+        body.dark-mode .nav-button {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        body.dark-mode .nav-button:hover {
+            background-color: #1b5e20;
+        }
+        
+        /* Flipping Cards */
+        .content-card {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .content-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .card-back h3 {
+            color: white !important;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .card-back p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }.modal {
             display: none; 
             position: fixed; 
             z-index: 2000; 
@@ -1624,44 +1825,13 @@
     </div>
 </div>
 
-<style>
-    #scrollToTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            border: none;
-            outline: none;
-            background-color: var(--accent-color);
-            color: white;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        #scrollToTopBtn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-
-        #scrollToTopBtn svg {
-            width: 24px;
-            height: 24px;
-        }
-</style>    <button id="scrollToTopBtn" title="Go to top / 回到顶部">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06l-6.22-6.22V21a.75.75 0 01-1.5 0V4.81l-6.22 6.22a.75.75 0 11-1.06-1.06l7.5-7.5z" clip-rule="evenodd" />
-            </svg>
-    </button>        <script>
+    
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode 切换夜间模式">🌙</button>
+    
+    <button id="scrollToTopBtn" title="🏗️ Let me lift you back up! 让我带你回到顶部！">🏗️</button>
+    
+    <script>
 document.addEventListener('DOMContentLoaded', function () {
     /* Setup Fun Facts feature */
     const funFacts = [
@@ -1853,24 +2023,86 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* Scroll to top functionality */
+    /* Dark mode toggle */
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeToggle.textContent = '☀️';
+    }
+    
+    darkModeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            darkModeToggle.textContent = '☀️';
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            darkModeToggle.textContent = '🌙';
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
+
+    /* Scroll to top functionality with crane lift animation */
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     if (scrollToTopBtn) {
         window.addEventListener('scroll', function() {
-            if (document.documentElement.scrollTop > 500) {
-                scrollToTopBtn.style.display = 'flex';
+            if (document.documentElement.scrollTop > 300) {
+                scrollToTopBtn.style.display = 'block';
             } else {
                 scrollToTopBtn.style.display = 'none';
             }
         });
 
         scrollToTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            this.classList.add('lifting');
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+            
+            setTimeout(() => {
+                this.classList.remove('lifting');
+            }, 1000);
         });
     }
+    
+    /* Flipping cards easter egg */
+    const contentCards = document.querySelectorAll('.content-card');
+    const funFacts = [
+        { en: "Did you know? Offer and acceptance are the foundation of all contracts!", cn: "你知道吗？要约和承诺是所有合同的基础！" },
+        { en: "Fun fact: A handshake deal can be legally binding!", cn: "有趣的事实：握手协议可以具有法律约束力！" },
+        { en: "Easter egg! Consideration doesn't have to be money - it can be any value!", cn: "彩蛋！对价不一定是金钱 - 可以是任何有价值的东西！" },
+        { en: "Secret: The 'mirror image rule' means acceptance must match the offer exactly!", cn: "秘密："镜像规则"意味着承诺必须与要约完全一致！" },
+        { en: "Did you know? Social agreements usually lack intention to create legal relations!", cn: "你知道吗？社交协议通常缺乏建立法律关系的意图！" },
+        { en: "Fun fact: Past consideration is generally not valid consideration!", cn: "有趣的事实：过去的对价通常不是有效的对价！" },
+        { en: "Easter egg! Silence is generally not acceptance!", cn: "彩蛋！沉默通常不是承诺！" },
+        { en: "Secret: An invitation to treat is not an offer!", cn: "秘密：要约邀请不是要约！" }
+    ];
+    
+    contentCards.forEach((card, index) => {
+        const existingContent = card.innerHTML;
+        const funFact = funFacts[index % funFacts.length];
+        
+        card.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">
+                    ${existingContent}
+                </div>
+                <div class="card-back">
+                    <h3>🎉 Fun Fact! 有趣的事实！</h3>
+                    <p>${funFact.en}</p>
+                    <p style="margin-top: 1rem; opacity: 0.9;">${funFact.cn}</p>
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">Click again to return / 再次点击返回</p>
+                </div>
+            </div>
+        `;
+        
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    });
 
     /* Setup Modal close functionality */
     const modal = document.getElementById('funFactModal');

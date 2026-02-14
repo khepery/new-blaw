@@ -7,8 +7,8 @@
     <style>
         :root {
             --primary-color: #37474f;
-            --secondary-color: #455a64;
-            --accent-color: #546e7a;
+            --secondary-color: #546e7a;
+            --accent-color: #78909c;
             --light-accent: #eceff1;
             --light-bg: #f8fafc;
             --dark-text: #1e293b;
@@ -113,6 +113,191 @@
             fill: white;
         }
         
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 24px;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .content-card {
+            background-color: #16213e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: #90a4ae !important;
+        }
+        
+        body.dark-mode .highlight-box {
+            background: #263238;
+            border-left-color: #78909c;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .warning-box {
+            background: #bf360c;
+            color: white;
+        }
+        
+        body.dark-mode .example-box {
+            background: #0d47a1;
+            color: white;
+        }
+        
+        body.dark-mode .key-terms-box {
+            background: #1b5e20;
+            color: white;
+        }
+        
+        body.dark-mode .case-study-box {
+            background: #4a148c;
+            color: white;
+        }
+        
+        body.dark-mode .common-mistakes-box {
+            background: #b71c1c;
+            color: white;
+        }
+        
+        /* Memory Science Boxes */
+        .highlight-box {
+            background: var(--light-accent);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .example-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .key-terms-box {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .case-study-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .common-mistakes-box {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        /* Earth Scroll Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: transparent;
+            border: none;
+            font-size: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .back-to-top:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .back-to-top.spinning {
+            animation: spinUp 1.5s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+            75% { transform: rotate(-10deg); }
+        }
+        
+        @keyframes spinUp {
+            0% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-100px) rotate(720deg) scale(1.3);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-2000px) rotate(1440deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+        
+        /* Rotating Earth in Header */
+        .rotating-earth {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            font-size: 80px;
+            opacity: 0.3;
+            animation: earthRotate 20s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes earthRotate {
+            from { transform: translateY(-50%) rotate(0deg); }
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+        
         footer {
             text-align: center;
             padding: 2rem;
@@ -151,8 +336,13 @@
         </svg>
     </a>
     
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode 切换夜间模式">🌙</button>
+    
+    <button class="back-to-top" id="backToTop" title="🌍 Let me spin you back up! 让我带你回到顶部！">🌍</button>
+    
     <header>
         <div class="header-animation" id="header-animation"></div>
+        <div class="rotating-earth">🌍</div>
         <div class="header-content">
             <h1>Unit 11: Sustainability Part 3</h1>
             <p>Business Environments - FS2025</p>
@@ -265,6 +455,52 @@
     </footer>
     
     <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Earth Scroll Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            // Add spinning animation
+            backToTop.classList.add('spinning');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Reset animation after it completes
+            setTimeout(() => {
+                backToTop.classList.remove('spinning');
+            }, 1500);
+        });
+        
         // Add dynamic shapes to header background
         function setupHeaderAnimation() {
             const headerBg = document.getElementById('header-animation');
@@ -391,7 +627,7 @@
                 left: 0;
                 width: 0%;
                 height: 4px;
-                background: linear-gradient(90deg, #37474f, #546e7a);
+                background: linear-gradient(90deg, #37474f, #78909c);
                 z-index: 9999;
                 transition: width 0.2s ease;
             `;
@@ -403,48 +639,6 @@
                 const scrolled = window.scrollY;
                 const progress = (scrolled / documentHeight) * 100;
                 progressBar.style.width = progress + '%';
-            });
-            
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #37474f, #546e7a);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(55, 71, 79, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
             });
         }
         

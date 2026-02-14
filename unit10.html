@@ -113,12 +113,234 @@
             fill: white;
         }
         
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 24px;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        /* Wave Back to Top Button */
+        .wave-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: transparent;
+            border: none;
+            font-size: 48px;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            filter: drop-shadow(0 4px 8px rgba(69, 39, 160, 0.4));
+        }
+        
+        .wave-to-top.visible {
+            opacity: 1;
+        }
+        
+        .wave-to-top:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .wave-to-top.surfing {
+            animation: surf-up 1.2s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+        }
+        
+        @keyframes surf-up {
+            0% { transform: translateY(0) scale(1) rotate(0deg); }
+            30% { transform: translateY(-100px) scale(1.3) rotate(360deg); }
+            60% { transform: translateY(-500px) scale(1.5) rotate(720deg); }
+            100% { transform: translateY(-2000px) scale(0.3) rotate(1080deg); opacity: 0; }
+        }
+        
+        /* Tooltip */
+        .wave-to-top::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            right: 0;
+            background: rgba(69, 39, 160, 0.95);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .wave-to-top:hover::after {
+            opacity: 1;
+        }
+        
+        /* Ocean Waves */
+        .ocean-waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 10;
+            pointer-events: none;
+            transition: height 0.5s ease, opacity 0.5s ease;
+        }
+        
+        .ocean-waves.calm {
+            height: 40px;
+            opacity: 0.6;
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 200%;
+            height: 100%;
+            transform: translateX(-50%);
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,60 Q150,0 300,60 T600,60 T900,60 T1200,60 L1200,120 L0,120 Z' fill='%234527a0' opacity='0.3'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            animation: wave-animation 8s linear infinite;
+        }
+        
+        .wave:nth-child(2) {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,80 Q150,40 300,80 T600,80 T900,80 T1200,80 L1200,120 L0,120 Z' fill='%235e35b1' opacity='0.2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            animation: wave-animation 10s linear infinite reverse;
+        }
+        
+        .wave:nth-child(3) {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,70 Q150,30 300,70 T600,70 T900,70 T1200,70 L1200,120 L0,120 Z' fill='%237e57c2' opacity='0.15'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            animation: wave-animation 12s linear infinite;
+        }
+        
+        @keyframes wave-animation {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1200px; }
+        }
+        
+        /* Memory Science Boxes */
+        .highlight-box {
+            background: var(--light-accent);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .example-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .key-terms-box {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .case-study-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .content-card {
+            background-color: #16213e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #9c7cd6 !important;
+        }
+        
+        body.dark-mode .highlight-box {
+            background: #263238;
+            border-left-color: #9c7cd6;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .warning-box {
+            background: #e65100;
+            color: white;
+        }
+        
+        body.dark-mode .example-box {
+            background: #0d47a1;
+            color: white;
+        }
+        
+        body.dark-mode .key-terms-box {
+            background: #1b5e20;
+            color: white;
+        }
+        
+        body.dark-mode .case-study-box {
+            background: #4a148c;
+            color: white;
+        }
+        
         footer {
             text-align: center;
             padding: 2rem;
             background-color: var(--primary-color);
             color: var(--light-text);
             margin-top: 3rem;
+        }
+        
+        body.dark-mode footer {
+            background-color: #16213e;
+            border-top: 2px solid #9c7cd6;
         }
         
         @media (max-width: 768px) {
@@ -141,6 +363,28 @@
                 width: 20px;
                 height: 20px;
             }
+            
+            .dark-mode-toggle {
+                top: 10px;
+                right: 70px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .wave-to-top {
+                font-size: 36px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .ocean-waves {
+                height: 50px;
+            }
+            
+            .ocean-waves.calm {
+                height: 25px;
+            }
         }
     </style>
 </head>
@@ -150,6 +394,16 @@
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
     </a>
+    
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode 切换夜间模式">🌙</button>
+    
+    <button class="wave-to-top" id="waveToTop" data-tooltip="🌊 Let me wave you back up! 让我带你回到顶部！">🌊</button>
+    
+    <div class="ocean-waves" id="oceanWaves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
     
     <header>
         <div class="header-animation" id="header-animation"></div>
@@ -255,6 +509,69 @@
     </footer>
     
     <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Wave Back to Top Button
+        const waveBtn = document.getElementById('waveToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                waveBtn.classList.add('visible');
+            } else {
+                waveBtn.classList.remove('visible');
+            }
+        });
+        
+        waveBtn.addEventListener('click', function() {
+            waveBtn.classList.add('surfing');
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+            
+            setTimeout(() => {
+                waveBtn.classList.remove('surfing');
+            }, 1200);
+        });
+        
+        // Ocean Waves Easter Egg - gets calmer as user scrolls/reads
+        const oceanWaves = document.getElementById('oceanWaves');
+        let lastScrollTime = Date.now();
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', function() {
+            lastScrollTime = Date.now();
+            oceanWaves.classList.remove('calm');
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const timeSinceScroll = Date.now() - lastScrollTime;
+                if (timeSinceScroll >= 3000) {
+                    oceanWaves.classList.add('calm');
+                }
+            }, 3000);
+        });
+        
         // Add dynamic shapes to header background
         function setupHeaderAnimation() {
             const headerBg = document.getElementById('header-animation');
@@ -393,48 +710,6 @@
                 const scrolled = window.scrollY;
                 const progress = (scrolled / documentHeight) * 100;
                 progressBar.style.width = progress + '%';
-            });
-            
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #4527a0, #7e57c2);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(69, 39, 160, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
             });
         }
         

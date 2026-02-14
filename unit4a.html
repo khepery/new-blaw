@@ -8,6 +8,237 @@
     <link rel="stylesheet" href="app_styles.css">
     <!-- Tailwind CSS CDN (v3) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Unit 4 Color Override */
+        :root {
+            --primary-color: #b71c1c !important;
+            --secondary-color: #c62828 !important;
+            --accent-color: #ef5350 !important;
+        }
+        
+        /* Memory Science Boxes */
+        .highlight-box {
+            background: #ffebee;
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .example-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .key-terms-box {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .case-study-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .common-mistakes-box {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        /* Dark Mode for Memory Science Boxes */
+        body.dark-mode .highlight-box {
+            background: #4a1a1a;
+            border-left-color: #ef5350;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .warning-box {
+            background: #e65100;
+            color: white;
+        }
+        
+        body.dark-mode .example-box {
+            background: #0d47a1;
+            color: white;
+        }
+        
+        body.dark-mode .key-terms-box {
+            background: #1b5e20;
+            color: white;
+        }
+        
+        body.dark-mode .case-study-box {
+            background: #4a148c;
+            color: white;
+        }
+        
+        body.dark-mode .common-mistakes-box {
+            background: #b71c1c;
+            color: white;
+        }
+        
+        /* Dark Mode General Styles */
+        body.dark-mode {
+            background-color: #1a1a2e !important;
+            color: #e0e0e0 !important;
+        }
+        
+        body.dark-mode .content-section,
+        body.dark-mode .bg-white {
+            background-color: #16213e !important;
+            color: #e0e0e0 !important;
+        }
+        
+        body.dark-mode h2,
+        body.dark-mode .text-\[var\(--primary-color\)\] {
+            color: #ef5350 !important;
+        }
+        
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: #f48fb1 !important;
+        }
+        
+        body.dark-mode .bg-sky-50,
+        body.dark-mode .bg-blue-50,
+        body.dark-mode .bg-green-50,
+        body.dark-mode .bg-yellow-50,
+        body.dark-mode .bg-red-50,
+        body.dark-mode .bg-gray-50,
+        body.dark-mode .bg-amber-50,
+        body.dark-mode .bg-emerald-50 {
+            background-color: #263238 !important;
+        }
+        
+        body.dark-mode .topic-card {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        
+        body.dark-mode .accordion-content {
+            background-color: #1e293b !important;
+        }
+        
+        /* Pen Scroll Button */
+        .pen-scroll-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            transition: transform 0.3s;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+        
+        .pen-scroll-button:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .pen-scroll-button.writing {
+            animation: writeUp 1.2s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+        }
+        
+        @keyframes writeUp {
+            0% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 1;
+            }
+            20% {
+                transform: translateY(-100px) rotate(-45deg);
+            }
+            40% {
+                transform: translateY(-200px) rotate(45deg);
+            }
+            60% {
+                transform: translateY(-400px) rotate(-30deg);
+            }
+            80% {
+                transform: translateY(-600px) rotate(20deg);
+            }
+            100% { 
+                transform: translateY(-2000px) rotate(0deg) scale(0.3); 
+                opacity: 0;
+            }
+        }
+        
+        /* Handshake Easter Egg */
+        .handshake-container {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .handshake-container.shake .hand-left {
+            animation: shakeLeft 0.8s ease-in-out;
+        }
+        
+        .handshake-container.shake .hand-right {
+            animation: shakeRight 0.8s ease-in-out;
+        }
+        
+        @keyframes shakeLeft {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-8px) rotate(-10deg); }
+            50% { transform: translateX(8px) rotate(10deg); }
+            75% { transform: translateX(-5px) rotate(-5deg); }
+        }
+        
+        @keyframes shakeRight {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(8px) rotate(10deg); }
+            50% { transform: translateX(-8px) rotate(-10deg); }
+            75% { transform: translateX(5px) rotate(5deg); }
+        }
+        
+        .hand-left, .hand-right {
+            font-size: 1.8em;
+            display: inline-block;
+        }
+        
+        /* Dark Mode Toggle Position Fix */
+        #darkModeToggle {
+            right: 80px !important;
+            top: 50%;
+            font-size: 28px;
+        }
+        
+        #darkModeToggle:hover {
+            transform: translateY(-50%) scale(1.2);
+            transition: transform 0.3s;
+        }
+    </style>
 </head>
 <body class="bg-[var(--light-bg)] text-[var(--dark-text)] leading-relaxed">
     <header class="bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-[var(--light-text)] py-8 md:py-12 px-4 text-center relative overflow-hidden">
@@ -884,7 +1115,92 @@
         <p class="text-sm opacity-90 italic"><span id="currentYearChinese">2024</span> 互动学习中心。版权所有。</p>
     </footer>
     
+    <!-- Pen Scroll Button -->
+    <button class="pen-scroll-button" id="penScrollButton" title="✍️ Let me write you back up! 让我带你回到顶部！">✍️</button>
+    
     <!-- Link to the consolidated app_script.js -->
     <script src="app_script.js"></script>
+    
+    <script>
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        } else {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        }
+        
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                localStorage.setItem('darkMode', null);
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        });
+        
+        // Pen Scroll Button Functionality
+        const penButton = document.getElementById('penScrollButton');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                penButton.style.display = 'block';
+            } else {
+                penButton.style.display = 'none';
+            }
+        });
+        
+        penButton.addEventListener('click', function() {
+            penButton.classList.add('writing');
+            
+            setTimeout(function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 200);
+            
+            setTimeout(function() {
+                penButton.classList.remove('writing');
+                penButton.style.display = 'none';
+            }, 1200);
+        });
+        
+        // Handshake Easter Egg - Add to relevant sections (Duty of Care related)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find sections about duty of care, agreement, negligence
+            const sections = document.querySelectorAll('h2, h3, h4');
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes('duty of care') || text.includes('agreement') || text.includes('offer') || 
+                    text.includes('acceptance') || text.includes('contract') || text.includes('neighbour')) {
+                    // Add handshake emoji after the heading
+                    const handshakeContainer = document.createElement('span');
+                    handshakeContainer.className = 'handshake-container';
+                    handshakeContainer.innerHTML = '<span class="hand-left">👈</span><span class="hand-right">👉</span>';
+                    handshakeContainer.title = 'Click for a handshake! 点击握手！';
+                    
+                    handshakeContainer.addEventListener('click', function() {
+                        this.classList.add('shake');
+                        setTimeout(() => {
+                            this.classList.remove('shake');
+                        }, 800);
+                    });
+                    
+                    section.appendChild(handshakeContainer);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
