@@ -8,7 +8,7 @@
         :root {
             --primary-color: #b71c1c;
             --secondary-color: #c62828;
-            --accent-color: #e53935;
+            --accent-color: #ef5350;
             --light-accent: #ffebee;
             --light-bg: #f8fafc;
             --dark-text: #1e293b;
@@ -113,6 +113,190 @@
             fill: white;
         }
         
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 24px;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            transition: transform 0.3s;
+        }
+        
+        .back-to-top:hover {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        .back-to-top.writing {
+            animation: write 1s ease-out forwards;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        @keyframes write {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(15deg); }
+            50% { transform: translateY(-40px) rotate(-15deg); }
+            75% { transform: translateY(-60px) rotate(10deg); }
+            100% { transform: translateY(-2000px) rotate(0deg); opacity: 0; }
+        }
+        
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .content-card {
+            background-color: #16213e;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode h2 {
+            color: #ef9a9a;
+        }
+        
+        body.dark-mode .highlight-box {
+            background: #263238;
+            border-left-color: #ef9a9a;
+        }
+        
+        body.dark-mode .warning-box {
+            background: #e65100;
+            color: white;
+        }
+        
+        body.dark-mode .example-box {
+            background: #0d47a1;
+            color: white;
+        }
+        
+        body.dark-mode .key-terms-box {
+            background: #1b5e20;
+            color: white;
+        }
+        
+        body.dark-mode .case-study-box {
+            background: #4a148c;
+            color: white;
+        }
+        
+        body.dark-mode .common-mistakes-box {
+            background: #b71c1c;
+            color: white;
+        }
+        
+        .highlight-box {
+            background: var(--light-accent);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .example-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .key-terms-box {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .case-study-box {
+            background: #f3e5f5;
+            border-left: 4px solid #7b1fa2;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .common-mistakes-box {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .handshake-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            z-index: 999;
+            pointer-events: none;
+            display: none;
+        }
+        
+        .handshake-container.active {
+            display: block;
+            animation: handshakeAnim 2s ease-in-out;
+        }
+        
+        @keyframes handshakeAnim {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            40% { transform: translate(-50%, -50%) scale(1) translateX(-10px); }
+            60% { transform: translate(-50%, -50%) scale(1) translateX(10px); }
+            80% { transform: translate(-50%, -50%) scale(1) translateX(-5px); }
+            90% { transform: translate(-50%, -50%) scale(1) translateX(5px); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
         footer {
             text-align: center;
             padding: 2rem;
@@ -141,6 +325,18 @@
                 width: 20px;
                 height: 20px;
             }
+            
+            .dark-mode-toggle {
+                top: 10px;
+                right: 70px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .back-to-top {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
@@ -150,6 +346,12 @@
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
     </a>
+    
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode 切换夜间模式">🌙</button>
+    
+    <button class="back-to-top" id="backToTop" title="✍️ Let me write you back up! 让我带你回到顶部！">✍️</button>
+    
+    <div class="handshake-container" id="handshake">🤝</div>
     
     <header>
         <div class="header-animation" id="header-animation"></div>
@@ -161,12 +363,144 @@
     
     <main>
         <div class="content-card">
-            <h2>Content Coming Soon</h2>
-            <p>This page is under development. The content for Unit 4: Contracts Part 1 will be available soon.</p>
-            <p>Topics to be covered will include:</p>
+            <h2>📋 Introduction to Contract Law</h2>
+            
+            <div class="highlight-box">
+                <p><strong>What is a Contract? 什么是合同？</strong></p>
+                <p>A contract is a legally binding agreement between two or more parties that creates mutual obligations enforceable by law.</p>
+                <p>合同是两方或多方之间具有法律约束力的协议，创造了法律可执行的相互义务。</p>
+            </div>
+            
+            <p>Contracts are fundamental to business operations and daily life. Understanding contract law helps businesses:</p>
+            <ul>
+                <li>Protect their interests in business transactions</li>
+                <li>Understand their rights and obligations</li>
+                <li>Avoid costly disputes and litigation</li>
+                <li>Make informed business decisions</li>
+            </ul>
+            
+            <div class="key-terms-box">
+                <h3>🔑 Essential Elements of a Valid Contract</h3>
+                <p>For a contract to be legally valid and enforceable, it must contain these essential elements:</p>
+                <ol>
+                    <li><strong>Offer</strong> - A clear proposal made by one party (the offeror) to another</li>
+                    <li><strong>Acceptance</strong> - Unconditional agreement to the terms of the offer</li>
+                    <li><strong>Consideration</strong> - Something of value exchanged between the parties</li>
+                    <li><strong>Intention to Create Legal Relations</strong> - Parties must intend the agreement to be legally binding</li>
+                    <li><strong>Capacity</strong> - Parties must have legal capacity to enter into a contract</li>
+                    <li><strong>Legality</strong> - The purpose must be legal and not against public policy</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="content-card" id="offer-section">
+            <h2>💼 Offer</h2>
+            
+            <div class="highlight-box">
+                <p><strong>Definition:</strong> An offer is a definite proposal made by one party (offeror) to another (offeree) indicating a willingness to enter into a contract on certain terms.</p>
+            </div>
+            
+            <h3>Requirements of a Valid Offer:</h3>
+            <ul>
+                <li><strong>Certainty:</strong> Terms must be clear and definite</li>
+                <li><strong>Communicated:</strong> Must be communicated to the offeree</li>
+                <li><strong>Intention:</strong> Must demonstrate intention to be bound</li>
+            </ul>
+            
+            <div class="example-box">
+                <h4>📝 Example: Valid Offer</h4>
+                <p>"I will sell you my laptop for $500. This offer remains open until Friday 5pm."</p>
+                <p>This is a valid offer because it clearly states what is being sold, the price, and when the offer expires.</p>
+            </div>
+            
+            <div class="warning-box">
+                <h4>⚠️ Offer vs. Invitation to Treat</h4>
+                <p><strong>Important Distinction:</strong> Not all statements are offers. An "invitation to treat" is merely an invitation for others to make an offer.</p>
+                <p><strong>Examples of Invitations to Treat:</strong></p>
+                <ul>
+                    <li>Advertisements (generally)</li>
+                    <li>Goods displayed in shop windows</li>
+                    <li>Items on shelves in supermarkets</li>
+                    <li>Auctions (each bid is an offer)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="content-card" id="acceptance-section">
+            <h2>✅ Acceptance</h2>
+            
+            <div class="highlight-box">
+                <p><strong>Definition:</strong> Acceptance is the unconditional agreement to all the terms of the offer, creating a binding agreement between the parties.</p>
+            </div>
+            
+            <h3>Rules of Acceptance:</h3>
+            
+            <div class="key-terms-box">
+                <h4>Key Requirements:</h4>
+                <ol>
+                    <li><strong>Unconditional:</strong> Must accept all terms without variation</li>
+                    <li><strong>Communicated:</strong> Must be communicated to the offeror</li>
+                    <li><strong>By Authorized Person:</strong> Must be made by the person to whom the offer was made</li>
+                    <li><strong>Match the Offer:</strong> Must correspond exactly to the terms of the offer</li>
+                    <li><strong>Within Time Limit:</strong> Must be made while the offer is still open</li>
+                </ol>
+            </div>
+            
+            <div class="example-box">
+                <h4>📝 Example: Valid Acceptance</h4>
+                <p><strong>Offer:</strong> "I'll sell my car for $10,000 cash."</p>
+                <p><strong>Valid Acceptance:</strong> "I accept. I'll buy your car for $10,000 cash."</p>
+                <p><strong>Invalid Acceptance (Counter-offer):</strong> "I'll buy your car for $9,000." - This is a counter-offer, not acceptance.</p>
+            </div>
+            
+            <div class="case-study-box">
+                <h4>⚖️ Case Study: Hyde v Wrench (1840)</h4>
+                <p><strong>Facts:</strong> Wrench offered to sell his farm to Hyde for £1,000. Hyde offered £950, which Wrench rejected. Hyde then tried to accept the original £1,000 offer.</p>
+                <p><strong>Held:</strong> There was no contract. Hyde's counter-offer of £950 destroyed the original offer, so it was no longer available to accept.</p>
+                <p><strong>Principle:</strong> A counter-offer terminates the original offer.</p>
+            </div>
+            
+            <h3>Methods of Acceptance:</h3>
+            <ul>
+                <li><strong>Express Acceptance:</strong> Oral or written communication</li>
+                <li><strong>Implied Acceptance:</strong> Conduct indicating acceptance</li>
+                <li><strong>Postal Rule:</strong> Acceptance is complete when letter is posted (if postal acceptance is contemplated)</li>
+            </ul>
+        </div>
+        
+        <div class="content-card" id="agreement-section">
+            <h2>🤝 Formation of Agreement</h2>
+            
+            <div class="highlight-box">
+                <p><strong>Agreement = Offer + Acceptance</strong></p>
+                <p>When a valid offer meets with valid acceptance, an agreement is formed. This is the foundation of contract formation.</p>
+            </div>
+            
+            <h3>When is Agreement Complete?</h3>
+            <p>The moment of acceptance determines when the agreement (and potentially the contract) comes into existence. This is crucial for determining:</p>
+            <ul>
+                <li>When parties become bound</li>
+                <li>Which terms apply</li>
+                <li>Whether revocation of offer was effective</li>
+            </ul>
+            
+            <div class="common-mistakes-box">
+                <h4>❌ Common Mistakes in Agreement Formation</h4>
+                <ul>
+                    <li><strong>Assuming silence equals acceptance</strong> - Generally, silence cannot constitute acceptance</li>
+                    <li><strong>Confusing negotiation with offers</strong> - Many negotiations are just invitations to treat</li>
+                    <li><strong>Accepting after deadline</strong> - Acceptance must occur while offer is still open</li>
+                    <li><strong>Changing terms during acceptance</strong> - Any variation creates a counter-offer, not acceptance</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="content-card">
+            <h2>📚 Topics to be Covered in Detail</h2>
+            <p>The complete content for Unit 4: Contracts Part 1 will include comprehensive coverage of:</p>
             <ul>
                 <li>Introduction to Contract Law</li>
-                <li>Offer and Acceptance</li>
+                <li>Offer and Acceptance (detailed analysis)</li>
                 <li>Intention to Create Legal Relations</li>
                 <li>Consideration</li>
                 <li>Capacity to Contract</li>
@@ -174,7 +508,18 @@
                 <li>Essential Elements of a Valid Contract</li>
                 <li>Formation of Contracts</li>
             </ul>
-            <p>Please check back later for complete content.</p>
+            
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>🎯 Learning Outcomes</h3>
+                <p>By the end of this unit, you will be able to:</p>
+                <ul>
+                    <li>Identify the essential elements of a valid contract</li>
+                    <li>Distinguish between offers and invitations to treat</li>
+                    <li>Understand the requirements for valid acceptance</li>
+                    <li>Apply contract formation principles to real-world scenarios</li>
+                    <li>Recognize common pitfalls in contract formation</li>
+                </ul>
+            </div>
         </div>
     </main>
     
@@ -184,9 +529,95 @@
     </footer>
     
     <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Back to top functionality with pen write animation
+        const backToTop = document.getElementById("backToTop");
+        
+        window.onscroll = function() {
+            // Show/hide back to top button
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.style.display = "block";
+            } else {
+                backToTop.style.display = "none";
+            }
+            
+            // Handshake easter egg trigger
+            checkHandshakeTrigger();
+        };
+        
+        backToTop.addEventListener("click", function() {
+            this.classList.add('writing');
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+            
+            setTimeout(() => {
+                this.classList.remove('writing');
+            }, 1000);
+        });
+        
+        // Handshake easter egg - triggers when scrolling to Agreement or Acceptance sections
+        let handshakeTriggered = false;
+        
+        function checkHandshakeTrigger() {
+            if (handshakeTriggered) return;
+            
+            const acceptanceSection = document.getElementById('acceptance-section');
+            const agreementSection = document.getElementById('agreement-section');
+            const handshake = document.getElementById('handshake');
+            
+            if (!acceptanceSection || !agreementSection) return;
+            
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            
+            // Check if we're viewing the acceptance or agreement section
+            const acceptanceTop = acceptanceSection.offsetTop;
+            const acceptanceBottom = acceptanceTop + acceptanceSection.offsetHeight;
+            const agreementTop = agreementSection.offsetTop;
+            const agreementBottom = agreementTop + agreementSection.offsetHeight;
+            
+            if ((scrollPosition >= acceptanceTop && scrollPosition <= acceptanceBottom) ||
+                (scrollPosition >= agreementTop && scrollPosition <= agreementBottom)) {
+                handshakeTriggered = true;
+                handshake.classList.add('active');
+                
+                setTimeout(() => {
+                    handshake.classList.remove('active');
+                    // Reset after 5 seconds so it can trigger again
+                    setTimeout(() => {
+                        handshakeTriggered = false;
+                    }, 5000);
+                }, 2000);
+            }
+        }
+        
         // Add dynamic shapes to header background
         function setupHeaderAnimation() {
             const headerBg = document.getElementById('header-animation');
+            if (!headerBg) return;
+            
             const shapeCount = 10;
             const shapes = ['circle', 'square', 'triangle'];
             
@@ -220,17 +651,6 @@
                 headerBg.appendChild(div);
             }
         }
-        
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
         
         // Initialize header animation when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
