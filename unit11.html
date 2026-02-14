@@ -3,488 +3,795 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 11: Sustainability Part 3 - Business Environments</title>
+    <title>Unit 11 单元11: Sustainability Part 3 可持续发展（三）- Social & Governance 社会与治理</title>
     <style>
-        :root {
-            --primary-color: #37474f;
-            --secondary-color: #455a64;
-            --accent-color: #546e7a;
-            --light-accent: #eceff1;
-            --light-bg: #f8fafc;
-            --dark-text: #1e293b;
-            --light-text: #f8fafc;
-            --med-text: #64748b;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%);
+            min-height: 100vh;
         }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            text-align: center;
-            padding: 3rem 1rem;
-            position: relative;
-            overflow: hidden;
+
+        :root {
+            --primary-color: #37474f;
+            --secondary-color: #455a64;
+            --accent-color: #546e7a;
+            --text-color: #333;
+            --bg-light: #eceff1;
         }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .header-animation {
-            position: absolute;
+
+        .progress-bar {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.3;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.3s ease;
         }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .content-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        /* Back to Main Button */
-        .back-to-main {
+
+        .back-to-top {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: var(--primary-color);
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
             cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
         }
-        
-        .back-to-main:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
         }
-        
-        .back-to-main svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        
-        footer {
-            text-align: center;
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
             padding: 2rem;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            margin-top: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            margin-top: 1rem;
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+        }
+
+        .subsection {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+
+        .subsection h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .case-box {
+            background: #eceff1;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: #dcedc8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .step {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--accent-color);
+            border-radius: 3px;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .question-box {
+            background: #cfd8dc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px dashed var(--primary-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
-            header p {
-                font-size: 1rem;
+            .container {
+                padding: 0 1rem;
             }
             
-            .back-to-main {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
-            }
-            
-            .back-to-main svg {
-                width: 20px;
-                height: 20px;
+            .section {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
-    </a>
-    
+    <div class="progress-bar" id="progressBar"></div>
+    <button class="back-to-top" id="backToTop">↑</button>
+
     <header>
-        <div class="header-animation" id="header-animation"></div>
-        <div class="header-content">
-            <h1>Unit 11: Sustainability Part 3</h1>
-            <p>Business Environments - FS2025</p>
-        </div>
+        <h1>Unit 11 单元11</h1>
+        <h2>Sustainability Part 3 可持续发展（三）</h2>
+        <h3>Social Sustainability & Corporate Governance 社会可持续性与公司治理</h3>
     </header>
-    
-    <main>
-        <div class="content-card">
-            <h2>Unit 11: Sustainability Part 3 
-                <span style="display: block; font-size: 0.8em; color: #666; margin-top: 0.5rem;">单元11：可持续发展（三）</span>
-            </h2>
-            
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #eceff1; border-left: 4px solid #37474f; border-radius: 4px;">
-                <h3 style="color: #37474f; margin-bottom: 1rem;">Welcome to Unit 11 欢迎来到第十一单元</h3>
-                <p style="margin-bottom: 0.5rem;">This final unit explores social sustainability, governance frameworks, and future trends in business environments.</p>
-                <p style="color: #666; font-size: 0.95em;">本最后单元探讨社会可持续性、治理框架以及商业环境的未来趋势。</p>
-            </div>
 
-            <h3 style="color: #37474f; margin-top: 2rem;">Topics Covered 涵盖主题</h3>
-            
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">1. Social Sustainability 社会可持续性</h4>
-                <p>Creating equitable and inclusive societies through business:</p>
-                <p style="color: #666; font-size: 0.95em;">通过商业创造公平和包容的社会：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Fair labor practices 公平劳工实践</li>
-                    <li>Workplace diversity and inclusion 工作场所多样性和包容性</li>
-                    <li>Community engagement 社区参与</li>
-                    <li>Social impact investing 社会影响力投资</li>
-                </ul>
+    <div class="container">
+        <!-- OVERVIEW SECTION -->
+        <section class="section">
+            <div class="section-title">
+                📋 Overview 概览
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>This unit explores <span class="highlight">social sustainability 社会可持续性</span>, <span class="highlight">corporate governance 公司治理</span>, and <span class="highlight">business ethics 商业道德</span>. We examine labor rights, human rights in business, anti-corruption frameworks, circular economy, and future sustainability trends.</p>
+                    <p><strong>Key Topics Covered:</strong></p>
+                    <ul>
+                        <li>Social Sustainability: Fair Work Act 2009, Modern Slavery Act 2018 社会可持续性：公平工作法、现代奴隶制法案</li>
+                        <li>Human Rights in Business: UN Guiding Principles (UNGPs) 商业与人权：联合国指导原则</li>
+                        <li>Corporate Governance: ASX Principles, Director Duties 公司治理：澳交所原则、董事职责</li>
+                        <li>Anti-Corruption: Criminal Code, Foreign Bribery 反腐败：刑法典、海外贿赂</li>
+                        <li>Circular Economy Principles 循环经济原则</li>
+                        <li>Future Trends: AI, ESG Investing, Net-Zero Pathways 未来趋势</li>
+                        <li>Integrated Reporting Framework 综合报告框架</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">2. Human Rights in Business 商业中的人权</h4>
-                <p>UN Guiding Principles on Business and Human Rights require companies to respect human rights throughout their operations and supply chains.</p>
-                <p style="color: #666; font-size: 0.95em;">联合国工商企业与人权指导原则要求公司在其运营和供应链中尊重人权。</p>
+        <!-- LEGISLATION AND KEY FRAMEWORKS SECTION -->
+        <section class="section">
+            <div class="section-title">
+                ⚖️ Legislation & Key Frameworks 法律与关键框架
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Social Sustainability Legislation 社会可持续性立法</h3>
+                    <ul>
+                        <li><strong><span class="highlight">Fair Work Act 2009 (Cth) 公平工作法</span></strong>: Australia's principal workplace relations law covering minimum wages 最低工资, employment conditions 雇佣条件, unfair dismissal 不公平解雇, and workplace rights 工作场所权利</li>
+                        <li><strong><span class="highlight">Modern Slavery Act 2018 (Cth) 现代奴隶制法案</span></strong>: Requires entities with revenue >AU$100M to report on modern slavery risks in operations and supply chains</li>
+                        <li><strong><span class="highlight">Work Health and Safety Act 2011 工作健康与安全法</span></strong>: Protects health, safety and welfare of workers and others 保护工人和他人的健康、安全和福利</li>
+                        <li><strong><span class="highlight">Sex Discrimination Act 1984 性别歧视法</span></strong>, <strong>Racial Discrimination Act 1975 种族歧视法</strong>, <strong>Disability Discrimination Act 1992 残疾歧视法</strong>: Anti-discrimination protections</li>
+                    </ul>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">3. Governance Frameworks 治理框架</h4>
-                <p>Structures ensuring ethical and transparent business conduct:</p>
-                <p style="color: #666; font-size: 0.95em;">确保道德和透明商业行为的结构：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Corporate governance codes 公司治理准则</li>
-                    <li>Board diversity and independence 董事会多样性和独立性</li>
-                    <li>Risk management systems 风险管理系统</li>
-                    <li>Anti-corruption measures 反腐败措施</li>
-                </ul>
-            </div>
+                <div class="subsection">
+                    <h3>Corporate Governance Legislation 公司治理立法</h3>
+                    <ul>
+                        <li><strong><span class="highlight">Corporations Act 2001 (Cth) 公司法</span></strong>: Primary corporations law including director duties, shareholder rights, financial reporting 董事职责、股东权利、财务报告</li>
+                        <li><strong><span class="highlight">ASX Corporate Governance Principles 澳交所公司治理原则</span></strong>: 8 principles for good governance (board composition, risk management, disclosure, etc.)</li>
+                        <li><strong><span class="highlight">Australian Securities and Investments Commission Act 2001 澳大利亚证券和投资委员会法</span></strong>: ASIC's powers to regulate corporations</li>
+                    </ul>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">4. Sustainable Business Practices 可持续商业实践</h4>
-                <p>Implementing sustainability across business operations:</p>
-                <p style="color: #666; font-size: 0.95em;">在业务运营中实施可持续发展：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Circular economy models 循环经济模式</li>
-                    <li>Sustainable supply chain management 可持续供应链管理</li>
-                    <li>Green procurement 绿色采购</li>
-                    <li>Waste reduction strategies 减少废物策略</li>
-                </ul>
-            </div>
+                <div class="subsection">
+                    <h3>Anti-Corruption Legislation 反腐败立法</h3>
+                    <ul>
+                        <li><strong><span class="highlight">Criminal Code Act 1995 (Cth) 刑法典</span></strong> - Division 70: Foreign bribery offences 海外贿赂罪行, punishable by up to 10 years imprisonment and significant fines</li>
+                        <li><strong><span class="highlight">Corporations Act 2001 - Part 9.4AAA</span></strong>: Whistleblower protections 举报人保护 for corporate misconduct</li>
+                        <li><strong><span class="highlight">Public Interest Disclosure Act 2013 公共利益披露法</span></strong>: Protections for public sector whistleblowers</li>
+                    </ul>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">5. Corporate Reporting and Transparency 企业报告与透明度</h4>
-                <p>Integrated reporting frameworks combining financial and non-financial information (sustainability, social impact).</p>
-                <p style="color: #666; font-size: 0.95em;">整合财务和非财务信息（可持续性、社会影响）的综合报告框架。</p>
+                <div class="subsection">
+                    <h3>International Frameworks 国际框架</h3>
+                    <div class="case-box">
+                        <div class="case-title">UN Guiding Principles on Business and Human Rights (UNGPs) 联合国工商企业与人权指导原则</div>
+                        <p>Authoritative global standard for preventing and addressing human rights impacts linked to business activity.</p>
+                        <p><strong>Three Pillars 三大支柱:</strong></p>
+                        <ul>
+                            <li><strong>Protect 保护:</strong> State duty to protect against human rights abuses by third parties, including business</li>
+                            <li><strong>Respect 尊重:</strong> Corporate responsibility to respect human rights</li>
+                            <li><strong>Remedy 救济:</strong> Access to effective remedy for victims of business-related abuses</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">6. Future Trends in Business Environments 商业环境的未来趋势</h4>
-                <p>Emerging developments shaping sustainable business:</p>
-                <p style="color: #666; font-size: 0.95em;">塑造可持续商业的新兴发展：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Digital transformation and sustainability 数字化转型与可持续性</li>
-                    <li>Impact of AI and automation 人工智能和自动化的影响</li>
-                    <li>Stakeholder capitalism 利益相关者资本主义</li>
-                    <li>Net-zero commitments 净零排放承诺</li>
-                </ul>
+        <!-- FAIR WORK & MODERN SLAVERY SECTION -->
+        <section class="section">
+            <div class="section-title">
+                👥 Social Sustainability: Fair Work & Modern Slavery 社会可持续性：公平工作与现代奴隶制
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Fair Work Act 2009 公平工作法</h3>
+                    <p>Australia's principal workplace relations law establishing the <span class="highlight">National Employment Standards (NES) 国家就业标准</span>.</p>
+                    <p><strong>Key Protections 主要保护:</strong></p>
+                    <ul>
+                        <li><span class="highlight">Maximum weekly hours 最高每周工时</span>: 38 hours + reasonable additional hours</li>
+                        <li><span class="highlight">Minimum wages 最低工资</span>: Set by Fair Work Commission 由公平工作委员会设定</li>
+                        <li><span class="highlight">Annual leave 年假</span>: 4 weeks paid</li>
+                        <li><span class="highlight">Personal/carer's leave 个人/照顾者假</span>: 10 days paid</li>
+                        <li><span class="highlight">Parental leave 育儿假</span>: 12 months unpaid</li>
+                        <li><span class="highlight">Unfair dismissal protections 不公平解雇保护</span></li>
+                    </ul>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">7. Integrated Thinking and Reporting 综合思维与报告</h4>
-                <p>Holistic approach connecting strategy, governance, performance, and prospects in the context of creating value.</p>
-                <p style="color: #666; font-size: 0.95em;">在创造价值的背景下连接战略、治理、绩效和前景的整体方法。</p>
-            </div>
+                <div class="subsection">
+                    <h3>Modern Slavery Act 2018 现代奴隶制法案</h3>
+                    <p>Requires large businesses to report on <span class="highlight">modern slavery risks 现代奴隶制风险</span> in their operations and supply chains.</p>
+                    
+                    <div class="step">
+                        <h4>Who Must Report 谁必须报告</h4>
+                        <p>Entities with annual consolidated revenue >AU$100 million 年综合收入超过1亿澳元</p>
+                    </div>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #eceff1; border-left: 4px solid #37474f; border-radius: 4px;">
-                <h4 style="color: #37474f; margin-bottom: 0.5rem;">Key Learning Outcomes 主要学习成果</h4>
-                <p style="margin-bottom: 0.5rem;">By the end of this unit, you should be able to:</p>
-                <p style="color: #666; font-size: 0.95em; margin-bottom: 1rem;">在本单元结束时，您应该能够：</p>
-                <ul style="margin-left: 2rem;">
-                    <li>Understand social sustainability in business contexts 理解商业环境中的社会可持续性</li>
-                    <li>Apply governance frameworks to ensure ethical conduct 应用治理框架确保道德行为</li>
-                    <li>Implement sustainable business practices 实施可持续商业实践</li>
-                    <li>Anticipate future trends in business environments 预测商业环境的未来趋势</li>
-                </ul>
-            </div>
+                    <div class="step">
+                        <h4>What is Modern Slavery 什么是现代奴隶制</h4>
+                        <ul>
+                            <li>Forced labor 强迫劳动</li>
+                            <li>Debt bondage 债务束缚</li>
+                            <li>Human trafficking 人口贩运</li>
+                            <li>Slavery & slavery-like practices 奴隶制和类似奴隶制的做法</li>
+                            <li>Forced marriage 强迫婚姻</li>
+                            <li>Worst forms of child labor 最恶劣形式的童工劳动</li>
+                        </ul>
+                    </div>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #fff3cd; border-left: 4px solid #856404; border-radius: 4px;">
-                <h4 style="color: #856404; margin-bottom: 0.5rem;">Course Conclusion 课程总结</h4>
-                <p style="margin-bottom: 0.5rem;">Congratulations on reaching the final unit! You have now completed the Business Environments course journey from legal foundations to sustainability.</p>
-                <p style="color: #666; font-size: 0.95em;">恭喜您到达最后一个单元！您现在已经完成了从法律基础到可持续发展的商业环境课程之旅。</p>
+                    <div class="step">
+                        <h4>Mandatory Reporting Criteria 强制性报告标准</h4>
+                        <ul>
+                            <li>Entity structure and operations 实体结构和运营</li>
+                            <li>Supply chains 供应链</li>
+                            <li>Modern slavery risks 现代奴隶制风险</li>
+                            <li>Actions taken to assess and address risks 评估和应对风险所采取的行动</li>
+                            <li>Effectiveness of actions 行动的有效性</li>
+                            <li>Consultation process 咨询流程</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Case Study: Fashion Supply Chain Modern Slavery Risk</div>
+                    <p><strong>Scenario:</strong> Major Australian retailer sources garments from Bangladesh. Investigation reveals suppliers use sub-contractors with poor working conditions and potential forced labor.</p>
+                    <p><strong>Response Required:</strong></p>
+                    <ul>
+                        <li>Conduct thorough supply chain due diligence 进行彻底的供应链尽职调查</li>
+                        <li>Report modern slavery risks in annual statement 在年度声明中报告现代奴隶制风险</li>
+                        <li>Implement remediation plan with suppliers 与供应商实施补救计划</li>
+                        <li>Consider supplier contracts requiring compliance 考虑供应商合同要求合规</li>
+                        <li>Regular audits and monitoring 定期审计和监测</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </main>
-    
-    <footer>
-        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
-    </footer>
-    
+        </section>
+
+        <!-- CORPORATE GOVERNANCE SECTION -->
+        <section class="section">
+            <div class="section-title">
+                🏛️ Corporate Governance & Director Duties 公司治理与董事职责
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>ASX Corporate Governance Principles (4th Edition) 澳交所公司治理原则</h3>
+                    <div class="step">
+                        <h4>Principle 1: Board Composition & Role 董事会组成和作用</h4>
+                        <p>Board should have appropriate structure, skills, experience, independence and knowledge 董事会应具备适当的结构、技能、经验、独立性和知识</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 2: Board Oversight 董事会监督</h4>
+                        <p>Structure board to be effective and add value 构建有效且增值的董事会结构</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 3: Instil Culture 灌输文化</h4>
+                        <p>Instil and continually reinforce a culture of acting lawfully, ethically and responsibly 灌输并持续强化依法、合乎道德和负责任的文化</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 4: Safeguard Integrity 维护诚信</h4>
+                        <p>Safeguard integrity of corporate reporting 维护企业报告的诚信</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 5: Timely Disclosure 及时披露</h4>
+                        <p>Make timely and balanced disclosure 进行及时和平衡的披露</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 6: Respect Shareholder Rights 尊重股东权利</h4>
+                        <p>Respect rights of security holders and facilitate effective engagement 尊重证券持有人的权利并促进有效参与</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 7: Risk Management 风险管理</h4>
+                        <p>Establish sound risk management framework and periodically review effectiveness 建立健全的风险管理框架并定期审查有效性</p>
+                        <p><strong>Recommendation 7.4:</strong> Disclose material environmental and social risks 披露重大环境和社会风险</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Principle 8: Remunerate Fairly 公平薪酬</h4>
+                        <p>Remunerate fairly and responsibly to attract and retain directors and senior executives 公平负责地给予薪酬以吸引和留住董事和高级管理人员</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Director Duties Under Corporations Act 2001 公司法下的董事职责</h3>
+                    <div class="case-box">
+                        <div class="case-title">Section 180: Care and Diligence 注意和勤勉</div>
+                        <p>Directors must exercise their powers with the <span class="highlight">degree of care and diligence 注意和勤勉程度</span> that a reasonable person would exercise in the same position.</p>
+                    </div>
+
+                    <div class="case-box">
+                        <div class="case-title">Section 181: Good Faith 诚信</div>
+                        <p>Directors must act <span class="highlight">in good faith in the best interests 诚信地以最大利益</span> of the corporation and for a <span class="highlight">proper purpose 正当目的</span>.</p>
+                    </div>
+
+                    <div class="case-box">
+                        <div class="case-title">Section 182: Improper Use of Position 不当利用职位</div>
+                        <p>Directors must not <span class="highlight">improperly use their position 不当利用其职位</span> to gain advantage for themselves or someone else, or cause detriment to the corporation.</p>
+                    </div>
+
+                    <div class="case-box">
+                        <div class="case-title">Section 183: Improper Use of Information 不当使用信息</div>
+                        <p>Directors must not <span class="highlight">improperly use information 不当使用信息</span> obtained through their position to gain advantage or cause detriment.</p>
+                    </div>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">ASIC v Healey (Centro Case) ASIC诉希利案</div>
+                    <p><strong>Facts:</strong> Directors approved financial statements containing material errors about $2 billion in debt classification 董事批准了包含约20亿澳元债务分类重大错误的财务报表.</p>
+                    <p><strong>Decision:</strong> Directors breached duty of care and diligence (s.180) 董事违反了注意和勤勉义务</p>
+                    <p><strong>Significance:</strong> Directors cannot blindly rely on management 董事不能盲目依赖管理层 - must understand and review financial statements 必须理解和审查财务报表</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANTI-CORRUPTION SECTION -->
+        <section class="section">
+            <div class="section-title">
+                ⚖️ Anti-Corruption & Business Ethics 反腐败与商业道德
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Criminal Code Act 1995 - Foreign Bribery 刑法典 - 海外贿赂</h3>
+                    <p><strong>Division 70:</strong> Offence of bribing a foreign public official 贿赂外国公职人员罪</p>
+                    
+                    <div class="case-box">
+                        <div class="case-title">Elements of Foreign Bribery Offence 海外贿赂罪的要素</div>
+                        <ul>
+                            <li>Providing, offering or promising <span class="highlight">benefit 好处</span></li>
+                            <li>To a <span class="highlight">foreign public official 外国公职人员</span></li>
+                            <li>Not legitimately due 非合法应得</li>
+                            <li>With intent to influence 意图影响 official in performing duties</li>
+                            <li>To obtain or retain <span class="highlight">business advantage 商业优势</span></li>
+                        </ul>
+                        <p><strong>Penalties:</strong> Up to <strong>10 years imprisonment</strong> for individuals; significant fines for corporations 个人最高10年监禁；公司重大罚款</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Whistleblower Protections 举报人保护</h3>
+                    <p><strong>Corporations Act 2001 - Part 9.4AAA:</strong> Protections for corporate whistleblowers</p>
+                    <ul>
+                        <li><span class="highlight">Protected disclosures 受保护的披露</span>: Misconduct, improper state of affairs, breach of law</li>
+                        <li><span class="highlight">Who can receive 谁可以接收</span>: ASIC, auditor, director, senior manager, compliance officer</li>
+                        <li><span class="highlight">Protections 保护</span>: Immunity from civil/criminal liability, confidentiality, protection from victimisation 免于民事/刑事责任、保密、免受报复</li>
+                        <li><span class="highlight">Compensation 赔偿</span>: Available for detrimental conduct 针对有害行为可获得赔偿</li>
+                    </ul>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Securency International Case 塞库伦西国际案</div>
+                    <p><strong>Facts:</strong> Australian banknote supplier bribed foreign officials in Indonesia, Malaysia, Vietnam to win contracts 澳大利亚钞票供应商贿赂印度尼西亚、马来西亚、越南的外国官员以赢得合同</p>
+                    <p><strong>Decision:</strong> Company and individuals convicted of foreign bribery offences 公司和个人被判外国贿赂罪</p>
+                    <p><strong>Penalties:</strong> AU$21.6 million fine + imprisonment for individuals 罚款2160万澳元+个人监禁</p>
+                    <p><strong>Significance:</strong> First major foreign bribery prosecution in Australia 澳大利亚首例重大外国贿赂起诉案</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CIRCULAR ECONOMY & FUTURE TRENDS SECTION -->
+        <section class="section">
+            <div class="section-title">
+                ♻️ Circular Economy & Future Trends 循环经济与未来趋势
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Circular Economy Principles 循环经济原则</h3>
+                    <p>Economic model aimed at eliminating waste and maximizing resource use through continuous cycles of use, recovery and regeneration 旨在通过使用、回收和再生的持续循环来消除浪费和最大化资源利用的经济模式.</p>
+                    
+                    <div class="step">
+                        <h4>1. Design Out Waste 设计消除浪费</h4>
+                        <p>Products designed for durability, reuse, refurbishment and recycling from the outset 产品从一开始就设计为耐用、可重复使用、可翻新和可回收</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Keep Products & Materials in Use 保持产品和材料使用</h4>
+                        <p>Maximize value through reuse, repair, remanufacture and recycle 通过重复使用、维修、再制造和回收最大化价值</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Regenerate Natural Systems 再生自然系统</h4>
+                        <p>Return nutrients to soil, use renewable energy, avoid toxic chemicals 将营养物质返回土壤、使用可再生能源、避免有毒化学物质</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Future Sustainability Trends 未来可持续性趋势</h3>
+                    <div class="case-box">
+                        <div class="case-title">AI & Sustainability 人工智能与可持续性</div>
+                        <ul>
+                            <li>AI optimization of energy use and supply chains AI优化能源使用和供应链</li>
+                            <li>Predictive maintenance reducing waste 预测性维护减少浪费</li>
+                            <li>Climate modeling and risk assessment 气候建模和风险评估</li>
+                        </ul>
+                    </div>
+
+                    <div class="case-box">
+                        <div class="case-title">ESG Investing Growth ESG投资增长</div>
+                        <ul>
+                            <li>Global ESG assets expected to exceed $50 trillion by 2025 到2025年全球ESG资产预计超过50万亿美元</li>
+                            <li>Mandatory climate disclosure driving transparency 强制性气候披露推动透明度</li>
+                            <li>Integration of ESG into mainstream investment decisions ESG融入主流投资决策</li>
+                        </ul>
+                    </div>
+
+                    <div class="case-box">
+                        <div class="case-title">Net-Zero Pathways 净零路径</div>
+                        <ul>
+                            <li>Science-based targets aligned with 1.5°C warming 与1.5°C升温一致的基于科学的目标</li>
+                            <li>Transition finance for high-emission sectors 高排放行业的转型融资</li>
+                            <li>Carbon removal technologies and nature-based solutions 碳去除技术和基于自然的解决方案</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>CSR refers to business practices that consider the social and environmental impact of company operations. It reflects the idea that corporations have responsibilities beyond maximizing shareholder profit.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Carroll's CSR Pyramid</h3>
+                    <p>Archie Carroll (1991) proposed a four-level pyramid to understand CSR responsibilities:</p>
+
+                    <div class="step">
+                        <strong>Level 4 - Philanthropic Responsibility (Top)</strong>
+                        <p>Companies contribute to society through voluntary charitable giving, community involvement, and social programs. Examples: donations to education, arts patronage, volunteer employee programs.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Doing good" - Discretionary, going beyond legal/ethical obligations</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Level 3 - Ethical Responsibility</strong>
+                        <p>Companies operate fairly and transparently, respecting moral principles not required by law. Examples: fair labor practices, environmental protection, honest marketing, corruption prevention.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Being fair" - Moral obligations expected by society</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Level 2 - Legal Responsibility</strong>
+                        <p>Companies comply with laws and regulations. Examples: environmental laws, labor standards, consumer protection, tax obligations, workplace safety.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Following the rules" - Legal requirements</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Level 1 - Economic Responsibility (Base)</strong>
+                        <p>The fundamental responsibility to produce goods/services efficiently and profitably. This is the foundation enabling all other responsibilities.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Making profits" - Core business purpose</p>
+                    </div>
+
+                    <p><strong>Note:</strong> Each level builds on previous levels. Economic viability is the foundation; CSR adds ethical and social considerations on top.</p>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Real-world Application: Unilever's CSR Strategy</div>
+                    <p><strong>Economic:</strong> Profitable business model ensuring sustainability of operations</p>
+                    <p><strong>Legal:</strong> Compliance with all environmental and labor laws globally</p>
+                    <p><strong>Ethical:</strong> Sustainable sourcing commitments; female empowerment; water conservation</p>
+                    <p><strong>Philanthropic:</strong> Lipton tea farming sustainability program; WASH program (water, sanitation, hygiene)</p>
+                    <p><strong>Result:</strong> Market leadership while contributing to global development goals</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAKEHOLDER THEORY SECTION -->
+        <!-- TUTORIAL QUESTIONS SECTION -->
+        <section class="section">
+            <div class="section-title">
+                ❓ Tutorial Questions & Scenarios 讨论题和情景
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="question-box">
+                    <div class="question-title">Question 1: Modern Slavery Act Compliance</div>
+                    <p><strong>Scenario:</strong> GlobalRetail Pty Ltd is an ASX-listed fashion retailer with annual revenue of AU$150M. They source garments from suppliers in Bangladesh, Vietnam, and China. A media investigation alleges that one of their suppliers uses forced labor.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ul>
+                        <li>What are GlobalRetail's obligations under the Modern Slavery Act 2018?</li>
+                        <li>What must be included in their modern slavery statement?</li>
+                        <li>What steps should GlobalRetail take to investigate and address the allegations?</li>
+                        <li>What are the reputational and legal risks of non-compliance?</li>
+                        <li>How can GlobalRetail implement effective supply chain due diligence?</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 2: Director Duties in ESG Context</div>
+                    <p><strong>Scenario:</strong> The board of MiningCo is considering a major investment in renewable energy infrastructure to reduce emissions. The CFO argues it will reduce short-term profits and shareholder returns. The Sustainability Director argues it's necessary to manage climate risks and meet stakeholder expectations.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ul>
+                        <li>What are the directors' duties under Corporations Act s.180-183?</li>
+                        <li>Must directors consider climate risks under their duty of care and diligence?</li>
+                        <li>How do ASX Corporate Governance Principles guide this decision (especially Principle 7)?</li>
+                        <li>What legal risks do directors face if they ignore material climate risks?</li>
+                        <li>How should the board balance short-term financial performance with long-term sustainability?</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 3: Foreign Bribery Scenario</div>
+                    <p><strong>Scenario:</strong> AustralianConstruct Ltd is bidding for a major infrastructure project in Southeast Asia. A local consultant suggests that "facilitation payments" to government officials could help secure the contract. The CEO must decide whether to make these payments.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ul>
+                        <li>What does the Criminal Code Act 1995 (Division 70) say about foreign bribery?</li>
+                        <li>What are the elements of a foreign bribery offence?</li>
+                        <li>What penalties could the company and CEO face?</li>
+                        <li>What compliance measures should AustralianConstruct have in place?</li>
+                        <li>How should the CEO respond to the consultant's suggestion?</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 4: Whistleblower Protection</div>
+                    <p><strong>Scenario:</strong> Sarah, a mid-level accountant at FinanceCorp, discovers that senior management is misrepresenting environmental compliance data in sustainability reports. She reports this to the compliance officer, but no action is taken. Shortly after, she is reassigned to a less desirable role.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ul>
+                        <li>What protections does Sarah have under Corporations Act Part 9.4AAA?</li>
+                        <li>Who are the eligible recipients of protected disclosures?</li>
+                        <li>What protections apply to whistleblowers (immunity, confidentiality, victimisation)?</li>
+                        <li>What remedies are available if Sarah faces detrimental conduct?</li>
+                        <li>What should FinanceCorp's whistleblower policy include?</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Question 5: Circular Economy Implementation</div>
+                    <p><strong>Scenario:</strong> ElectroTech manufactures consumer electronics in Australia. They want to transition to a circular economy model to reduce waste, improve resource efficiency, and meet growing consumer expectations for sustainability.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ul>
+                        <li>What are the three key principles of circular economy?</li>
+                        <li>How can ElectroTech design out waste in product development?</li>
+                        <li>What business models support keeping products and materials in use (e.g., take-back programs, refurbishment)?</li>
+                        <li>How does circular economy align with future sustainability trends and ESG investor expectations?</li>
+                        <li>What are the potential cost savings and competitive advantages of circular economy adoption?</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- KEY TERMS GLOSSARY SECTION -->
+        <section class="section">
+            <div class="section-title">
+                📚 Key Terms & Glossary 关键术语和词汇表
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <p><strong>Brundtland Report:</strong> 1987 World Commission report that defined sustainable development as meeting present needs without compromising future generations' ability to meet their own needs.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Fair Work Act 2009 公平工作法</span>:</strong> Australia's principal workplace relations law establishing National Employment Standards, minimum wages, unfair dismissal protections, and workplace rights.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Modern Slavery Act 2018 现代奴隶制法案</span>:</strong> Requires entities with revenue >AU$100M to report annually on modern slavery risks in operations and supply chains.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">UNGPs 联合国工商企业与人权指导原则</span>:</strong> UN Guiding Principles on Business and Human Rights - authoritative global standard with three pillars: State duty to Protect, corporate responsibility to Respect, access to Remedy.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">ASX Corporate Governance Principles 澳交所公司治理原则</span>:</strong> Eight principles and recommendations for good governance including board composition, risk management, and ESG disclosure (especially Principle 7.4).</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Director Duties 董事职责</span>:</strong> Under Corporations Act ss.180-183: care and diligence (s.180), good faith (s.181), improper use of position (s.182), improper use of information (s.183).</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Foreign Bribery 海外贿赂</span>:</strong> Criminal offence under Criminal Code Act 1995 Division 70 - bribing foreign public officials to obtain business advantage. Penalties up to 10 years imprisonment.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Whistleblower Protections 举报人保护</span>:</strong> Corporations Act Part 9.4AAA protections for corporate whistleblowers including immunity from liability, confidentiality, protection from victimisation, and compensation for detrimental conduct.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Circular Economy 循环经济</span>:</strong> Economic model eliminating waste and maximizing resource use through continuous cycles. Three principles: design out waste, keep products/materials in use, regenerate natural systems.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">ESG Investing ESG投资</span>:</strong> Investment approach integrating environmental, social, and governance factors into investment decisions. Global ESG assets expected to exceed $50 trillion by 2025.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">National Employment Standards (NES) 国家就业标准</span>:</strong> Minimum employment entitlements under Fair Work Act including maximum weekly hours, minimum wages, annual leave, personal/carer's leave, parental leave.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Centro Case (ASIC v Healey) Centro案</span>:</strong> Landmark case establishing that directors cannot blindly rely on management - must understand and review financial statements to meet duty of care and diligence.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong><span class="highlight">Net-Zero Pathways 净零路径</span>:</strong> Strategies to achieve balance between greenhouse gas emissions produced and removed, typically targeting 2050. Includes science-based targets, transition finance, carbon removal technologies.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
     <script>
-        // Add dynamic shapes to header background
-        function setupHeaderAnimation() {
-            const headerBg = document.getElementById('header-animation');
-            const shapeCount = 10;
-            const shapes = ['circle', 'square', 'triangle'];
+        // Toggle Section Functionality
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
             
-            for (let i = 0; i < shapeCount; i++) {
-                const div = document.createElement('div');
-                const size = Math.random() * 60 + 20;
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                div.style.width = `${size}px`;
-                div.style.height = `${size}px`;
-                div.style.left = `${Math.random() * 100}%`;
-                div.style.top = `${Math.random() * 100}%`;
-                div.style.position = 'absolute';
-                
-                if (shapeType === 'circle') {
-                    div.style.borderRadius = '50%';
-                } else if (shapeType === 'square') {
-                    div.style.borderRadius = '4px';
-                } else if (shapeType === 'triangle') {
-                    div.style.width = '0';
-                    div.style.height = '0';
-                    div.style.borderLeft = `${size/2}px solid transparent`;
-                    div.style.borderRight = `${size/2}px solid transparent`;
-                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
-                    div.style.background = 'transparent';
-                }
-                
-                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
-                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
-                
-                headerBg.appendChild(div);
+            content.classList.toggle('collapsed');
+            if (icon) {
+                icon.classList.toggle('rotated');
             }
         }
-        
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
-        
-        // Initialize header animation when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            setupHeaderAnimation();
-            initializeInteractiveFeatures();
+
+        // Add click handlers to all section titles
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                toggleSection(this);
+            });
         });
-        
-        // Interactive Features
-        function initializeInteractiveFeatures() {
-            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
-            contentDivs.forEach((div, index) => {
-                if (div.querySelector('h4')) {
-                    makeCollapsible(div, index);
-                }
-            });
-            addProgressTracker();
-            addHoverEffects();
+
+        // Progress Bar
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
         }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
         
-        function makeCollapsible(element, index) {
-            const header = element.querySelector('h4');
-            if (!header) return;
-            
-            const content = Array.from(element.children).slice(1);
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'collapsible-content';
-            contentWrapper.style.maxHeight = '2000px';
-            contentWrapper.style.overflow = 'hidden';
-            contentWrapper.style.transition = 'max-height 0.4s ease';
-            
-            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
-            content.forEach(child => child.remove());
-            element.appendChild(contentWrapper);
-            
-            header.style.cursor = 'pointer';
-            header.style.userSelect = 'none';
-            header.style.position = 'relative';
-            header.style.paddingRight = '30px';
-            header.style.transition = 'all 0.3s';
-            
-            const icon = document.createElement('span');
-            icon.innerHTML = '▼';
-            icon.style.position = 'absolute';
-            icon.style.right = '0';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.transition = 'transform 0.3s';
-            icon.style.fontSize = '0.8em';
-            header.appendChild(icon);
-            
-            header.addEventListener('click', function() {
-                const isCollapsed = contentWrapper.style.maxHeight === '0px';
-                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
-                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
-                header.style.color = isCollapsed ? '#37474f' : '#666';
-            });
-            
-            header.addEventListener('mouseenter', function() {
-                header.style.color = '#37474f';
-                header.style.transform = 'translateX(5px)';
-            });
-            
-            header.addEventListener('mouseleave', function() {
-                if (contentWrapper.style.maxHeight !== '0px') {
-                    header.style.color = '#333';
-                }
-                header.style.transform = 'translateX(0)';
-            });
-        }
-        
-        function addProgressTracker() {
-            const progressBar = document.createElement('div');
-            progressBar.id = 'reading-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 4px;
-                background: linear-gradient(90deg, #37474f, #546e7a);
-                z-index: 9999;
-                transition: width 0.2s ease;
-            `;
-            document.body.appendChild(progressBar);
-            
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-                progressBar.style.width = progress + '%';
-            });
-            
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #37474f, #546e7a);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(55, 71, 79, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
-            });
-        }
-        
-        function addHoverEffects() {
-            const listItems = document.querySelectorAll('ul li, ol li');
-            listItems.forEach(item => {
-                item.style.transition = 'all 0.2s';
-                item.style.paddingLeft = '0';
-                
-                item.addEventListener('mouseenter', function() {
-                    item.style.paddingLeft = '10px';
-                    item.style.color = '#37474f';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    item.style.paddingLeft = '0';
-                    item.style.color = '';
-                });
-            });
-            
-            const contentCard = document.querySelector('.content-card');
-            if (contentCard) {
-                const strongElements = contentCard.querySelectorAll('strong');
-                strongElements.forEach(strong => {
-                    strong.style.cursor = 'help';
-                    strong.style.transition = 'all 0.2s';
-                    strong.style.position = 'relative';
-                    
-                    strong.addEventListener('mouseenter', function() {
-                        strong.style.color = '#37474f';
-                        strong.style.textShadow = '0 0 10px rgba(55, 71, 79, 0.3)';
-                    });
-                    
-                    strong.addEventListener('mouseleave', function() {
-                        strong.style.color = '';
-                        strong.style.textShadow = '';
-                    });
-                });
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
             }
-        }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     </script>
+
+</div>
 </body>
 </html>
