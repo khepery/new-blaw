@@ -3,479 +3,829 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 9: Sustainability Part 1 - Business Environments</title>
+    <title>Unit 9 单元9: Sustainability Part 1 可持续发展（一）</title>
     <style>
-        :root {
-            --primary-color: #33691e;
-            --secondary-color: #558b2f;
-            --accent-color: #689f38;
-            --light-accent: #f1f8e9;
-            --light-bg: #f8fafc;
-            --dark-text: #1e293b;
-            --light-text: #f8fafc;
-            --med-text: #64748b;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f1f8e9 0%, #c5e1a5 100%);
+            min-height: 100vh;
         }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            text-align: center;
-            padding: 3rem 1rem;
-            position: relative;
-            overflow: hidden;
+
+        :root {
+            --primary-color: #33691e;
+            --secondary-color: #558b2f;
+            --accent-color: #689f38;
+            --text-color: #333;
+            --bg-light: #f1f8e9;
         }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .header-animation {
-            position: absolute;
+
+        .progress-bar {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.3;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.3s ease;
         }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .content-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        /* Back to Main Button */
-        .back-to-main {
+
+        .back-to-top {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: var(--primary-color);
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
             cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
         }
-        
-        .back-to-main:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
         }
-        
-        .back-to-main svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        
-        footer {
-            text-align: center;
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
             padding: 2rem;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            margin-top: 3rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            margin-top: 1rem;
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+        }
+
+        .subsection {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+
+        .subsection h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .case-box {
+            background: #f1f8e9;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: #dcedc8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .step {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--accent-color);
+            border-radius: 3px;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .question-box {
+            background: #c5e1a5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px dashed var(--primary-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
-            header p {
-                font-size: 1rem;
+            .container {
+                padding: 0 1rem;
             }
             
-            .back-to-main {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
-            }
-            
-            .back-to-main svg {
-                width: 20px;
-                height: 20px;
+            .section {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
-    </a>
-    
+    <div class="progress-bar" id="progressBar"></div>
+    <button class="back-to-top" id="backToTop">↑</button>
+
     <header>
-        <div class="header-animation" id="header-animation"></div>
-        <div class="header-content">
-            <h1>Unit 9: Sustainability Part 1</h1>
-            <p>Business Environments - FS2025</p>
-        </div>
+        <h1>Unit 9 单元9</h1>
+        <h2>Sustainability Part 1 可持续发展（一）</h2>
+        <h3>ESG, CSR & Stakeholder Theory ESG、企业社会责任与利益相关者理论</h3>
     </header>
-    
-    <main>
-        <div class="content-card">
-            <h2>Unit 9: Sustainability Part 1 
-                <span style="display: block; font-size: 0.8em; color: #666; margin-top: 0.5rem;">单元9：可持续发展（一）</span>
-            </h2>
-            
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-left: 4px solid #33691e; border-radius: 4px;">
-                <h3 style="color: #33691e; margin-bottom: 1rem;">Welcome to Unit 9 欢迎来到第九单元</h3>
-                <p style="margin-bottom: 0.5rem;">This unit introduces sustainability concepts in business, focusing on ESG principles and corporate social responsibility.</p>
-                <p style="color: #666; font-size: 0.95em;">本单元介绍商业中的可持续发展概念，重点关注ESG原则和企业社会责任。</p>
-            </div>
 
-            <h3 style="color: #33691e; margin-top: 2rem;">Topics Covered 涵盖主题</h3>
-            
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">1. Introduction to Sustainability in Business 商业中的可持续发展概论</h4>
-                <p>Sustainability means meeting present needs without compromising future generations' ability to meet their needs.</p>
-                <p style="color: #666; font-size: 0.95em;">可持续发展意味着满足当前需求的同时不损害未来世代满足其需求的能力。</p>
+    <div class="container">
+        <!-- OVERVIEW SECTION -->
+        <section class="section">
+            <div class="section-title">
+                📋 Overview 概览
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>This unit explores the intersection of <span class="highlight">sustainability</span>, <span class="highlight">corporate governance</span>, and <span class="highlight">business ethics</span>. We examine how modern organizations balance environmental stewardship, social responsibility, and profitability while considering the interests of diverse stakeholders.</p>
+                    <p><strong>Key Topics Covered:</strong></p>
+                    <ul>
+                        <li>Legislation and Key Frameworks (UN SDGs, Paris Agreement)</li>
+                        <li>Definition of Sustainability and Sustainable Development</li>
+                        <li>ESG Principles (Environmental, Social, Governance)</li>
+                        <li>Corporate Social Responsibility (CSR) and Carroll's Pyramid</li>
+                        <li>Stakeholder Theory and Freeman's Framework</li>
+                        <li>Triple Bottom Line (3Ps: People, Planet, Profit)</li>
+                        <li>United Nations Sustainable Development Goals</li>
+                        <li>Practical Applications and Case Studies</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">2. ESG (Environmental, Social, Governance) ESG（环境、社会、治理）</h4>
-                <p><strong>Environmental 环境:</strong> Climate change, pollution, resource use, biodiversity 气候变化、污染、资源使用、生物多样性</p>
-                <p><strong>Social 社会:</strong> Human rights, labor practices, community relations, diversity 人权、劳工实践、社区关系、多样性</p>
-                <p><strong>Governance 治理:</strong> Board composition, ethics, transparency, accountability 董事会组成、道德、透明度、问责制</p>
+        <!-- LEGISLATION AND KEY FRAMEWORKS SECTION -->
+        <section class="section">
+            <div class="section-title">
+                ⚖️ Legislation & Key Frameworks 法律与关键框架
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>United Nations Sustainable Development Goals (SDGs)</h3>
+                    <p>Adopted in 2015 as part of the <span class="highlight">2030 Agenda for Sustainable Development</span>, the UN SDGs provide a universal call to action to end poverty, protect the planet, and ensure peace and prosperity. All 193 UN Member States have committed to achieving these goals.</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li>17 interconnected global goals</li>
+                        <li>169 targets to achieve by 2030</li>
+                        <li>244 official indicators for measurement</li>
+                        <li>Applies to all countries (developed and developing)</li>
+                    </ul>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">3. Corporate Social Responsibility (CSR) 企业社会责任</h4>
-                <p>A business model where companies integrate social and environmental concerns into their operations and stakeholder interactions.</p>
-                <p style="color: #666; font-size: 0.95em;">一种商业模式，公司将社会和环境关切融入其运营和利益相关者互动中。</p>
-            </div>
+                <div class="subsection">
+                    <h3>Paris Agreement (2015)</h3>
+                    <p>A landmark international treaty adopted under the UN Framework Convention on Climate Change, requiring countries to:</p>
+                    <ul>
+                        <li>Limit global warming to well below 2°C (preferably 1.5°C)</li>
+                        <li>Review and strengthen climate commitments every 5 years</li>
+                        <li>Provide financial support to developing nations</li>
+                        <li>Transition to clean energy systems</li>
+                    </ul>
+                    <p><strong>Australia's Commitment:</strong> Ratified in 2016; committed to reduce greenhouse gas emissions by 43% by 2030 (2005 baseline).</p>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">4. Stakeholder Theory 利益相关者理论</h4>
-                <p>Businesses should consider all stakeholders (employees, customers, suppliers, communities), not just shareholders.</p>
-                <p style="color: #666; font-size: 0.95em;">企业应考虑所有利益相关者（员工、客户、供应商、社区），而不仅仅是股东。</p>
-            </div>
+                <div class="subsection">
+                    <h3>Brundtland Report (1987)</h3>
+                    <p>Published by the World Commission on Environment and Development, the Brundtland Report coined the term <span class="highlight">"Sustainable Development"</span> and defined it as:</p>
+                    <p style="font-style: italic; background: #f1f8e9; padding: 1rem; border-left: 3px solid #33691e; margin: 1rem 0;">"Development that meets the needs of the present without compromising the ability of future generations to meet their own needs."</p>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">5. Triple Bottom Line 三重底线</h4>
-                <p>Measuring success beyond profit:</p>
-                <p style="color: #666; font-size: 0.95em;">衡量利润之外的成功：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li><strong>People 人:</strong> Social impact 社会影响</li>
-                    <li><strong>Planet 地球:</strong> Environmental impact 环境影响</li>
-                    <li><strong>Profit 利润:</strong> Economic performance 经济表现</li>
-                </ul>
+                <div class="subsection">
+                    <h3>Australian Legislation & Frameworks</h3>
+                    <ul>
+                        <li><strong>Environment Protection and Biodiversity Conservation (EPBC) Act 1999:</strong> Australia's national environmental law protecting matters of national environmental significance</li>
+                        <li><strong>Climate Change Act 2022:</strong> Establishes Australia's net-zero emissions target by 2050</li>
+                        <li><strong>Modern Slavery Act 2018:</strong> Requires large organizations to report on modern slavery risks</li>
+                        <li><strong>ASX Corporate Governance Principles:</strong> Recommendations for ESG disclosure and board oversight</li>
+                        <li><strong>Treasury ESG Guidance:</strong> Encourages voluntary ESG reporting by companies</li>
+                    </ul>
+                </div>
             </div>
+        </section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">6. Sustainable Development Goals (SDGs) 可持续发展目标</h4>
-                <p>The United Nations' 17 global goals for sustainable development by 2030, addressing poverty, inequality, climate change, and more.</p>
-                <p style="color: #666; font-size: 0.95em;">联合国到2030年实现可持续发展的17个全球目标，涉及贫困、不平等、气候变化等。</p>
+        <!-- WHAT IS SUSTAINABILITY SECTION -->
+        <section class="section">
+            <div class="section-title">
+                🌱 What is Sustainability? 什么是可持续发展？
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>The Brundtland Definition</h3>
+                    <p>Sustainability refers to development that satisfies present needs while preserving resources for future generations. It requires balancing:</p>
+                    <ul>
+                        <li><strong>Economic Growth:</strong> Creating wealth and employment</li>
+                        <li><strong>Environmental Protection:</strong> Preserving natural resources and ecosystems</li>
+                        <li><strong>Social Equity:</strong> Ensuring fair treatment and opportunity for all</li>
+                    </ul>
+                </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">7. Business Ethics and Sustainability 商业道德与可持续发展</h4>
-                <p>The moral principles guiding business decisions toward sustainable practices.</p>
-                <p style="color: #666; font-size: 0.95em;">指导商业决策走向可持续实践的道德原则。</p>
-            </div>
+                <div class="subsection">
+                    <h3>The Three Pillars of Sustainability</h3>
+                    <div class="case-box">
+                        <div class="case-title">🌍 Environmental Pillar</div>
+                        <p>Protecting natural resources, reducing pollution, mitigating climate change, and preserving biodiversity. Focus on renewable energy, waste reduction, and circular economy principles.</p>
+                    </div>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-left: 4px solid #33691e; border-radius: 4px;">
-                <h4 style="color: #33691e; margin-bottom: 0.5rem;">Key Learning Outcomes 主要学习成果</h4>
-                <p style="margin-bottom: 0.5rem;">By the end of this unit, you should be able to:</p>
-                <p style="color: #666; font-size: 0.95em; margin-bottom: 1rem;">在本单元结束时，您应该能够：</p>
-                <ul style="margin-left: 2rem;">
-                    <li>Define sustainability and its importance in business 定义可持续发展及其在商业中的重要性</li>
-                    <li>Explain ESG principles and their application 解释ESG原则及其应用</li>
-                    <li>Understand corporate social responsibility 理解企业社会责任</li>
-                    <li>Apply stakeholder theory to business decisions 将利益相关者理论应用于商业决策</li>
-                </ul>
+                    <div class="case-box">
+                        <div class="case-title">👥 Social Pillar</div>
+                        <p>Ensuring human well-being, fair labor practices, community development, and social justice. Includes health, education, poverty reduction, and labor rights.</p>
+                    </div>
+
+                    <div class="case-box">
+                        <div class="case-title">💰 Economic Pillar</div>
+                        <p>Building resilient economies that create prosperity without depleting natural capital. Focus on sustainable business models, green jobs, and long-term value creation.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>The Goal:</strong> Find the intersection where all three pillars overlap - achieving <span class="highlight">sustainable development</span> that is economically viable, environmentally responsible, and socially equitable.</p>
+                </div>
             </div>
-        </div>
-    </main>
-    
-    <footer>
-        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
-    </footer>
-    
+        </section>
+
+        <!-- ESG PRINCIPLES SECTION -->
+        <section class="section">
+            <div class="section-title">
+                🎯 ESG Principles ESG原则
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>ESG stands for <span class="highlight">Environmental, Social, and Governance</span> - three central factors used to measure the sustainability and ethical impact of a company's operations.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>E - Environmental 环境</h3>
+                    <p>Measures how a company manages environmental risks and opportunities:</p>
+                    <ul>
+                        <li><strong>Climate Change:</strong> Greenhouse gas emissions, carbon footprint, renewable energy adoption</li>
+                        <li><strong>Resource Management:</strong> Water usage, waste management, recycling programs</li>
+                        <li><strong>Pollution & Chemicals:</strong> Air/water pollution prevention, hazardous materials management</li>
+                        <li><strong>Biodiversity:</strong> Ecosystem protection, land use practices</li>
+                    </ul>
+                    <p><strong>Example:</strong> A fashion retailer reducing water consumption in manufacturing by 50% and transitioning to sustainable materials.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>S - Social 社会</h3>
+                    <p>Examines how the company manages relationships with employees, suppliers, customers, and communities:</p>
+                    <ul>
+                        <li><strong>Labor Practices:</strong> Fair wages, working conditions, diversity & inclusion</li>
+                        <li><strong>Employee Welfare:</strong> Health & safety, training, career development</li>
+                        <li><strong>Community Relations:</strong> Local employment, community investment, social programs</li>
+                        <li><strong>Supply Chain:</strong> Ethical sourcing, no child labor, supplier auditing</li>
+                        <li><strong>Product Quality:</strong> Customer satisfaction, data privacy, product safety</li>
+                    </ul>
+                    <p><strong>Example:</strong> A tech company implementing mandatory diversity training, creating mentorship programs, and ensuring equal pay across genders.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>G - Governance 治理</h3>
+                    <p>Evaluates the company's internal controls, executive compensation, and board structure:</p>
+                    <ul>
+                        <li><strong>Board Composition:</strong> Board independence, diversity, expertise</li>
+                        <li><strong>Executive Compensation:</strong> Alignment with performance, sustainability metrics</li>
+                        <li><strong>Audit & Risk:</strong> Internal controls, compliance programs, risk management</li>
+                        <li><strong>Stakeholder Rights:</strong> Shareholder voting rights, transparency, disclosure</li>
+                        <li><strong>Business Ethics:</strong> Anti-corruption, whistleblower protections, regulatory compliance</li>
+                    </ul>
+                    <p><strong>Example:</strong> A company establishing an independent audit committee, implementing anti-bribery procedures, and publishing annual sustainability reports.</p>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Case Study: Patagonia - ESG Excellence</div>
+                    <p><strong>Environmental:</strong> 1% for the Planet program; renewable energy in all facilities; sustainable materials sourcing</p>
+                    <p><strong>Social:</strong> Fair Trade Certified manufacturing; living wage commitment; family-friendly policies</p>
+                    <p><strong>Governance:</strong> Transparent reporting; employee profit-sharing; purpose-driven corporate structure</p>
+                    <p><strong>Result:</strong> Industry leader in ESG; strong brand loyalty; attracted ESG-conscious investors</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORPORATE SOCIAL RESPONSIBILITY SECTION -->
+        <section class="section">
+            <div class="section-title">
+                🏢 Corporate Social Responsibility (CSR) 企业社会责任
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>CSR refers to business practices that consider the social and environmental impact of company operations. It reflects the idea that corporations have responsibilities beyond maximizing shareholder profit.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Carroll's CSR Pyramid</h3>
+                    <p>Archie Carroll (1991) proposed a four-level pyramid to understand CSR responsibilities:</p>
+
+                    <div class="step">
+                        <strong>Level 4 - Philanthropic Responsibility (Top)</strong>
+                        <p>Companies contribute to society through voluntary charitable giving, community involvement, and social programs. Examples: donations to education, arts patronage, volunteer employee programs.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Doing good" - Discretionary, going beyond legal/ethical obligations</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Level 3 - Ethical Responsibility</strong>
+                        <p>Companies operate fairly and transparently, respecting moral principles not required by law. Examples: fair labor practices, environmental protection, honest marketing, corruption prevention.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Being fair" - Moral obligations expected by society</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Level 2 - Legal Responsibility</strong>
+                        <p>Companies comply with laws and regulations. Examples: environmental laws, labor standards, consumer protection, tax obligations, workplace safety.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Following the rules" - Legal requirements</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Level 1 - Economic Responsibility (Base)</strong>
+                        <p>The fundamental responsibility to produce goods/services efficiently and profitably. This is the foundation enabling all other responsibilities.</p>
+                        <p style="font-size: 0.9rem; color: #666;">"Making profits" - Core business purpose</p>
+                    </div>
+
+                    <p><strong>Note:</strong> Each level builds on previous levels. Economic viability is the foundation; CSR adds ethical and social considerations on top.</p>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Real-world Application: Unilever's CSR Strategy</div>
+                    <p><strong>Economic:</strong> Profitable business model ensuring sustainability of operations</p>
+                    <p><strong>Legal:</strong> Compliance with all environmental and labor laws globally</p>
+                    <p><strong>Ethical:</strong> Sustainable sourcing commitments; female empowerment; water conservation</p>
+                    <p><strong>Philanthropic:</strong> Lipton tea farming sustainability program; WASH program (water, sanitation, hygiene)</p>
+                    <p><strong>Result:</strong> Market leadership while contributing to global development goals</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAKEHOLDER THEORY SECTION -->
+        <section class="section">
+            <div class="section-title">
+                🤝 Stakeholder Theory 利益相关者理论
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Freeman's Stakeholder Theory</h3>
+                    <p>Developed by R. Edward Freeman (1984), stakeholder theory argues that companies should <span class="highlight">create value for all stakeholders</span>, not just shareholders. This contrasts with shareholder primacy which focuses solely on maximizing shareholder returns.</p>
+                    <p><strong>Core Principle:</strong> "A business is not an island; it exists within a network of relationships with parties that affect and are affected by its operations."</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Primary Stakeholders</h3>
+                    <p>Those directly affected by company operations and critical to survival:</p>
+                    <ul>
+                        <li><strong>Shareholders/Investors:</strong> Provide capital and bear financial risk</li>
+                        <li><strong>Employees:</strong> Provide labor and expertise; depend on company for livelihoods</li>
+                        <li><strong>Customers:</strong> Purchase products/services; quality and safety depend on company</li>
+                        <li><strong>Suppliers/Business Partners:</strong> Provide materials and services; depend on company for revenue</li>
+                        <li><strong>Lenders/Creditors:</strong> Provide financing; depend on company's financial health</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Secondary Stakeholders</h3>
+                    <p>Those affected indirectly by company operations but important for social legitimacy:</p>
+                    <ul>
+                        <li><strong>Local Communities:</strong> Affected by environmental impact, employment, social programs</li>
+                        <li><strong>Governments/Regulators:</strong> Set rules and collect taxes</li>
+                        <li><strong>Environmental Groups:</strong> Advocate for ecological protection</li>
+                        <li><strong>Media & Public:</strong> Influence company reputation and social license</li>
+                        <li><strong>Industry Associations:</strong> Set standards and best practices</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Freeman's 5-Step Stakeholder Management Process</h3>
+                    
+                    <div class="step">
+                        <strong>Step 1: Identify Stakeholders</strong>
+                        <p>Map all parties affected by or affecting the company. Consider primary and secondary stakeholders, their interests, and relative influence.</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 2: Analyze Stakeholder Interests</strong>
+                        <p>Understand what each stakeholder group values, their expectations, concerns, and priorities. Conduct surveys, interviews, and focus groups.</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 3: Define Company Values & Strategy</strong>
+                        <p>Establish company mission, values, and strategic objectives that reflect stakeholder input and create shared value.</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 4: Engage & Communicate</strong>
+                        <p>Maintain transparent, ongoing dialogue with stakeholders. Report on performance, listen to feedback, and adjust strategies accordingly.</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 5: Monitor & Measure</strong>
+                        <p>Track stakeholder satisfaction, company performance against commitments, and adjust practices as needed. Report regularly on progress.</p>
+                    </div>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Stakeholder Conflict Example: Mining Company</div>
+                    <p><strong>Shareholders:</strong> Want high profits and stock returns</p>
+                    <p><strong>Employees:</strong> Want safe working conditions and fair wages</p>
+                    <p><strong>Local Communities:</strong> Want environmental protection and economic benefits</p>
+                    <p><strong>Government:</strong> Wants tax revenue and environmental compliance</p>
+                    <p><strong>Solution (Stakeholder Approach):</strong> Company invests in safety, environment, community development, creating sustainable value for all parties</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRIPLE BOTTOM LINE SECTION -->
+        <section class="section">
+            <div class="section-title">
+                📊 Triple Bottom Line: People, Planet, Profit 三重底线
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>The Triple Bottom Line (3Ps) framework, developed by John Elkington (1997), expands traditional corporate accounting to include <span class="highlight">environmental and social performance</span> alongside financial performance.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>1️⃣ People (Social Aspect)</h3>
+                    <p>Measuring how the company positively impacts social well-being:</p>
+                    <ul>
+                        <li><strong>Employee Welfare:</strong> Fair wages, benefits, work-life balance, career development</li>
+                        <li><strong>Community Development:</strong> Local economic development, education programs, healthcare support</li>
+                        <li><strong>Labor Rights:</strong> Safe working conditions, freedom of association, no discrimination</li>
+                        <li><strong>Supply Chain Impact:</strong> Ethical sourcing, fair trade, supplier development</li>
+                        <li><strong>Customer Impact:</strong> Product safety, quality, transparency</li>
+                    </ul>
+                    <p><strong>Metrics:</strong> Employee satisfaction scores, wage levels, volunteer hours, community impact assessments</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>🌍 Planet (Environmental Aspect)</h3>
+                    <p>Measuring the company's environmental footprint and contribution to ecological health:</p>
+                    <ul>
+                        <li><strong>Carbon Emissions:</strong> Direct emissions (Scope 1), energy-related (Scope 2), supply chain (Scope 3)</li>
+                        <li><strong>Resource Use:</strong> Water consumption, raw material depletion, energy efficiency</li>
+                        <li><strong>Waste Management:</strong> Waste reduction, recycling rates, hazardous waste handling</li>
+                        <li><strong>Pollution:</strong> Air quality, water quality, soil contamination</li>
+                        <li><strong>Biodiversity:</strong> Ecosystem protection, land restoration</li>
+                    </ul>
+                    <p><strong>Metrics:</strong> Carbon footprint, water usage, renewable energy %, waste diversion rate, environmental audit scores</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>💰 Profit (Economic Aspect)</h3>
+                    <p>Traditional financial performance alongside economic sustainability:</p>
+                    <ul>
+                        <li><strong>Financial Returns:</strong> Revenue growth, profitability, shareholder returns</li>
+                        <li><strong>Economic Sustainability:</strong> Long-term viability, risk management, resilience</li>
+                        <li><strong>Value Creation:</strong> Innovation, market share, competitive advantage</li>
+                        <li><strong>Cost Efficiency:</strong> Operational efficiency, resource optimization</li>
+                        <li><strong>Economic Contribution:</strong> Tax payments, employment creation, supplier spending</li>
+                    </ul>
+                    <p><strong>Metrics:</strong> EBITDA, ROE, EPS, debt-to-equity ratio, economic value added</p>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Case Study: Interface Inc. (Carpet Manufacturing)</div>
+                    <p><strong>People:</strong> Established "evergreen" employee programs; 40% of workforce trained for high-skills positions; industry-leading safety record</p>
+                    <p><strong>Planet:</strong> "Mission Zero" - zero waste to landfill by 2020 (achieved); 96% renewable energy; eliminated virgin PVC</p>
+                    <p><strong>Profit:</strong> Achieved 26% reduction in GHG intensity while maintaining 7% average annual revenue growth; market leader in sustainable carpeting</p>
+                    <p><strong>Impact:</strong> Proven that sustainability drives profitability through innovation, efficiency, and market differentiation</p>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Case Study: Walmart - Triple Bottom Line Integration</div>
+                    <p><strong>People:</strong> Wage improvements for 500,000+ employees; supplier diversity programs; community disaster relief</p>
+                    <p><strong>Planet:</strong> 2030 target: zero waste to landfills; 100% renewable energy; sustainable sourcing commitments</p>
+                    <p><strong>Profit:</strong> Reduced supply chain costs by $1B+ through sustainability initiatives; expanded market through sustainability-focused customers</p>
+                    <p><strong>Integration:</strong> Triple bottom line approach became competitive advantage</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- UN SDGs SECTION -->
+        <section class="section">
+            <div class="section-title">
+                🌐 United Nations Sustainable Development Goals (SDGs) 联合国可持续发展目标
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <p>The 17 SDGs adopted in 2015 as part of the 2030 Agenda represent a universal call to action to end poverty, protect the planet, and ensure peace and prosperity. They interconnect environmental, social, and economic dimensions of sustainable development.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>17 Sustainable Development Goals (Chinese)</h3>
+                    <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                        <li>1️⃣ 无贫困 - No Poverty</li>
+                        <li>2️⃣ 零饥饿 - Zero Hunger</li>
+                        <li>3️⃣ 良好健康与福祉 - Good Health and Well-being</li>
+                        <li>4️⃣ 优质教育 - Quality Education</li>
+                        <li>5️⃣ 性别平等 - Gender Equality</li>
+                        <li>6️⃣ 清洁饮水和卫生设施 - Clean Water and Sanitation</li>
+                        <li>7️⃣ 经济适用的清洁能源 - Affordable and Clean Energy</li>
+                        <li>8️⃣ 体面工作和经济增长 - Decent Work and Economic Growth</li>
+                        <li>9️⃣ 产业、创新和基础设施 - Industry, Innovation and Infrastructure</li>
+                        <li>🔟 减少不平等 - Reduced Inequalities</li>
+                        <li>1️⃣1️⃣ 可持续城市和社区 - Sustainable Cities and Communities</li>
+                        <li>1️⃣2️⃣ 负责任消费和生产 - Responsible Consumption and Production</li>
+                        <li>1️⃣3️⃣ 气候行动 - Climate Action</li>
+                        <li>1️⃣4️⃣ 水下生物 - Life Below Water</li>
+                        <li>1️⃣5️⃣ 陆地生物 - Life On Land</li>
+                        <li>1️⃣6️⃣ 和平、正义与强大机构 - Peace, Justice and Strong Institutions</li>
+                        <li>1️⃣7️⃣ 促进目标实现的伙伴关系 - Partnerships for the Goals</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>SDG Implementation by Businesses</h3>
+                    <p>Companies integrate SDGs into strategy by:</p>
+                    <ul>
+                        <li><strong>Identifying Relevant Goals:</strong> Determine which SDGs align with their industry, operations, and stakeholder needs</li>
+                        <li><strong>Setting Targets:</strong> Establish measurable targets for contribution to SDG targets</li>
+                        <li><strong>Integration:</strong> Embed SDGs into business strategy, products, and operations</li>
+                        <li><strong>Measurement:</strong> Track progress using SDG indicators and third-party verification</li>
+                        <li><strong>Reporting:</strong> Disclose SDG progress in sustainability/annual reports</li>
+                    </ul>
+                </div>
+
+                <div class="case-box">
+                    <div class="case-title">Example: Nestlé's SDG Commitments</div>
+                    <p><strong>SDG 2 (Zero Hunger):</strong> Improving farmer livelihoods and agricultural productivity in supply chains</p>
+                    <p><strong>SDG 3 (Good Health):</strong> Promoting nutrition and improving product formulations</p>
+                    <p><strong>SDG 5 (Gender Equality):</strong> Women in leadership; gender parity target for management</p>
+                    <p><strong>SDG 12 (Responsible Consumption):</strong> 100% recyclable/compostable packaging by 2025</p>
+                    <p><strong>SDG 13 (Climate Action):</strong> Net-zero emissions target for 2050</p>
+                    <p><strong>SDG 15 (Life On Land):</strong> Regenerative agriculture in all major crops by 2030</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TUTORIAL QUESTIONS SECTION -->
+        <section class="section">
+            <div class="section-title">
+                ❓ Tutorial Questions & Scenarios 讨论题和情景
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="question-box">
+                    <div class="question-title">Scenario 1: Tech Company Expansion</div>
+                    <p><strong>Situation:</strong> A large technology company plans to build a new manufacturing facility in a developing country. The facility will create 5,000 jobs but requires construction on biodiverse land and could increase local carbon emissions by 15%.</p>
+                    <p><strong>Using Freeman's Stakeholder Theory and Triple Bottom Line framework:</strong></p>
+                    <ul>
+                        <li>Identify all primary and secondary stakeholders</li>
+                        <li>Analyze potential conflicts between stakeholder interests</li>
+                        <li>Propose how the company can create shared value across People, Planet, and Profit</li>
+                        <li>Suggest ESG measures to mitigate negative impacts</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Scenario 2: CSR Responsibility Conflict</div>
+                    <p><strong>Situation:</strong> A fashion retailer discovers that one of its key suppliers uses child labor in production. The company must decide: maintain the supplier (supporting 2,000 jobs), work with the supplier to improve practices (costly and time-consuming), or terminate the relationship (immediate ESG benefit but job losses).</p>
+                    <p><strong>Using Carroll's CSR Pyramid:</strong></p>
+                    <ul>
+                        <li>Analyze this situation across all four levels of responsibility</li>
+                        <li>Identify which stakeholders are most affected by each option</li>
+                        <li>What does the company's legal obligation require?</li>
+                        <li>What ethical and philanthropic responsibilities apply?</li>
+                        <li>Develop a comprehensive solution incorporating all CSR levels</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Scenario 3: ESG Performance vs. Short-term Profits</div>
+                    <p><strong>Situation:</strong> A mining company faces pressure from shareholders to maximize quarterly profits. However, investing in environmental remediation and indigenous community relations (aligned with ESG) would reduce short-term earnings but improve long-term sustainability and social license to operate.</p>
+                    <p><strong>Discussion Questions:</strong></p>
+                    <ul>
+                        <li>How do ESG investments align with sustainable value creation?</li>
+                        <li>What arguments support ESG investment despite short-term cost?</li>
+                        <li>How can the company communicate ESG value to shareholders?</li>
+                        <li>What risks does the company face if ESG is neglected?</li>
+                        <li>How do UN SDGs provide a framework for this decision?</li>
+                    </ul>
+                </div>
+
+                <div class="question-box">
+                    <div class="question-title">Scenario 4: Australian Compliance & Sustainability</div>
+                    <p><strong>Situation:</strong> An Australian food manufacturer must comply with the Climate Change Act 2022 (net-zero by 2050) and Modern Slavery Act 2018. The company operates in emerging markets where environmental and labor standards are less stringent.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ul>
+                        <li>Should Australian companies apply the same standards globally? Why or why not?</li>
+                        <li>How do international frameworks (Paris Agreement, UN SDGs) guide this decision?</li>
+                        <li>What stakeholder perspectives should be considered?</li>
+                        <li>How can the company balance compliance costs with competitive positioning?</li>
+                        <li>What role does governance play in ensuring consistent ESG standards?</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- KEY TERMS GLOSSARY SECTION -->
+        <section class="section">
+            <div class="section-title">
+                📚 Key Terms & Glossary 关键术语和词汇表
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <p><strong>Brundtland Report:</strong> 1987 World Commission report that defined sustainable development as meeting present needs without compromising future generations' ability to meet their own needs.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Carbon Footprint:</strong> Total greenhouse gas emissions produced directly and indirectly by an organization, product, or individual, typically measured in CO2 equivalents.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Corporate Social Responsibility (CSR):</strong> Business practices reflecting concern for social and environmental impact; commitment to behave ethically and contribute to sustainable development.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>ESG (Environmental, Social, Governance):</strong> Framework for measuring corporate sustainability and ethical impact across environmental stewardship, social responsibility, and governance practices.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Greenwashing:</strong> Marketing communications that exaggerate environmental benefits or hide negative environmental practices to appear more sustainable than reality.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Materiality:</strong> In sustainability context, refers to ESG issues that significantly impact business performance and stakeholder value; used to prioritize disclosure.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Net Zero Emissions:</strong> State achieved when greenhouse gas emissions from human activities are balanced by emission removals from the atmosphere, typically targeting 2050.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Scope 1, 2, 3 Emissions:</strong> Categorization of greenhouse gas emissions: Scope 1 (direct), Scope 2 (from purchased energy), Scope 3 (value chain indirect).</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Stakeholder:</strong> Any person or group affected by or affecting a company's operations, including employees, customers, suppliers, communities, governments, investors.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Sustainable Development Goals (SDGs):</strong> 17 interconnected global goals adopted by UN member states in 2015 to achieve a better future for all by 2030.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Triple Bottom Line (3Ps):</strong> Framework expanding corporate accounting to measure People (social), Planet (environmental), and Profit (economic) performance simultaneously.</p>
+                </div>
+
+                <div class="subsection">
+                    <p><strong>Transparency & Disclosure:</strong> Practice of openly reporting on corporate ESG performance, impacts, and governance through sustainability reports and annual disclosures.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
     <script>
-        // Add dynamic shapes to header background
-        function setupHeaderAnimation() {
-            const headerBg = document.getElementById('header-animation');
-            const shapeCount = 10;
-            const shapes = ['circle', 'square', 'triangle'];
+        // Toggle Section Functionality
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
             
-            for (let i = 0; i < shapeCount; i++) {
-                const div = document.createElement('div');
-                const size = Math.random() * 60 + 20;
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                div.style.width = `${size}px`;
-                div.style.height = `${size}px`;
-                div.style.left = `${Math.random() * 100}%`;
-                div.style.top = `${Math.random() * 100}%`;
-                div.style.position = 'absolute';
-                
-                if (shapeType === 'circle') {
-                    div.style.borderRadius = '50%';
-                } else if (shapeType === 'square') {
-                    div.style.borderRadius = '4px';
-                } else if (shapeType === 'triangle') {
-                    div.style.width = '0';
-                    div.style.height = '0';
-                    div.style.borderLeft = `${size/2}px solid transparent`;
-                    div.style.borderRight = `${size/2}px solid transparent`;
-                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
-                    div.style.background = 'transparent';
-                }
-                
-                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
-                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
-                
-                headerBg.appendChild(div);
+            content.classList.toggle('collapsed');
+            if (icon) {
+                icon.classList.toggle('rotated');
             }
         }
-        
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
-        
-        // Initialize header animation when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            setupHeaderAnimation();
-            initializeInteractiveFeatures();
+
+        // Add click handlers to all section titles
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                toggleSection(this);
+            });
         });
-        
-        // Interactive Features
-        function initializeInteractiveFeatures() {
-            // Add collapsible functionality to sections
-            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
-            contentDivs.forEach((div, index) => {
-                if (div.querySelector('h4')) {
-                    makeCollapsible(div, index);
-                }
-            });
-            
-            // Add progress tracking
-            addProgressTracker();
-            
-            // Add interactive hover effects
-            addHoverEffects();
+
+        // Progress Bar
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
         }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
         
-        function makeCollapsible(element, index) {
-            const header = element.querySelector('h4');
-            if (!header) return;
-            
-            // Wrap content in collapsible container
-            const content = Array.from(element.children).slice(1);
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'collapsible-content';
-            contentWrapper.style.maxHeight = '2000px';
-            contentWrapper.style.overflow = 'hidden';
-            contentWrapper.style.transition = 'max-height 0.4s ease';
-            
-            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
-            content.forEach(child => child.remove());
-            element.appendChild(contentWrapper);
-            
-            // Make header clickable
-            header.style.cursor = 'pointer';
-            header.style.userSelect = 'none';
-            header.style.position = 'relative';
-            header.style.paddingRight = '30px';
-            header.style.transition = 'all 0.3s';
-            
-            // Add toggle icon
-            const icon = document.createElement('span');
-            icon.innerHTML = '▼';
-            icon.style.position = 'absolute';
-            icon.style.right = '0';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.transition = 'transform 0.3s';
-            icon.style.fontSize = '0.8em';
-            header.appendChild(icon);
-            
-            // Add click handler
-            header.addEventListener('click', function() {
-                const isCollapsed = contentWrapper.style.maxHeight === '0px';
-                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
-                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
-                header.style.color = isCollapsed ? '#33691e' : '#666';
-            });
-            
-            // Add hover effect
-            header.addEventListener('mouseenter', function() {
-                header.style.color = '#33691e';
-                header.style.transform = 'translateX(5px)';
-            });
-            
-            header.addEventListener('mouseleave', function() {
-                if (contentWrapper.style.maxHeight !== '0px') {
-                    header.style.color = '#333';
-                }
-                header.style.transform = 'translateX(0)';
-            });
-        }
-        
-        function addProgressTracker() {
-            // Create progress indicator
-            const progressBar = document.createElement('div');
-            progressBar.id = 'reading-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 4px;
-                background: linear-gradient(90deg, #33691e, #689f38);
-                z-index: 9999;
-                transition: width 0.2s ease;
-            `;
-            document.body.appendChild(progressBar);
-            
-            // Update progress on scroll
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-                progressBar.style.width = progress + '%';
-            });
-            
-            // Add "Back to Top" button
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #33691e, #558b2f);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(51, 105, 30, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
-            });
-        }
-        
-        function addHoverEffects() {
-            // Add subtle animation to list items
-            const listItems = document.querySelectorAll('ul li, ol li');
-            listItems.forEach(item => {
-                item.style.transition = 'all 0.2s';
-                item.style.paddingLeft = '0';
-                
-                item.addEventListener('mouseenter', function() {
-                    item.style.paddingLeft = '10px';
-                    item.style.color = '#33691e';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    item.style.paddingLeft = '0';
-                    item.style.color = '';
-                });
-            });
-            
-            // Add interactive highlights to key terms
-            const contentCard = document.querySelector('.content-card');
-            if (contentCard) {
-                const strongElements = contentCard.querySelectorAll('strong');
-                strongElements.forEach(strong => {
-                    strong.style.cursor = 'help';
-                    strong.style.transition = 'all 0.2s';
-                    strong.style.position = 'relative';
-                    
-                    strong.addEventListener('mouseenter', function() {
-                        strong.style.color = '#33691e';
-                        strong.style.textShadow = '0 0 10px rgba(51, 105, 30, 0.3)';
-                    });
-                    
-                    strong.addEventListener('mouseleave', function() {
-                        strong.style.color = '';
-                        strong.style.textShadow = '';
-                    });
-                });
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
             }
-        }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     </script>
+
+</div>
 </body>
 </html>
