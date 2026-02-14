@@ -265,7 +265,7 @@
             animation: bounce 3s ease-in-out infinite;
         }
         
-        /* Dark Mode Toggle */
+        /* ========== Dark Mode Styles ========== */
         .dark-mode-toggle {
             position: fixed;
             top: 20px;
@@ -343,7 +343,7 @@
             border-left-color: #e57373;
         }
         
-        /* Kangaroo Back to Top Button */
+        /* ========== Kangaroo Back to Top Button ========== */
         .back-to-top {
             position: fixed;
             bottom: 20px;
@@ -379,7 +379,7 @@
             100% { transform: translateY(-2000px) scale(0.5); opacity: 0; }
         }
         
-        /* Australian Flag Easter Egg */
+        /* ========== Australian Flag Easter Egg ========== */
         .aussie-flag-trigger {
             position: absolute;
             top: 20px;
@@ -414,7 +414,7 @@
             100% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
         }
         
-        /* Memory Science Boxes */
+        /* ========== Memory Science Boxes ========== */
         .repetition-box {
             background: #e3f2fd;
             border-left: 5px solid #2196f3;
@@ -784,14 +784,14 @@
         });
         
         // Back to Top Kangaroo Button
-        window.onscroll = function() {
+        window.addEventListener('scroll', function() {
             const backToTop = document.getElementById('backToTop');
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 backToTop.style.display = 'block';
             } else {
                 backToTop.style.display = 'none';
             }
-        };
+        });
         
         document.getElementById('backToTop').addEventListener('click', function() {
             this.classList.add('hopping');
@@ -813,7 +813,9 @@
             document.body.appendChild(flagWave);
             
             setTimeout(() => {
-                document.body.removeChild(flagWave);
+                if (flagWave && flagWave.parentNode === document.body) {
+                    document.body.removeChild(flagWave);
+                }
             }, 2000);
         });
         
