@@ -74,14 +74,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Scroll up button
+    // Scroll up button with unfurling animation
     scrollUpBtn.addEventListener('click', function () {
-        frogSound.play().catch(e => console.log('Audio play failed:', e));
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        this.classList.add('unfurling');
+        
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 300);
+        
+        setTimeout(() => {
+            this.classList.remove('unfurling');
+        }, 1000);
     });
+
+    // Stamp Easter Egg
+    const contractStamp = document.getElementById('contractStamp');
+    const stampOverlay = document.getElementById('stampOverlay');
+    
+    if (contractStamp && stampOverlay) {
+        contractStamp.addEventListener('click', function() {
+            this.classList.add('stamping');
+            stampOverlay.classList.add('show');
+            
+            setTimeout(() => {
+                this.classList.remove('stamping');
+            }, 800);
+            
+            setTimeout(() => {
+                stampOverlay.classList.remove('show');
+            }, 1500);
+        });
+    }
 
     // Knowledge check functionality
     function setupKnowledgeCheck(sectionId) {
