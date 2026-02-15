@@ -651,17 +651,17 @@
                 <h4 style="color: var(--primary-color);">60-Second Active Recall</h4>
                 <div class="recall-item">
                     <p><strong>Prompt 1:</strong> Name the three parts of this course.</p>
-                    <button type="button" class="reveal-btn" data-target="a1">Reveal</button>
+                    <button type="button" class="reveal-btn" data-target="a1" aria-label="Reveal answer for prompt 1">Reveal</button>
                     <p id="a1" class="recall-answer">Australian Government Environment; Australian Legal Environment for Business; Sustainability Environment for Businesses.</p>
                 </div>
                 <div class="recall-item">
                     <p><strong>Prompt 2:</strong> Which assessment has the largest weighting?</p>
-                    <button type="button" class="reveal-btn" data-target="a2">Reveal</button>
+                    <button type="button" class="reveal-btn" data-target="a2" aria-label="Reveal answer for prompt 2">Reveal</button>
                     <p id="a2" class="recall-answer">A5 Final Examination (45%).</p>
                 </div>
                 <div class="recall-item">
                     <p><strong>Prompt 3:</strong> What does IPAC stand for?</p>
-                    <button type="button" class="reveal-btn" data-target="a3">Reveal</button>
+                    <button type="button" class="reveal-btn" data-target="a3" aria-label="Reveal answer for prompt 3">Reveal</button>
                     <p id="a3" class="recall-answer">Issue, Principle, Application, Conclusion.</p>
                 </div>
             </div>
@@ -715,11 +715,21 @@
         document.addEventListener('DOMContentLoaded', () => {
             setupHeaderAnimation();
             document.querySelectorAll('.reveal-btn').forEach(button => {
+                const targetId = button.dataset.target;
+                const answer = document.getElementById(targetId);
+                if (!answer) {
+                    button.disabled = true;
+                    button.setAttribute('aria-disabled', 'true');
+                    button.textContent = 'Unavailable';
+                    button.setAttribute('aria-label', 'Answer unavailable');
+                    return;
+                }
                 button.addEventListener('click', () => {
-                    const answer = document.getElementById(button.dataset.target);
-                    if (!answer) return;
                     answer.classList.toggle('show');
-                    button.textContent = answer.classList.contains('show') ? 'Hide' : 'Reveal';
+                    const promptNumber = targetId.replace('a', '');
+                    const isVisible = answer.classList.contains('show');
+                    button.textContent = isVisible ? 'Hide' : 'Reveal';
+                    button.setAttribute('aria-label', `${isVisible ? 'Hide' : 'Reveal'} answer to prompt ${promptNumber}`);
                 });
             });
         });
