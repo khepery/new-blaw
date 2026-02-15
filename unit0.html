@@ -454,6 +454,7 @@ body {
 <button id="back-top" aria-label="Back to top">↑</button>
 
 <!-- ========== HERO HEADER ========== -->
+<!-- Each floating emoji has unique position/delay/size for organic drift effect -->
 <header class="hero" id="top">
   <span class="floating-emoji" style="top:10%;left:8%;animation-delay:0s;font-size:3rem;">⚖️</span>
   <span class="floating-emoji" style="top:20%;right:12%;animation-delay:4s;font-size:2.8rem;">📊</span>
@@ -870,6 +871,7 @@ const quizData = [
 
 // ===== CONFETTI =====
 function launchConfetti() {
+  // Celebration palette: teal, gold, red, blue, green, orange (brand + festive)
   const colors = ['#00796b','#26a69a','#ffb300','#e53935','#1976d2','#43a047','#ff7043'];
   for (let i = 0; i < 80; i++) {
     const c = document.createElement('div');
@@ -894,6 +896,8 @@ const revealObserver = new IntersectionObserver((entries) => {
       entry.target.classList.add('visible');
     }
   });
+// threshold 0.08 = trigger when 8% of element is visible (early reveal for smooth UX)
+// rootMargin -40px = start animation slightly before element reaches bottom edge
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.section').forEach(s => revealObserver.observe(s));
 
