@@ -340,6 +340,26 @@
             0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.35; }
             50% { transform: scale(1.1) rotate(12deg); opacity: 0.58; }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .section,
+            .back-to-top,
+            header::before {
+                animation: none;
+            }
+
+            .collapsible,
+            .theme-toggle,
+            .back-to-top {
+                transition: none;
+            }
+
+            .collapsible:hover,
+            .theme-toggle:hover,
+            .back-to-top:hover {
+                transform: none;
+            }
+        }
         
         @media (max-width: 768px) {
             header h1 {
@@ -1127,8 +1147,11 @@
     </footer>
     
     <script>
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const themeToggle = document.getElementById("themeToggle");
-        const savedTheme = localStorage.getItem("unit0-theme");
+        const backToTopSound = document.getElementById("backToTopSound");
+        const savedTheme = localStorage.getItem("site-theme");
+        backToTopSound.addEventListener("error", function() { console.debug("Back-to-top sound file failed to load."); });
         if (savedTheme === "dark") {
             document.body.setAttribute("data-theme", "dark");
             themeToggle.textContent = "☀️ Light";
@@ -1139,11 +1162,11 @@
             if (darkModeEnabled) {
                 document.body.removeAttribute("data-theme");
                 themeToggle.textContent = "🌙 Dark";
-                localStorage.setItem("unit0-theme", "light");
+                localStorage.setItem("site-theme", "light");
             } else {
                 document.body.setAttribute("data-theme", "dark");
                 themeToggle.textContent = "☀️ Light";
-                localStorage.setItem("unit0-theme", "dark");
+                localStorage.setItem("site-theme", "dark");
             }
         });
 
@@ -1179,10 +1202,11 @@
         
         // Back to top functionality
         document.getElementById("backToTop").addEventListener("click", function() {
-            var backToTopSound = document.getElementById("backToTopSound");
-            backToTopSound.currentTime = 0;
-            backToTopSound.play().catch(function() {});
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (!prefersReducedMotion) {
+                backToTopSound.currentTime = 0;
+                backToTopSound.play().catch(function(err) { console.debug("Back-to-top sound blocked:", err); });
+            }
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
         });
     </script>
 </body>
