@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 0: Introduction to Business Environments - Complete Content 完整内容</title>
+    <title>Unit 0: Introduction to Business Environments - Business Environments</title>
     <style>
         :root {
             --primary-color: #00796b;
@@ -48,18 +48,22 @@
         
         header h1 {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
         
-        header .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-        
-        .chinese-subtitle {
-            font-size: 1.3rem;
-            margin-top: 0.5rem;
+        header p {
+            font-size: 1.2rem;
             opacity: 0.9;
+        }
+        
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
         }
         
         main {
@@ -68,7 +72,7 @@
             padding: 2rem 1rem;
         }
         
-        .section {
+        .intro-section {
             background-color: white;
             border-radius: 8px;
             padding: 2rem;
@@ -76,122 +80,116 @@
             box-shadow: var(--box-shadow);
         }
         
-        .section h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
         }
         
-        .section h3 {
-            color: var(--secondary-color);
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-        
-        .section h4 {
-            color: var(--dark-text);
-            margin-top: 1rem;
-            margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-        }
-        
-        .bilingual-heading {
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
         }
         
-        .chinese-text {
-            color: var(--med-text);
-            font-size: 0.9em;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
-        .highlight-box {
-            background: var(--light-accent);
-            border-left: 4px solid var(--primary-color);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 4px;
+        .card-banner {
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
         
-        .warning-box {
-            background: #fff3e0;
-            border-left: 4px solid #ff6f00;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 4px;
+        .card-icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Increased space for the icon */
+            margin-bottom: 20px; /* More space below icon */
+            position: relative;
         }
         
-        .example-box {
-            background: #f3e5f5;
-            border-left: 4px solid #7b1fa2;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 4px;
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--light-accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
         
-        .key-term {
-            font-weight: bold;
+        .card-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--primary-color);
+        }
+        
+        .card-content {
+            padding: 0 2rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
             color: var(--primary-color);
-        }
-        
-        ul, ol {
-            margin-left: 2rem;
-            margin-top: 0.5rem;
             margin-bottom: 1rem;
+            text-align: center;
         }
         
-        li {
-            margin-bottom: 0.5rem;
+        .card p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
         
-        .collapsible {
+        .card-link {
+            display: block;
             background-color: var(--accent-color);
             color: white;
-            cursor: pointer;
-            padding: 1rem;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 1.1rem;
-            font-weight: bold;
+            text-align: center;
+            padding: 0.8rem;
             border-radius: 5px;
-            margin-top: 1rem;
-            transition: background-color 0.3s;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
         
-        .collapsible:hover {
+        .card-link:hover {
             background-color: var(--primary-color);
         }
         
-        .collapsible:after {
-            content: '\\002B';
-            color: white;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
         
-        .active:after {
-            content: "\\2212";
+        .chinese {
+            font-size: 0.9rem;
+            color: var(--med-text);
         }
         
-        .content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background-color: #f9f9f9;
-            border-radius: 0 0 5px 5px;
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 3rem;
         }
         
-        .content-inner {
-            padding: 1.5rem;
-        }
-        
+        /* Back to Main Button */
         .back-to-main {
             position: fixed;
             top: 20px;
@@ -216,858 +214,514 @@
             transform: scale(1.1);
         }
         
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
+        .back-to-main svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
         }
         
-        .back-to-top:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
+        /* Animation keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
         
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background-color: #ddd;
-            z-index: 999;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
-        .progress-bar {
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            width: 0%;
-            transition: width 0.3s;
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        footer {
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .animate-rotate {
+            animation: rotate 12s linear infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        .memory-strip {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .memory-chip {
+            background: #ecfeff;
+            border: 1px solid #a7f3d0;
+            border-radius: 999px;
+            padding: 0.55rem 0.9rem;
+            font-size: 0.92rem;
             text-align: center;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            margin-top: 3rem;
+            animation: pulse 5s ease-in-out infinite;
         }
-        
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            .section {
-                padding: 1.5rem;
-            }
-            
-            main {
-                padding: 1rem 0.75rem;
-            }
+
+        .focus-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            margin-top: 1rem;
         }
+
+        .focus-card {
+            background: #f0fdfa;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .recall-item {
+            border: 1px solid #d1fae5;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.8rem;
+            background: #f8fffd;
+        }
+
+        .recall-answer {
+            display: none;
+            margin-top: 0.5rem;
+            color: #0f766e;
+            font-weight: 600;
+        }
+
+        .recall-answer.show {
+            display: block;
+            animation: float 0.4s ease-out;
+        }
+
+        .reveal-btn {
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.45rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 0.4rem;
+        }
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+    /* Better spacing for smaller screens */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Adjust header text size */
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    /* Make cards more compact */
+    .card-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+    
+    /* Slightly smaller icons for mobile */
+    .card-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Adjust intro section padding */
+    .intro-section {
+        padding: 1.5rem;
+    }
+    
+    /* Improve tap targets */
+    .card-link {
+        padding: 1rem;
+    }
+    
+    .back-to-main {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-main svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    /* Further adjust spacing */
+    main {
+        padding: 1rem 0.75rem;
+    }
+    
+    .card {
+        border-radius: 6px;
+    }
+    
+    /* Make text more readable */
+    .card h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Optimized buttons for touch */
+    .card-link {
+        padding: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
     </style>
 </head>
 <body>
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-    
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
     </a>
     
-    <button class="back-to-top" id="backToTop" title="Back to Top 返回顶部">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
-            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-        </svg>
-    </button>
-    
     <header>
+        <div class="header-animation" id="header-animation"></div>
         <div class="header-content">
             <h1>Unit 0: Introduction to Business Environments</h1>
-            <p class="chinese-subtitle">单元0：商业环境简介</p>
-            <p class="subtitle">Foundation Studies - Business Environments</p>
-            <p class="chinese-subtitle">预科学习 - 商业环境</p>
+            <p>Business Environments - FS2025</p>
         </div>
     </header>
     
     <main>
-        <!-- Overview Section -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Overview 概述</h2>
-            </div>
-            
-            <div class="highlight-box">
-                <h3 class="bilingual-heading">
-                    <span>Learning Objectives 学习目标</span>
-                </h3>
-                <p><strong>At the end of this unit, you should be able to: 在本单元结束时，您应该能够：</strong></p>
-                <ul>
-                    <li>Recognize course outcomes and aims 认识课程成果和目标</li>
-                    <li>Provide an overview of the business environments and their components 提供商业环境及其组成部分的概述</li>
-                    <li>Understand the importance of studying the business environment 理解学习商业环境的重要性</li>
-                    <li>Discuss real-world examples of how business environments impact operations and strategies 讨论商业环境如何影响运营和战略的真实案例</li>
-                </ul>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>Introduction to the Business Environments</span>
-                <span class="chinese-text">商业环境简介</span>
-            </h3>
-            
-            <p>
-                Businesses operate in a <span class="key-term">dynamic environment 动态环境</span> that directly influences their operations and objectives. 
-                企业在动态环境中运营，这直接影响其运营和目标。
-            </p>
-            
-            <p>
-                Understanding the importance of understanding the multiple dimensions of the business environment for today's business students is crucial.
-                理解当今商科学生了解商业环境多维度的重要性至关重要。
-            </p>
-            
-            <p>
-                The <span class="key-term">business environments 商业环境</span> encompass all external and internal factors that affect a company's operations.
-                商业环境包含影响公司运营的所有外部和内部因素。
-            </p>
-        </section>
-        
-        <!-- Internal vs External Environment -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Internal vs External Environment 内部环境与外部环境</h2>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>The Internal Environment of Business</span>
-                <span class="chinese-text">企业的内部环境</span>
-            </h3>
-            
-            <div class="highlight-box">
-                <p>
-                    Business owners and managers have <span class="key-term">significant control 重大控制权</span> over the internal environment of business, which includes day-to-day decisions.
-                    企业所有者和管理者对企业的内部环境拥有重大控制权，包括日常决策。
-                </p>
-                
-                <h4 class="bilingual-heading">
-                    <span>Examples of Control Over the Internal Environment:</span>
-                    <span class="chinese-text">对内部环境控制的例子：</span>
-                </h4>
-                <ul>
-                    <li><span class="key-term">Choice of supplies 供应商选择</span> - Selecting which suppliers to work with 选择与哪些供应商合作</li>
-                    <li><span class="key-term">Hiring decisions 招聘决策</span> - Choosing employees and building the team 选择员工和建立团队</li>
-                    <li><span class="key-term">Product selection 产品选择</span> - Deciding what products or services to offer 决定提供什么产品或服务</li>
-                    <li><span class="key-term">Sales locations 销售地点</span> - Determining where to sell products 确定在哪里销售产品</li>
-                    <li><span class="key-term">Company culture 公司文化</span> - Establishing organizational values and norms 建立组织价值观和规范</li>
-                    <li><span class="key-term">Internal policies 内部政策</span> - Creating rules and procedures 制定规则和程序</li>
-                    <li><span class="key-term">Management structure 管理结构</span> - Organizing the hierarchy and reporting lines 组织层级和汇报关系</li>
-                </ul>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>The External Environment of Business</span>
-                <span class="chinese-text">企业的外部环境</span>
-            </h3>
-            
-            <div class="warning-box">
-                <p>
-                    <strong>Key Characteristics 关键特征:</strong>
-                </p>
-                <ul>
-                    <li>External environmental conditions generally <span class="key-term">change constantly 不断变化</span> and are <span class="key-term">beyond the control 超出控制</span> of management.
-                        外部环境条件通常不断变化，超出管理层的控制。</li>
-                    <li>The external business environment is composed of numerous outside organizations and forces.
-                        外部商业环境由众多外部组织和力量组成。</li>
-                    <li>To compete successfully, business owners and managers must <span class="key-term">continuously study 持续研究</span> the environment and <span class="key-term">adapt 适应</span> their businesses accordingly.
-                        为了成功竞争，企业所有者和管理者必须持续研究环境并相应地调整其业务。</li>
-                </ul>
-            </div>
-            
-            <h4 class="bilingual-heading">
-                <span>Major Sectors of the External Environment:</span>
-                <span class="chinese-text">外部环境的主要部门：</span>
-            </h4>
-            <ol>
-                <li><span class="key-term">Economic 经济环境</span></li>
-                <li><span class="key-term">Political and Legal 政治和法律环境</span></li>
-                <li><span class="key-term">Technological 技术环境</span></li>
-                <li><span class="key-term">Sustainability 可持续发展环境</span></li>
-            </ol>
-            <p>
-                Each sector presents <span class="key-term">unique challenges and opportunities 独特的挑战和机遇</span> for businesses.
-                每个部门都为企业提供独特的挑战和机遇。
-            </p>
-        </section>
-        
-        <!-- Real-World Impact Examples -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Real-World Impact Examples 真实影响案例</h2>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>Impact of Natural Disasters on Businesses</span>
-                <span class="chinese-text">自然灾害对企业的影响</span>
-            </h3>
-            
-            <div class="example-box">
-                <h4 class="bilingual-heading">
-                    <span>Case Study: Black Summer Bushfires</span>
-                    <span class="chinese-text">案例研究：黑色夏季丛林大火</span>
-                </h4>
-                
-                <p>
-                    Natural disasters, such as the <span class="key-term">Black Summer bushfires 黑色夏季丛林大火</span>, can have a significant impact on businesses.
-                    自然灾害，如黑色夏季丛林大火，可能对企业产生重大影响。
-                </p>
-                
-                <p>
-                    These events can affect the environment, businesses, tourism, and people's livelihoods for extended periods.
-                    这些事件可能在较长时间内影响环境、企业、旅游业和人们的生计。
-                </p>
-                
-                <h4 class="bilingual-heading">
-                    <span>Impact Statistics 影响统计:</span>
-                </h4>
-                <ul>
-                    <li>The Black Summer bushfires burned an estimated <span class="key-term">18.6 million hectares 1860万公顷</span></li>
-                    <li>Destroyed over <span class="key-term">5,900 buildings 5900多座建筑</span></li>
-                    <li>Killed at least <span class="key-term">34 people 至少34人</span></li>
-                    <li>The economic cost is estimated to be over <span class="key-term">AUD $103 billion 1030亿澳元</span>, making it Australia's costliest natural disaster to date
-                        经济损失估计超过1030亿澳元，使其成为迄今为止澳大利亚损失最大的自然灾害</li>
-                </ul>
-                
-                <p>
-                    The <span class="key-term">long-term consequences 长期后果</span> of such disasters can be uncertain and recovery can be slow – recovery of communities and ecosystems.
-                    此类灾难的长期后果可能不确定，恢复可能缓慢——社区和生态系统的恢复。
-                </p>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>The COVID-19 Pandemic and Its Impact on Business</span>
-                <span class="chinese-text">COVID-19大流行及其对商业的影响</span>
-            </h3>
-            
-            <div class="example-box">
-                <h4 class="bilingual-heading">
-                    <span>Key Impacts 关键影响:</span>
-                </h4>
-                
-                <p>
-                    <strong>Multiple waves of infections 多波感染</strong> and the emergence of COVID-19 variants.
-                    多波感染和COVID-19变种的出现。
-                </p>
-                
-                <p>
-                    The COVID-19 pandemic has caused <span class="key-term">significant disruptions 重大干扰</span> to global supply chains.
-                    COVID-19大流行对全球供应链造成了重大干扰。
-                </p>
-                
-                <h4 class="bilingual-heading">
-                    <span>Factors Contributing to Disruption:</span>
-                    <span class="chinese-text">造成干扰的因素：</span>
-                </h4>
-                <ul>
-                    <li><span class="key-term">Factory shutdowns 工厂关闭</span></li>
-                    <li><span class="key-term">Changes in consumer demand 消费者需求变化</span></li>
-                    <li><span class="key-term">Restrictions on trade and movement 贸易和流动限制</span></li>
-                </ul>
-                
-                <p>
-                    Businesses have had to <span class="key-term">adapt quickly 快速适应</span> to these changes.
-                    企业不得不快速适应这些变化。
-                </p>
-                
-                <p>
-                    The pandemic has highlighted the importance of <span class="key-term">supply chain resilience 供应链韧性</span> and the need for businesses to have <span class="key-term">contingency plans 应急计划</span> in place.
-                    这次大流行突显了供应链韧性的重要性以及企业制定应急计划的必要性。
-                </p>
-                
-                <h4 class="bilingual-heading">
-                    <span>Opportunities in Crisis 危机中的机遇:</span>
-                </h4>
-                <p>
-                    Some businesses have also found <span class="key-term">opportunities 机遇</span> in the crisis, such as:
-                    一些企业也在危机中发现了机遇，例如：
-                </p>
-                <ul>
-                    <li>The chance to reassess their supply chain strategies 重新评估供应链战略的机会</li>
-                    <li>Improve efficiency 提高效率</li>
-                    <li>Build stronger relationships with suppliers 与供应商建立更牢固的关系</li>
-                </ul>
+        <section class="intro-section">
+            <h2>Welcome to Unit 0: Introduction to Business Environments</h2>
+            <p>This page is intentionally focused on four goals from Unit 0 materials: course introduction, learning outcomes, assessment structure, and foundational legal thinking for business contexts.</p>
+            <div class="memory-strip">
+                <div class="memory-chip">Overview of business environments</div>
+                <div class="memory-chip">Key components of the business environments</div>
+                <div class="memory-chip">Reasons for studying the business environments</div>
+                <div class="memory-chip">Legal issue analysis in business contexts</div>
             </div>
         </section>
         
-        <!-- Key Components -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Key Components of the Business Environment 商业环境的关键组成部分</h2>
-            </div>
-            
-            <button class="collapsible">1. Economic Environment 经济环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4 class="bilingual-heading">
-                        <span>Overview 概述</span>
-                    </h4>
-                    <p>
-                        Fluctuations in the level of economic activity create <span class="key-term">business cycles 商业周期</span> that affect businesses and individuals.
-                        经济活动水平的波动创造了影响企业和个人的商业周期。
-                    </p>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Key Characteristics 关键特征:</span>
-                    </h4>
-                    <ul>
-                        <li>During periods of <span class="key-term">economic growth 经济增长</span>, unemployment rates are low, and income levels rise.
-                            在经济增长时期，失业率较低，收入水平上升。</li>
-                        <li><span class="key-term">Inflation 通货膨胀</span> and <span class="key-term">interest rates 利率</span> (monetary policies 货币政策) change according to economic activity.
-                            通货膨胀和利率（货币政策）根据经济活动而变化。</li>
-                        <li>Governments use <span class="key-term">fiscal policies 财政政策</span>, such as taxes and government spending, to stimulate or curb the level of economic activity.
-                            政府使用财政政策，如税收和政府支出，来刺激或抑制经济活动水平。</li>
-                        <li>The forces of <span class="key-term">supply and demand 供求关系</span> determine how prices and quantities of goods and services behave in a free market.
-                            供求力量决定了自由市场中商品和服务的价格和数量如何表现。</li>
-                    </ul>
-                    
-                    <div class="highlight-box">
-                        <p>
-                            <strong>Note 注意:</strong> The economic environment is covered in the <span class="key-term">Economics course 经济学课程</span>.
-                            经济环境在经济学课程中涵盖。
-                        </p>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
                     </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Course Overview</span>
+                        <span class="chinese">课程概述</span>
+                    </h3>
+                    <p>Week 1 introduces business environments, key components, and why these environments shape strategy and operations.</p>
+                    <a href="#course-overview" class="card-link">Explore</a>
                 </div>
             </div>
             
-            <button class="collapsible">2. Technological Environment 技术环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4 class="bilingual-heading">
-                        <span>Overview 概述</span>
-                    </h4>
-                    <p>
-                        <span class="key-term">Technology 技术</span>, the application of science and engineering skills and knowledge, can stimulate growth under any economic system.
-                        技术，即科学和工程技能和知识的应用，可以在任何经济体系下刺激增长。
-                    </p>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Impact on Business 对商业的影响:</span>
-                    </h4>
-                    <ul>
-                        <li>New equipment and software that improve <span class="key-term">productivity 生产力</span> and reduce costs can be among a company's most valuable assets.
-                            提高生产力和降低成本的新设备和软件可能是公司最有价值的资产之一。</li>
-                        <li><span class="key-term">Productivity 生产力</span> is defined as the amount of goods and services one worker can produce.
-                            生产力被定义为一个工人可以生产的商品和服务数量。</li>
-                        <li>A nation's ability to maintain and build wealth depends largely on the speed and effectiveness with which it uses technology.
-                            一个国家维持和创造财富的能力在很大程度上取决于其使用技术的速度和有效性。</li>
-                    </ul>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Applications of Technology 技术应用:</span>
-                    </h4>
-                    <ul>
-                        <li>Invent and adapt more efficient equipment 发明和改进更高效的设备</li>
-                        <li>Improve manufacturing productivity 提高制造生产力</li>
-                        <li>Develop new products 开发新产品</li>
-                        <li>Process information 处理信息</li>
-                    </ul>
-                    
-                    <p>
-                        The argument is that in the long run, <span class="key-term">permanent growth 永久增长</span> is only achieved by <span class="key-term">technological progress 技术进步</span>.
-                        论点是，从长远来看，永久增长只能通过技术进步实现。
-                    </p>
-                    
-                    <p>
-                        Many businesses use technology to create change, improve efficiencies, and streamline operations.
-                        许多企业使用技术来创造变革、提高效率和精简运营。
-                    </p>
-                    
-                    <div class="highlight-box">
-                        <p>
-                            <strong>Note 注意:</strong> The technological environment is not covered in this course. It is mentioned in the Sustainability Environment in this course.
-                            本课程不涵盖技术环境。它在本课程的可持续发展环境中提及。
-                        </p>
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                        </svg>
                     </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Assessment Structure</span>
+                        <span class="chinese">评估结构</span>
+                    </h3>
+                    <p>Detailed breakdown of assessment tasks, weightings, and submission requirements for the course.</p>
+                    <a href="#assessment" class="card-link">Explore</a>
                 </div>
             </div>
             
-            <button class="collapsible">3. Political Environment 政治环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4 class="bilingual-heading">
-                        <span>Overview 概述</span>
-                    </h4>
-                    <p>
-                        The political environment provides businesses with an understanding of how <span class="key-term">political and legal systems 政治和法律体系</span> shape the business landscape.
-                        政治环境使企业了解政治和法律体系如何塑造商业格局。
-                    </p>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Key Aspects 关键方面:</span>
-                    </h4>
-                    <ul>
-                        <li>The structure and function of government can impact business operations through <span class="key-term">laws and regulations 法律法规</span>.
-                            政府的结构和职能可以通过法律法规影响商业运营。</li>
-                        <li><span class="key-term">Political decisions 政治决策</span>, policies, and governance can influence the business environment.
-                            政治决策、政策和治理可以影响商业环境。</li>
-                        <li>The amount of government activity, the types of laws it passes, and the general <span class="key-term">political stability 政治稳定性</span> of a government are key components of the political climate.
-                            政府活动的数量、其通过的法律类型以及政府的总体政治稳定性是政治气候的关键组成部分。</li>
-                    </ul>
-                    
-                    <div class="example-box">
-                        <h4 class="bilingual-heading">
-                            <span>Example: Tobacco Plain Packaging Act</span>
-                            <span class="chinese-text">案例：烟草平装法案</span>
-                        </h4>
-                        <p>
-                            In Australia, the government passed laws to change to <span class="key-term">plain packaging of cigarettes 香烟平装</span>.
-                            在澳大利亚，政府通过了改为香烟平装的法律。
-                        </p>
-                        
-                        <p>
-                            In Australia, the government enacted the <span class="key-term">Tobacco Plain Packaging Act 烟草平装法案</span> in 2011. This legislation made Australia the first country in the world to require tobacco products to be sold in plain packaging.
-                            2011年，澳大利亚政府颁布了烟草平装法案。这项立法使澳大利亚成为世界上第一个要求烟草产品以平装形式销售的国家。
-                        </p>
-                        
-                        <p>
-                            <strong>The law applies to anyone who: 该法律适用于以下人员：</strong>
-                        </p>
-                        <ul>
-                            <li>Sells, offers to sell, supplies, packages, or manufactures tobacco products in Australia
-                                在澳大利亚销售、提供销售、供应、包装或制造烟草产品</li>
-                        </ul>
-                        
-                        <p>
-                            <strong>Under the plain packaging laws, all tobacco products must: 根据平装法律，所有烟草产品必须：</strong>
-                        </p>
-                        <ul>
-                            <li>Be packaged in a certain colour 以特定颜色包装</li>
-                            <li>Display brand names in certain ways 以特定方式显示品牌名称</li>
-                            <li>Display the required text and graphic health warnings 显示所需的文字和图形健康警告</li>
-                            <li>Not display logos, brand images, or promotional text 不显示标志、品牌形象或促销文字</li>
-                        </ul>
-                        
-                        <p>
-                            This is an example of how <span class="key-term">government regulations 政府法规</span> can directly impact business operations and public health.
-                            这是政府法规如何直接影响商业运营和公共卫生的一个例子。
-                        </p>
-                        
-                        <p>
-                            It also underscores the importance for businesses to stay informed about changes in the legal and regulatory environment in which they operate.
-                            它还强调了企业了解其运营环境中法律和监管环境变化的重要性。
-                        </p>
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-float">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V9.3l7-3.11V13z"/>
+                        </svg>
                     </div>
-                    
-                    <div class="highlight-box">
-                        <p>
-                            <strong>Course Coverage 课程涵盖:</strong> The Australian government/political environment is covered in <span class="key-term">Unit 1 单元1</span> in this course.
-                            本课程单元1涵盖澳大利亚政府/政治环境。
-                        </p>
-                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Learning Outcomes</span>
+                        <span class="chinese">学习成果</span>
+                    </h3>
+                    <p>Understand what you will achieve by completing this course and how it prepares you for professional practice.</p>
+                    <a href="#learning-outcomes" class="card-link">Explore</a>
                 </div>
             </div>
             
-            <button class="collapsible">4. Legal Environment 法律环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4 class="bilingual-heading">
-                        <span>Overview 概述</span>
-                    </h4>
-                    <p>
-                        The <span class="key-term">legal environment of business 商业法律环境</span> refers to the legal system, framework of laws, regulations, and legal principles that govern and impact business activities.
-                        商业法律环境是指管理和影响商业活动的法律体系、法律框架、法规和法律原则。
-                    </p>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Key Characteristics 关键特征:</span>
-                    </h4>
-                    <ul>
-                        <li>The legal environment of business is composed of laws that come from <span class="key-term">various sources 各种来源</span>.
-                            商业法律环境由来自各种来源的法律组成。</li>
-                        <li>This environment is influenced by the needs and demands of the business community, consumers, and government.
-                            这个环境受到商业界、消费者和政府的需求和要求的影响。</li>
-                        <li>Understanding regulations helps businesses <span class="key-term">adapt to legal challenges 适应法律挑战</span>.
-                            理解法规帮助企业适应法律挑战。</li>
-                    </ul>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Importance for Businesses 对企业的重要性:</span>
-                    </h4>
-                    <p>
-                        It's crucial for businesses to stay informed about changes in the legal and regulatory environment in which they operate.
-                        企业了解其运营环境中法律和监管环境的变化至关重要。
-                    </p>
-                    
-                    <p>
-                        Understanding the legal environment helps businesses:
-                        理解法律环境帮助企业：
-                    </p>
-                    <ul>
-                        <li><span class="key-term">Avoid problems 避免问题</span></li>
-                        <li><span class="key-term">Maintain reputation 维护声誉</span></li>
-                        <li><span class="key-term">Make informed decisions 做出明智决策</span></li>
-                    </ul>
-                    
-                    <div class="highlight-box">
-                        <p>
-                            <strong>Course Coverage 课程涵盖:</strong> The Australian legal environment for business is covered in <span class="key-term">Units 2 to 8 单元2至8</span> in this course.
-                            本课程单元2至8涵盖澳大利亚商业法律环境。
-                        </p>
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
                     </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Introduction to Legal Thinking</span>
+                        <span class="chinese">法律思维入门</span>
+                    </h3>
+                    <p>Build your legal reasoning: identify issues, apply principles, and form clear conclusions using IPAC structure.</p>
+                    <a href="#legal-thinking" class="card-link">Explore</a>
                 </div>
             </div>
             
-            <button class="collapsible">5. Sustainability Environment 可持续发展环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4 class="bilingual-heading">
-                        <span>Overview 概述</span>
-                    </h4>
-                    <p>
-                        <span class="key-term">Sustainability 可持续发展</span> is the main overarching theme in assessing the broad dimensions of the business environment.
-                        可持续发展是评估商业环境广泛维度的主要总体主题。
-                    </p>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Key Principles 关键原则:</span>
-                    </h4>
-                    <ul>
-                        <li>In today's world, threats can emerge quickly and spread rapidly, as exemplified by the COVID-19 pandemic.
-                            在当今世界，威胁可以迅速出现并快速传播，COVID-19大流行就是例证。</li>
-                        <li>Sustainability rests on the principle that we should not <span class="key-term">jeopardise the ability of future generations 危及后代的能力</span> to fulfill their needs through our current actions.
-                            可持续发展基于这样的原则：我们不应通过当前的行动危及后代满足其需求的能力。</li>
-                        <li>While often associated with environmental conservation, sustainability is <span class="key-term">much broader 更广泛</span>, encompassing all aspects of the business environment, including human rights and societies.
-                            虽然经常与环境保护联系在一起，但可持续发展范围更广，包括商业环境的所有方面，包括人权和社会。</li>
-                    </ul>
-                    
-                    <h4 class="bilingual-heading">
-                        <span>Business Implications 商业影响:</span>
-                    </h4>
-                    <ul>
-                        <li>The principle of sustainability encourages businesses to consider a <span class="key-term">broad range of stakeholders 广泛的利益相关者</span>, both present and future.
-                            可持续发展原则鼓励企业考虑现在和未来的广泛利益相关者。</li>
-                        <li>Sustainability requires changes towards a <span class="key-term">better, cleaner, more ethical 更好、更清洁、更道德</span> way of doing things.
-                            可持续发展需要向更好、更清洁、更道德的做事方式转变。</li>
-                        <li><span class="key-term">Governments and regulators 政府和监管机构</span> play crucial roles in implementing policies and laws that can make a lasting difference.
-                            政府和监管机构在实施能够产生持久影响的政策和法律方面发挥着至关重要的作用。</li>
-                    </ul>
-                    
-                    <div class="highlight-box">
-                        <p>
-                            <strong>Course Coverage 课程涵盖:</strong> The sustainability environment for business is covered in <span class="key-term">Units 9 to 11 单元9至11</span> in this course.
-                            本课程单元9至11涵盖商业可持续发展环境。
-                        </p>
+            <div class="card">
+                <div class="card-banner"></div>
+                <div class="card-icon-container">
+                    <div class="card-icon animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
                     </div>
                 </div>
+                <div class="card-content">
+                    <h3 class="bilingual">
+                        <span>Course Outline</span>
+                        <span class="chinese">课程大纲</span>
+                    </h3>
+                    <p>Review the official FS2025 Business Environments course outline and weekly schedule.</p>
+                    <a href="FS2025 Business Environments Course Outline TNE.pdf" class="card-link" target="_blank">View PDF</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Detailed Content Sections -->
+        <section id="course-overview" class="intro-section" style="margin-top: 3rem;">
+            <h2 style="color: var(--primary-color);">Course Overview 课程概述</h2>
+            
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #e0f2f1; border-left: 4px solid var(--primary-color); border-radius: 4px;">
+                <h3 style="color: var(--primary-color);">What is Business Environments? 什么是商业环境？</h3>
+                <p><strong>Introduction to the Business Environments:</strong> Unit 0 sets the foundation for the full course journey.</p>
+                <p>From the Unit 0 lecture: this course gives an overview of the dynamic, multifaceted contexts in which businesses operate, and explains why understanding these environments supports better strategy and operations.</p>
+            </div>
+
+            <h3 style="color: var(--primary-color); margin-top: 2rem;">Course Structure 课程结构</h3>
+            <div style="margin: 1.5rem 0;" class="focus-grid">
+                <div class="focus-card">
+                    <h4>Part 1</h4>
+                    <p>Australian Government Environment (Unit 1)</p>
+                </div>
+                <div class="focus-card">
+                    <h4>Part 2</h4>
+                    <p>Australian Legal Environment for Business (Units 2-8)</p>
+                </div>
+                <div class="focus-card">
+                    <h4>Part 3</h4>
+                    <p>Sustainability Environment for Businesses (Units 9-11)</p>
+                </div>
+            </div>
+            <div style="margin: 1.5rem 0;">
+                <p><strong>Course schedule reference (Course Outline):</strong></p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>Week 1, Unit 0 Lecture:</strong> Introduction to BE, overview, key components, and importance.</li>
+                    <li><strong>Week 1, Unit 0 Tutorial:</strong> introductory tutorial with guided discussion and questions.</li>
+                </ul>
+            </div>
+
+            <h3 style="color: var(--primary-color); margin-top: 2rem;">Why Study Business Environments? 为什么学习商业环境？</h3>
+            <div style="margin: 1.5rem 0;">
+                <ul style="margin-left: 2rem;">
+                    <li>Understand opportunities and threats in changing environments.</li>
+                    <li>Adapt to legal and regulatory changes to avoid business problems.</li>
+                    <li>Develop practical reasoning for business strategy and operations.</li>
+                </ul>
             </div>
         </section>
-        
-        <!-- Importance of Understanding -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Importance of Understanding the Business Environments 理解商业环境的重要性</h2>
-            </div>
+
+        <section id="assessment" class="intro-section" style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--primary-color);">Assessment Structure 评估结构</h2>
             
-            <h3 class="bilingual-heading">
-                <span>The Business Environments Course</span>
-                <span class="chinese-text">商业环境课程</span>
-            </h3>
-            
-            <div class="highlight-box">
-                <p>
-                    The Business Environments course provides an <span class="key-term">overview 概述</span> of the dynamic and multifaceted contexts in which businesses operate.
-                    商业环境课程提供了企业运营的动态和多面性环境的概述。
-                </p>
-                
-                <p>
-                    It begins with an introduction to the key components of the business environment and the importance of understanding how these elements influence business strategy and operations.
-                    它从介绍商业环境的关键组成部分以及理解这些要素如何影响商业战略和运营的重要性开始。
-                </p>
-            </div>
-            
-            <h4 class="bilingual-heading">
-                <span>Course Structure in Three Main Parts:</span>
-                <span class="chinese-text">课程结构分为三个主要部分：</span>
-            </h4>
-            
-            <div class="example-box">
-                <h4><span class="key-term">Part 1: The Australian Government Environment 第一部分：澳大利亚政府环境</span></h4>
-                <p>Students explore: 学生探索：</p>
-                <ul>
-                    <li>The foundations of <span class="key-term">Australian democracy 澳大利亚民主</span> 澳大利亚民主的基础</li>
-                    <li>The legal framework established by the <span class="key-term">Australian Constitution 澳大利亚宪法</span> 澳大利亚宪法建立的法律框架</li>
-                    <li>The <span class="key-term">division and separation of powers 权力分立和分离</span> 权力的分立和分离</li>
-                </ul>
-            </div>
-            
-            <div class="example-box">
-                <h4><span class="key-term">Part 2: The Legal Environment for Business 第二部分：商业法律环境</span></h4>
-                <p>Explores: 探索：</p>
-                <ul>
-                    <li>The <span class="key-term">Australian legal system 澳大利亚法律体系</span> 澳大利亚法律体系</li>
-                    <li>The significance of <span class="key-term">business structures 商业结构</span> 商业结构的重要性</li>
-                    <li>Key legal principles including:
-                        <ul>
-                            <li><span class="key-term">Contract law 合同法</span></li>
-                            <li><span class="key-term">Tort law 侵权法</span></li>
-                            <li><span class="key-term">Consumer protection 消费者保护</span></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="example-box">
-                <h4><span class="key-term">Part 3: The Sustainability Environment for Businesses 第三部分：企业可持续发展环境</span></h4>
-                <p>Focuses on: 重点关注：</p>
-                <ul>
-                    <li>Examining the <span class="key-term">environmental, social, and economic pillars 环境、社会和经济支柱</span> of sustainability
-                        审查可持续发展的环境、社会和经济支柱</li>
-                    <li>Exploring topics such as:
-                        <ul>
-                            <li><span class="key-term">Climate change 气候变化</span></li>
-                            <li><span class="key-term">Environmental management 环境管理</span></li>
-                            <li><span class="key-term">Ethics 道德</span></li>
-                            <li><span class="key-term">Corporate Social Responsibility (CSR) 企业社会责任</span></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>Reasons for Studying the Business Environment</span>
-                <span class="chinese-text">学习商业环境的原因</span>
-            </h3>
-            
-            <div class="highlight-box">
-                <p>
-                    By integrating legal, environmental, and ethical perspectives, this course equips students with the knowledge and skills to navigate and make informed decisions within complex business environments.
-                    通过整合法律、环境和道德视角，本课程使学生具备在复杂商业环境中导航和做出明智决策的知识和技能。
-                </p>
-            </div>
-            
-            <h4 class="bilingual-heading">
-                <span>Key Benefits 主要好处:</span>
-            </h4>
-            <ul>
-                <li><span class="key-term">Understanding the business environment 理解商业环境</span> can help businesses identify opportunities and threats
-                    理解商业环境可以帮助企业识别机会和威胁</li>
-                <li><span class="key-term">Compliance with laws and regulations 遵守法律法规</span>
-                    遵守法律法规</li>
-                <li><span class="key-term">Informed decision making 明智决策</span>
-                    明智决策</li>
-                <li><span class="key-term">Identifying trends and patterns 识别趋势和模式</span>
-                    识别趋势和模式</li>
-                <li><span class="key-term">Help businesses adapt 帮助企业适应</span> to changes and disruptions
-                    帮助企业适应变化和干扰</li>
-            </ul>
-        </section>
-        
-        <!-- Tutorial Questions -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Tutorial Questions and Activities 辅导问题和活动</h2>
-            </div>
-            
-            <div class="highlight-box">
-                <h3 class="bilingual-heading">
-                    <span>Icebreaker Activity: Common Ground</span>
-                    <span class="chinese-text">破冰活动：共同点</span>
-                </h3>
-                
-                <p><strong>Objective 目标:</strong></p>
-                <p>
-                    The goal is to find interesting things you have in common with your partner, to help you get to know your tutor and each other better by discovering shared interests and experiences.
-                    目标是找到你与伙伴的有趣共同点，通过发现共同兴趣和经历来帮助你更好地了解你的导师和彼此。
-                </p>
-                
-                <h4>Instructions 说明:</h4>
-                <ol>
-                    <li><strong>Pair up 配对:</strong> Pair up with a classmate you have not worked closely with before.
-                        与以前没有密切合作过的同学配对。</li>
-                    <li><strong>Find common ground 寻找共同点:</strong> Spend 5 minutes talking with your partner. Try to find as many things you have in common as possible.
-                        花5分钟与你的伙伴交谈。尽可能找到你们的共同点。</li>
-                    <li><strong>Share with the class 与全班分享:</strong> After the discussion, each pair will share one or two interesting commonalities with the class.
-                        讨论后，每对将与全班分享一两个有趣的共同点。</li>
-                </ol>
-                
-                <p><strong>Possible topics to explore 可能探索的话题:</strong></p>
-                <ul>
-                    <li>Hobbies and activities 爱好和活动</li>
-                    <li>Travel experiences 旅行经历</li>
-                    <li>Books, movies, or music preferences 书籍、电影或音乐偏好</li>
-                    <li>Academic or career goals 学术或职业目标</li>
-                    <li>Unusual talents or skills 不寻常的才能或技能</li>
-                </ul>
-            </div>
-            
-            <h3 class="bilingual-heading">
-                <span>Discussion Questions</span>
-                <span class="chinese-text">讨论问题</span>
-            </h3>
-            
-            <button class="collapsible">Overview of Business Environments 商业环境概述</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4>Question 1 问题1:</h4>
-                    <p><strong>What do you think are some key factors that influence a business's success?</strong></p>
-                    <p>你认为影响企业成功的一些关键因素是什么？</p>
-                    
-                    <h4>Question 2 问题2:</h4>
-                    <p><strong>Why is understanding the business environments crucial for businesses?</strong></p>
-                    <p>为什么理解商业环境对企业至关重要？</p>
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">Assessment Tasks (Course Outline) 评估任务</h3>
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #f0f7ff; border-radius: 8px;">
+                    <h4 style="color: #333;">A1. Tutorial Performance (10%)</h4>
+                    <p><strong>Due:</strong> Ongoing throughout the course</p>
+                    <p><strong>Focus:</strong> Preparation, engagement, collaboration, and discussion quality in tutorials.</p>
+                </div>
+
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #fff3e0; border-radius: 8px;">
+                    <h4 style="color: #333;">A2. Australian Legal System and Business Structures Video (15%)</h4>
+                    <p><strong>Due:</strong> Week 5 (Friday, 4:00pm AEST/AEDT)</p>
+                    <p><strong>Focus:</strong> Apply legal principles and IPAC to a business scenario.</p>
+                </div>
+
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #e8f5e9; border-radius: 8px;">
+                    <h4 style="color: #333;">A3. Challenge Week Activity – Poster Presentation (10%)</h4>
+                    <p><strong>Due:</strong> Week 7 (TBC)</p>
+                    <p><strong>Focus:</strong> Group collaboration and communication.</p>
+                </div>
+
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #ede7f6; border-radius: 8px;">
+                    <h4 style="color: #333;">A4. Contract Law Legal Problem Analysis (20%)</h4>
+                    <p><strong>Due:</strong> Week 8 (Friday, 4:00pm AEST/AEDT)</p>
+                    <p><strong>Focus:</strong> Structured legal problem-solving and argument clarity.</p>
+                </div>
+
+                <div style="margin: 1.5rem 0; padding: 1.5rem; background: #ffebee; border-radius: 8px;">
+                    <h4 style="color: #333;">A5. Final Examination (45%)</h4>
+                    <p><strong>Due:</strong> Examination Week</p>
+                    <p><strong>Format:</strong> Multiple choice, short answer, and extended response questions.</p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>The final exam covers Units 6 to 11.</li>
+                        <li>Practice exam questions are provided in class.</li>
+                    </ul>
                 </div>
             </div>
-            
-            <button class="collapsible">Internal vs. External Environment 内部与外部环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4>Question 3 问题3:</h4>
-                    <p><strong>What are some internal factors that business owners can control? How might these factors influence business success?</strong></p>
-                    <p>企业所有者可以控制哪些内部因素？这些因素如何影响企业成功？</p>
-                    
-                    <h4>Question 4 问题4:</h4>
-                    <p><strong>Think of a successful company you admire. What internal factors do you think contribute to its success?</strong></p>
-                    <p>想一个你钦佩的成功公司。你认为哪些内部因素促成了它的成功？</p>
-                    
-                    <h4>Question 5 问题5:</h4>
-                    <p><strong>What are some external factors that might influence business success?</strong></p>
-                    <p>哪些外部因素可能影响企业成功？</p>
-                </div>
-            </div>
-            
-            <button class="collapsible">Political-Legal Environment 政治法律环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4>Question 6 问题6:</h4>
-                    <p><strong>How can changes in government policies affect business operations? Can you think of a recent political/government decision that has had a significant impact on businesses?</strong></p>
-                    <p>政府政策的变化如何影响企业运营？你能想到最近对企业产生重大影响的政治/政府决策吗？</p>
-                    
-                    <h4>Question 7 问题7:</h4>
-                    <p><strong>How can government regulations, such as the Tobacco Plain Packaging Act, impact businesses?</strong></p>
-                    <p>政府法规（如烟草平装法案）如何影响企业？</p>
-                    
-                    <h4>Question 8 问题8:</h4>
-                    <p><strong>How can changes in the legal environment affect business operations? Can you think of a recent legal change that impacted businesses?</strong></p>
-                    <p>法律环境的变化如何影响企业运营？你能想到最近影响企业的法律变化吗？</p>
-                    
-                    <h4>Question 9 问题9:</h4>
-                    <p><strong>How can businesses prepare for potential legal disputes?</strong></p>
-                    <p>企业如何为潜在的法律纠纷做准备？</p>
-                </div>
-            </div>
-            
-            <button class="collapsible">Sustainability Environment 可持续发展环境</button>
-            <div class="content">
-                <div class="content-inner">
-                    <h4>Question 10 问题10:</h4>
-                    <p><strong>Why is sustainability becoming increasingly important for businesses today?</strong></p>
-                    <p>为什么可持续发展对当今企业变得越来越重要？</p>
-                    
-                    <h4>Question 11 问题11:</h4>
-                    <p><strong>What are the potential risks for businesses that ignore sustainability issues?</strong></p>
-                    <p>忽视可持续发展问题的企业可能面临哪些风险？</p>
-                </div>
-            </div>
-            
-            <div class="warning-box" style="margin-top: 2rem;">
-                <h3 class="bilingual-heading">
-                    <span>Key Takeaways 关键要点</span>
-                </h3>
-                <p>
-                    Studying this course is essential because it explores the <span class="key-term">political, legal, and sustainability environments 政治、法律和可持续发展环境</span> that businesses navigate every day.
-                    学习本课程至关重要，因为它探索了企业每天导航的政治、法律和可持续发展环境。
-                </p>
-                <p>
-                    By the end of this course, you will have a good understanding of how <span class="key-term">government policies, legal regulations, and sustainability issues 政府政策、法律法规和可持续发展问题</span> shape business decisions and strategies.
-                    在本课程结束时，你将很好地理解政府政策、法律法规和可持续发展问题如何塑造商业决策和战略。
-                </p>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #ecfeff; border-left: 4px solid #0891b2; border-radius: 4px;">
+                <h4 style="color: #0e7490;">Study Tips from Course Outline</h4>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>Active recall and testing:</strong> test yourself on key concepts without looking at notes.</li>
+                    <li><strong>Create a study schedule:</strong> break material into manageable sections and focus more on difficult topics.</li>
+                    <li><strong>Ask for help:</strong> use lecturer/tutor consultation when stuck on a topic.</li>
+                </ul>
             </div>
         </section>
-        
-        <!-- Next Steps -->
-        <section class="section">
-            <div class="bilingual-heading">
-                <h2>Next Steps 下一步</h2>
-            </div>
+
+        <section id="learning-outcomes" class="intro-section" style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--primary-color);">Course Learning Outcomes 课程学习成果</h2>
             
-            <div class="highlight-box">
-                <h3 class="bilingual-heading">
-                    <span>First Lecture Next Week:</span>
-                    <span class="chinese-text">下周第一次讲座：</span>
-                </h3>
-                <p>
-                    <strong>The Australian Government Environment: The Australian Legal Foundation</strong>
-                </p>
-                <p class="chinese-text">
-                    <strong>澳大利亚政府环境：澳大利亚法律基础</strong>
-                </p>
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #e0f2f1; border-left: 4px solid var(--primary-color); border-radius: 4px;">
+                <p>Upon successful completion of this course, students will be able to:</p>
+                <p style="color: #666; font-size: 0.95em;">成功完成本课程后，学生将能够：</p>
             </div>
-            
-            <div style="margin-top: 2rem; text-align: center;">
-                <a href="unit1.html" style="display: inline-block; background-color: var(--accent-color); color: white; padding: 1rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; margin: 0.5rem;">
-                    Proceed to Unit 1 前往单元1 →
-                </a>
-                <a href="index.html?skip_intro=true" style="display: inline-block; background-color: var(--secondary-color); color: white; padding: 1rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; margin: 0.5rem;">
-                    Back to Main Page 返回主页
-                </a>
+
+            <div style="margin: 2rem 0;">
+                <h3 style="color: var(--primary-color);">CLOs (as listed in Course Outline)</h3>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>CLO1:</strong> Describe and discuss the diverse environments within which business operates.</li>
+                    <li><strong>CLO2:</strong> Identify and analyse legal issues arising from situations in business contexts.</li>
+                    <li><strong>CLO3:</strong> Identify and analyse ethical and sustainability issues that arise in the business environment.</li>
+                    <li><strong>CLO4:</strong> Resolve problems by applying relevant principles or theories, evaluating solutions, and developing logical conclusions.</li>
+                    <li><strong>CLO5:</strong> Collaborate effectively with individuals from diverse backgrounds with inclusiveness and integrity.</li>
+                </ul>
+            </div>
+
+            <div id="legal-thinking" style="margin: 2rem 0; padding: 1.5rem; background: #fff7ed; border-left: 4px solid #f97316; border-radius: 4px;">
+                <h4 style="color: #ea580c;">Foundational Legal Thinking in Business</h4>
+                <p>Unit 0 and the course outline emphasise problem-based legal questions, argument building, and IPAC-based structure in legal analysis tasks.</p>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li><strong>I (Issue):</strong> What legal issue appears in the business facts?</li>
+                    <li><strong>P (Principle):</strong> Which legal rule or principle is relevant?</li>
+                    <li><strong>A (Application):</strong> How does the rule apply to this situation?</li>
+                    <li><strong>C (Conclusion):</strong> What is the most logical legal outcome?</li>
+                </ul>
+            </div>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #f0fdfa; border-left: 4px solid var(--primary-color); border-radius: 4px;">
+                <h4 style="color: var(--primary-color);">60-Second Active Recall</h4>
+                <div class="recall-item">
+                    <p><strong>Prompt 1:</strong> Name the three parts of this course.</p>
+                    <button type="button" class="reveal-btn" data-target="a1">Reveal</button>
+                    <p id="a1" class="recall-answer">Australian Government Environment; Australian Legal Environment for Business; Sustainability Environment for Businesses.</p>
+                </div>
+                <div class="recall-item">
+                    <p><strong>Prompt 2:</strong> Which assessment has the largest weighting?</p>
+                    <button type="button" class="reveal-btn" data-target="a2">Reveal</button>
+                    <p id="a2" class="recall-answer">A5 Final Examination (45%).</p>
+                </div>
+                <div class="recall-item">
+                    <p><strong>Prompt 3:</strong> What does IPAC stand for?</p>
+                    <button type="button" class="reveal-btn" data-target="a3">Reveal</button>
+                    <p id="a3" class="recall-answer">Issue, Principle, Application, Conclusion.</p>
+                </div>
             </div>
         </section>
     </main>
     
     <footer>
         <p>Business Environments Learning Resource - UNSW College Foundation Studies</p>
-        <p>商业环境学习资源 - 新南威尔士大学学院预科课程</p>
         <p>© 2025 All Rights Reserved</p>
     </footer>
     
     <script>
-        // Collapsible sections
-        var coll = document.getElementsByClassName("collapsible");
-        for (var i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
+        // Add dynamic shapes to header background
+        function setupHeaderAnimation() {
+            const headerBg = document.getElementById('header-animation');
+            const shapeCount = 10;
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const div = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                div.style.width = `${size}px`;
+                div.style.height = `${size}px`;
+                div.style.left = `${Math.random() * 100}%`;
+                div.style.top = `${Math.random() * 100}%`;
+                div.style.position = 'absolute';
+                
+                if (shapeType === 'circle') {
+                    div.style.borderRadius = '50%';
+                } else if (shapeType === 'square') {
+                    div.style.borderRadius = '4px';
+                } else if (shapeType === 'triangle') {
+                    div.style.width = '0';
+                    div.style.height = '0';
+                    div.style.borderLeft = `${size/2}px solid transparent`;
+                    div.style.borderRight = `${size/2}px solid transparent`;
+                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
+                    div.style.background = 'transparent';
                 }
-            });
+                
+                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
+                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
+                
+                headerBg.appendChild(div);
+            }
         }
         
-        // Progress bar
-        window.onscroll = function() {
-            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
-            
-            // Show/hide back to top button
-            var backToTop = document.getElementById("backToTop");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                backToTop.style.display = "flex";
-            } else {
-                backToTop.style.display = "none";
-            }
-        };
-        
-        // Back to top functionality
-        document.getElementById("backToTop").addEventListener("click", function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Initialize header animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderAnimation();
+            document.querySelectorAll('.reveal-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = document.getElementById(button.dataset.target);
+                    if (!answer) return;
+                    answer.classList.toggle('show');
+                    button.textContent = answer.classList.contains('show') ? 'Hide' : 'Reveal';
+                });
+            });
         });
     </script>
 </body>
