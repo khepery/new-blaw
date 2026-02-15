@@ -14,7 +14,26 @@
             --dark-text: #1e293b;
             --light-text: #f8fafc;
             --med-text: #64748b;
+            --card-bg: #ffffff;
+            --muted-bg: #f9f9f9;
+            --warning-bg: #fff3e0;
+            --example-bg: #f3e5f5;
             --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body[data-theme="dark"] {
+            --primary-color: #4db6ac;
+            --secondary-color: #26a69a;
+            --accent-color: #80cbc4;
+            --light-accent: #1b3a38;
+            --light-bg: #0f172a;
+            --dark-text: #e2e8f0;
+            --med-text: #94a3b8;
+            --card-bg: #1e293b;
+            --muted-bg: #334155;
+            --warning-bg: #3f2c1c;
+            --example-bg: #312447;
+            --box-shadow: 0 14px 30px -14px rgba(2, 6, 23, 0.8);
         }
         
         * {
@@ -28,6 +47,7 @@
             background-color: var(--light-bg);
             color: var(--dark-text);
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         header {
@@ -37,6 +57,15 @@
             padding: 3rem 1rem;
             position: relative;
             overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: -30%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.22), transparent 55%);
+            animation: pulseGlow 5s ease-in-out infinite;
+            pointer-events: none;
         }
         
         .header-content {
@@ -69,11 +98,16 @@
         }
         
         .section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 8px;
             padding: 2rem;
             margin-bottom: 2rem;
             box-shadow: var(--box-shadow);
+            animation: fadeUp 0.55s ease both;
+        }
+
+        .section:nth-of-type(even) {
+            animation-delay: 0.1s;
         }
         
         .section h2 {
@@ -118,15 +152,15 @@
         }
         
         .warning-box {
-            background: #fff3e0;
+            background: var(--warning-bg);
             border-left: 4px solid #ff6f00;
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 4px;
         }
-        
+
         .example-box {
-            background: #f3e5f5;
+            background: var(--example-bg);
             border-left: 4px solid #7b1fa2;
             padding: 1.5rem;
             margin: 1.5rem 0;
@@ -161,11 +195,13 @@
             font-weight: bold;
             border-radius: 5px;
             margin-top: 1rem;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .collapsible:hover {
             background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
         }
         
         .collapsible:after {
@@ -184,7 +220,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            background-color: #f9f9f9;
+            background-color: var(--muted-bg);
             border-radius: 0 0 5px 5px;
         }
         
@@ -210,6 +246,30 @@
             z-index: 1000;
             transition: background-color 0.3s, transform 0.3s;
         }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            border: none;
+            border-radius: 999px;
+            padding: 0.65rem 1rem;
+            background: rgba(15, 23, 42, 0.82);
+            color: #f8fafc;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 700;
+            transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        body[data-theme="dark"] .theme-toggle {
+            background: rgba(148, 163, 184, 0.25);
+        }
         
         .back-to-main:hover {
             background-color: var(--secondary-color);
@@ -220,24 +280,25 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, #ff6f61, #ffb300);
             color: white;
             border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            border-radius: 999px;
+            width: 58px;
+            height: 58px;
             display: none;
             justify-content: center;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: transform 0.3s;
+            animation: boing 1.4s ease-in-out infinite;
+            font-size: 1.65rem;
         }
-        
+
         .back-to-top:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
+            transform: scale(1.12) rotate(-8deg);
         }
         
         .progress-container {
@@ -263,6 +324,21 @@
             background-color: var(--primary-color);
             color: var(--light-text);
             margin-top: 3rem;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes boing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.35; }
+            50% { transform: scale(1.1) rotate(12deg); opacity: 0.58; }
         }
         
         @media (max-width: 768px) {
@@ -290,12 +366,16 @@
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
     </a>
-    
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙 Dark</button>
+
     <button class="back-to-top" id="backToTop" title="Back to Top 返回顶部">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
-            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-        </svg>
+        🚀
     </button>
+
+    <audio id="backToTopSound" preload="auto">
+        <source src="quack.mp3" type="audio/mpeg">
+    </audio>
     
     <header>
         <div class="header-content">
@@ -323,6 +403,18 @@
                     <li>Provide an overview of the business environments and their components 提供商业环境及其组成部分的概述</li>
                     <li>Understand the importance of studying the business environment 理解学习商业环境的重要性</li>
                     <li>Discuss real-world examples of how business environments impact operations and strategies 讨论商业环境如何影响运营和战略的真实案例</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h3 class="bilingual-heading">
+                    <span>Memory Science Study Tips 记忆科学学习技巧</span>
+                </h3>
+                <ul>
+                    <li><span class="key-term">Active recall 主动回忆</span> — close your notes and explain each environment in your own words. 合上笔记，用自己的话解释每个环境。</li>
+                    <li><span class="key-term">Spaced repetition 间隔重复</span> — review Unit 0 after 1 day, 3 days, and 7 days. 在第1天、第3天和第7天复习单元0。</li>
+                    <li><span class="key-term">Dual coding 双重编码</span> — pair keywords with simple icons or sketches. 将关键词与简单图标或草图配对。</li>
+                    <li><span class="key-term">Interleaving 交错练习</span> — mix legal, political, and sustainability questions in one session. 在一次学习中混合练习法律、政治和可持续发展问题。</li>
                 </ul>
             </div>
             
@@ -1035,6 +1127,26 @@
     </footer>
     
     <script>
+        const themeToggle = document.getElementById("themeToggle");
+        const savedTheme = localStorage.getItem("unit0-theme");
+        if (savedTheme === "dark") {
+            document.body.setAttribute("data-theme", "dark");
+            themeToggle.textContent = "☀️ Light";
+        }
+
+        themeToggle.addEventListener("click", function() {
+            const darkModeEnabled = document.body.getAttribute("data-theme") === "dark";
+            if (darkModeEnabled) {
+                document.body.removeAttribute("data-theme");
+                themeToggle.textContent = "🌙 Dark";
+                localStorage.setItem("unit0-theme", "light");
+            } else {
+                document.body.setAttribute("data-theme", "dark");
+                themeToggle.textContent = "☀️ Light";
+                localStorage.setItem("unit0-theme", "dark");
+            }
+        });
+
         // Collapsible sections
         var coll = document.getElementsByClassName("collapsible");
         for (var i = 0; i < coll.length; i++) {
@@ -1067,6 +1179,9 @@
         
         // Back to top functionality
         document.getElementById("backToTop").addEventListener("click", function() {
+            var backToTopSound = document.getElementById("backToTopSound");
+            backToTopSound.currentTime = 0;
+            backToTopSound.play().catch(function() {});
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
