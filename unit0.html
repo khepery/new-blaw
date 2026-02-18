@@ -83,7 +83,7 @@ body {
   justify-content: center; text-align: center;
   background: var(--gradient2); overflow: hidden; padding: 60px 20px;
 }
-.hero-content { position: relative; z-index: 2; max-width: 800px; }
+.hero-content { position: relative; z-index: 2; max-width: 1000px; }
 .hero h1 {
   font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800; color: #fff; margin-bottom: 8px;
@@ -123,7 +123,7 @@ body {
 }
 .dark-mode #toc-bar { border-bottom-color: rgba(255,255,255,0.08); }
 #toc-bar nav {
-  max-width: 1100px; margin: 0 auto; display: flex;
+  max-width: 1400px; margin: 0 auto; display: flex;
   gap: 4px; overflow-x: auto; padding: 8px 0;
   scrollbar-width: none;
 }
@@ -136,13 +136,13 @@ body {
 #toc-bar a:hover { background: var(--light-accent); color: var(--primary); }
 #toc-bar a.active { background: var(--primary); color: #fff; }
 
-/* Main container */
-.container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+/* Main container – widescreen 16:9 friendly */
+.container { max-width: 1400px; margin: 0 auto; padding: 40px 40px; }
 
 /* Section styling */
 .section {
   background: var(--card-bg); border-radius: var(--radius);
-  padding: 40px; margin-bottom: 30px; box-shadow: var(--shadow);
+  padding: 48px 56px; margin-bottom: 30px; box-shadow: var(--shadow);
   transition: all var(--transition);
   opacity: 0; transform: translateY(30px);
 }
@@ -174,7 +174,7 @@ body {
 .obj-list li .zh-text { display: block; font-size: 0.85rem; color: var(--text-light); margin-top: 2px; }
 
 /* CLO cards */
-.clo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin: 16px 0; }
+.clo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; margin: 16px 0; }
 .clo-card {
   background: var(--light-accent); border-radius: 12px;
   padding: 20px; border-left: 4px solid var(--primary);
@@ -249,7 +249,7 @@ body {
 .stat-card .stat-label { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
 
 /* Environment cards */
-.env-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin: 16px 0; }
+.env-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 16px 0; }
 .env-card {
   padding: 24px; border-radius: 12px; background: var(--light-accent);
   border-top: 4px solid var(--primary); transition: all var(--transition);
@@ -262,7 +262,7 @@ body {
 .env-card .env-units { font-size: 0.8rem; color: var(--primary); font-weight: 600; margin-top: 8px; }
 
 /* Flashcards */
-.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 16px 0; }
+.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 16px 0; }
 .flashcard {
   perspective: 800px; height: 200px; cursor: pointer;
 }
@@ -378,17 +378,23 @@ body {
 }
 .btn-outline:hover { background: var(--primary); color: #fff; }
 
-/* Back to top */
+/* Back to top – funny bouncing frog rocket */
 #back-top {
-  position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px;
-  border-radius: 50%; background: var(--gradient); color: #fff;
-  border: none; font-size: 1.3rem; cursor: pointer; z-index: 999;
+  position: fixed; bottom: 30px; right: 30px; width: 68px; height: 68px;
+  border-radius: 50%; background: linear-gradient(135deg, #43a047, #66bb6a);
+  color: #fff; border: none; font-size: 2.2rem; cursor: pointer; z-index: 999;
   opacity: 0; transform: translateY(20px);
-  transition: all var(--transition); box-shadow: var(--shadow);
+  transition: all var(--transition); box-shadow: 0 4px 20px rgba(67,160,71,0.4);
   display: flex; align-items: center; justify-content: center;
+  animation: none;
 }
-#back-top.show { opacity: 1; transform: translateY(0); }
-#back-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+#back-top.show { opacity: 1; transform: translateY(0); animation: frogBounce 2s infinite ease-in-out; }
+#back-top:hover { transform: scale(1.2) translateY(-8px); box-shadow: 0 8px 30px rgba(67,160,71,0.5); animation: none; }
+#back-top:active { transform: scale(0.9); }
+@keyframes frogBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 /* Dark mode toggle */
 #dark-toggle {
@@ -420,6 +426,7 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .container { padding: 20px 16px; }
   .section { padding: 24px 18px; }
   .split-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -450,8 +457,8 @@ body {
 <!-- Dark Mode Toggle -->
 <button id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
 
-<!-- Back to Top -->
-<button id="back-top" aria-label="Back to top">↑</button>
+<!-- Back to Top – Funny Frog Rocket -->
+<button id="back-top" aria-label="Jump to top – frog rocket" title="Ribbit! 🐸 Jump to top!">🐸</button>
 
 <!-- ========== HERO HEADER ========== -->
 <!-- Each floating emoji has unique position/delay/size for organic drift effect -->
@@ -474,16 +481,16 @@ body {
 <!-- ========== TABLE OF CONTENTS BAR ========== -->
 <div id="toc-bar">
   <nav>
-    <a href="#objectives">🎯 Objectives</a>
-    <a href="#course-overview">📋 Course</a>
-    <a href="#intro-be">🌐 What is BE?</a>
-    <a href="#int-ext">🔄 Int/Ext</a>
-    <a href="#real-world">🔥 Real World</a>
-    <a href="#components">🧩 Components</a>
-    <a href="#flashcards">🃏 Flashcards</a>
-    <a href="#quiz">✅ Quiz</a>
-    <a href="#tutorial">📝 Tutorial</a>
-    <a href="#takeaways">🚀 Takeaways</a>
+    <a href="#objectives">🎯 Objectives 目标</a>
+    <a href="#course-overview">📋 Course 课程</a>
+    <a href="#intro-be">🌐 What is BE? 什么是商业环境</a>
+    <a href="#int-ext">🔄 Int/Ext 内/外</a>
+    <a href="#real-world">🔥 Real World 真实案例</a>
+    <a href="#components">🧩 Components 组成部分</a>
+    <a href="#flashcards">🃏 Flashcards 闪卡</a>
+    <a href="#quiz">✅ Quiz 测验</a>
+    <a href="#tutorial">📝 Tutorial 辅导课</a>
+    <a href="#takeaways">🚀 Takeaways 要点</a>
   </nav>
 </div>
 
@@ -522,46 +529,47 @@ body {
     <h2>Course Overview &amp; Structure</h2>
     <p class="zh">课程概述与结构</p>
     <p>The <strong>Business Environments</strong> course provides an overview of the dynamic and multifaceted contexts in which businesses operate. It covers the legal, political, economic, technological, and sustainability environments that influence business decisions.</p>
+    <p class="zh">商业环境课程概述了企业运营的动态和多方面环境。它涵盖了影响商业决策的法律、政治、经济、技术和可持续发展环境。</p>
 
     <h3>📚 Course Learning Outcomes (CLOs) 课程学习成果</h3>
     <div class="clo-grid">
-      <div class="clo-card"><span class="clo-num">1</span><p>Describe and discuss the diverse environments within which business operates</p></div>
-      <div class="clo-card"><span class="clo-num">2</span><p>Identify and analyse legal issues arising from situations in business contexts</p></div>
-      <div class="clo-card"><span class="clo-num">3</span><p>Identify and analyse ethical and sustainability issues that arise in the business environment</p></div>
-      <div class="clo-card"><span class="clo-num">4</span><p>Resolve problems by applying relevant principles, evaluating solutions and developing logical arguments</p></div>
-      <div class="clo-card"><span class="clo-num">5</span><p>Collaborate effectively with diverse individuals, demonstrating inclusiveness, integrity, and ethical teamwork</p></div>
+      <div class="clo-card"><span class="clo-num">1</span><p>Describe and discuss the diverse environments within which business operates<br><span class="zh-text">描述和讨论企业运营的多样化环境</span></p></div>
+      <div class="clo-card"><span class="clo-num">2</span><p>Identify and analyse legal issues arising from situations in business contexts<br><span class="zh-text">识别和分析商业情境中出现的法律问题</span></p></div>
+      <div class="clo-card"><span class="clo-num">3</span><p>Identify and analyse ethical and sustainability issues that arise in the business environment<br><span class="zh-text">识别和分析商业环境中出现的道德和可持续发展问题</span></p></div>
+      <div class="clo-card"><span class="clo-num">4</span><p>Resolve problems by applying relevant principles, evaluating solutions and developing logical arguments<br><span class="zh-text">通过应用相关原则、评估解决方案和发展逻辑论证来解决问题</span></p></div>
+      <div class="clo-card"><span class="clo-num">5</span><p>Collaborate effectively with diverse individuals, demonstrating inclusiveness, integrity, and ethical teamwork<br><span class="zh-text">与不同背景的个人有效合作，展现包容性、诚信和道德团队合作</span></p></div>
     </div>
 
     <h3>📊 Assessment Structure 评估结构</h3>
     <div class="assessment-grid">
       <div class="assess-card">
         <span class="assess-weight">10%</span>
-        <div class="assess-name">A1: Tutorial Performance<small>Ongoing &bull; Individual</small></div>
-        <span class="assess-timing">Ongoing</span>
+        <div class="assess-name">A1: Tutorial Performance 辅导课表现<small>Ongoing 持续 &bull; Individual 个人</small></div>
+        <span class="assess-timing">Ongoing 持续</span>
         <span class="assess-clo">CLO 1-5</span>
       </div>
       <div class="assess-card">
         <span class="assess-weight">15%</span>
-        <div class="assess-name">A2: Australian Legal System &amp; Business Structures Video<small>Week 5 &bull; Individual</small></div>
-        <span class="assess-timing">Week 5</span>
+        <div class="assess-name">A2: Australian Legal System &amp; Business Structures Video 澳大利亚法律体系与商业结构视频<small>Week 5 第5周 &bull; Individual 个人</small></div>
+        <span class="assess-timing">Week 5 第5周</span>
         <span class="assess-clo">CLO 1,2,4</span>
       </div>
       <div class="assess-card">
         <span class="assess-weight">10%</span>
-        <div class="assess-name">A3: Challenge Week Poster Presentation<small>Week 7 &bull; Group</small></div>
-        <span class="assess-timing">Week 7</span>
+        <div class="assess-name">A3: Challenge Week Poster Presentation 挑战周海报展示<small>Week 7 第7周 &bull; Group 小组</small></div>
+        <span class="assess-timing">Week 7 第7周</span>
         <span class="assess-clo">CLO 1,2,4,5</span>
       </div>
       <div class="assess-card">
         <span class="assess-weight">20%</span>
-        <div class="assess-name">A4: Contract Law Legal Problem Analysis<small>Week 8 &bull; Individual</small></div>
-        <span class="assess-timing">Week 8</span>
+        <div class="assess-name">A4: Contract Law Legal Problem Analysis 合同法法律问题分析<small>Week 8 第8周 &bull; Individual 个人</small></div>
+        <span class="assess-timing">Week 8 第8周</span>
         <span class="assess-clo">CLO 1,2,4</span>
       </div>
       <div class="assess-card">
         <span class="assess-weight">45%</span>
-        <div class="assess-name">A5: Final Examination<small>Exam Week &bull; Individual</small></div>
-        <span class="assess-timing">Exam Week</span>
+        <div class="assess-name">A5: Final Examination 期末考试<small>Exam Week 考试周 &bull; Individual 个人</small></div>
+        <span class="assess-timing">Exam Week 考试周</span>
         <span class="assess-clo">CLO 1,2,3,4</span>
       </div>
     </div>
@@ -569,19 +577,19 @@ body {
     <h3>🗺️ Course Roadmap 课程路线图</h3>
     <div class="roadmap">
       <div class="roadmap-item">
-        <span class="part-label">Part 1</span>
-        <div class="part-title">🏛️ Australian Government Environment</div>
-        <div class="part-weeks">Unit 1 &bull; Weeks 1&ndash;2</div>
+        <span class="part-label">Part 1 第一部分</span>
+        <div class="part-title">🏛️ Australian Government Environment 澳大利亚政府环境</div>
+        <div class="part-weeks">Unit 1 单元1 &bull; Weeks 1&ndash;2 第1-2周</div>
       </div>
       <div class="roadmap-item">
-        <span class="part-label">Part 2</span>
-        <div class="part-title">⚖️ Legal Environment for Business</div>
-        <div class="part-weeks">Units 2&ndash;8 &bull; Weeks 2&ndash;10 &mdash; Contracts, Negligence, Consumer Protection</div>
+        <span class="part-label">Part 2 第二部分</span>
+        <div class="part-title">⚖️ Legal Environment for Business 商业法律环境</div>
+        <div class="part-weeks">Units 2&ndash;8 单元2-8 &bull; Weeks 2&ndash;10 第2-10周 &mdash; Contracts, Negligence, Consumer Protection 合同法、过失侵权、消费者保护</div>
       </div>
       <div class="roadmap-item">
-        <span class="part-label">Part 3</span>
-        <div class="part-title">🌱 Sustainability Environment</div>
-        <div class="part-weeks">Units 9&ndash;11 &bull; Weeks 11&ndash;13 &mdash; Ethics, CSR, Environmental Law</div>
+        <span class="part-label">Part 3 第三部分</span>
+        <div class="part-title">🌱 Sustainability Environment 可持续发展环境</div>
+        <div class="part-weeks">Units 9&ndash;11 单元9-11 &bull; Weeks 11&ndash;13 第11-13周 &mdash; Ethics, CSR, Environmental Law 道德、企业社会责任、环境法</div>
       </div>
     </div>
   </section>
@@ -592,10 +600,12 @@ body {
     <h2>Introduction to Business Environments</h2>
     <p class="zh">商业环境简介</p>
     <p>Businesses operate in a <span class="tooltip-term">dynamic environment<span class="tip-box">动态环境 &mdash; An environment that is constantly changing due to various forces such as technology, regulations, and market conditions.</span></span> shaped by both internal and external forces. Understanding these environments is critical for strategic planning and long-term success.</p>
+    <p style="color:var(--text-light);font-size:0.92rem;">企业在由内部和外部力量共同塑造的动态环境中运营。理解这些环境对战略规划和长期成功至关重要。</p>
     <p style="margin-top:12px;">Business environments encompass all <strong>external and internal factors</strong> that influence a company&rsquo;s operations, decisions, and performance. These factors are interconnected and constantly evolving.</p>
+    <p style="color:var(--text-light);font-size:0.92rem;">商业环境涵盖影响公司运营、决策和绩效的所有外部和内部因素。这些因素相互关联并不断演变。</p>
     <ul style="margin:12px 0 0 20px;">
-      <li><strong>External environment:</strong> factors outside the organisation that affect its ability to function</li>
-      <li><strong>Internal environment:</strong> factors within the organisation that can be controlled by management</li>
+      <li><strong>External environment 外部环境:</strong> factors outside the organisation that affect its ability to function 影响组织运作能力的外部因素</li>
+      <li><strong>Internal environment 内部环境:</strong> factors within the organisation that can be controlled by management 组织内部可由管理层控制的因素</li>
     </ul>
   </section>
 
@@ -607,32 +617,32 @@ body {
     <div class="split-grid">
       <div class="split-card internal">
         <h3>🏢 Internal Environment 内部环境</h3>
-        <p style="margin-bottom:8px;">Business owners have <strong>significant control</strong> over these factors:</p>
+        <p style="margin-bottom:8px;">Business owners have <strong>significant control</strong> over these factors: 企业所有者对这些因素拥有<strong>重大控制权</strong>：</p>
         <ul>
-          <li>Choice of supplies &amp; suppliers</li>
-          <li>Hiring decisions &amp; staffing</li>
-          <li>Product/service selection</li>
-          <li>Sales locations &amp; channels</li>
-          <li>Company culture &amp; values</li>
-          <li>Internal policies &amp; procedures</li>
-          <li>Management structure</li>
+          <li>Choice of supplies &amp; suppliers 供应商选择</li>
+          <li>Hiring decisions &amp; staffing 招聘决策与人员配置</li>
+          <li>Product/service selection 产品/服务选择</li>
+          <li>Sales locations &amp; channels 销售地点与渠道</li>
+          <li>Company culture &amp; values 公司文化与价值观</li>
+          <li>Internal policies &amp; procedures 内部政策与程序</li>
+          <li>Management structure 管理结构</li>
         </ul>
       </div>
       <div class="split-card external">
         <h3>🌍 External Environment 外部环境</h3>
-        <p style="margin-bottom:8px;">Changes constantly and is <strong>beyond management control</strong>:</p>
+        <p style="margin-bottom:8px;">Changes constantly and is <strong>beyond management control</strong>: 不断变化且<strong>超出管理层控制</strong>：</p>
         <ul>
-          <li>Economic conditions &amp; cycles</li>
-          <li>Political &amp; legal factors</li>
-          <li>Technological changes</li>
-          <li>Sustainability &amp; environmental pressure</li>
-          <li>Social &amp; cultural trends</li>
-          <li>Competitive forces</li>
-          <li>Global events &amp; disruptions</li>
+          <li>Economic conditions &amp; cycles 经济条件与周期</li>
+          <li>Political &amp; legal factors 政治与法律因素</li>
+          <li>Technological changes 技术变革</li>
+          <li>Sustainability &amp; environmental pressure 可持续发展与环境压力</li>
+          <li>Social &amp; cultural trends 社会与文化趋势</li>
+          <li>Competitive forces 竞争力量</li>
+          <li>Global events &amp; disruptions 全球事件与干扰</li>
         </ul>
       </div>
     </div>
-    <p style="margin-top:12px;font-size:0.9rem;color:var(--text-light);">Major sectors of the external environment: <strong>Economic, Political &amp; Legal, Technological, Sustainability</strong>. Businesses must continuously study and adapt to these forces.</p>
+    <p style="margin-top:12px;font-size:0.9rem;color:var(--text-light);">Major sectors of the external environment 外部环境的主要部门: <strong>Economic 经济, Political &amp; Legal 政治与法律, Technological 技术, Sustainability 可持续发展</strong>. Businesses must continuously study and adapt to these forces. 企业必须持续研究并适应这些力量。</p>
   </section>
 
   <!-- REAL-WORLD IMPACT -->
@@ -642,7 +652,7 @@ body {
     <p class="zh">真实世界影响案例</p>
 
     <h3>🔥 Black Summer Bushfires (2019&ndash;2020) 黑色夏季丛林大火</h3>
-    <p style="margin-bottom:16px;">The devastating Australian bushfires demonstrated how environmental factors can dramatically impact businesses and communities:</p>
+    <p style="margin-bottom:16px;">The devastating Australian bushfires demonstrated how environmental factors can dramatically impact businesses and communities. 毁灭性的澳大利亚丛林大火展示了环境因素如何对企业和社区产生巨大影响。</p>
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">🌲</div>
@@ -668,9 +678,9 @@ body {
 
     <h3 style="margin-top:28px;">🦠 COVID-19 Pandemic Impact 新冠疫情影响</h3>
     <ul style="margin:8px 0 0 20px;">
-      <li><strong>Supply chain disruptions:</strong> factory shutdowns, demand changes, trade restrictions 供应链中断</li>
-      <li>Highlighted the importance of <span class="tooltip-term">supply chain resilience<span class="tip-box">供应链韧性 &mdash; The ability of a supply chain to prepare for, respond to, and recover from unexpected disruptions.</span></span></li>
-      <li>Some businesses found <strong>opportunities</strong> &mdash; e-commerce, remote work technology, healthcare innovation</li>
+      <li><strong>Supply chain disruptions 供应链中断:</strong> factory shutdowns, demand changes, trade restrictions 工厂关闭、需求变化、贸易限制</li>
+      <li>Highlighted the importance of <span class="tooltip-term">supply chain resilience<span class="tip-box">供应链韧性 &mdash; The ability of a supply chain to prepare for, respond to, and recover from unexpected disruptions.</span></span> 突显了供应链韧性的重要性</li>
+      <li>Some businesses found <strong>opportunities 机遇</strong> &mdash; e-commerce, remote work technology, healthcare innovation 电子商务、远程办公技术、医疗创新</li>
       <li>Accelerated digital transformation across industries 加速了各行业的数字化转型</li>
     </ul>
   </section>
@@ -684,32 +694,32 @@ body {
       <div class="env-card">
         <div class="env-icon">📈</div>
         <h4>Economic Environment 经济环境</h4>
-        <p>Business cycles, growth, inflation, supply &amp; demand dynamics</p>
-        <div class="env-units">Covered in Economics course</div>
+        <p>Business cycles, growth, inflation, supply &amp; demand dynamics 商业周期、增长、通货膨胀、供求关系</p>
+        <div class="env-units">Covered in Economics course 在经济学课程中涵盖</div>
       </div>
       <div class="env-card">
         <div class="env-icon">💻</div>
         <h4>Technological Environment 技术环境</h4>
-        <p>Productivity, innovation, automation, and permanent growth drivers</p>
-        <div class="env-units">Mentioned in Sustainability units</div>
+        <p>Productivity, innovation, automation, and permanent growth drivers 生产力、创新、自动化和永久增长驱动力</p>
+        <div class="env-units">Mentioned in Sustainability units 在可持续发展单元中提及</div>
       </div>
       <div class="env-card">
         <div class="env-icon">🏛️</div>
         <h4>Political Environment 政治环境</h4>
-        <p>Government, laws, regulations, political stability. Example: <em>Tobacco Plain Packaging Act 2011</em></p>
-        <div class="env-units">Covered in Unit 1</div>
+        <p>Government, laws, regulations, political stability 政府、法律、法规、政治稳定性. Example 例如: <em>Tobacco Plain Packaging Act 2011 烟草平装法案</em></p>
+        <div class="env-units">Covered in Unit 1 在单元1中涵盖</div>
       </div>
       <div class="env-card">
         <div class="env-icon">⚖️</div>
         <h4>Legal Environment 法律环境</h4>
-        <p>Legal system, framework of laws, regulations, courts, dispute resolution</p>
-        <div class="env-units">Covered in Units 2&ndash;8</div>
+        <p>Legal system, framework of laws, regulations, courts, dispute resolution 法律体系、法律框架、法规、法院、争议解决</p>
+        <div class="env-units">Covered in Units 2&ndash;8 在单元2至8中涵盖</div>
       </div>
       <div class="env-card">
         <div class="env-icon">🌱</div>
         <h4>Sustainability Environment 可持续发展环境</h4>
-        <p>Future generations, stakeholder responsibility, ethics, CSR</p>
-        <div class="env-units">Covered in Units 9&ndash;11</div>
+        <p>Future generations, stakeholder responsibility, ethics, CSR 未来世代、利益相关者责任、道德、企业社会责任</p>
+        <div class="env-units">Covered in Units 9&ndash;11 在单元9至11中涵盖</div>
       </div>
     </div>
   </section>
@@ -737,20 +747,20 @@ body {
     <h2>Tutorial Activities</h2>
     <p class="zh">辅导课活动</p>
     <h3>🤝 Icebreaker: Common Ground 破冰活动：共同点</h3>
-    <p style="margin-bottom:16px;">Find things you have in common with your classmates! This activity helps build connections in your tutorial group.</p>
+    <p style="margin-bottom:16px;">Find things you have in common with your classmates! This activity helps build connections in your tutorial group. 找到你与同学之间的共同点！这个活动有助于在辅导课小组中建立联系。</p>
     <h3>💬 Discussion Questions 讨论问题</h3>
     <ol class="activity-list">
-      <li>1. Why do business owners need to understand the business environment?</li>
-      <li>2. What are the differences between internal and external environments?</li>
-      <li>3. How do political decisions affect businesses?</li>
-      <li>4. Give an example of a technological change that disrupted an industry.</li>
-      <li>5. Why is sustainability increasingly important for businesses?</li>
-      <li>6. How did COVID-19 change the business landscape?</li>
-      <li>7. What role does government regulation play in business?</li>
-      <li>8. How can businesses prepare for external environmental changes?</li>
-      <li>9. What is corporate social responsibility and why does it matter?</li>
-      <li>10. How do economic cycles affect business planning?</li>
-      <li>11. Discuss how the Black Summer bushfires impacted Australian businesses.</li>
+      <li>1. Why do business owners need to understand the business environment? 为什么企业所有者需要理解商业环境？</li>
+      <li>2. What are the differences between internal and external environments? 内部环境和外部环境有什么区别？</li>
+      <li>3. How do political decisions affect businesses? 政治决策如何影响企业？</li>
+      <li>4. Give an example of a technological change that disrupted an industry. 举一个技术变革颠覆行业的例子。</li>
+      <li>5. Why is sustainability increasingly important for businesses? 为什么可持续发展对企业越来越重要？</li>
+      <li>6. How did COVID-19 change the business landscape? 新冠疫情如何改变了商业格局？</li>
+      <li>7. What role does government regulation play in business? 政府法规在商业中扮演什么角色？</li>
+      <li>8. How can businesses prepare for external environmental changes? 企业如何为外部环境变化做准备？</li>
+      <li>9. What is corporate social responsibility and why does it matter? 什么是企业社会责任，为什么它很重要？</li>
+      <li>10. How do economic cycles affect business planning? 经济周期如何影响商业规划？</li>
+      <li>11. Discuss how the Black Summer bushfires impacted Australian businesses. 讨论黑色夏季丛林大火如何影响澳大利亚企业。</li>
     </ol>
   </section>
 
@@ -760,15 +770,15 @@ body {
     <h2>Key Takeaways &amp; Next Steps</h2>
     <p class="zh">关键要点与下一步</p>
     <ul class="obj-list">
-      <li><span class="icon">✅</span><div class="text">Business environments are <strong>dynamic and multifaceted</strong> &mdash; both internal and external factors matter</div></li>
-      <li><span class="icon">✅</span><div class="text">External environment includes <strong>economic, political, legal, technological, and sustainability</strong> factors</div></li>
-      <li><span class="icon">✅</span><div class="text">Real-world events (bushfires, pandemics) demonstrate the <strong>interconnectedness</strong> of business environments</div></li>
-      <li><span class="icon">✅</span><div class="text">This course covers <strong>3 main areas:</strong> Government, Legal, and Sustainability environments</div></li>
-      <li><span class="icon">✅</span><div class="text">Understanding these environments is <strong>essential for strategic business decisions</strong></div></li>
+      <li><span class="icon">✅</span><div class="text">Business environments are <strong>dynamic and multifaceted</strong> &mdash; both internal and external factors matter<span class="zh-text">商业环境是动态和多方面的——内部和外部因素都很重要</span></div></li>
+      <li><span class="icon">✅</span><div class="text">External environment includes <strong>economic, political, legal, technological, and sustainability</strong> factors<span class="zh-text">外部环境包括经济、政治、法律、技术和可持续发展因素</span></div></li>
+      <li><span class="icon">✅</span><div class="text">Real-world events (bushfires, pandemics) demonstrate the <strong>interconnectedness</strong> of business environments<span class="zh-text">真实世界事件（丛林大火、疫情）展示了商业环境的相互关联性</span></div></li>
+      <li><span class="icon">✅</span><div class="text">This course covers <strong>3 main areas:</strong> Government, Legal, and Sustainability environments<span class="zh-text">本课程涵盖3个主要领域：政府环境、法律环境和可持续发展环境</span></div></li>
+      <li><span class="icon">✅</span><div class="text">Understanding these environments is <strong>essential for strategic business decisions</strong><span class="zh-text">理解这些环境对于战略商业决策至关重要</span></div></li>
     </ul>
     <div class="footer-nav">
-      <a href="index.html?skip_intro=true" class="btn btn-outline">⬅ Back to Main Page</a>
-      <a href="unit1.html" class="btn btn-primary">Proceed to Unit 1 ➡</a>
+      <a href="index.html?skip_intro=true" class="btn btn-outline">⬅ Back to Main Page 返回主页</a>
+      <a href="unit1.html" class="btn btn-primary">Proceed to Unit 1 前往单元1 ➡</a>
     </div>
   </section>
 
@@ -777,34 +787,34 @@ body {
 <script>
 // ===== FLASHCARD DATA =====
 const flashcards = [
-  {term:"Dynamic Environment",zh:"动态环境",def:"An environment that is constantly changing due to various forces such as technology, regulations, and market conditions."},
-  {term:"Internal Environment",zh:"内部环境",def:"Factors within the organisation that can be controlled by management, including culture, policies, and staffing."},
-  {term:"External Environment",zh:"外部环境",def:"Factors outside the organisation that affect its operations but are beyond management's direct control."},
-  {term:"Business Cycles",zh:"商业周期",def:"Recurring fluctuations in economic activity, including periods of expansion (growth) and contraction (recession)."},
-  {term:"Supply Chain Resilience",zh:"供应链韧性",def:"The ability of a supply chain to prepare for, respond to, and recover from unexpected disruptions."},
-  {term:"Sustainability",zh:"可持续发展",def:"Meeting the needs of the present without compromising the ability of future generations to meet their needs."},
-  {term:"Legal Environment",zh:"法律环境",def:"The framework of laws, regulations, and legal institutions that govern business activities within a jurisdiction."},
-  {term:"Political Stability",zh:"政治稳定性",def:"The consistency and predictability of a government's policies and the absence of political turmoil or violence."},
-  {term:"Corporate Social Responsibility",zh:"企业社会责任",def:"A business model where companies integrate social and environmental concerns into their operations and stakeholder interactions."},
-  {term:"Fiscal Policy",zh:"财政政策",def:"Government decisions about taxation and spending that influence economic conditions and business activity."}
+  {term:"Dynamic Environment",zh:"动态环境",def:"An environment that is constantly changing due to various forces such as technology, regulations, and market conditions.<br>由于技术、法规和市场条件等各种力量而不断变化的环境。"},
+  {term:"Internal Environment",zh:"内部环境",def:"Factors within the organisation that can be controlled by management, including culture, policies, and staffing.<br>组织内部可由管理层控制的因素，包括文化、政策和人员配置。"},
+  {term:"External Environment",zh:"外部环境",def:"Factors outside the organisation that affect its operations but are beyond management's direct control.<br>影响组织运营但超出管理层直接控制的外部因素。"},
+  {term:"Business Cycles",zh:"商业周期",def:"Recurring fluctuations in economic activity, including periods of expansion (growth) and contraction (recession).<br>经济活动中反复出现的波动，包括扩张（增长）和收缩（衰退）时期。"},
+  {term:"Supply Chain Resilience",zh:"供应链韧性",def:"The ability of a supply chain to prepare for, respond to, and recover from unexpected disruptions.<br>供应链准备、应对和从意外中断中恢复的能力。"},
+  {term:"Sustainability",zh:"可持续发展",def:"Meeting the needs of the present without compromising the ability of future generations to meet their needs.<br>满足当代人的需求，同时不损害后代满足其需求的能力。"},
+  {term:"Legal Environment",zh:"法律环境",def:"The framework of laws, regulations, and legal institutions that govern business activities within a jurisdiction.<br>管辖范围内管理商业活动的法律、法规和法律机构的框架。"},
+  {term:"Political Stability",zh:"政治稳定性",def:"The consistency and predictability of a government's policies and the absence of political turmoil or violence.<br>政府政策的一致性和可预测性，以及没有政治动荡或暴力。"},
+  {term:"Corporate Social Responsibility",zh:"企业社会责任",def:"A business model where companies integrate social and environmental concerns into their operations and stakeholder interactions.<br>企业将社会和环境关注纳入其运营和利益相关者互动中的商业模式。"},
+  {term:"Fiscal Policy",zh:"财政政策",def:"Government decisions about taxation and spending that influence economic conditions and business activity.<br>政府关于税收和支出的决策，影响经济条件和商业活动。"}
 ];
 
 // ===== QUIZ DATA =====
 const quizData = [
-  {q:"What are the major sectors of the external business environment?",
-   opts:["Marketing, Finance, HR, and Operations","Economic, Political & Legal, Technological, and Sustainability","Supply, Demand, Production, and Distribution","Domestic, International, Local, and Regional"],
+  {q:"What are the major sectors of the external business environment? 外部商业环境的主要部门是什么？",
+   opts:["Marketing, Finance, HR, and Operations 市场营销、财务、人力资源和运营","Economic, Political & Legal, Technological, and Sustainability 经济、政治与法律、技术和可持续发展","Supply, Demand, Production, and Distribution 供应、需求、生产和分配","Domestic, International, Local, and Regional 国内、国际、本地和区域"],
    ans:1},
-  {q:"What does the internal environment of a business include?",
-   opts:["Government regulations and laws","Global economic trends","Day-to-day decisions that owners and managers control","Weather and natural disasters"],
+  {q:"What does the internal environment of a business include? 企业的内部环境包括什么？",
+   opts:["Government regulations and laws 政府法规和法律","Global economic trends 全球经济趋势","Day-to-day decisions that owners and managers control 所有者和管理者控制的日常决策","Weather and natural disasters 天气和自然灾害"],
    ans:2},
-  {q:"Which legislation made Australia the first country to require plain packaging for tobacco?",
-   opts:["Australian Consumer Law 2010","Competition and Consumer Act 2010","Tobacco Plain Packaging Act 2011","Public Health Act 2010"],
+  {q:"Which legislation made Australia the first country to require plain packaging for tobacco? 哪项立法使澳大利亚成为第一个要求烟草平装的国家？",
+   opts:["Australian Consumer Law 2010 澳大利亚消费者法2010","Competition and Consumer Act 2010 竞争和消费者法2010","Tobacco Plain Packaging Act 2011 烟草平装法案2011","Public Health Act 2010 公共卫生法2010"],
    ans:2},
-  {q:"What percentage is the Final Examination worth?",
+  {q:"What percentage is the Final Examination worth? 期末考试占总分的百分比是多少？",
    opts:["30%","40%","45%","50%"],
    ans:2},
-  {q:"What are the three main parts of this course?",
-   opts:["Economics, Marketing, and Finance","Australian Government Environment, Legal Environment, Sustainability Environment","Law, Accounting, and Management","Internal, External, and Global Environments"],
+  {q:"What are the three main parts of this course? 本课程的三个主要部分是什么？",
+   opts:["Economics, Marketing, and Finance 经济学、市场营销和财务","Australian Government Environment, Legal Environment, Sustainability Environment 澳大利亚政府环境、法律环境、可持续发展环境","Law, Accounting, and Management 法律、会计和管理","Internal, External, and Global Environments 内部、外部和全球环境"],
    ans:1}
 ];
 
@@ -862,7 +872,7 @@ const quizData = [
     }
     if (answered === quizData.length) {
       const res = document.getElementById('quiz-result');
-      res.textContent = `🎉 You scored ${correct}/${quizData.length}! ${correct===quizData.length?'Perfect! 太棒了！':'Keep studying! 继续努力！'}`;
+      res.textContent = `🎉 You scored ${correct}/${quizData.length}! 你得了${correct}/${quizData.length}分！ ${correct===quizData.length?'Perfect! 太棒了！满分！':'Keep studying! 继续努力！'}`;
       res.classList.add('show');
       if (correct === quizData.length) launchConfetti();
     }
@@ -934,13 +944,21 @@ function updateProgress() {
   progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
 }
 
-// ===== BACK TO TOP =====
+// ===== BACK TO TOP (with funny sound) =====
 const backTop = document.getElementById('back-top');
 function updateBackTop() {
   if (window.scrollY > 400) backTop.classList.add('show');
   else backTop.classList.remove('show');
 }
-backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+backTop.addEventListener('click', () => {
+  // Play a funny ribbit/quack sound
+  try {
+    const snd = new Audio('ribbit.mp3');
+    snd.volume = 0.5;
+    snd.play().catch(() => {});
+  } catch(e) {}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 // ===== TOC ACTIVE STATE =====
 const tocLinks = document.querySelectorAll('#toc-bar a');
