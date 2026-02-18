@@ -1252,7 +1252,7 @@
     </style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
+    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
@@ -1262,18 +1262,19 @@
         <div class="header-animation" id="header-animation"></div>
         <div class="header-content">
             <h1>Unit 2: Australian Legal System</h1>
+            <p>澳大利亚法律制度</p>
             <p>Business Environments - FS2025</p>
         </div>
     </header>
     
     <nav>
         <div class="nav-container">
-            <button class="nav-button" data-target="overview">Overview</button>
-            <button class="nav-button" data-target="unincorporated">Unincorporated Businesses</button>
-            <button class="nav-button" data-target="incorporated">Incorporated Businesses</button>
-            <button class="nav-button" data-target="entity">Separate Legal Entity</button>
-            <button class="nav-button" data-target="veil">Corporate Veil</button>
-            <button class="nav-button" data-target="cases">Case Law</button>
+            <button class="nav-button" data-target="overview">Overview 概述</button>
+            <button class="nav-button" data-target="unincorporated">Unincorporated Businesses 非公司型企业</button>
+            <button class="nav-button" data-target="incorporated">Incorporated Businesses 公司型企业</button>
+            <button class="nav-button" data-target="entity">Separate Legal Entity 独立法律实体</button>
+            <button class="nav-button" data-target="veil">Corporate Veil 公司面纱</button>
+            <button class="nav-button" data-target="cases">Case Law 判例法</button>
         </div>
     </nav>
     
@@ -1383,7 +1384,7 @@
                         <div class="bilingual-text">
                             <div class="english">
                                 <h4>Incorporated Business Structures</h4>
-                                <p>Incorporated businesses are separate legal entities from their owners. They are created through a formal registration process under the Corporations Act 2001 (Cth).</p>
+                                <p>Incorporated businesses are separate legal entities from their owners. They are created through a formal registration process (incorporation) under the Corporations Act 2001 (Cth) with ASIC (Australian Securities and Investments Commission).</p>
                                 <p><strong>Key characteristics:</strong></p>
                                 <ul>
                                     <li>Separate legal identity from owners</li>
@@ -1395,7 +1396,7 @@
                             </div>
                             <div class="chinese">
                                 <h4>公司型企业结构</h4>
-                                <p>公司型企业是独立于其所有者的法律实体。它们是通过《2001年公司法》(联邦)下的正式注册程序创建的。</p>
+                                <p>公司型企业是独立于其所有者的法律实体。它们是通过《2001年公司法》(联邦)下在ASIC（澳大利亚证券和投资委员会）的正式注册程序（公司注册）创建的。</p>
                                 <p><strong>主要特点：</strong></p>
                                 <ul>
                                     <li>与所有者有独立的法律身份</li>
@@ -1583,10 +1584,10 @@
                         <div class="structure-card-content">
                             <div class="bilingual-text">
                                 <div class="english">
-                                    <p>A partnership exists between persons carrying on a business in common with a view to profit. In Australia, a partnership is generally limited to a maximum of 20 partners.</p>
+                                    <p>A partnership exists between persons carrying on a business in common with a view to profit. It is governed by the Partnership Act. In Australia, a partnership is generally limited to a maximum of 20 partners.</p>
                                 </div>
                                 <div class="chinese">
-                                    <p>合伙企业是指两个或多个人共同开展业务以赚取利润。在澳大利亚，合伙企业通常最多可有20名合伙人。</p>
+                                    <p>合伙企业是指两个或多个人共同开展业务以赚取利润。它受《合伙法》的管辖。在澳大利亚，合伙企业通常最多可有20名合伙人。</p>
                                 </div>
                             </div>
                             
@@ -1989,7 +1990,7 @@
                             <div>公司</div>
                         </div>
                         
-                        <button class="veil-button" id="veil-toggle">Lift Veil</button>
+                        <button class="veil-button" id="veil-toggle">Lift Veil 揭开面纱</button>
                     </div>
                 </div>
                 
@@ -2106,7 +2107,8 @@
 
     <footer>
         <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
+        <p>商业环境学习资源 - 新南威尔士大学学院</p>
+        <p>© 2025 All Rights Reserved 版权所有</p>
     </footer>
 
     <script>
@@ -2258,10 +2260,10 @@
             veilButton.addEventListener('click', function() {
                 if (veil.classList.contains('lifted')) {
                     veil.classList.remove('lifted');
-                    veilButton.textContent = 'Lift Veil';
+                    veilButton.textContent = 'Lift Veil 揭开面纱';
                 } else {
                     veil.classList.add('lifted');
-                    veilButton.textContent = 'Lower Veil';
+                    veilButton.textContent = 'Lower Veil 放下面纱';
                 }
             });
         }
