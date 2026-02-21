@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corporate Lockdown: The Ultimate Business Law Escape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       GLOBAL RESET & BASE STYLES
+    ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-dark:       #0a0c14;
+      --bg-panel:      #0f1322;
+      --bg-card:       #141929;
+      --neon-blue:     #00d4ff;
+      --neon-green:    #00ff9f;
+      --neon-red:      #ff3864;
+      --text-primary:  #e0e6f0;
+      --text-dim:      #6b7a99;
+      --border-dim:    #1e2a44;
+      --border-glow:   #00d4ff55;
+      --transition:    0.35s ease;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Subtle animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =============================================
+       SCREEN MANAGEMENT
+       All screens are hidden by default; the JS
+       adds the .active class to show one at a time.
+    ============================================= */
+    .screen {
+      display: none;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =============================================
+       TYPOGRAPHY
+    ============================================= */
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .title-main {
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 900;
+      text-align: center;
+      color: var(--neon-blue);
+      text-shadow: 0 0 18px var(--neon-blue), 0 0 40px rgba(0, 212, 255, 0.3);
+      margin-bottom: 0.4rem;
+    }
+
+    .title-sub {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(0.7rem, 2vw, 1rem);
+      color: var(--neon-green);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .floor-title {
+      font-size: clamp(1.1rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--neon-green);
+      text-shadow: 0 0 12px var(--neon-green);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .instructions {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    /* =============================================
+       PANEL / CARD
+    ============================================= */
+    .panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-glow);
+    }
+
+    /* Scanline effect across the panel top */
+    .panel::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+      margin-bottom: 2rem;
+      border-radius: 2px;
+    }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      border: 2px solid var(--neon-blue);
+      background: transparent;
+      color: var(--neon-blue);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+    }
+
+    .btn:hover, .btn:focus {
+      background: var(--neon-blue);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px var(--neon-blue);
+      outline: none;
+    }
+
+    .btn-green {
+      border-color: var(--neon-green);
+      color: var(--neon-green);
+    }
+
+    .btn-green:hover, .btn-green:focus {
+      background: var(--neon-green);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px var(--neon-green);
+    }
+
+    .btn-center {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .btn-dim {
+      border-color: var(--text-dim);
+      color: var(--text-dim);
+    }
+
+    .btn-dim:hover, .btn-dim:focus {
+      background: var(--text-dim);
+      color: var(--bg-dark);
+      box-shadow: 0 0 12px var(--text-dim);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =============================================
+       START SCREEN STORY INTRO
+    ============================================= */
+    .story-text {
+      font-size: 1rem;
+      color: var(--text-primary);
+      text-align: center;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      border-left: 3px solid var(--neon-green);
+      padding-left: 1rem;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .story-text span {
+      color: var(--neon-green);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* =============================================
+       DRAG-AND-DROP PUZZLE
+    ============================================= */
+    .puzzle-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* LEFT COLUMN: draggable items bank */
+    .items-bank {
+      flex: 1 1 200px;
+    }
+
+    .items-bank h3,
+    .drop-column h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Individual draggable court block */
+    .court-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: 6px;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      cursor: grab;
+      transition: border-color var(--transition), box-shadow var(--transition), opacity var(--transition);
+      user-select: none;
+    }
+
+    .court-item:hover {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 8px var(--neon-blue);
+    }
+
+    .court-item.dragging {
+      opacity: 0.4;
+      cursor: grabbing;
+    }
+
+    /* RIGHT COLUMN: numbered drop zones */
+    .drop-column {
+      flex: 1 1 200px;
+    }
+
+    .drop-slot {
+      background: var(--bg-dark);
+      border: 2px dashed var(--border-dim);
+      border-radius: 6px;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.5rem;
+      min-height: 46px;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      transition: border-color var(--transition), background var(--transition);
+      position: relative;
+    }
+
+    .drop-slot::before {
+      content: attr(data-label);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    /* Highlight when a draggable is hovering over the slot */
+    .drop-slot.drag-over {
+      border-color: var(--neon-blue);
+      background: rgba(0, 212, 255, 0.06);
+    }
+
+    /* When a slot has a court placed in it */
+    .drop-slot .court-item {
+      margin-bottom: 0;
+      cursor: grab;
+    }
+
+    /* =============================================
+       FEEDBACK MESSAGES
+    ============================================= */
+    .feedback {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      display: none; /* shown by JS */
+      letter-spacing: 0.1em;
+    }
+
+    .feedback.success {
+      background: rgba(0, 255, 159, 0.1);
+      border: 1px solid var(--neon-green);
+      color: var(--neon-green);
+      text-shadow: 0 0 8px var(--neon-green);
+    }
+
+    .feedback.error {
+      background: rgba(255, 56, 100, 0.1);
+      border: 1px solid var(--neon-red);
+      color: var(--neon-red);
+      text-shadow: 0 0 8px var(--neon-red);
+    }
+
+    /* =============================================
+       TO-BE-CONTINUED SCREEN
+    ============================================= */
+    .tbc-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .tbc-text {
+      font-size: 1rem;
+      color: var(--text-dim);
+      text-align: center;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    /* =============================================
+       FOOTER / HUD BAR
+    ============================================= */
+    .hud {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border-dim);
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    .hud .hud-status {
+      color: var(--neon-green);
+    }
+
+    /* =============================================
+       RESPONSIVE TWEAKS
+    ============================================= */
+    @media (max-width: 520px) {
+      .panel {
+        padding: 1.5rem 1rem;
+      }
+
+      .puzzle-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.4rem;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       SCREEN 1 — START / TITLE
+  ============================================= -->
+  <section id="screen-start" class="screen active" role="main" aria-label="Start screen">
+    <div class="panel" style="text-align:center;">
+      <p class="title-sub">Initialising Security Bypass…</p>
+      <h1 class="title-main">Corporate Lockdown</h1>
+      <p class="title-sub">The Ultimate Business Law Escape</p>
+
+      <p class="story-text">
+        It's 11:47 PM. The building has entered <span>Emergency Lockdown Mode</span>.<br />
+        You are a junior business consultant — and you are still inside.<br /><br />
+        The AI security system, <span>LEXIS-7</span>, controls every elevator and exit.
+        It will only grant legal clearance to those who can demonstrate
+        <span>mastery of Australian Business Law</span>.<br /><br />
+        Hack each floor's terminal. Answer the legal challenges. Escape.
+      </p>
+
+      <button class="btn btn-center" id="btn-start">
+        ⚡ Start Hack
+      </button>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCREEN 2 — FLOOR 5: COURT HIERARCHY PUZZLE
+  ============================================= -->
+  <section id="screen-floor5" class="screen" role="main" aria-label="Floor 5 puzzle">
+    <div class="panel">
+      <h2 class="floor-title">🏢 Floor 5: The Foundation</h2>
+      <p class="title-sub" style="margin-bottom:0.5rem;">Australian Legal System — NSW Court Hierarchy</p>
+
+      <p class="instructions">
+        LEXIS-7 has <strong style="color:var(--neon-red)">scrambled the NSW Court Hierarchy</strong>.
+        Drag and drop the courts into the correct order —
+        <strong style="color:var(--neon-blue)">Slot 1 = Lowest Jurisdiction → Slot 5 = Highest</strong> — to unlock the elevator.
+      </p>
+
+      <!-- Drag-and-drop puzzle area -->
+      <div class="puzzle-container" id="puzzle-container">
+
+        <!-- Items bank (source courts) -->
+        <div class="items-bank" id="items-bank" aria-label="Available courts">
+          <h3>⚙ Available Courts</h3>
+          <!--
+            Each .court-item has a data-court attribute that matches the
+            correct answer key used in the JS validation function.
+          -->
+          <div class="court-item" draggable="true" data-court="local"    tabindex="0">Local Court</div>
+          <div class="court-item" draggable="true" data-court="district" tabindex="0">District Court</div>
+          <div class="court-item" draggable="true" data-court="supreme"  tabindex="0">Supreme Court</div>
+          <div class="court-item" draggable="true" data-court="appeal"   tabindex="0">Court of Appeal</div>
+          <div class="court-item" draggable="true" data-court="high"     tabindex="0">High Court of Australia</div>
+        </div>
+
+        <!-- Drop zone column (slots 1–5) -->
+        <div class="drop-column" id="drop-column" aria-label="Court order slots">
+          <h3>📋 Court Order (1 = Lowest → 5 = Highest)</h3>
+          <div class="drop-slot" data-slot="1" data-label="Slot 1 — Lowest"></div>
+          <div class="drop-slot" data-slot="2" data-label="Slot 2"></div>
+          <div class="drop-slot" data-slot="3" data-label="Slot 3"></div>
+          <div class="drop-slot" data-slot="4" data-label="Slot 4"></div>
+          <div class="drop-slot" data-slot="5" data-label="Slot 5 — Highest"></div>
+        </div>
+      </div><!-- /.puzzle-container -->
+
+      <!-- Feedback area (success / error messages) -->
+      <div id="feedback-floor5" class="feedback" role="alert" aria-live="polite"></div>
+
+      <!-- Action buttons -->
+      <div style="text-align:center; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <button class="btn" id="btn-submit-floor5">
+          🔓 Submit Hack
+        </button>
+        <button class="btn btn-dim" id="btn-reset-floor5">
+          ↺ Reset
+        </button>
+      </div>
+
+      <!-- Proceed button — only visible after correct answer -->
+      <div style="text-align:center; margin-top:1rem;">
+        <button class="btn btn-green btn-center hidden" id="btn-proceed-floor5">
+          ▶ Proceed to Floor 4
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCREEN 3 — TO BE CONTINUED
+  ============================================= -->
+  <section id="screen-tbc" class="screen" role="main" aria-label="To be continued">
+    <div class="panel" style="text-align:center;">
+      <div class="tbc-icon">🔒</div>
+      <h2 class="floor-title" style="margin-bottom:1rem;">Floor 4 — Access Pending…</h2>
+      <p class="tbc-text">
+        Impressive. LEXIS-7 acknowledges your legal expertise.<br />
+        Floor 4 is still being decrypted.<br /><br />
+        <strong style="color:var(--neon-blue)">To Be Continued…</strong><br /><br />
+        New floors, new legal challenges, and more business law puzzles are coming.
+        Stay sharp, consultant.
+      </p>
+      <button class="btn btn-center" id="btn-restart">↩ Play Again</button>
+    </div>
+  </section>
+
+  <!-- HUD bar shown on all screens -->
+  <footer class="hud" aria-hidden="true">
+    <span>LEXIS-7 SECURITY v3.1.4</span>
+    <span class="hud-status" id="hud-status">INITIALISING…</span>
+    <span>CORPORATE TOWER — AFTER HOURS</span>
+  </footer>
+
+  <script>
+    /* ============================================================
+       SCREEN NAVIGATION
+       showScreen(id) — hides all screens, then reveals the one
+       with the given id.  Also updates the HUD status message.
+    ============================================================ */
+    const hudMessages = {
+      'screen-start':   'LOCKDOWN ACTIVE',
+      'screen-floor5':  'FLOOR 5 — AWAITING CLEARANCE',
+      'screen-tbc':     'FLOORS 1-4 ENCRYPTING…',
+    };
+
+    function showScreen(id) {
+      // Hide every screen
+      document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+      });
+
+      // Show target screen (re-trigger fade animation by cloning)
+      const target = document.getElementById(id);
+      target.classList.add('active');
+
+      // Update HUD
+      document.getElementById('hud-status').textContent = hudMessages[id] || '';
+
+      // Scroll to top on mobile
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ============================================================
+       RESTART GAME
+       Resets puzzle state and returns to the start screen.
+    ============================================================ */
+    function restartGame() {
+      resetFloor5();
+      showScreen('screen-start');
+    }
+
+    /* ============================================================
+       FLOOR 5 — DRAG AND DROP LOGIC
+       ─────────────────────────────────────────────────────────
+       CORRECT ANSWER (NSW court hierarchy, lowest → highest):
+         Slot 1: Local Court
+         Slot 2: District Court
+         Slot 3: Supreme Court
+         Slot 4: Court of Appeal
+         Slot 5: High Court of Australia
+    ============================================================ */
+    const CORRECT_ORDER = ['local', 'district', 'supreme', 'appeal', 'high'];
+
+    // The court item currently being dragged.
+    let draggedItem = null;
+
+    /* ----------------------------------------------------------
+       Initialise drag-and-drop event listeners.
+       Called once on DOMContentLoaded.
+    ---------------------------------------------------------- */
+    function initDragDrop() {
+      // Attach listeners to all court items in the items bank
+      attachDragListenersToBank();
+
+      // Attach drop listeners to all drop slots
+      document.querySelectorAll('.drop-slot').forEach(slot => {
+        slot.addEventListener('dragover',  onSlotDragOver);
+        slot.addEventListener('dragleave', onSlotDragLeave);
+        slot.addEventListener('drop',      onSlotDrop);
+      });
+
+      // Allow items to be dragged back to the bank
+      const bank = document.getElementById('items-bank');
+      bank.addEventListener('dragover',  onBankDragOver);
+      bank.addEventListener('dragleave', onBankDragLeave);
+      bank.addEventListener('drop',      onBankDrop);
+    }
+
+    /* ----------------------------------------------------------
+       Attach drag-start / drag-end listeners to every .court-item
+       currently inside the items bank.
+    ---------------------------------------------------------- */
+    function attachDragListenersToBank() {
+      document.querySelectorAll('#items-bank .court-item').forEach(item => {
+        item.addEventListener('dragstart', onDragStart);
+        item.addEventListener('dragend',   onDragEnd);
+      });
+    }
+
+    /* ----------------------------------------------------------
+       Attach drag-start / drag-end to a single court item
+       (used when an item is moved between slots).
+    ---------------------------------------------------------- */
+    function attachDragListenersToItem(item) {
+      item.addEventListener('dragstart', onDragStart);
+      item.addEventListener('dragend',   onDragEnd);
+    }
+
+    /* ---- Drag start ---------------------------------------- */
+    function onDragStart(e) {
+      draggedItem = e.currentTarget;
+      draggedItem.classList.add('dragging');
+      // Store court key in the drag data transfer
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', draggedItem.dataset.court);
+    }
+
+    /* ---- Drag end ------------------------------------------ */
+    function onDragEnd() {
+      if (draggedItem) {
+        draggedItem.classList.remove('dragging');
+        draggedItem = null;
+      }
+    }
+
+    /* ---- Slot drag-over (allow drop + highlight) ------------ */
+    function onSlotDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      e.currentTarget.classList.add('drag-over');
+    }
+
+    /* ---- Slot drag-leave (remove highlight) ----------------- */
+    function onSlotDragLeave(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    /* ---- Drop onto a slot ----------------------------------- */
+    function onSlotDrop(e) {
+      e.preventDefault();
+      const slot = e.currentTarget;
+      slot.classList.remove('drag-over');
+
+      if (!draggedItem) return;
+
+      // If the slot already has a court in it, swap them
+      const existing = slot.querySelector('.court-item');
+      const sourceContainer = draggedItem.parentElement;
+
+      if (existing) {
+        // Move the existing item to where the dragged item came from
+        sourceContainer.appendChild(existing);
+        attachDragListenersToItem(existing);
+      }
+
+      // Place dragged item into the slot
+      slot.appendChild(draggedItem);
+      attachDragListenersToItem(draggedItem);
+
+      // Re-attach bank drag listeners if source was the bank
+      // (the bank now has a gap that may have been filled)
+    }
+
+    /* ---- Bank drag-over ------------------------------------ */
+    function onBankDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      e.currentTarget.style.outline = '2px dashed var(--neon-blue)';
+    }
+
+    /* ---- Bank drag-leave ----------------------------------- */
+    function onBankDragLeave(e) {
+      e.currentTarget.style.outline = '';
+    }
+
+    /* ---- Drop back to bank --------------------------------- */
+    function onBankDrop(e) {
+      e.preventDefault();
+      const bank = document.getElementById('items-bank');
+      bank.style.outline = '';
+
+      if (!draggedItem) return;
+
+      // Only move back if item came from a slot (not already in bank)
+      if (draggedItem.parentElement !== bank) {
+        bank.appendChild(draggedItem);
+        attachDragListenersToItem(draggedItem);
+      }
+    }
+
+    /* ============================================================
+       CHECK FLOOR 5 ANSWER
+       Reads the court key from each drop slot (slot 1–5) and
+       compares the array against CORRECT_ORDER.
+    ============================================================ */
+    function checkFloor5() {
+      const slots = document.querySelectorAll('.drop-slot');
+      const answer = [];
+
+      slots.forEach(slot => {
+        const item = slot.querySelector('.court-item');
+        answer.push(item ? item.dataset.court : null);
+      });
+
+      // Ensure every slot is filled
+      if (answer.includes(null)) {
+        showFeedback('floor5', 'error',
+          '⚠ All 5 slots must be filled before submitting.');
+        return;
+      }
+
+      // Compare arrays element by element
+      const isCorrect = answer.every((court, i) => court === CORRECT_ORDER[i]);
+
+      if (isCorrect) {
+        showFeedback('floor5', 'success',
+          '✅ ACCESS GRANTED — Court hierarchy confirmed. Elevator unlocked!');
+        const proceedBtn = document.getElementById('btn-proceed-floor5');
+        proceedBtn.classList.remove('hidden');
+        const submitBtn = document.getElementById('btn-submit-floor5');
+        submitBtn.disabled = true;
+        submitBtn.setAttribute('aria-disabled', 'true');
+      } else {
+        showFeedback('floor5', 'error',
+          '❌ ACCESS DENIED — Check jurisdiction levels. Lower courts adjudicate first.');
+      }
+    }
+
+    /* ============================================================
+       RESET FLOOR 5
+       Moves all court items back to the bank and clears feedback.
+    ============================================================ */
+    function resetFloor5() {
+      const bank  = document.getElementById('items-bank');
+      const slots = document.querySelectorAll('.drop-slot');
+
+      // Return any items in the slots back to the bank
+      slots.forEach(slot => {
+        const item = slot.querySelector('.court-item');
+        if (item) {
+          bank.appendChild(item);
+          attachDragListenersToItem(item);
+        }
+      });
+
+      // Re-order items in bank to original scrambled visual order
+      // (the data-court attributes are already on the items, order is fine)
+
+      // Clear feedback and hide proceed button
+      hideFeedback('floor5');
+      document.getElementById('btn-proceed-floor5').classList.add('hidden');
+      const submitBtn = document.getElementById('btn-submit-floor5');
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-disabled');
+    }
+
+    /* ============================================================
+       FEEDBACK HELPERS
+    ============================================================ */
+    function showFeedback(screenKey, type, message) {
+      const el = document.getElementById('feedback-' + screenKey);
+      el.textContent = message;
+      el.className = 'feedback ' + type;
+      el.style.display = 'block';
+    }
+
+    function hideFeedback(screenKey) {
+      const el = document.getElementById('feedback-' + screenKey);
+      el.style.display = 'none';
+      el.textContent = '';
+      el.className = 'feedback';
+    }
+
+    /* ============================================================
+       INITIALISE ON DOM READY
+    ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      initDragDrop();
+      showScreen('screen-start');
+
+      // Wire up button click handlers via addEventListener
+      document.getElementById('btn-start').addEventListener('click', () => showScreen('screen-floor5'));
+      document.getElementById('btn-submit-floor5').addEventListener('click', checkFloor5);
+      document.getElementById('btn-reset-floor5').addEventListener('click', resetFloor5);
+      document.getElementById('btn-proceed-floor5').addEventListener('click', () => showScreen('screen-tbc'));
+      document.getElementById('btn-restart').addEventListener('click', restartGame);
+    });
+  </script>
+</body>
+</html>
