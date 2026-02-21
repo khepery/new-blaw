@@ -52,11 +52,12 @@ box-shadow:var(--card-shadow);transition:transform .3s,background .4s;cursor:poi
 .toc-nav{
 position:sticky;top:4px;z-index:999;background:var(--toc-bg);
 backdrop-filter:blur(10px);padding:10px 0;
-border-bottom:2px solid var(--border);overflow-x:auto;white-space:nowrap;
-text-align:center;transition:background .4s;
+border-bottom:2px solid var(--border);
+display:flex;flex-wrap:wrap;justify-content:center;gap:4px 6px;
+transition:background .4s;
 }
 .toc-nav a{
-display:inline-block;margin:4px 6px;padding:6px 14px;border-radius:20px;
+display:inline-block;padding:5px 10px;border-radius:20px;
 font-size:.82rem;font-weight:500;color:var(--primary);text-decoration:none;
 border:1.5px solid var(--border);transition:all .3s;
 }
@@ -673,23 +674,24 @@ window.scrollTo({top:0,behavior:"smooth"});
 function playBark(){
 try{
 var ctx=new(window.AudioContext||window.webkitAudioContext)();
-function burst(startTime){
-var osc=ctx.createOscillator();
-var gain=ctx.createGain();
-osc.type="square";
-osc.frequency.setValueAtTime(600,startTime);
-osc.frequency.exponentialRampToValueAtTime(300,startTime+0.08);
-gain.gain.setValueAtTime(0.3,startTime);
-gain.gain.exponentialRampToValueAtTime(0.01,startTime+0.1);
-osc.connect(gain);
-gain.connect(ctx.destination);
-osc.start(startTime);
-osc.stop(startTime+0.1);
-}
 var now=ctx.currentTime;
-burst(now);
-burst(now+0.15);
-setTimeout(function(){ctx.close();},500);
+function woof(t){
+var o1=ctx.createOscillator(),o2=ctx.createOscillator();
+var g=ctx.createGain(),f=ctx.createBiquadFilter();
+o1.type="sawtooth";o2.type="square";
+o1.frequency.setValueAtTime(450,t);
+o1.frequency.exponentialRampToValueAtTime(180,t+0.12);
+o2.frequency.setValueAtTime(900,t);
+o2.frequency.exponentialRampToValueAtTime(350,t+0.12);
+f.type="bandpass";f.frequency.value=600;f.Q.value=2;
+g.gain.setValueAtTime(0.35,t);
+g.gain.setValueAtTime(0.4,t+0.02);
+g.gain.exponentialRampToValueAtTime(0.01,t+0.15);
+o1.connect(f);o2.connect(f);f.connect(g);g.connect(ctx.destination);
+o1.start(t);o1.stop(t+0.15);o2.start(t);o2.stop(t+0.15);
+}
+woof(now);woof(now+0.22);
+setTimeout(function(){ctx.close();},600);
 }catch(e){}
 }
 
