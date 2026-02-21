@@ -1,482 +1,706 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 11: Sustainability Part 3 - Business Environments</title>
-    <style>
-        :root {
-            --primary-color: #37474f;
-            --secondary-color: #455a64;
-            --accent-color: #546e7a;
-            --light-accent: #eceff1;
-            --light-bg: #f8fafc;
-            --dark-text: #1e293b;
-            --light-text: #f8fafc;
-            --med-text: #64748b;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            text-align: center;
-            padding: 3rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .header-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.3;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .content-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        /* Back to Main Button */
-        .back-to-main {
-            position: fixed;
-            top: 80px;
-            left: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        
-        .back-to-main:hover {
-            animation: backBtnPulse 0.6s ease;
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-        
-        .back-to-main { font-size: 24px; line-height: 1; }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            margin-top: 3rem;
-        }
-        
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            header p {
-                font-size: 1rem;
-            }
-            
-            .back-to-main {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
-            }
-            
-            .back-to-main { font-size: 20px; }
-        }
-    @keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 11: Sustainability Part 3 - Business Environments</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--primary:#00838f;--primary-dark:#006064;--secondary:#0097a7;--accent:#26c6da;
+--bg:#f0f9fa;--surface:#ffffff;--text:#212121;--text-secondary:#546e7a;
+--card-shadow:0 4px 20px rgba(0,131,143,0.12);--border:#b2ebf2;
+--gradient:linear-gradient(135deg,#006064 0%,#00838f 40%,#0097a7 70%,#26c6da 100%);
+--toc-bg:rgba(255,255,255,0.95);
+}
+.dark-mode{
+--bg:#0d1b1e;--surface:#132a2e;--text:#e0f7fa;--text-secondary:#80cbc4;
+--card-shadow:0 4px 20px rgba(0,0,0,0.4);--border:#004d40;
+--toc-bg:rgba(19,42,46,0.97);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+font-family:'Poppins','Noto Sans SC',sans-serif;
+background:var(--bg);color:var(--text);
+transition:background .4s,color .4s;line-height:1.8;
+}
+#progress-bar{
+position:fixed;top:0;left:0;height:4px;width:0%;
+background:var(--gradient);z-index:10000;transition:width .1s;
+}
+.hero{
+background:var(--gradient);color:#fff;padding:100px 20px 60px;
+text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+background:radial-gradient(circle,rgba(255,255,255,0.08) 1px,transparent 1px);
+background-size:30px 30px;animation:drift 20s linear infinite;
+}
+@keyframes drift{to{transform:translate(30px,30px);}}
+.hero h1{font-size:2.8rem;font-weight:800;position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,0.2);}
+.hero .subtitle{font-size:1.2rem;margin-top:12px;opacity:.9;position:relative;z-index:1;}
+.hero .subtitle-cn{font-family:'Noto Sans SC';font-size:1rem;margin-top:4px;opacity:.8;position:relative;z-index:1;}
+.back-btn{
+position:fixed;top:80px;left:20px;z-index:9999;font-size:1.6rem;
+text-decoration:none;background:var(--surface);border-radius:50%;
+width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+box-shadow:var(--card-shadow);transition:transform .3s,background .4s;cursor:pointer;
+}
+.back-btn:hover{transform:scale(1.15);}
+.toc-nav{
+position:sticky;top:4px;z-index:999;background:var(--toc-bg);
+backdrop-filter:blur(10px);padding:10px 0;
+border-bottom:2px solid var(--border);overflow-x:auto;white-space:nowrap;
+text-align:center;transition:background .4s;
+}
+.toc-nav a{
+display:inline-block;margin:4px 6px;padding:6px 14px;border-radius:20px;
+font-size:.82rem;font-weight:500;color:var(--primary);text-decoration:none;
+border:1.5px solid var(--border);transition:all .3s;
+}
+.toc-nav a:hover,.toc-nav a.active{
+background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px);
+}
+.container{max-width:1400px;margin:0 auto;padding:30px 20px 80px;}
+.content-card{
+background:var(--surface);border-radius:16px;padding:36px;margin-bottom:32px;
+box-shadow:var(--card-shadow);border-left:5px solid var(--primary);
+transition:transform .3s,box-shadow .3s,background .4s;
+opacity:0;transform:translateY(40px);
+}
+.content-card.revealed{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease,background .4s;}
+.content-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,131,143,0.18);}
+.content-card.revealed:hover{transform:translateY(-4px);}
+.content-card h2{
+font-size:1.7rem;font-weight:700;color:var(--primary);margin-bottom:8px;
+border-bottom:3px solid var(--accent);padding-bottom:8px;display:inline-block;
+}
+.content-card h2 .cn{font-family:'Noto Sans SC';font-size:1rem;font-weight:400;color:var(--text-secondary);margin-left:8px;}
+.content-card h3{font-size:1.15rem;color:var(--secondary);margin:18px 0 8px;font-weight:600;}
+.content-card ul{margin:8px 0 8px 22px;}
+.content-card li{margin-bottom:6px;line-height:1.7;}
+.content-card p{margin-bottom:10px;}
+.highlight-box{
+background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(38,198,218,0.08));
+border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin:14px 0;
+}
+.highlight-box strong{color:var(--primary);}
+.example-box{
+background:linear-gradient(135deg,rgba(0,150,167,0.06),rgba(38,198,218,0.06));
+border-left:4px solid var(--accent);border-radius:0 12px 12px 0;
+padding:14px 20px;margin:12px 0;font-size:.95rem;
+}
+.example-box .label{font-weight:700;color:var(--accent);margin-bottom:4px;}
+.tooltip{
+position:relative;border-bottom:2px dashed var(--accent);cursor:help;display:inline;
+}
+.tooltip .tip-text{
+visibility:hidden;opacity:0;position:absolute;bottom:130%;left:50%;
+transform:translateX(-50%);background:var(--primary-dark);color:#fff;
+padding:8px 14px;border-radius:8px;font-size:.82rem;
+z-index:100;transition:opacity .3s;pointer-events:none;max-width:320px;white-space:normal;
+}
+.tooltip .tip-text::after{
+content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+border:6px solid transparent;border-top-color:var(--primary-dark);
+}
+.tooltip:hover .tip-text{visibility:visible;opacity:1;}
+.flashcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:20px;}
+.flashcard{perspective:1000px;height:220px;cursor:pointer;}
+.flashcard-inner{
+position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;
+}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+.flashcard-front,.flashcard-back{
+position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+padding:24px;text-align:center;
+}
+.flashcard-front{
+background:var(--gradient);color:#fff;font-size:1.1rem;font-weight:600;
+}
+.flashcard-front .cn{font-family:'Noto Sans SC';font-size:.9rem;font-weight:400;margin-top:6px;opacity:.85;}
+.flashcard-back{
+transform:rotateY(180deg);background:var(--surface);color:var(--text);
+border:2px solid var(--accent);font-size:.92rem;line-height:1.6;
+}
+.flashcard-back .cn{font-family:'Noto Sans SC';font-size:.82rem;color:var(--text-secondary);margin-top:8px;}
+.flashcard-num{position:absolute;top:10px;right:14px;font-size:.75rem;opacity:.6;}
+.quiz-section{margin-top:20px;}
+.quiz-q{
+background:var(--surface);border-radius:14px;padding:24px;margin-bottom:20px;
+box-shadow:var(--card-shadow);border-left:4px solid var(--secondary);transition:background .4s;
+}
+.quiz-q .q-text{font-weight:600;font-size:1.05rem;margin-bottom:14px;}
+.quiz-q .q-text .cn{font-family:'Noto Sans SC';font-size:.9rem;font-weight:400;color:var(--text-secondary);display:block;margin-top:2px;}
+.quiz-option{
+display:block;width:100%;text-align:left;padding:12px 18px;margin:6px 0;
+border:2px solid var(--border);border-radius:10px;background:var(--surface);
+color:var(--text);font-size:.95rem;cursor:pointer;transition:all .3s;font-family:inherit;
+}
+.quiz-option:hover:not(:disabled){border-color:var(--primary);background:rgba(0,131,143,0.06);}
+.quiz-option.correct{background:#e8f5e9 !important;border-color:#43a047 !important;color:#2e7d32 !important;}
+.quiz-option.wrong{background:#ffebee !important;border-color:#e53935 !important;color:#c62828 !important;}
+.quiz-option:disabled{cursor:default;opacity:.85;}
+.quiz-result{
+text-align:center;padding:30px;background:var(--surface);border-radius:14px;
+box-shadow:var(--card-shadow);margin-top:20px;display:none;
+}
+.quiz-result .score{font-size:2.5rem;font-weight:800;color:var(--primary);}
+.quiz-result .msg{font-size:1.1rem;margin-top:8px;color:var(--text-secondary);}
+#quiz-submit{
+display:block;margin:20px auto 0;padding:14px 40px;background:var(--gradient);
+color:#fff;border:none;border-radius:30px;font-size:1.1rem;font-weight:600;
+cursor:pointer;font-family:inherit;transition:transform .3s,box-shadow .3s;
+}
+#quiz-submit:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,131,143,0.3);}
+.dark-toggle{
+position:fixed;bottom:110px;right:30px;z-index:9999;width:50px;height:50px;
+border-radius:50%;border:none;background:var(--surface);box-shadow:var(--card-shadow);
+font-size:1.5rem;cursor:pointer;transition:transform .3s,background .4s;display:flex;
+align-items:center;justify-content:center;
+}
+.dark-toggle:hover{transform:scale(1.15);}
+.scroll-dog{
+position:fixed;bottom:30px;right:30px;z-index:9999;width:54px;height:54px;
+border-radius:50%;border:none;background:var(--surface);box-shadow:var(--card-shadow);
+font-size:1.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+animation:bounce-dog 2s infinite;opacity:0;pointer-events:none;transition:opacity .3s,background .4s;
+}
+.scroll-dog.visible{opacity:1;pointer-events:auto;}
+@keyframes bounce-dog{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+.confetti-piece{
+position:fixed;width:10px;height:10px;z-index:100000;pointer-events:none;
+animation:confetti-fall 2.5s ease-out forwards;
+}
+@keyframes confetti-fall{
+0%{opacity:1;transform:translateY(0) rotate(0deg);}
+100%{opacity:0;transform:translateY(100vh) rotate(720deg);}
+}
+@media(max-width:768px){
+.hero h1{font-size:1.8rem;}
+.flashcard-grid{grid-template-columns:1fr;}
+.content-card{padding:22px;}
+.toc-nav a{font-size:.72rem;padding:5px 10px;}
+}
 </style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">⬅️
-    </a>
-    
-    <header>
-        <div class="header-animation" id="header-animation"></div>
-        <div class="header-content">
-            <h1>Unit 11: Sustainability Part 3</h1>
-            <p>Business Environments - FS2025</p>
-        </div>
-    </header>
-    
-    <main>
-        <div class="content-card">
-            <h2>Unit 11: Sustainability Part 3 
-                <span style="display: block; font-size: 0.8em; color: #666; margin-top: 0.5rem;">单元11：可持续发展（三）</span>
-            </h2>
-            
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #eceff1; border-left: 4px solid #37474f; border-radius: 4px;">
-                <h3 style="color: #37474f; margin-bottom: 1rem;">Welcome to Unit 11 欢迎来到第十一单元</h3>
-                <p style="margin-bottom: 0.5rem;">This final unit explores social sustainability, governance frameworks, and future trends in business environments.</p>
-                <p style="color: #666; font-size: 0.95em;">本最后单元探讨社会可持续性、治理框架以及商业环境的未来趋势。</p>
-            </div>
+<div id="progress-bar"></div>
+<a href="index.html?skip_intro=true" class="back-btn" title="Back to Home">&#x2B05;&#xFE0F;</a>
 
-            <h3 style="color: #37474f; margin-top: 2rem;">Topics Covered 涵盖主题</h3>
-            
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">1. Social Sustainability 社会可持续性</h4>
-                <p>Creating equitable and inclusive societies through business:</p>
-                <p style="color: #666; font-size: 0.95em;">通过商业创造公平和包容的社会：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Fair labor practices 公平劳工实践</li>
-                    <li>Workplace diversity and inclusion 工作场所多样性和包容性</li>
-                    <li>Community engagement 社区参与</li>
-                    <li>Social impact investing 社会影响力投资</li>
-                </ul>
-            </div>
+<header class="hero">
+<h1>&#x1F30F; Unit 11: Sustainability Part 3</h1>
+<p class="subtitle">Sustainable Business Practices &amp; Innovation</p>
+<p class="subtitle-cn">&#x53EF;&#x6301;&#x7EED;&#x5546;&#x4E1A;&#x5B9E;&#x8DF5;&#x4E0E;&#x521B;&#x65B0;</p>
+</header>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">2. Human Rights in Business 商业中的人权</h4>
-                <p>UN Guiding Principles on Business and Human Rights require companies to respect human rights throughout their operations and supply chains.</p>
-                <p style="color: #666; font-size: 0.95em;">联合国工商企业与人权指导原则要求公司在其运营和供应链中尊重人权。</p>
-            </div>
+<nav class="toc-nav" id="toc-nav">
+<a href="#overview">Overview</a>
+<a href="#models">Models</a>
+<a href="#circular">Circular</a>
+<a href="#energy">Energy</a>
+<a href="#certs">Certs</a>
+<a href="#supply">Supply Chain</a>
+<a href="#tech">Technology</a>
+<a href="#challenges">Challenges</a>
+<a href="#future">Future</a>
+<a href="#takeaways">Takeaways</a>
+<a href="#flashcards">Flashcards</a>
+<a href="#quiz">Quiz</a>
+</nav>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">3. Governance Frameworks 治理框架</h4>
-                <p>Structures ensuring ethical and transparent business conduct:</p>
-                <p style="color: #666; font-size: 0.95em;">确保道德和透明商业行为的结构：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Corporate governance codes 公司治理准则</li>
-                    <li>Board diversity and independence 董事会多样性和独立性</li>
-                    <li>Risk management systems 风险管理系统</li>
-                    <li>Anti-corruption measures 反腐败措施</li>
-                </ul>
-            </div>
+<main class="container">
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">4. Sustainable Business Practices 可持续商业实践</h4>
-                <p>Implementing sustainability across business operations:</p>
-                <p style="color: #666; font-size: 0.95em;">在业务运营中实施可持续发展：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Circular economy models 循环经济模式</li>
-                    <li>Sustainable supply chain management 可持续供应链管理</li>
-                    <li>Green procurement 绿色采购</li>
-                    <li>Waste reduction strategies 减少废物策略</li>
-                </ul>
-            </div>
+<section class="content-card" id="overview">
+<h2>1. Overview <span class="cn">&#x6982;&#x8FF0;</span></h2>
+<p>Unit 11 explores <strong>sustainable business practices, innovations, and how businesses can integrate sustainability into their core operations</strong>. This unit builds on Unit 9 (environmental sustainability foundations) and Unit 10 (ethics &amp; CSR), bringing together practical strategies for modern business.</p>
+<div class="highlight-box">
+<strong>&#x1F393; UNSW Sustainability Achievements:</strong>
+<ul>
+<li><strong>1.4 MW</strong> solar capacity installed on campus</li>
+<li><strong>27%</strong> emissions reduction between 2018&#x2013;2023</li>
+<li><strong>82%</strong> waste diversion from landfill</li>
+</ul>
+</div>
+<p>Sustainability is no longer optional &#x2014; it is a strategic imperative that drives innovation, competitiveness, and long-term business resilience.</p>
+</section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">5. Corporate Reporting and Transparency 企业报告与透明度</h4>
-                <p>Integrated reporting frameworks combining financial and non-financial information (sustainability, social impact).</p>
-                <p style="color: #666; font-size: 0.95em;">整合财务和非财务信息（可持续性、社会影响）的综合报告框架。</p>
-            </div>
+<section class="content-card" id="models">
+<h2>2. Sustainable Business Models <span class="cn">&#x53EF;&#x6301;&#x7EED;&#x5546;&#x4E1A;&#x6A21;&#x5F0F;</span></h2>
+<p>Sustainable business models integrate economic viability with social and environmental responsibility, creating value for all stakeholders.</p>
+<h3>&#x1F3E2; Social Enterprises &#x793E;&#x4F1A;&#x4F01;&#x4E1A;</h3>
+<p>Businesses that <span class="tooltip">prioritize social and environmental goals<span class="tip-text">Social enterprises reinvest profits into their mission rather than maximizing shareholder returns.</span></span> alongside generating profit. They use market-based strategies to address social challenges.</p>
+<h3>&#x267B;&#xFE0F; Circular Economy &#x5FAA;&#x73AF;&#x7ECF;&#x6D4E;</h3>
+<p>An economic model that minimizes waste and maximizes resource use through strategies of <strong>reuse, repair, refurbishment, and recycling</strong>.</p>
+<h3>&#x1F171;&#xFE0F; B Corporations B&#x578B;&#x4F01;&#x4E1A;</h3>
+<p>Companies certified to meet <span class="tooltip">high standards of social and environmental performance<span class="tip-text">B Corp certification is issued by B Lab and requires meeting rigorous standards across governance, workers, community, environment, and customers.</span></span>, accountability, and transparency.</p>
+<div class="highlight-box">
+<strong>Key Characteristics of Sustainable Models:</strong>
+<ul>
+<li><strong>Triple Bottom Line</strong> &#x2014; People, Planet, Profit (3Ps)</li>
+<li><strong>Long-term Vision</strong> &#x2014; Strategic planning beyond quarterly results</li>
+<li><strong>Stakeholder Engagement</strong> &#x2014; Involving all affected parties in decision-making</li>
+</ul>
+</div>
+<div class="example-box">
+<div class="label">&#x1F4CC; Real-World Examples</div>
+<ul>
+<li><strong>Interface</strong> &#x2014; Produces recycled flooring, pioneering sustainable manufacturing</li>
+<li><strong>ThankYou</strong> &#x2014; Uses 100% recycled packaging for consumer products</li>
+<li><strong>Close the Loop</strong> &#x2014; Specializes in e-waste recycling and resource recovery</li>
+</ul>
+</div>
+</section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">6. Future Trends in Business Environments 商业环境的未来趋势</h4>
-                <p>Emerging developments shaping sustainable business:</p>
-                <p style="color: #666; font-size: 0.95em;">塑造可持续商业的新兴发展：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Digital transformation and sustainability 数字化转型与可持续性</li>
-                    <li>Impact of AI and automation 人工智能和自动化的影响</li>
-                    <li>Stakeholder capitalism 利益相关者资本主义</li>
-                    <li>Net-zero commitments 净零排放承诺</li>
-                </ul>
-            </div>
+<section class="content-card" id="circular">
+<h2>3. Circular Economy <span class="cn">&#x5FAA;&#x73AF;&#x7ECF;&#x6D4E;</span></h2>
+<p>The circular economy aims to <strong>reduce waste by keeping resources in use for as long as possible</strong>, extracting maximum value before recovery and regeneration.</p>
+<h3>&#x2705; Benefits</h3>
+<ul>
+<li><strong>Environmental Impact Reduction</strong> &#x2014; Less pollution, lower carbon footprint, reduced resource extraction</li>
+<li><strong>Economic Opportunities</strong> &#x2014; New business models, job creation in recycling &amp; refurbishment sectors</li>
+<li><strong>Social Benefits</strong> &#x2014; Community engagement, improved public health outcomes</li>
+</ul>
+<h3>&#x26A0;&#xFE0F; Challenges</h3>
+<ul>
+<li><strong>Infrastructure Needs</strong> &#x2014; Requires investment in recycling facilities and collection systems</li>
+<li><strong>Consumer Awareness</strong> &#x2014; Education needed to shift from linear consumption habits</li>
+<li><strong>Regulatory Barriers</strong> &#x2014; Inconsistent policies across jurisdictions</li>
+</ul>
+<div class="example-box">
+<div class="label">&#x1F4CC; Examples in Practice</div>
+<ul>
+<li><strong>Interface</strong> &#x2014; Net-Works program converts discarded fishing nets into carpet tiles</li>
+<li><strong>ThankYou</strong> &#x2014; Closed-loop packaging system for personal care products</li>
+<li><strong>Close the Loop</strong> &#x2014; Transforms printer cartridges and soft plastics into road-building materials</li>
+</ul>
+</div>
+</section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">7. Integrated Thinking and Reporting 综合思维与报告</h4>
-                <p>Holistic approach connecting strategy, governance, performance, and prospects in the context of creating value.</p>
-                <p style="color: #666; font-size: 0.95em;">在创造价值的背景下连接战略、治理、绩效和前景的整体方法。</p>
-            </div>
+<section class="content-card" id="energy">
+<h2>4. Renewable Energy in Australia <span class="cn">&#x6FB3;&#x5927;&#x5229;&#x4E9A;&#x53EF;&#x518D;&#x751F;&#x80FD;&#x6E90;</span></h2>
+<p>Australia is a global leader in renewable energy adoption, leveraging its natural advantages in solar, wind, and hydro resources.</p>
+<h3>&#x2600;&#xFE0F; Solar Energy</h3>
+<p>Over <strong>3 million rooftop solar systems</strong> installed &#x2014; the highest per-capita uptake globally. Australia&#x2019;s abundant sunshine makes solar the most accessible renewable energy source for households and businesses.</p>
+<h3>&#x1F4A8; Wind Energy</h3>
+<p>Major wind farm developments, particularly in <strong>South Australia</strong>, contribute significantly to the national energy mix. Wind power complements solar by generating electricity during cloudy periods and at night.</p>
+<h3>&#x1F4A7; Hydropower &#x2014; The Snowy Scheme</h3>
+<div class="highlight-box">
+<strong>Snowy Mountains Hydro-electric Scheme:</strong>
+<ul>
+<li><strong>8</strong> power stations</li>
+<li><strong>16</strong> major dams</li>
+<li><strong>80 km</strong> of aqueducts</li>
+<li><strong>145 km</strong> of tunnels</li>
+</ul>
+<p>One of the most complex integrated water and hydroelectric power schemes in the world.</p>
+</div>
+<h3>&#x1F33E; Agricultural Innovations</h3>
+<ul>
+<li><strong>Precision Farming</strong> &#x2014; Data-driven crop management for resource efficiency</li>
+<li><strong>Organic Farming</strong> &#x2014; Chemical-free agriculture protecting ecosystems</li>
+<li><strong>Vertical Farming</strong> &#x2014; Urban agriculture reducing transport emissions</li>
+<li><strong>Sundrop Farms</strong> &#x2014; Uses seawater + solar energy to grow tomatoes in the desert</li>
+</ul>
+</section>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #eceff1; border-left: 4px solid #37474f; border-radius: 4px;">
-                <h4 style="color: #37474f; margin-bottom: 0.5rem;">Key Learning Outcomes 主要学习成果</h4>
-                <p style="margin-bottom: 0.5rem;">By the end of this unit, you should be able to:</p>
-                <p style="color: #666; font-size: 0.95em; margin-bottom: 1rem;">在本单元结束时，您应该能够：</p>
-                <ul style="margin-left: 2rem;">
-                    <li>Understand social sustainability in business contexts 理解商业环境中的社会可持续性</li>
-                    <li>Apply governance frameworks to ensure ethical conduct 应用治理框架确保道德行为</li>
-                    <li>Implement sustainable business practices 实施可持续商业实践</li>
-                    <li>Anticipate future trends in business environments 预测商业环境的未来趋势</li>
-                </ul>
-            </div>
+<section class="content-card" id="certs">
+<h2>5. Green Certifications &amp; Standards <span class="cn">&#x7EFF;&#x8272;&#x8BA4;&#x8BC1;&#x4E0E;&#x6807;&#x51C6;</span></h2>
+<p>Certifications provide a framework for businesses to demonstrate their commitment to sustainability and allow consumers to make informed choices.</p>
+<h3>&#x1F4CB; ISO 14001</h3>
+<p>The international standard for <span class="tooltip">Environmental Management Systems (EMS)<span class="tip-text">ISO 14001 provides a framework for organizations to manage environmental responsibilities systematically, including waste reduction, energy efficiency, and pollution prevention.</span></span>. Helps organizations minimize environmental impact, comply with regulations, and continually improve performance.</p>
+<h3>&#x1F171;&#xFE0F; B Corporation Certification</h3>
+<p>Awarded to companies meeting rigorous standards across five impact areas: <strong>governance, workers, community, environment, and customers</strong>. Requires periodic reassessment to maintain certification.</p>
+<h3>&#x1F91D; Fair Trade Certification &#x516C;&#x5E73;&#x8D38;&#x6613;&#x8BA4;&#x8BC1;</h3>
+<p>Ensures <strong>fair pricing</strong> for producers, decent <strong>labour standards</strong>, and sound <strong>environmental practices</strong>. Empowers producers in developing countries by guaranteeing minimum prices and providing community development premiums.</p>
+</section>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #fff3cd; border-left: 4px solid #856404; border-radius: 4px;">
-                <h4 style="color: #856404; margin-bottom: 0.5rem;">Course Conclusion 课程总结</h4>
-                <p style="margin-bottom: 0.5rem;">Congratulations on reaching the final unit! You have now completed the Business Environments course journey from legal foundations to sustainability.</p>
-                <p style="color: #666; font-size: 0.95em;">恭喜您到达最后一个单元！您现在已经完成了从法律基础到可持续发展的商业环境课程之旅。</p>
-            </div>
-        </div>
-    </main>
-    
-    <footer>
-        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
-    </footer>
-    
-    <script>
-        // Add dynamic shapes to header background
-        function setupHeaderAnimation() {
-            const headerBg = document.getElementById('header-animation');
-            const shapeCount = 10;
-            const shapes = ['circle', 'square', 'triangle'];
-            
-            for (let i = 0; i < shapeCount; i++) {
-                const div = document.createElement('div');
-                const size = Math.random() * 60 + 20;
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                div.style.width = `${size}px`;
-                div.style.height = `${size}px`;
-                div.style.left = `${Math.random() * 100}%`;
-                div.style.top = `${Math.random() * 100}%`;
-                div.style.position = 'absolute';
-                
-                if (shapeType === 'circle') {
-                    div.style.borderRadius = '50%';
-                } else if (shapeType === 'square') {
-                    div.style.borderRadius = '4px';
-                } else if (shapeType === 'triangle') {
-                    div.style.width = '0';
-                    div.style.height = '0';
-                    div.style.borderLeft = `${size/2}px solid transparent`;
-                    div.style.borderRight = `${size/2}px solid transparent`;
-                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
-                    div.style.background = 'transparent';
-                }
-                
-                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
-                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
-                
-                headerBg.appendChild(div);
-            }
-        }
-        
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
-        
-        // Initialize header animation when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            setupHeaderAnimation();
-            initializeInteractiveFeatures();
-        });
-        
-        // Interactive Features
-        function initializeInteractiveFeatures() {
-            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
-            contentDivs.forEach((div, index) => {
-                if (div.querySelector('h4')) {
-                    makeCollapsible(div, index);
-                }
-            });
-            addProgressTracker();
-            addHoverEffects();
-        }
-        
-        function makeCollapsible(element, index) {
-            const header = element.querySelector('h4');
-            if (!header) return;
-            
-            const content = Array.from(element.children).slice(1);
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'collapsible-content';
-            contentWrapper.style.maxHeight = '2000px';
-            contentWrapper.style.overflow = 'hidden';
-            contentWrapper.style.transition = 'max-height 0.4s ease';
-            
-            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
-            content.forEach(child => child.remove());
-            element.appendChild(contentWrapper);
-            
-            header.style.cursor = 'pointer';
-            header.style.userSelect = 'none';
-            header.style.position = 'relative';
-            header.style.paddingRight = '30px';
-            header.style.transition = 'all 0.3s';
-            
-            const icon = document.createElement('span');
-            icon.innerHTML = '▼';
-            icon.style.position = 'absolute';
-            icon.style.right = '0';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.transition = 'transform 0.3s';
-            icon.style.fontSize = '0.8em';
-            header.appendChild(icon);
-            
-            header.addEventListener('click', function() {
-                const isCollapsed = contentWrapper.style.maxHeight === '0px';
-                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
-                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
-                header.style.color = isCollapsed ? '#37474f' : '#666';
-            });
-            
-            header.addEventListener('mouseenter', function() {
-                header.style.color = '#37474f';
-                header.style.transform = 'translateX(5px)';
-            });
-            
-            header.addEventListener('mouseleave', function() {
-                if (contentWrapper.style.maxHeight !== '0px') {
-                    header.style.color = '#333';
-                }
-                header.style.transform = 'translateX(0)';
-            });
-        }
-        
-        function addProgressTracker() {
-            const progressBar = document.createElement('div');
-            progressBar.id = 'reading-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 4px;
-                background: linear-gradient(90deg, #37474f, #546e7a);
-                z-index: 9999;
-                transition: width 0.2s ease;
-            `;
-            document.body.appendChild(progressBar);
-            
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-                progressBar.style.width = progress + '%';
-            });
-            
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #37474f, #546e7a);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(55, 71, 79, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
-            });
-        }
-        
-        function addHoverEffects() {
-            const listItems = document.querySelectorAll('ul li, ol li');
-            listItems.forEach(item => {
-                item.style.transition = 'all 0.2s';
-                item.style.paddingLeft = '0';
-                
-                item.addEventListener('mouseenter', function() {
-                    item.style.paddingLeft = '10px';
-                    item.style.color = '#37474f';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    item.style.paddingLeft = '0';
-                    item.style.color = '';
-                });
-            });
-            
-            const contentCard = document.querySelector('.content-card');
-            if (contentCard) {
-                const strongElements = contentCard.querySelectorAll('strong');
-                strongElements.forEach(strong => {
-                    strong.style.cursor = 'help';
-                    strong.style.transition = 'all 0.2s';
-                    strong.style.position = 'relative';
-                    
-                    strong.addEventListener('mouseenter', function() {
-                        strong.style.color = '#37474f';
-                        strong.style.textShadow = '0 0 10px rgba(55, 71, 79, 0.3)';
-                    });
-                    
-                    strong.addEventListener('mouseleave', function() {
-                        strong.style.color = '';
-                        strong.style.textShadow = '';
-                    });
-                });
-            }
-        }
-    </script>
+<section class="content-card" id="supply">
+<h2>6. Sustainable Supply Chains <span class="cn">&#x53EF;&#x6301;&#x7EED;&#x4F9B;&#x5E94;&#x94FE;</span></h2>
+<p>Managing supply chains sustainably involves ensuring that every link &#x2014; from raw materials to final delivery &#x2014; adheres to ethical and environmental standards.</p>
+<h3>&#x1F517; Key Practices</h3>
+<ul>
+<li><strong>Ethical Sourcing</strong> &#x2014; Ensuring raw materials are obtained responsibly</li>
+<li><strong>Reducing Carbon Emissions</strong> &#x2014; Optimizing logistics and transportation</li>
+<li><strong>Fair Labour Practices</strong> &#x2014; Guaranteeing safe conditions and fair wages</li>
+</ul>
+<h3>&#x1F4E6; Core Elements</h3>
+<ul>
+<li><strong>Ethical Sourcing</strong> &#x2014; Verified origin of materials and fair trade compliance</li>
+<li><strong>Resource Efficiency</strong> &#x2014; Minimizing waste throughout the supply chain</li>
+<li><strong>Transparency</strong> &#x2014; Open reporting on supply chain practices and impacts</li>
+</ul>
+<h3>&#x26A0;&#xFE0F; Challenges</h3>
+<ul>
+<li><strong>Global Complexity</strong> &#x2014; Multi-tier supply chains spanning many countries</li>
+<li><strong>Cost Considerations</strong> &#x2014; Sustainable alternatives may have higher upfront costs</li>
+<li><strong>Supplier Compliance</strong> &#x2014; Ensuring all suppliers meet sustainability standards</li>
+</ul>
+<div class="example-box">
+<div class="label">&#x1F4CC; Industry Examples</div>
+<ul>
+<li><strong>Cotton On</strong> &#x2014; Sustainable sourcing initiatives across garment production</li>
+<li><strong>Patagonia</strong> &#x2014; Industry leader in sustainable sourcing &amp; supply chain transparency</li>
+<li><strong>The Body Shop</strong> &#x2014; Community Trade programme supporting marginal producers</li>
+<li><strong>IKEA</strong> &#x2014; Electric delivery vehicles for last-mile logistics</li>
+<li><strong>Woolworths</strong> &#x2014; Low-emission fleet for distribution network</li>
+</ul>
+</div>
+</section>
+
+<section class="content-card" id="tech">
+<h2>7. Role of Technology <span class="cn">&#x6280;&#x672F;&#x7684;&#x4F5C;&#x7528;</span></h2>
+<p>Technology is a critical enabler of sustainable business transformation, offering tools to optimize resource use, improve transparency, and accelerate the transition to clean energy.</p>
+<h3>&#x1F916; AI &amp; Machine Learning</h3>
+<p>Used for <strong>resource optimization</strong> and <strong>energy management</strong> &#x2014; predictive analytics reduce waste, optimize supply chains, and improve operational efficiency.</p>
+<h3>&#x26D3;&#xFE0F; Blockchain</h3>
+<p>Enables <span class="tooltip">supply chain transparency and traceability<span class="tip-text">Blockchain creates an immutable ledger of transactions, allowing consumers and regulators to verify the origin and journey of products through the supply chain.</span></span>, ensuring products are ethically sourced and sustainably produced.</p>
+<h3>&#x26A1; Renewable Energy Technologies</h3>
+<p>Advances in solar panels, wind turbines, and battery storage are making clean energy more accessible and affordable for businesses of all sizes.</p>
+<div class="example-box">
+<div class="label">&#x1F4CC; Company Examples</div>
+<ul>
+<li><strong>Atlassian</strong> &#x2014; Committed to 100% renewable energy globally across all operations</li>
+<li><strong>KeepCup</strong> &#x2014; Sustainable product design creating reusable cups that reduce single-use plastic waste</li>
+</ul>
+</div>
+</section>
+
+<section class="content-card" id="challenges">
+<h2>8. Challenges &amp; Consumer Behaviour <span class="cn">&#x6311;&#x6218;&#x4E0E;&#x6D88;&#x8D39;&#x8005;&#x884C;&#x4E3A;</span></h2>
+<h3>&#x1F6A7; Implementation Challenges</h3>
+<ul>
+<li><strong>High Initial Costs</strong> &#x2014; Sustainable technologies and processes require significant upfront investment</li>
+<li><strong>Lack of Consumer Awareness</strong> &#x2014; Many consumers don&#x2019;t understand sustainability labels or benefits</li>
+<li><strong>Regulatory Hurdles</strong> &#x2014; Complex and sometimes contradictory regulations across jurisdictions</li>
+</ul>
+<h3>&#x1F6D2; Sustainable Consumption Challenges</h3>
+<ul>
+<li><strong>Price Perception</strong> &#x2014; Consumers often perceive sustainable products as more expensive</li>
+<li><strong>Consumer Habits</strong> &#x2014; Resistance to changing established purchasing patterns</li>
+<li><strong><span class="tooltip">Greenwashing<span class="tip-text">Greenwashing occurs when companies make misleading or exaggerated claims about their environmental practices to appear more sustainable than they are.</span></span></strong> &#x2014; Misleading environmental claims erode consumer trust</li>
+</ul>
+<h3>&#x1F4A1; Overcoming Barriers</h3>
+<ul>
+<li><strong>Incremental Changes</strong> &#x2014; Start small and scale sustainable practices over time</li>
+<li><strong>Innovation</strong> &#x2014; Develop cost-effective sustainable solutions</li>
+<li><strong>Stakeholder Engagement</strong> &#x2014; Collaborate with all parties for shared solutions</li>
+<li><strong>Government Support</strong> &#x2014; Incentives, subsidies, and clear regulatory frameworks</li>
+</ul>
+<div class="highlight-box">
+<strong>&#x1F4C8; Consumer Trends:</strong> Consumers are increasingly demanding sustainable products and greater transparency from brands. This shift is creating market pressure that drives corporate sustainability adoption.
+</div>
+<div class="example-box">
+<div class="label">&#x1F4CC; Example</div>
+<strong>Lush Cosmetics</strong> &#x2014; Pioneering plastic-free packaging and ethical sourcing across its entire product range, demonstrating that sustainability and profitability can coexist.
+</div>
+</section>
+
+<section class="content-card" id="future">
+<h2>9. Economic Benefits &amp; Future Trends <span class="cn">&#x7ECF;&#x6D4E;&#x6548;&#x76CA;&#x4E0E;&#x672A;&#x6765;&#x8D8B;&#x52BF;</span></h2>
+<h3>&#x1F4B0; Economic Benefits</h3>
+<ul>
+<li><strong>Cost Savings</strong> &#x2014; Energy efficiency and waste reduction lower operational costs</li>
+<li><strong>Brand Loyalty</strong> &#x2014; Consumers prefer and are loyal to sustainable brands</li>
+<li><strong>Compliance &amp; Risk Reduction</strong> &#x2014; Proactive sustainability reduces regulatory and reputational risk</li>
+</ul>
+<div class="highlight-box">
+<strong>Triple Bottom Line (3Ps):</strong>
+<ul>
+<li><strong>People</strong> &#x2014; Social responsibility and community impact</li>
+<li><strong>Planet</strong> &#x2014; Environmental stewardship and conservation</li>
+<li><strong>Profit</strong> &#x2014; Financial sustainability and economic value creation</li>
+</ul>
+</div>
+<h3>&#x1F52E; Future Trends</h3>
+<ul>
+<li><strong>Green Finance</strong> &#x2014; Growing market for sustainable financial products</li>
+<li><strong>Sustainable Innovation</strong> &#x2014; Breakthrough technologies for environmental challenges</li>
+<li><strong><span class="tooltip">ESG Investing<span class="tip-text">Environmental, Social, and Governance (ESG) investing evaluates companies based on sustainability and ethical impact alongside financial performance.</span></span></strong> &#x2014; Investment decisions driven by environmental, social, and governance criteria</li>
+<li><strong>Digitalisation &amp; AI</strong> &#x2014; Data-driven sustainability management and reporting</li>
+<li><strong>Consumer Empowerment</strong> &#x2014; Greater access to information driving sustainable choices</li>
+<li><strong>Green Bonds</strong> &#x2014; Bonds specifically financing environmental and climate-related projects</li>
+</ul>
+</section>
+
+<section class="content-card" id="takeaways">
+<h2>10. Key Takeaways <span class="cn">&#x5173;&#x952E;&#x8981;&#x70B9;</span></h2>
+<div class="highlight-box">
+<ul>
+<li>Sustainable business practices connect deeply with <strong>CSR, stakeholder theory, and business ethics</strong></li>
+<li>Success rests on <strong>three pillars: Environmental, Social, and Economic Sustainability</strong></li>
+<li>Integrating sustainable practices transforms businesses for <strong>long-term success and resilience</strong></li>
+<li>Technology (AI, blockchain, renewables) is a key <strong>enabler of sustainability transitions</strong></li>
+<li>The circular economy represents a <strong>fundamental shift</strong> from linear take-make-dispose models</li>
+<li>Consumer demand for transparency and sustainability is <strong>reshaping markets globally</strong></li>
+</ul>
+</div>
+</section>
+
+<section class="content-card" id="flashcards">
+<h2>&#x1F4C7; Flashcards <span class="cn">&#x95EA;&#x5361;</span></h2>
+<p>Click each card to reveal the definition. Click again to flip back.</p>
+<div class="flashcard-grid" id="flashcard-grid"></div>
+</section>
+
+<section class="content-card" id="quiz">
+<h2>&#x1F4DD; Quiz <span class="cn">&#x6D4B;&#x9A8C;</span></h2>
+<p>Test your knowledge of Sustainability Part 3. Select the best answer for each question.</p>
+<div class="quiz-section" id="quiz-section"></div>
+<button id="quiz-submit" onclick="submitQuiz()">Submit Quiz &#x63D0;&#x4EA4;&#x6D4B;&#x9A8C;</button>
+<div class="quiz-result" id="quiz-result">
+<div class="score" id="quiz-score"></div>
+<div class="msg" id="quiz-msg"></div>
+</div>
+</section>
+
+</main>
+
+<button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="Toggle Dark Mode">&#x1F319;</button>
+<button class="scroll-dog" id="scroll-dog" onclick="scrollToTop()" title="Scroll to top">&#x1F415;</button>
+
+<script>
+var flashcards=[
+{front:"Circular Economy",frontCN:"\u5FAA\u73AF\u7ECF\u6D4E",back:"An economic system aimed at reducing waste by keeping resources in use as long as possible.",backCN:"\u65E8\u5728\u901A\u8FC7\u5C3D\u53EF\u80FD\u957F\u65F6\u95F4\u5730\u4F7F\u7528\u8D44\u6E90\u6765\u51CF\u5C11\u6D6A\u8D39\u7684\u7ECF\u6D4E\u4F53\u7CFB\u3002"},
+{front:"B Corporation",frontCN:"B\u578B\u4F01\u4E1A",back:"A company meeting high standards of social and environmental performance, accountability, and transparency.",backCN:"\u6EE1\u8DB3\u793E\u4F1A\u548C\u73AF\u5883\u7EE9\u6548\u3001\u95EE\u8D23\u5236\u548C\u900F\u660E\u5EA6\u9AD8\u6807\u51C6\u7684\u516C\u53F8\u3002"},
+{front:"Triple Bottom Line",frontCN:"\u4E09\u91CD\u5E95\u7EBF",back:"Framework measuring business success through People, Planet, and Profit.",backCN:"\u901A\u8FC7\u4EBA\u3001\u5730\u7403\u548C\u5229\u6DA6\u8861\u91CF\u5546\u4E1A\u6210\u529F\u7684\u6846\u67B6\u3002"},
+{front:"ISO 14001",frontCN:"",back:"International standard for environmental management systems.",backCN:"\u73AF\u5883\u7BA1\u7406\u4F53\u7CFB\u7684\u56FD\u9645\u6807\u51C6\u3002"},
+{front:"Greenwashing",frontCN:"\u6F02\u7EFF",back:"Making misleading claims about the environmental benefits of a product or practice.",backCN:"\u5BF9\u4EA7\u54C1\u6216\u5B9E\u8DF5\u7684\u73AF\u5883\u6548\u76CA\u505A\u51FA\u8BEF\u5BFC\u6027\u58F0\u660E\u3002"},
+{front:"ESG Investing",frontCN:"ESG\u6295\u8D44",back:"Investment strategy considering Environmental, Social, and Governance factors.",backCN:"\u8003\u8651\u73AF\u5883\u3001\u793E\u4F1A\u548C\u6CBB\u7406\u56E0\u7D20\u7684\u6295\u8D44\u7B56\u7565\u3002"},
+{front:"Fair Trade",frontCN:"\u516C\u5E73\u8D38\u6613",back:"Trading partnership seeking equity in international trade through fair pricing and labour standards.",backCN:"\u901A\u8FC7\u516C\u5E73\u5B9A\u4EF7\u548C\u52B3\u5DE5\u6807\u51C6\u5BFB\u6C42\u56FD\u9645\u8D38\u6613\u516C\u5E73\u7684\u8D38\u6613\u4F19\u4F34\u5173\u7CFB\u3002"},
+{front:"Green Bonds",frontCN:"\u7EFF\u8272\u503A\u5238",back:"Bonds specifically used to finance environmental and climate-related projects.",backCN:"\u4E13\u95E8\u7528\u4E8E\u8D44\u52A9\u73AF\u5883\u548C\u6C14\u5019\u76F8\u5173\u9879\u76EE\u7684\u503A\u5238\u3002"},
+{front:"Social Enterprise",frontCN:"\u793E\u4F1A\u4F01\u4E1A",back:"A business that prioritizes social or environmental goals alongside generating profit.",backCN:"\u5728\u521B\u9020\u5229\u6DA6\u7684\u540C\u65F6\u4F18\u5148\u8003\u8651\u793E\u4F1A\u6216\u73AF\u5883\u76EE\u6807\u7684\u4F01\u4E1A\u3002"},
+{front:"Blockchain in Supply Chain",frontCN:"\u533A\u5757\u94FE\u5728\u4F9B\u5E94\u94FE\u4E2D",back:"Technology enabling transparency and traceability in sustainable supply chain management.",backCN:"\u5728\u53EF\u6301\u7EED\u4F9B\u5E94\u94FE\u7BA1\u7406\u4E2D\u5B9E\u73B0\u900F\u660E\u5EA6\u548C\u53EF\u8FFD\u6EAF\u6027\u7684\u6280\u672F\u3002"}
+];
+
+var fcGrid=document.getElementById("flashcard-grid");
+flashcards.forEach(function(c,i){
+var div=document.createElement("div");
+div.className="flashcard";
+div.onclick=function(){div.classList.toggle("flipped");};
+var cnF=c.frontCN?'<div class="cn">'+c.frontCN+'</div>':"";
+div.innerHTML='<div class="flashcard-inner">'+
+'<div class="flashcard-front"><span class="flashcard-num">'+(i+1)+'/10</span>'+c.front+cnF+'</div>'+
+'<div class="flashcard-back"><span class="flashcard-num">'+(i+1)+'/10</span>'+c.back+'<div class="cn">'+c.backCN+'</div></div>'+
+'</div>';
+fcGrid.appendChild(div);
+});
+
+var quizData=[
+{q:"What is the primary focus of sustainable business models?",
+qcn:"\u53EF\u6301\u7EED\u5546\u4E1A\u6A21\u5F0F\u7684\u4E3B\u8981\u5173\u6CE8\u70B9\u662F\u4EC0\u4E48\uFF1F",
+opts:[
+{t:"A) Maximizing short-term profits \u300C\u6700\u5927\u5316\u77ED\u671F\u5229\u6DA6\u300D",c:false},
+{t:"B) Integrating economic, social, and environmental factors \u300C\u6574\u5408\u7ECF\u6D4E\u3001\u793E\u4F1A\u548C\u73AF\u5883\u56E0\u7D20\u300D",c:true},
+{t:"C) Reducing employee benefits \u300C\u51CF\u5C11\u5458\u5DE5\u798F\u5229\u300D",c:false},
+{t:"D) Increasing market share only \u300C\u4EC5\u589E\u52A0\u5E02\u573A\u4EFD\u989D\u300D",c:false}
+]},
+{q:"The circular economy primarily aims to reduce:",
+qcn:"\u5FAA\u73AF\u7ECF\u6D4E\u4E3B\u8981\u65E8\u5728\u51CF\u5C11\uFF1A",
+opts:[
+{t:"A) Profits \u300C\u5229\u6DA6\u300D",c:false},
+{t:"B) Employment \u300C\u5C31\u4E1A\u300D",c:false},
+{t:"C) Waste \u300C\u6D6A\u8D39\u300D",c:true},
+{t:"D) Innovation \u300C\u521B\u65B0\u300D",c:false}
+]},
+{q:"Which technology is used to improve energy efficiency in sustainable business?",
+qcn:"\u54EA\u79CD\u6280\u672F\u7528\u4E8E\u63D0\u9AD8\u53EF\u6301\u7EED\u5546\u4E1A\u4E2D\u7684\u80FD\u6E90\u6548\u7387\uFF1F",
+opts:[
+{t:"A) Social media \u300C\u793E\u4EA4\u5A92\u4F53\u300D",c:false},
+{t:"B) AI and machine learning \u300C\u4EBA\u5DE5\u667A\u80FD\u548C\u673A\u5668\u5B66\u4E60\u300D",c:true},
+{t:"C) Traditional marketing \u300C\u4F20\u7EDF\u8425\u9500\u300D",c:false},
+{t:"D) Manual labor \u300C\u4F53\u529B\u52B3\u52A8\u300D",c:false}
+]},
+{q:"Which certification focuses on environmental management standards?",
+qcn:"\u54EA\u4E2A\u8BA4\u8BC1\u4FA7\u91CD\u4E8E\u73AF\u5883\u7BA1\u7406\u6807\u51C6\uFF1F",
+opts:[
+{t:"A) ISO 9001",c:false},
+{t:"B) ISO 14001",c:true},
+{t:"C) ISO 27001",c:false},
+{t:"D) ISO 45001",c:false}
+]},
+{q:"What type of renewable energy has Australia adopted most widely?",
+qcn:"\u6FB3\u5927\u5229\u4E9A\u6700\u5E7F\u6CDB\u91C7\u7528\u54EA\u79CD\u53EF\u518D\u751F\u80FD\u6E90\uFF1F",
+opts:[
+{t:"A) Wind power \u300C\u98CE\u80FD\u300D",c:false},
+{t:"B) Hydropower \u300C\u6C34\u529B\u53D1\u7535\u300D",c:false},
+{t:"C) Solar power \u300C\u592A\u9633\u80FD\u300D",c:true},
+{t:"D) Geothermal \u300C\u5730\u70ED\u80FD\u300D",c:false}
+]},
+{q:"The Triple Bottom Line measures:",
+qcn:"\u4E09\u91CD\u5E95\u7EBF\u8861\u91CF\uFF1A",
+opts:[
+{t:"A) Revenue, expenses, taxes \u300C\u6536\u5165\u3001\u652F\u51FA\u3001\u7A0E\u6536\u300D",c:false},
+{t:"B) Profit, People, Planet \u300C\u5229\u6DA6\u3001\u4EBA\u3001\u5730\u7403\u300D",c:true},
+{t:"C) Sales, marketing, operations \u300C\u9500\u552E\u3001\u8425\u9500\u3001\u8FD0\u8425\u300D",c:false},
+{t:"D) Assets, liabilities, equity \u300C\u8D44\u4EA7\u3001\u8D1F\u503A\u3001\u6743\u76CA\u300D",c:false}
+]},
+{q:"What is greenwashing?",
+qcn:"\u4EC0\u4E48\u662F\u6F02\u7EFF\uFF1F",
+opts:[
+{t:"A) Cleaning products with green chemicals \u300C\u7528\u7EFF\u8272\u5316\u5B66\u54C1\u6E05\u6D01\u4EA7\u54C1\u300D",c:false},
+{t:"B) Making misleading environmental claims \u300C\u505A\u51FA\u8BEF\u5BFC\u6027\u7684\u73AF\u5883\u58F0\u660E\u300D",c:true},
+{t:"C) Painting buildings green \u300C\u5C06\u5EFA\u7B51\u7269\u6D82\u6210\u7EFF\u8272\u300D",c:false},
+{t:"D) Recycling green materials \u300C\u56DE\u6536\u7EFF\u8272\u6750\u6599\u300D",c:false}
+]},
+{q:"Green bonds are used to finance:",
+qcn:"\u7EFF\u8272\u503A\u5238\u7528\u4E8E\u8D44\u52A9\uFF1A",
+opts:[
+{t:"A) Military projects \u300C\u519B\u4E8B\u9879\u76EE\u300D",c:false},
+{t:"B) Real estate only \u300C\u4EC5\u623F\u5730\u4EA7\u300D",c:false},
+{t:"C) Environmental and climate projects \u300C\u73AF\u5883\u548C\u6C14\u5019\u9879\u76EE\u300D",c:true},
+{t:"D) Social media campaigns \u300C\u793E\u4EA4\u5A92\u4F53\u6D3B\u52A8\u300D",c:false}
+]}
+];
+
+var quizSection=document.getElementById("quiz-section");
+var answered=[];
+for(var i=0;i<quizData.length;i++) answered.push(null);
+
+quizData.forEach(function(q,qi){
+var div=document.createElement("div");
+div.className="quiz-q";
+div.id="qq-"+qi;
+var html='<div class="q-text">'+(qi+1)+'. '+q.q+'<span class="cn">'+q.qcn+'</span></div>';
+q.opts.forEach(function(o,oi){
+html+='<button class="quiz-option" data-qi="'+qi+'" data-oi="'+oi+'" onclick="selectAnswer('+qi+','+oi+','+o.c+',this)">'+o.t+'</button>';
+});
+div.innerHTML=html;
+quizSection.appendChild(div);
+});
+
+function selectAnswer(qi,oi,correct,btn){
+var qDiv=document.getElementById("qq-"+qi);
+var btns=qDiv.querySelectorAll(".quiz-option");
+if(btns[0].disabled) return;
+answered[qi]=correct;
+btns.forEach(function(b,idx){
+b.disabled=true;
+if(quizData[qi].opts[idx].c) b.classList.add("correct");
+});
+if(!correct) btn.classList.add("wrong");
+}
+
+function submitQuiz(){
+var unanswered=0;
+for(var i=0;i<answered.length;i++){if(answered[i]===null) unanswered++;}
+if(unanswered>0){
+alert("Please answer all "+unanswered+" remaining question(s) before submitting.");
+return;
+}
+var score=0;
+for(var i=0;i<answered.length;i++){if(answered[i]===true) score++;}
+var total=quizData.length;
+var pct=Math.round((score/total)*100);
+var resultDiv=document.getElementById("quiz-result");
+document.getElementById("quiz-score").textContent=score+" / "+total+" ("+pct+"%)";
+var msgs=[
+"Keep studying! You\u2019ll get there! \u7EE7\u7EED\u52A0\u6CB9\uFF01",
+"Good effort! Review the tricky ones. \u4E0D\u9519\u7684\u52AA\u529B\uFF01",
+"Well done! Solid understanding! \u505A\u5F97\u597D\uFF01",
+"Excellent! You\u2019re a sustainability expert! \u592A\u68D2\u4E86\uFF01"
+];
+var mi=score<=2?0:score<=4?1:score<=6?2:3;
+document.getElementById("quiz-msg").textContent=msgs[mi];
+resultDiv.style.display="block";
+document.getElementById("quiz-submit").style.display="none";
+if(score>=6) launchConfetti();
+}
+
+function launchConfetti(){
+var colors=["#00838f","#26c6da","#0097a7","#e0f7fa","#006064","#ff6f00","#ffd54f","#e53935"];
+for(var i=0;i<80;i++){
+var el=document.createElement("div");
+el.className="confetti-piece";
+el.style.left=Math.random()*100+"vw";
+el.style.top="-10px";
+el.style.background=colors[Math.floor(Math.random()*colors.length)];
+el.style.borderRadius=Math.random()>0.5?"50%":"0";
+el.style.width=(Math.random()*8+6)+"px";
+el.style.height=(Math.random()*8+6)+"px";
+el.style.animationDuration=(Math.random()*1.5+1.5)+"s";
+el.style.animationDelay=(Math.random()*0.8)+"s";
+document.body.appendChild(el);
+setTimeout((function(e){return function(){e.remove();};})(el),4000);
+}
+}
+
+function toggleDark(){
+document.body.classList.toggle("dark-mode");
+var isDark=document.body.classList.contains("dark-mode");
+document.getElementById("dark-toggle").textContent=isDark?"\u2600\uFE0F":"\uD83C\uDF19";
+localStorage.setItem("unit11-dark",isDark?"1":"0");
+}
+if(localStorage.getItem("unit11-dark")==="1"){
+document.body.classList.add("dark-mode");
+document.getElementById("dark-toggle").textContent="\u2600\uFE0F";
+}
+
+window.addEventListener("scroll",function(){
+var h=document.documentElement.scrollHeight-window.innerHeight;
+var pct=h>0?(window.scrollY/h)*100:0;
+document.getElementById("progress-bar").style.width=pct+"%";
+var dog=document.getElementById("scroll-dog");
+if(window.scrollY>400) dog.classList.add("visible");
+else dog.classList.remove("visible");
+updateTocActive();
+});
+
+function updateTocActive(){
+var sections=document.querySelectorAll(".content-card[id]");
+var links=document.querySelectorAll(".toc-nav a");
+var current="";
+sections.forEach(function(s){
+if(window.scrollY>=s.offsetTop-120) current=s.id;
+});
+links.forEach(function(l){
+l.classList.toggle("active",l.getAttribute("href")==="#"+current);
+});
+}
+
+function scrollToTop(){
+playBark();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function playBark(){
+try{
+var ctx=new(window.AudioContext||window.webkitAudioContext)();
+function burst(startTime){
+var osc=ctx.createOscillator();
+var gain=ctx.createGain();
+osc.type="square";
+osc.frequency.setValueAtTime(600,startTime);
+osc.frequency.exponentialRampToValueAtTime(300,startTime+0.08);
+gain.gain.setValueAtTime(0.3,startTime);
+gain.gain.exponentialRampToValueAtTime(0.01,startTime+0.1);
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.start(startTime);
+osc.stop(startTime+0.1);
+}
+var now=ctx.currentTime;
+burst(now);
+burst(now+0.15);
+setTimeout(function(){ctx.close();},500);
+}catch(e){}
+}
+
+var observer=new IntersectionObserver(function(entries){
+entries.forEach(function(e){
+if(e.isIntersecting){
+e.target.classList.add("revealed");
+observer.unobserve(e.target);
+}
+});
+},{threshold:0.08});
+document.querySelectorAll(".content-card").forEach(function(c){observer.observe(c);});
+</script>
 </body>
 </html>
