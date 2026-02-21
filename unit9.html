@@ -1,471 +1,1059 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 9: Sustainability Part 1 - Business Environments</title>
-    <style>
-        :root {
-            --primary-color: #33691e;
-            --secondary-color: #558b2f;
-            --accent-color: #689f38;
-            --light-accent: #f1f8e9;
-            --light-bg: #f8fafc;
-            --dark-text: #1e293b;
-            --light-text: #f8fafc;
-            --med-text: #64748b;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            text-align: center;
-            padding: 3rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .header-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.3;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .content-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        /* Back to Main Button */
-        .back-to-main {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        
-        .back-to-main:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-        
-        .back-to-main { font-size: 24px; line-height: 1; }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            margin-top: 3rem;
-        }
-        
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            header p {
-                font-size: 1rem;
-            }
-            
-            .back-to-main {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
-            }
-            
-            .back-to-main { font-size: 20px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 9: Sustainability Part 1 | UNSW College</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary: #2e7d32;
+  --primary-dark: #1b5e20;
+  --secondary: #43a047;
+  --accent: #66bb6a;
+  --light-accent: #e8f5e9;
+  --bg: #f5f7f5;
+  --card-bg: #ffffff;
+  --text: #263238;
+  --text-light: #546e7a;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --gradient: linear-gradient(135deg, #2e7d32, #66bb6a);
+  --gradient2: linear-gradient(135deg, #1b5e20, #43a047);
+
+  --pillar-env: #2e7d32;
+  --pillar-env-light: #e8f5e9;
+  --pillar-soc: #1565c0;
+  --pillar-soc-light: #e3f2fd;
+  --pillar-eco: #e65100;
+  --pillar-eco-light: #fff3e0;
+  --climate: #b71c1c;
+  --climate-light: #ffebee;
+  --sdg: #6a1b9a;
+  --sdg-light: #f3e5f5;
+  --consume: #00695c;
+  --consume-light: #e0f2f1;
+}
+
+.dark-mode {
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --text: #e0e0e0;
+  --text-light: #b0bec5;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+  --light-accent: #0a1f0d;
+  --pillar-env-light: #0a1f0d;
+  --pillar-soc-light: #0d2137;
+  --pillar-eco-light: #1f1200;
+  --climate-light: #1f0a0a;
+  --sdg-light: #1a0a24;
+  --consume-light: #0a1f1a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+}
+
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+/* ── BACK BUTTON ── */
+.back-to-main {
+  position: fixed; top: 20px; left: 20px; z-index: 1000;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: var(--gradient); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: all var(--transition);
+  text-decoration: none;
+}
+.back-to-main:hover {
+  animation: backBtnPulse 0.6s ease; transform: scale(1.1); box-shadow: var(--shadow-lg);
+}
+.back-to-main { font-size: 24px; line-height: 1; }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px; z-index: 9999;
+  background: var(--gradient); width: 0%; transition: width 0.15s;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--gradient);
+  color: #fff; text-align: center;
+  padding: 100px 24px 80px;
+  position: relative; overflow: hidden;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800; margin-bottom: 8px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.hero .chinese {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.3rem; opacity: 0.9; margin-bottom: 16px;
+}
+.hero .subtitle {
+  font-size: 1.15rem; opacity: 0.85; max-width: 700px; margin: 0 auto;
+}
+.float-emoji {
+  position: absolute; font-size: 2rem; opacity: 0.15;
+  animation: floatEmoji 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes floatEmoji {
+  0% { transform: translateY(100vh) rotate(0deg); opacity:0; }
+  10% { opacity:0.15; }
+  90% { opacity:0.15; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity:0; }
+}
+
+/* ── TOC NAV ── */
+#toc-bar {
+  position: sticky; top: 0; z-index: 998;
+  background: var(--card-bg); border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: background var(--transition);
+}
+#toc-bar nav {
+  display: flex; gap: 4px; padding: 10px 20px;
+  flex-wrap: wrap; justify-content: center;
+}
+#toc-bar a {
+  text-decoration: none; color: var(--text);
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 0.82rem; font-weight: 500;
+  white-space: nowrap; transition: all var(--transition);
+}
+#toc-bar a:hover { background: var(--light-accent); }
+#toc-bar a.active { background: var(--primary); color: #fff; }
+
+/* ── SECTIONS ── */
+.section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 48px 56px;
+  margin: 32px 0;
+  box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.6s ease-out, background var(--transition);
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+.section:hover { box-shadow: var(--shadow-lg); }
+
+.section-label {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 20px; font-size: 0.75rem;
+  font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 12px;
+}
+
+.section h2 {
+  font-size: 1.8rem; font-weight: 700;
+  margin-bottom: 6px; display: flex;
+  align-items: center; gap: 12px;
+}
+.section h2 .emoji { font-size: 1.6rem; }
+.section .zh-title {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1rem; color: var(--text-light);
+  margin-bottom: 20px;
+}
+.section h3 {
+  font-size: 1.25rem; font-weight: 600;
+  margin: 28px 0 12px; color: var(--primary);
+}
+.section .zh-sub {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  margin-top: -8px; margin-bottom: 12px;
+}
+.section p { margin-bottom: 14px; }
+.section .zh-text {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.9rem; color: var(--text-light);
+  display: block; margin-top: 2px;
+}
+
+/* ── FEATURE CARDS ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; margin: 20px 0;
+}
+.feature-card {
+  background: var(--card-bg);
+  border-radius: 12px; padding: 24px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: all var(--transition);
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.feature-card .card-icon { font-size: 2rem; margin-bottom: 10px; }
+.feature-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.feature-card .zh-card {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.82rem; color: var(--text-light);
+}
+
+/* ── KEY POINT BOX ── */
+.key-point {
+  background: var(--light-accent);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 24px; margin: 16px 0;
+}
+.key-point strong { color: var(--primary); }
+
+/* ── HIGHLIGHT LIST ── */
+.highlight-list { list-style: none; padding: 0; }
+.highlight-list li {
+  padding: 12px 16px; margin: 8px 0;
+  border-radius: 10px; background: var(--light-accent);
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.92rem; transition: all var(--transition);
+}
+.highlight-list li:hover { transform: translateX(4px); }
+.highlight-list .li-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+
+/* ── PILLAR DIAGRAM ── */
+.pillar-diagram {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px; margin: 24px 0;
+}
+.pillar-card {
+  border-radius: 14px; padding: 28px 24px;
+  text-align: center; position: relative;
+  border-top: 5px solid var(--primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: all var(--transition);
+  background: var(--card-bg);
+}
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.pillar-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.pillar-card h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+.pillar-card .zh-pillar {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  margin-bottom: 8px;
+}
+.pillar-card p { font-size: 0.88rem; color: var(--text-light); }
+
+.pillar-card:nth-child(1) { border-color: var(--pillar-env); }
+.pillar-card:nth-child(2) { border-color: var(--pillar-soc); }
+.pillar-card:nth-child(3) { border-color: var(--pillar-eco); }
+
+/* ── COMPARE TABLE ── */
+.compare-table {
+  width: 100%; border-collapse: separate;
+  border-spacing: 0; border-radius: 12px;
+  overflow: hidden; margin: 20px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.compare-table th {
+  background: var(--primary); color: #fff;
+  padding: 14px 18px; font-weight: 600;
+  font-size: 0.9rem; text-align: left;
+}
+.compare-table td {
+  padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.9rem; vertical-align: top;
+}
+.compare-table tr:nth-child(even) td { background: var(--light-accent); }
+.compare-table tr:hover td { background: rgba(46,125,50,0.05); }
+
+/* ── FLASHCARDS ── */
+#flashcard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px; margin: 20px 0;
+}
+.flashcard {
+  height: 210px; perspective: 800px;
+  cursor: pointer; outline: none;
+}
+.flashcard-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; inset: 0;
+  border-radius: 14px; padding: 24px;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.flashcard-front {
+  background: var(--gradient);
+  color: #fff;
+}
+.fc-term { font-size: 1.1rem; font-weight: 700; }
+.fc-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.9rem; opacity: 0.85; margin-top: 6px;
+}
+.fc-hint {
+  font-size: 0.72rem; opacity: 0.5;
+  margin-top: 12px; text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.flashcard-back {
+  background: var(--card-bg);
+  border: 2px solid var(--accent);
+  color: var(--text);
+  transform: rotateY(180deg);
+  font-size: 0.88rem; line-height: 1.6;
+  overflow-y: auto;
+}
+
+/* ── QUIZ ── */
+.quiz-q {
+  background: var(--light-accent);
+  border-radius: 12px; padding: 22px;
+  margin: 14px 0;
+}
+.q-text { font-weight: 600; margin-bottom: 12px; font-size: 0.95rem; }
+.q-num { color: var(--primary); font-weight: 700; }
+.q-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  display: block; margin-top: 4px;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  background: var(--card-bg);
+  border: 2px solid transparent;
+  border-radius: 10px; padding: 12px 16px;
+  cursor: pointer; font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.quiz-opt:hover { border-color: var(--accent); transform: translateX(4px); }
+.quiz-opt.correct {
+  background: #c8e6c9; border-color: #2e7d32;
+  pointer-events: none;
+}
+.quiz-opt.wrong {
+  background: #ffcdd2; border-color: #c62828;
+  pointer-events: none;
+}
+.quiz-opt.disabled { pointer-events: none; opacity: 0.5; }
+.quiz-result {
+  display: none; text-align: center;
+  padding: 28px; border-radius: 14px;
+  background: var(--gradient); color: #fff;
+  margin-top: 20px;
+}
+.quiz-result.show {
+  display: block;
+  animation: popIn 0.5s ease;
+}
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block; padding: 10px 24px;
+  border-radius: 8px; font-weight: 600;
+  font-size: 0.9rem; cursor: pointer;
+  border: none; transition: all var(--transition);
+  text-decoration: none;
+}
+.btn-primary { background: var(--gradient); color: #fff; }
+.btn-primary:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+/* ── BACK TO TOP ── */
+#back-top {
+  position: fixed; bottom: 30px; right: 30px;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--gradient); border: none;
+  font-size: 1.6rem; cursor: pointer;
+  box-shadow: var(--shadow); z-index: 999;
+  opacity: 0; transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+#back-top.show { opacity: 1; animation: bounce 2s infinite; }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── DARK TOGGLE ── */
+#dark-toggle {
+  position: fixed; bottom: 100px; right: 30px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--card-bg); border: 2px solid var(--accent);
+  font-size: 1.3rem; cursor: pointer; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: all var(--transition);
+}
+#dark-toggle:hover { transform: scale(1.1); }
+
+/* ── CONFETTI ── */
+.confetti-piece {
+  position: fixed; top: -10px; z-index: 10000;
+  pointer-events: none;
+  animation: confettiFall 3s ease-out forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity:0; }
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  text-align: center; padding: 40px 24px;
+  color: var(--text-light); font-size: 0.85rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  margin-top: 40px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .section { padding: 28px 22px; }
+  .hero { padding: 80px 18px 60px; }
+  .hero h1 { font-size: 1.6rem; }
+  .pillar-diagram { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  #toc-bar nav { justify-content: flex-start; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table th, .compare-table td { padding: 10px 12px; }
+}
+@keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
+</style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">🌱
-    </a>
-    
-    <header>
-        <div class="header-animation" id="header-animation"></div>
-        <div class="header-content">
-            <h1>Unit 9: Sustainability Part 1</h1>
-            <p>Business Environments - FS2025</p>
-        </div>
-    </header>
-    
-    <main>
-        <div class="content-card">
-            <h2>Unit 9: Sustainability Part 1 
-                <span style="display: block; font-size: 0.8em; color: #666; margin-top: 0.5rem;">单元9：可持续发展（一）</span>
-            </h2>
-            
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-left: 4px solid #33691e; border-radius: 4px;">
-                <h3 style="color: #33691e; margin-bottom: 1rem;">Welcome to Unit 9 欢迎来到第九单元</h3>
-                <p style="margin-bottom: 0.5rem;">This unit introduces sustainability concepts in business, focusing on ESG principles and corporate social responsibility.</p>
-                <p style="color: #666; font-size: 0.95em;">本单元介绍商业中的可持续发展概念，重点关注ESG原则和企业社会责任。</p>
-            </div>
 
-            <h3 style="color: #33691e; margin-top: 2rem;">Topics Covered 涵盖主题</h3>
-            
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">1. Introduction to Sustainability in Business 商业中的可持续发展概论</h4>
-                <p>Sustainability means meeting present needs without compromising future generations' ability to meet their needs.</p>
-                <p style="color: #666; font-size: 0.95em;">可持续发展意味着满足当前需求的同时不损害未来世代满足其需求的能力。</p>
-            </div>
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">2. ESG (Environmental, Social, Governance) ESG（环境、社会、治理）</h4>
-                <p><strong>Environmental 环境:</strong> Climate change, pollution, resource use, biodiversity 气候变化、污染、资源使用、生物多样性</p>
-                <p><strong>Social 社会:</strong> Human rights, labor practices, community relations, diversity 人权、劳工实践、社区关系、多样性</p>
-                <p><strong>Governance 治理:</strong> Board composition, ethics, transparency, accountability 董事会组成、道德、透明度、问责制</p>
-            </div>
+<!-- Back to Main -->
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">⬅️</a>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">3. Corporate Social Responsibility (CSR) 企业社会责任</h4>
-                <p>A business model where companies integrate social and environmental concerns into their operations and stakeholder interactions.</p>
-                <p style="color: #666; font-size: 0.95em;">一种商业模式，公司将社会和环境关切融入其运营和利益相关者互动中。</p>
-            </div>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="float-emoji" style="left:5%;animation-delay:0s">🌿</div>
+  <div class="float-emoji" style="left:15%;animation-delay:3s">🌍</div>
+  <div class="float-emoji" style="left:30%;animation-delay:6s">♻️</div>
+  <div class="float-emoji" style="left:50%;animation-delay:2s">🌱</div>
+  <div class="float-emoji" style="left:70%;animation-delay:8s">☀️</div>
+  <div class="float-emoji" style="left:85%;animation-delay:5s">🐟</div>
+  <div class="float-emoji" style="left:92%;animation-delay:11s">🏭</div>
+  <h1>Unit 9: Sustainability Part 1</h1>
+  <p class="chinese">第九单元：可持续发展（第一部分）</p>
+  <p class="subtitle">Explore the foundations of sustainability, the three pillars, climate change, and the UN Sustainable Development Goals.</p>
+  <p class="chinese" style="font-size:0.95rem;opacity:0.75;margin-top:6px;">探索可持续发展的基础、三大支柱、气候变化和联合国可持续发展目标。</p>
+</section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">4. Stakeholder Theory 利益相关者理论</h4>
-                <p>Businesses should consider all stakeholders (employees, customers, suppliers, communities), not just shareholders.</p>
-                <p style="color: #666; font-size: 0.95em;">企业应考虑所有利益相关者（员工、客户、供应商、社区），而不仅仅是股东。</p>
-            </div>
+<!-- TOC Navigation Bar -->
+<div id="toc-bar">
+  <nav>
+    <a href="#sustainability">🌱 Sustainability</a>
+    <a href="#pillars">��️ Three Pillars</a>
+    <a href="#ecology">🌿 Ecology</a>
+    <a href="#degradation">🏭 Degradation</a>
+    <a href="#commons">🌍 Global Commons</a>
+    <a href="#climate">🌡️ Climate Change</a>
+    <a href="#energy">⚡ Energy</a>
+    <a href="#sdgs">🎯 SDGs</a>
+    <a href="#impacts">📊 Managing Impacts</a>
+    <a href="#consumption">♻️ Consumption</a>
+    <a href="#flashcards">🃏 Flashcards</a>
+    <a href="#quiz">🧠 Quiz</a>
+  </nav>
+</div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">5. Triple Bottom Line 三重底线</h4>
-                <p>Measuring success beyond profit:</p>
-                <p style="color: #666; font-size: 0.95em;">衡量利润之外的成功：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li><strong>People 人:</strong> Social impact 社会影响</li>
-                    <li><strong>Planet 地球:</strong> Environmental impact 环境影响</li>
-                    <li><strong>Profit 利润:</strong> Economic performance 经济表现</li>
-                </ul>
-            </div>
+<div class="container">
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">6. Sustainable Development Goals (SDGs) 可持续发展目标</h4>
-                <p>The United Nations' 17 global goals for sustainable development by 2030, addressing poverty, inequality, climate change, and more.</p>
-                <p style="color: #666; font-size: 0.95em;">联合国到2030年实现可持续发展的17个全球目标，涉及贫困、不平等、气候变化等。</p>
-            </div>
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: WHAT IS SUSTAINABILITY?
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="sustainability">
+  <span class="section-label" style="background:var(--pillar-env-light);color:var(--pillar-env);">Section 1</span>
+  <h2><span class="emoji">🌱</span> What is Sustainability?</h2>
+  <p class="zh-title">什么是可持续发展？</p>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">7. Business Ethics and Sustainability 商业道德与可持续发展</h4>
-                <p>The moral principles guiding business decisions toward sustainable practices.</p>
-                <p style="color: #666; font-size: 0.95em;">指导商业决策走向可持续实践的道德原则。</p>
-            </div>
+  <p>Sustainability is one of the most important concepts in modern business and governance. The most widely accepted definition was established by the <strong>1987 UN Brundtland Commission</strong>.</p>
+  <span class="zh-text">可持续发展是现代商业和治理中最重要的概念之一。最广泛接受的定义由1987年联合国布伦特兰委员会提出。</span>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-left: 4px solid #33691e; border-radius: 4px;">
-                <h4 style="color: #33691e; margin-bottom: 0.5rem;">Key Learning Outcomes 主要学习成果</h4>
-                <p style="margin-bottom: 0.5rem;">By the end of this unit, you should be able to:</p>
-                <p style="color: #666; font-size: 0.95em; margin-bottom: 1rem;">在本单元结束时，您应该能够：</p>
-                <ul style="margin-left: 2rem;">
-                    <li>Define sustainability and its importance in business 定义可持续发展及其在商业中的重要性</li>
-                    <li>Explain ESG principles and their application 解释ESG原则及其应用</li>
-                    <li>Understand corporate social responsibility 理解企业社会责任</li>
-                    <li>Apply stakeholder theory to business decisions 将利益相关者理论应用于商业决策</li>
-                </ul>
-            </div>
-        </div>
-    </main>
-    
-    <footer>
-        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
-    </footer>
-    
-    <script>
-        // Add dynamic shapes to header background
-        function setupHeaderAnimation() {
-            const headerBg = document.getElementById('header-animation');
-            const shapeCount = 10;
-            const shapes = ['circle', 'square', 'triangle'];
-            
-            for (let i = 0; i < shapeCount; i++) {
-                const div = document.createElement('div');
-                const size = Math.random() * 60 + 20;
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                div.style.width = `${size}px`;
-                div.style.height = `${size}px`;
-                div.style.left = `${Math.random() * 100}%`;
-                div.style.top = `${Math.random() * 100}%`;
-                div.style.position = 'absolute';
-                
-                if (shapeType === 'circle') {
-                    div.style.borderRadius = '50%';
-                } else if (shapeType === 'square') {
-                    div.style.borderRadius = '4px';
-                } else if (shapeType === 'triangle') {
-                    div.style.width = '0';
-                    div.style.height = '0';
-                    div.style.borderLeft = `${size/2}px solid transparent`;
-                    div.style.borderRight = `${size/2}px solid transparent`;
-                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
-                    div.style.background = 'transparent';
-                }
-                
-                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
-                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
-                
-                headerBg.appendChild(div);
-            }
-        }
-        
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
-        
-        // Initialize header animation when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            setupHeaderAnimation();
-            initializeInteractiveFeatures();
-        });
-        
-        // Interactive Features
-        function initializeInteractiveFeatures() {
-            // Add collapsible functionality to sections
-            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
-            contentDivs.forEach((div, index) => {
-                if (div.querySelector('h4')) {
-                    makeCollapsible(div, index);
-                }
-            });
-            
-            // Add progress tracking
-            addProgressTracker();
-            
-            // Add interactive hover effects
-            addHoverEffects();
-        }
-        
-        function makeCollapsible(element, index) {
-            const header = element.querySelector('h4');
-            if (!header) return;
-            
-            // Wrap content in collapsible container
-            const content = Array.from(element.children).slice(1);
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'collapsible-content';
-            contentWrapper.style.maxHeight = '2000px';
-            contentWrapper.style.overflow = 'hidden';
-            contentWrapper.style.transition = 'max-height 0.4s ease';
-            
-            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
-            content.forEach(child => child.remove());
-            element.appendChild(contentWrapper);
-            
-            // Make header clickable
-            header.style.cursor = 'pointer';
-            header.style.userSelect = 'none';
-            header.style.position = 'relative';
-            header.style.paddingRight = '30px';
-            header.style.transition = 'all 0.3s';
-            
-            // Add toggle icon
-            const icon = document.createElement('span');
-            icon.innerHTML = '▼';
-            icon.style.position = 'absolute';
-            icon.style.right = '0';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.transition = 'transform 0.3s';
-            icon.style.fontSize = '0.8em';
-            header.appendChild(icon);
-            
-            // Add click handler
-            header.addEventListener('click', function() {
-                const isCollapsed = contentWrapper.style.maxHeight === '0px';
-                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
-                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
-                header.style.color = isCollapsed ? '#33691e' : '#666';
-            });
-            
-            // Add hover effect
-            header.addEventListener('mouseenter', function() {
-                header.style.color = '#33691e';
-                header.style.transform = 'translateX(5px)';
-            });
-            
-            header.addEventListener('mouseleave', function() {
-                if (contentWrapper.style.maxHeight !== '0px') {
-                    header.style.color = '#333';
-                }
-                header.style.transform = 'translateX(0)';
-            });
-        }
-        
-        function addProgressTracker() {
-            // Create progress indicator
-            const progressBar = document.createElement('div');
-            progressBar.id = 'reading-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 4px;
-                background: linear-gradient(90deg, #33691e, #689f38);
-                z-index: 9999;
-                transition: width 0.2s ease;
-            `;
-            document.body.appendChild(progressBar);
-            
-            // Update progress on scroll
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-                progressBar.style.width = progress + '%';
-            });
-            
-            // Add "Back to Top" button
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #33691e, #558b2f);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(51, 105, 30, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
-            });
-        }
-        
-        function addHoverEffects() {
-            // Add subtle animation to list items
-            const listItems = document.querySelectorAll('ul li, ol li');
-            listItems.forEach(item => {
-                item.style.transition = 'all 0.2s';
-                item.style.paddingLeft = '0';
-                
-                item.addEventListener('mouseenter', function() {
-                    item.style.paddingLeft = '10px';
-                    item.style.color = '#33691e';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    item.style.paddingLeft = '0';
-                    item.style.color = '';
-                });
-            });
-            
-            // Add interactive highlights to key terms
-            const contentCard = document.querySelector('.content-card');
-            if (contentCard) {
-                const strongElements = contentCard.querySelectorAll('strong');
-                strongElements.forEach(strong => {
-                    strong.style.cursor = 'help';
-                    strong.style.transition = 'all 0.2s';
-                    strong.style.position = 'relative';
-                    
-                    strong.addEventListener('mouseenter', function() {
-                        strong.style.color = '#33691e';
-                        strong.style.textShadow = '0 0 10px rgba(51, 105, 30, 0.3)';
-                    });
-                    
-                    strong.addEventListener('mouseleave', function() {
-                        strong.style.color = '';
-                        strong.style.textShadow = '';
-                    });
-                });
-            }
-        }
-    </script>
+  <div class="key-point" style="margin-top:20px;">
+    <p><strong>📌 Brundtland Definition 布伦特兰定义:</strong></p>
+    <p style="font-size:1.05rem;font-style:italic;">"Meeting the needs of the present without compromising the ability of future generations to meet their own needs."</p>
+    <span class="zh-text" style="font-size:0.95rem;">「满足当前需求，同时不损害未来世代满足自身需求的能力。」</span>
+  </div>
+
+  <p>This definition, from the report <em>"Our Common Future"</em> published by the World Commission on Environment and Development, recognises the interdependence of economic growth, environmental stewardship, and social inclusion.</p>
+  <span class="zh-text">这一定义来自世界环境与发展委员会发布的《我们共同的未来》报告，承认了经济增长、环境管理和社会包容之间的相互依赖关系。</span>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: THREE PILLARS OF SUSTAINABILITY
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="pillars">
+  <span class="section-label" style="background:var(--pillar-soc-light);color:var(--pillar-soc);">Section 2</span>
+  <h2><span class="emoji">🏛️</span> The Three Pillars of Sustainability</h2>
+  <p class="zh-title">可持续发展的三大支柱</p>
+
+  <p>Sustainability rests upon three interconnected pillars, often referred to as the "triple bottom line." Each pillar must be addressed for true sustainability to be achieved.</p>
+  <span class="zh-text">可持续发展建立在三个相互关联的支柱之上，通常被称为「三重底线」。要实现真正的可持续发展，必须兼顾每一个支柱。</span>
+
+  <div class="pillar-diagram">
+    <div class="pillar-card">
+      <div class="pillar-icon">🌳</div>
+      <h4>Environmental Pillar</h4>
+      <p class="zh-pillar">环境支柱</p>
+      <p>Resource efficiency, pollution prevention, biodiversity conservation, and climate action.</p>
+      <span class="zh-text">资源效率、污染防治、生物多样性保护和气候行动。</span>
+    </div>
+    <div class="pillar-card">
+      <h4 style="margin-top:8px;">Social Pillar</h4>
+      <div class="pillar-icon">👥</div>
+      <p class="zh-pillar">社会支柱</p>
+      <p>Human rights, labour practices, social equity &amp; inclusion, and community development.</p>
+      <span class="zh-text">人权、劳工实践、社会公平与包容以及社区发展。</span>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">💰</div>
+      <h4>Economic Pillar</h4>
+      <p class="zh-pillar">经济支柱</p>
+      <p>Sustainable growth, innovation, job creation, risk management, and ethical practices.</p>
+      <span class="zh-text">可持续增长、创新、创造就业、风险管理和道德实践。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: ECOLOGY AND CLIMATE CHANGE
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="ecology">
+  <span class="section-label" style="background:var(--pillar-env-light);color:var(--pillar-env);">Section 3</span>
+  <h2><span class="emoji">🌿</span> Ecology and Climate Change</h2>
+  <p class="zh-title">生态与气候变化</p>
+
+  <p><strong>Ecology</strong> is the study of the interactions between living organisms and their habitats — including urban areas, rural areas, forests, waterways, and seas.</p>
+  <span class="zh-text"><strong>生态学</strong>是研究生物与其栖息地之间相互作用的学科——包括城市、农村、森林、水道和海洋。</span>
+
+  <h3>Biodiversity 生物多样性</h3>
+  <p class="zh-sub">生物多样性</p>
+
+  <p><strong>Biodiversity</strong> refers to the variety, distribution, and number of living organisms in a particular region or globally. Even slight environmental changes can have significant impacts on biodiversity.</p>
+  <span class="zh-text"><strong>生物多样性</strong>是指特定区域或全球范围内生物体的多样性、分布和数量。即使是微小的环境变化也可能对生物多样性产生重大影响。</span>
+
+  <div class="key-point">
+    <p><strong>🔑 Key Insight 关键洞察:</strong> The natural world was historically seen as an endless source of resources. Modern understanding recognises the fragility of ecosystems and the profound impact of human activities — including global warming, resource depletion, and pollution.</p>
+    <span class="zh-text">自然界在历史上被视为无尽的资源来源。现代认识到生态系统的脆弱性以及人类活动的深远影响——包括全球变暖、资源枯竭和污染。</span>
+  </div>
+
+  <h3>Human Impact on the Environment</h3>
+  <p class="zh-sub">人类对环境的影响</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">🌡️</span><div><strong>Global Warming 全球变暖:</strong> Increasing average temperatures due to greenhouse gas accumulation.<span class="zh-text">由于温室气体积累导致平均温度升高。</span></div></li>
+    <li><span class="li-icon">⛏️</span><div><strong>Resource Depletion 资源枯竭:</strong> Over-extraction of natural resources faster than they can regenerate.<span class="zh-text">自然资源的过度开采速度超过其再生速度。</span></div></li>
+    <li><span class="li-icon">🏭</span><div><strong>Pollution 污染:</strong> Contamination of air, water, and land through industrial and consumer activities.<span class="zh-text">通过工业和消费活动对空气、水和土地的污染。</span></div></li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4: ENVIRONMENTAL DEGRADATION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="degradation">
+  <span class="section-label" style="background:var(--climate-light);color:var(--climate);">Section 4</span>
+  <h2><span class="emoji">🏭</span> Environmental Degradation</h2>
+  <p class="zh-title">环境退化</p>
+
+  <p><strong>Environmental degradation</strong> is the deterioration of the natural environment through the depletion of resources, destruction of ecosystems, and extinction of wildlife.</p>
+  <span class="zh-text"><strong>环境退化</strong>是指通过资源耗竭、生态系统破坏和野生动物灭绝导致自然环境恶化。</span>
+
+  <h3>The Industrial Revolution</h3>
+  <p class="zh-sub">工业革命</p>
+
+  <p>The <strong>Industrial Revolution</strong> (17th–18th century) marked a transformative period where machinery replaced hand tools, society shifted from rural to urban living, and factory production became dominant. While it brought economic growth, its environmental impact was devastating.</p>
+  <span class="zh-text"><strong>工业革命</strong>（17-18世纪）标志着一个变革性的时期，机器取代了手工工具，社会从农村生活转向城市生活，工厂生产成为主导。虽然它带来了经济增长，但其环境影响是毁灭性的。</span>
+
+  <div class="feature-grid">
+    <div class="feature-card" style="border-color:var(--climate);">
+      <div class="card-icon">🌲</div>
+      <h4>Deforestation</h4>
+      <p>Driven by cattle ranching, soya bean production, and palm oil plantations. Causes soil erosion, carbon emissions, and species extinction.</p>
+      <span class="zh-card">由畜牧业、大豆生产和棕榈油种植园驱动。导致土壤侵蚀、碳排放和物种灭绝。</span>
+    </div>
+    <div class="feature-card" style="border-color:#e65100;">
+      <div class="card-icon">🧪</div>
+      <h4>Synthetic Chemicals</h4>
+      <p>Introduction of synthetic chemicals into ecosystems, contaminating water supplies and harming wildlife.</p>
+      <span class="zh-card">将合成化学品引入生态系统，污染水源并危害野生动物。</span>
+    </div>
+    <div class="feature-card" style="border-color:#6a1b9a;">
+      <div class="card-icon">💨</div>
+      <h4>Air Pollution &amp; Sanitation</h4>
+      <p>Factory emissions leading to poor air quality, inadequate water treatment, and health crises in industrial cities.</p>
+      <span class="zh-card">工厂排放导致空气质量差、水处理不足以及工业城市的健康危机。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5: GLOBAL COMMONS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="commons">
+  <span class="section-label" style="background:var(--sdg-light);color:var(--sdg);">Section 5</span>
+  <h2><span class="emoji">🌍</span> Global Commons</h2>
+  <p class="zh-title">全球公域</p>
+
+  <p><strong>Global Commons</strong> are resource domains that fall outside the political jurisdiction of any single country. They are the common heritage of all humanity (UNEP, 2015).</p>
+  <span class="zh-text"><strong>全球公域</strong>是不属于任何单一国家政治管辖范围的资源领域。它们是全人类的共同遗产（联合国环境规划署，2015年）。</span>
+
+  <div class="feature-grid">
+    <div class="feature-card" style="border-color:#1565c0;">
+      <div class="card-icon">🌊</div>
+      <h4>High Seas</h4>
+      <p>International waters beyond national jurisdiction.</p>
+      <span class="zh-card">超出国家管辖范围的国际水域。</span>
+    </div>
+    <div class="feature-card" style="border-color:#00695c;">
+      <div class="card-icon">🌤️</div>
+      <h4>Atmosphere</h4>
+      <p>The shared air and climate system surrounding Earth.</p>
+      <span class="zh-card">环绕地球的共享大气和气候系统。</span>
+    </div>
+    <div class="feature-card" style="border-color:#6a1b9a;">
+      <div class="card-icon">🧊</div>
+      <h4>Antarctica</h4>
+      <p>The frozen continent governed by international treaty.</p>
+      <span class="zh-card">由国际条约管理的冰冻大陆。</span>
+    </div>
+    <div class="feature-card" style="border-color:var(--pillar-eco);">
+      <div class="card-icon">🚀</div>
+      <h4>Outer Space</h4>
+      <p>The space beyond national airspace and celestial bodies.</p>
+      <span class="zh-card">超出国家领空的太空和天体。</span>
+    </div>
+  </div>
+
+  <div class="key-point" style="margin-top:20px;">
+    <p><strong>⚠️ Critical Point 关键要点:</strong> Pollution and human activities are degrading these shared domains. Local pollution can have global impacts — for example, the use of CFCs in one country contributed to worldwide ozone depletion. International cooperation is essential.</p>
+    <span class="zh-text">污染和人类活动正在退化这些共享领域。局部污染可能产生全球影响——例如，一个国家使用氟利昂导致了全球臭氧层破坏。国际合作至关重要。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6: CLIMATE CHANGE
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="climate">
+  <span class="section-label" style="background:var(--climate-light);color:var(--climate);">Section 6</span>
+  <h2><span class="emoji">🌡️</span> Climate Change</h2>
+  <p class="zh-title">气候变化</p>
+
+  <p><strong>Climate change</strong> refers to a change in climate over time, caused by both natural factors and human activities. <strong>Global warming</strong> is the increasing global temperatures due to trapped greenhouse gases (GHGs) in the atmosphere.</p>
+  <span class="zh-text"><strong>气候变化</strong>是指气候随时间的变化，由自然因素和人类活动共同引起。<strong>全球变暖</strong>是由于大气中温室气体（GHGs）被困而导致全球温度升高。</span>
+
+  <h3>Key Facts on Greenhouse Gases</h3>
+  <p class="zh-sub">温室气体关键事实</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">💨</span><div><strong>Primary GHG:</strong> Carbon Dioxide (CO₂) released from burning fossil fuels.<span class="zh-text">主要温室气体：燃烧化石燃料释放的二氧化碳（CO₂）。</span></div></li>
+    <li><span class="li-icon">📈</span><div><strong>Emissions Growth:</strong> CO₂ emissions quadrupled in the latter half of the 20th century.<span class="zh-text">排放增长：20世纪下半叶CO₂排放量翻了四倍。</span></div></li>
+    <li><span class="li-icon">⚡</span><div><strong>Energy Sector:</strong> Responsible for more than 50% of global emissions, primarily from coal-fired power plants.<span class="zh-text">能源部门：贡献超过全球排放量的50%，主要来自燃煤电厂。</span></div></li>
+    <li><span class="li-icon">✈️</span><div><strong>Transport Sector:</strong> Aviation, shipping, and road transport are major contributors.<span class="zh-text">交通运输部门：航空、航运和公路运输是主要贡献者。</span></div></li>
+    <li><span class="li-icon">🔴</span><div><strong>Record High:</strong> 37.1 Gt CO₂ equivalent recorded in 2017.<span class="zh-text">历史最高：2017年记录的37.1吉吨CO₂当量。</span></div></li>
+  </ul>
+
+  <h3>Acid Rain 酸雨</h3>
+  <p class="zh-sub">酸雨</p>
+
+  <p><strong>Acid rain</strong> is a byproduct of burning fossil fuels, resulting in nitric and sulphuric acids entering the atmosphere. It damages forests, buildings, and aquatic ecosystems.</p>
+  <span class="zh-text"><strong>酸雨</strong>是燃烧化石燃料的副产品，导致硝酸和硫酸进入大气。它破坏森林、建筑物和水生生态系统。</span>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 7: ENERGY SOURCES
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="energy">
+  <span class="section-label" style="background:var(--pillar-eco-light);color:var(--pillar-eco);">Section 7</span>
+  <h2><span class="emoji">⚡</span> Energy Sources</h2>
+  <p class="zh-title">能源来源</p>
+
+  <p>Fossil fuels — oil, coal, and gas — currently account for more than <strong>80%</strong> of the global energy mix. To meet the <strong>1.5°C</strong> Paris Agreement target, the world must dramatically decrease fossil fuel consumption and transition to renewable energy sources.</p>
+  <span class="zh-text">化石燃料——石油、煤炭和天然气——目前占全球能源组合的80%以上。为了达到巴黎协定的1.5°C目标，全球必须大幅减少化石燃料消耗，并向可再生能源过渡。</span>
+
+  <div class="feature-grid">
+    <div class="feature-card" style="border-color:#37474f;">
+      <div class="card-icon">⛽</div>
+      <h4>Fossil Fuels 化石燃料</h4>
+      <p>Oil, coal, and gas — over 80% of global energy. Non-renewable and major source of CO₂ emissions.</p>
+      <span class="zh-card">石油、煤炭和天然气——超过全球能源的80%。不可再生，是CO₂排放的主要来源。</span>
+    </div>
+    <div class="feature-card" style="border-color:var(--pillar-env);">
+      <div class="card-icon">🌤️</div>
+      <h4>Solar Energy 太阳能</h4>
+      <p>Harnessing sunlight through photovoltaic cells. Clean, abundant, and increasingly cost-competitive.</p>
+      <span class="zh-card">通过光伏电池利用阳光。清洁、丰富且成本越来越有竞争力。</span>
+    </div>
+    <div class="feature-card" style="border-color:#1565c0;">
+      <div class="card-icon">💨</div>
+      <h4>Wind Energy 风能</h4>
+      <p>Wind turbines converting kinetic energy into electricity. A rapidly growing renewable source.</p>
+      <span class="zh-card">风力涡轮机将动能转化为电能。快速增长的可再生能源。</span>
+    </div>
+  </div>
+
+  <div class="key-point">
+    <p><strong>🎯 Goal 目标:</strong> The transition to renewables (wind, solar) is crucial to decreasing fossil fuel dependency and meeting global climate targets.</p>
+    <span class="zh-text">向可再生能源（风能、太阳能）的过渡对于减少化石燃料依赖和实现全球气候目标至关重要。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 8: SUSTAINABLE DEVELOPMENT & SDGs
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="sdgs">
+  <span class="section-label" style="background:var(--sdg-light);color:var(--sdg);">Section 8</span>
+  <h2><span class="emoji">🎯</span> Sustainable Development &amp; SDGs</h2>
+  <p class="zh-title">可持续发展与可持续发展目标</p>
+
+  <p>The <strong>Brundtland Report (1987)</strong>, titled <em>"Our Common Future"</em>, was produced by the World Commission on Environment and Development. It established the interdependence of economic growth, environmental stewardship, and social inclusion.</p>
+  <span class="zh-text"><strong>布伦特兰报告（1987年）</strong>，标题为《我们共同的未来》，由世界环境与发展委员会编写。它确立了经济增长、环境管理和社会包容之间的相互依赖关系。</span>
+
+  <h3>UN 2030 Agenda: 17 SDGs</h3>
+  <p class="zh-sub">联合国2030议程：17个可持续发展目标</p>
+
+  <p>The United Nations adopted the <strong>2030 Agenda for Sustainable Development</strong>, which includes <strong>17 Sustainable Development Goals (SDGs)</strong> with <strong>169 targets</strong>. These goals provide a shared blueprint for peace and prosperity for people and the planet.</p>
+  <span class="zh-text">联合国通过了<strong>2030年可持续发展议程</strong>，其中包括<strong>17个可持续发展目标（SDGs）</strong>和<strong>169个具体目标</strong>。这些目标为人类和地球的和平与繁荣提供了共同蓝图。</span>
+
+  <div class="key-point">
+    <p><strong>🌍 Climate-Related SDGs 气候相关的可持续发展目标:</strong></p>
+    <ul class="highlight-list" style="margin-top:10px;">
+      <li><span class="li-icon">7️⃣</span><div><strong>SDG 7:</strong> Affordable and Clean Energy 经济适用的清洁能源</div></li>
+      <li><span class="li-icon">1️⃣3️⃣</span><div><strong>SDG 13:</strong> Climate Action 气候行动</div></li>
+      <li><span class="li-icon">1️⃣4️⃣</span><div><strong>SDG 14:</strong> Life Below Water 水下生物</div></li>
+      <li><span class="li-icon">1️⃣5️⃣</span><div><strong>SDG 15:</strong> Life on Land 陆地生物</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 9: MANAGING ENVIRONMENTAL IMPACTS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="impacts">
+  <span class="section-label" style="background:var(--consume-light);color:var(--consume);">Section 9</span>
+  <h2><span class="emoji">📊</span> Managing Environmental Impacts</h2>
+  <p class="zh-title">管理环境影响</p>
+
+  <p>Environmental impacts span three key components: <strong>land</strong>, <strong>water</strong>, and <strong>air</strong>. Business strategies should meet current needs while protecting future resources through a holistic approach that evaluates impact across all operations.</p>
+  <span class="zh-text">环境影响涵盖三个关键组成部分：<strong>土地</strong>、<strong>水</strong>和<strong>空气</strong>。商业策略应在满足当前需求的同时，通过全面评估所有运营影响的整体方法来保护未来资源。</span>
+
+  <h3>Triple Bottom Line Reporting</h3>
+  <p class="zh-sub">三重底线报告</p>
+
+  <div class="pillar-diagram">
+    <div class="pillar-card" style="border-color:#2e7d32;">
+      <div class="pillar-icon">💵</div>
+      <h4>Financial Performance</h4>
+      <p class="zh-pillar">财务绩效</p>
+      <p>Traditional financial reporting — profit, revenue, and economic value.</p>
+      <span class="zh-text">传统财务报告——利润、收入和经济价值。</span>
+    </div>
+    <div class="pillar-card" style="border-color:#1565c0;">
+      <div class="pillar-icon">🤝</div>
+      <h4>Social Performance</h4>
+      <p class="zh-pillar">社会绩效</p>
+      <p>Impact on employees, communities, and human rights.</p>
+      <span class="zh-text">对员工、社区和人权的影响。</span>
+    </div>
+    <div class="pillar-card" style="border-color:#e65100;">
+      <div class="pillar-icon">🌳</div>
+      <h4>Environmental Performance</h4>
+      <p class="zh-pillar">环境绩效</p>
+      <p>Ecological footprint, emissions, and resource use.</p>
+      <span class="zh-text">生态足迹、排放和资源使用。</span>
+    </div>
+  </div>
+
+  <div class="key-point">
+    <p><strong>📋 Sustainability Reporting 可持续发展报告:</strong> Sustainability reporting is becoming a key aspect of corporate governance, requiring businesses to disclose their environmental, social, and financial performance holistically.</p>
+    <span class="zh-text">可持续发展报告正在成为公司治理的关键方面，要求企业全面披露其环境、社会和财务绩效。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 10: SUSTAINABLE CONSUMPTION & PRODUCTION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="consumption">
+  <span class="section-label" style="background:var(--consume-light);color:var(--consume);">Section 10</span>
+  <h2><span class="emoji">♻️</span> Sustainable Consumption &amp; Production</h2>
+  <p class="zh-title">可持续消费与生产</p>
+
+  <p>The planet's resources are being consumed <strong>1.7 times faster</strong> than they can regenerate. This unsustainable rate demands fundamental changes in how we produce and consume goods.</p>
+  <span class="zh-text">地球的资源消耗速度是其再生速度的<strong>1.7倍</strong>。这种不可持续的速度要求我们从根本上改变生产和消费方式。</span>
+
+  <h3>Key Issues 关键问题</h3>
+  <p class="zh-sub">关键问题</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">🥤</span><div><strong>Plastic Waste Crisis 塑料废物危机:</strong> Single-use plastics dominate ocean waste. Government regulations are needed to address this growing crisis.<span class="zh-text">一次性塑料主导着海洋废物。需要政府法规来解决这一日益严重的危机。</span></div></li>
+    <li><span class="li-icon">🌿</span><div><strong>Green Consumerism 绿色消费主义:</strong> Sustainable transport, sustainable agriculture, and socially responsible investing are growing trends.<span class="zh-text">可持续交通、可持续农业和社会责任投资是日益增长的趋势。</span></div></li>
+    <li><span class="li-icon">🔄</span><div><strong>Lifecycle Perspective 生命周期视角:</strong> Evaluate products from production to disposal — a holistic view of environmental impact.<span class="zh-text">从生产到处置评估产品——环境影响的整体观。</span></div></li>
+    <li><span class="li-icon">🏠</span><div><strong>Consumer Responsibility 消费者责任:</strong> Household consumption patterns significantly contribute to GHG emissions.<span class="zh-text">家庭消费模式对温室气体排放有重大贡献。</span></div></li>
+  </ul>
+
+  <div class="key-point">
+    <p><strong>⚠️ Urgent Fact 紧急事实:</strong> We are consuming resources 1.7x faster than the Earth can regenerate them. Transitioning to a lifecycle perspective — evaluating products from production to disposal — is essential for a sustainable future.</p>
+    <span class="zh-text">我们消耗资源的速度是地球再生速度的1.7倍。过渡到生命周期视角——从生产到处置评估产品——对可持续的未来至关重要。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FLASHCARDS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="flashcards">
+  <span class="section-label" style="background:var(--pillar-env-light);color:var(--pillar-env);">Study Aid</span>
+  <h2><span class="emoji">🃏</span> Flashcards</h2>
+  <p class="zh-title">学习卡片 — 点击翻转</p>
+  <div id="flashcard-container"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     QUIZ
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="quiz">
+  <span class="section-label" style="background:var(--sdg-light);color:var(--sdg);">Test Yourself</span>
+  <h2><span class="emoji">🧠</span> Quiz</h2>
+  <p class="zh-title">测验 — 测试你的知识</p>
+  <div id="quiz-container"></div>
+  <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+</div><!-- end container -->
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p>Business Environments Learning Resource - UNSW College - Coroiu Marius &copy; 2025</p>
+</footer>
+
+<!-- Dark Mode Toggle -->
+<button id="dark-toggle" title="Toggle Dark Mode 切换深色模式">🌙</button>
+
+<!-- Frog Scroll-to-Top -->
+<button id="back-top" title="Back to Top 回到顶部">🐸</button>
+
+<script>
+(function(){
+  /* ══════════════ FLASHCARD DATA ══════════════ */
+  var flashcards = [
+    {term:"Sustainability",zh:"可持续发展",def:"Meeting present needs without compromising future generations (Brundtland 1987).",zhDef:"满足当前需求不损害未来世代满足自身需求的能力。"},
+    {term:"Three Pillars",zh:"三大支柱",def:"Environmental, Social, Economic — the three interconnected pillars of sustainability.",zhDef:"环境、社会、经济——可持续发展的三个相互关联的支柱。"},
+    {term:"Environmental Pillar",zh:"环境支柱",def:"Resource efficiency, pollution prevention, biodiversity conservation, and climate action.",zhDef:"资源效率、污染防治、生物多样性保护和气候行动。"},
+    {term:"Ecology",zh:"生态学",def:"Study of interactions between living organisms and their habitats.",zhDef:"研究生物与其栖息地之间的相互作用。"},
+    {term:"Biodiversity",zh:"生物多样性",def:"Variety, distribution and number of living organisms in a region or globally.",zhDef:"特定区域或全球范围内生物体的多样性、分布和数量。"},
+    {term:"Global Commons",zh:"全球公域",def:"Resource domains outside national jurisdiction: high seas, atmosphere, Antarctica, outer space.",zhDef:"国家管辖范围外的资源领域：公海、大气层、南极洲、外太空。"},
+    {term:"Greenhouse Gases",zh:"温室气体",def:"Trapped gases (mainly CO\u2082) causing global warming from burning fossil fuels.",zhDef:"被困气体（主要是CO\u2082）因燃烧化石燃料导致全球变暖。"},
+    {term:"SDGs",zh:"可持续发展目标",def:"17 UN goals with 169 targets under the 2030 Agenda for Sustainable Development.",zhDef:"联合国2030议程下的17个目标和169个具体目标。"},
+    {term:"Triple Bottom Line",zh:"三重底线",def:"Financial, Social, Environmental performance reporting framework for businesses.",zhDef:"企业的财务、社会、环境绩效报告框架。"},
+    {term:"Sustainable Consumption",zh:"可持续消费",def:"Lifecycle approach minimizing resource use, toxics, and waste from production to disposal.",zhDef:"从生产到处置最小化资源使用、有毒物质和废物的全生命周期方法。"}
+  ];
+
+  var fcContainer = document.getElementById("flashcard-container");
+  flashcards.forEach(function(fc){
+    var el = document.createElement("div");
+    el.className = "flashcard";
+    el.tabIndex = 0;
+    el.innerHTML =
+      '<div class="flashcard-inner">' +
+        '<div class="flashcard-front">' +
+          '<div class="fc-term">' + fc.term + '</div>' +
+          '<div class="fc-zh">' + fc.zh + '</div>' +
+          '<div class="fc-hint">click to flip</div>' +
+        '</div>' +
+        '<div class="flashcard-back">' +
+          '<p>' + fc.def + '</p>' +
+          '<p style="margin-top:8px;font-family:Noto Sans SC,sans-serif;color:var(--text-light);font-size:0.85rem;">' + fc.zhDef + '</p>' +
+        '</div>' +
+      '</div>';
+    el.addEventListener("click", function(){ el.classList.toggle("flipped"); });
+    fcContainer.appendChild(el);
+  });
+
+  /* ══════════════ QUIZ DATA ══════════════ */
+  var quizData = [
+    {q:"When was sustainability defined by the Brundtland Commission?",
+     qzh:"布伦特兰委员会何时定义了可持续发展？",
+     opts:["1972","1987","1992","2000"],correct:1},
+    {q:"Which is NOT a pillar of sustainability?",
+     qzh:"以下哪项不是可持续发展的支柱？",
+     opts:["Environmental","Technological","Social","Economic"],correct:1},
+    {q:"What are Global Commons?",
+     qzh:"什么是全球公域？",
+     opts:["National parks and reserves","Resource domains outside any country\u2019s jurisdiction","International trade agreements","United Nations buildings"],correct:1},
+    {q:"What is the primary greenhouse gas contributing to global warming?",
+     qzh:"导致全球变暖的主要温室气体是什么？",
+     opts:["Methane","CO\u2082 (Carbon Dioxide)","Ozone","Nitrogen"],correct:1},
+    {q:"How much faster are Earth\u2019s resources being consumed than they can regenerate?",
+     qzh:"地球资源的消耗速度比再生速度快多少？",
+     opts:["1.2 times","1.7 times","2.5 times","3.0 times"],correct:1},
+    {q:"What was the record CO\u2082 emission level in 2017?",
+     qzh:"2017年的CO\u2082排放记录是多少？",
+     opts:["25.3 Gt","37.1 Gt","42.7 Gt","50.1 Gt"],correct:1},
+    {q:"How many Sustainable Development Goals (SDGs) are there?",
+     qzh:"有多少个可持续发展目标（SDGs）？",
+     opts:["10","15","17","20"],correct:2},
+    {q:"Which SDGs directly address climate and environment?",
+     qzh:"哪些SDGs直接涉及气候和环境？",
+     opts:["SDGs 1, 2, 3, 4","SDGs 5, 6, 8, 9","SDGs 7, 13, 14, 15","SDGs 10, 11, 12, 16"],correct:2}
+  ];
+
+  var quizScore = 0;
+  var quizAnswered = 0;
+  var quizContainer = document.getElementById("quiz-container");
+
+  quizData.forEach(function(qd, qi){
+    var qDiv = document.createElement("div");
+    qDiv.className = "quiz-q";
+    var optsHTML = "";
+    qd.opts.forEach(function(opt, oi){
+      optsHTML += '<div class="quiz-opt" data-q="' + qi + '" data-o="' + oi + '">' + opt + '</div>';
+    });
+    qDiv.innerHTML =
+      '<div class="q-text"><span class="q-num">Q' + (qi+1) + '.</span> ' + qd.q +
+      '<span class="q-zh">' + qd.qzh + '</span></div>' +
+      '<div class="quiz-options">' + optsHTML + '</div>';
+    quizContainer.appendChild(qDiv);
+  });
+
+  quizContainer.addEventListener("click", function(e){
+    var opt = e.target.closest(".quiz-opt");
+    if(!opt || opt.classList.contains("correct") || opt.classList.contains("wrong") || opt.classList.contains("disabled")) return;
+    var qi = parseInt(opt.getAttribute("data-q"));
+    var oi = parseInt(opt.getAttribute("data-o"));
+    var allOpts = quizContainer.querySelectorAll('.quiz-opt[data-q="' + qi + '"]');
+    var isCorrect = oi === quizData[qi].correct;
+
+    if(isCorrect){
+      opt.classList.add("correct");
+      quizScore++;
+    } else {
+      opt.classList.add("wrong");
+      allOpts[quizData[qi].correct].classList.add("correct");
+    }
+    allOpts.forEach(function(o){ if(!o.classList.contains("correct") && !o.classList.contains("wrong")) o.classList.add("disabled"); });
+    quizAnswered++;
+
+    if(quizAnswered === quizData.length){
+      var pct = Math.round((quizScore/quizData.length)*100);
+      var resultEl = document.getElementById("quiz-result");
+      resultEl.innerHTML = '<h3 style="font-size:1.5rem;margin-bottom:8px;">' +
+        (pct >= 80 ? "🎉 Excellent!" : pct >= 50 ? "👍 Good effort!" : "📚 Keep studying!") +
+        '</h3><p style="font-size:1.1rem;">You scored ' + quizScore + '/' + quizData.length + ' (' + pct + '%)</p>' +
+        '<p style="font-family:Noto Sans SC,sans-serif;font-size:0.95rem;opacity:0.85;margin-top:4px;">你得了 ' + quizScore + '/' + quizData.length + ' (' + pct + '%)</p>';
+      resultEl.classList.add("show");
+      if(pct >= 50) launchConfetti();
+    }
+  });
+
+  /* ══════════════ CONFETTI ══════════════ */
+  function launchConfetti(){
+    var colors = ["#2e7d32","#43a047","#66bb6a","#e8f5e9","#ffeb3b","#ff9800","#e91e63","#2196f3"];
+    for(var i = 0; i < 100; i++){
+      var piece = document.createElement("div");
+      piece.className = "confetti-piece";
+      piece.style.left = Math.random()*100 + "vw";
+      piece.style.width = (Math.random()*8+4) + "px";
+      piece.style.height = (Math.random()*8+4) + "px";
+      piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.animationDuration = (Math.random()*2+2) + "s";
+      piece.style.animationDelay = (Math.random()*1.5) + "s";
+      piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
+      document.body.appendChild(piece);
+      (function(p){ setTimeout(function(){ p.remove(); }, 5000); })(piece);
+    }
+  }
+
+  /* ══════════════ PROGRESS BAR ══════════════ */
+  var progressBar = document.getElementById("progress-bar");
+  window.addEventListener("scroll", function(){
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = pct + "%";
+  });
+
+  /* ══════════════ SCROLL REVEAL ══════════════ */
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, {threshold: 0.1});
+  document.querySelectorAll(".section").forEach(function(s){ observer.observe(s); });
+
+  /* ══════════════ TOC ACTIVE STATE ══════════════ */
+  var tocLinks = document.querySelectorAll("#toc-bar a");
+  var sectionIds = [];
+  tocLinks.forEach(function(a){ sectionIds.push(a.getAttribute("href").substring(1)); });
+
+  window.addEventListener("scroll", function(){
+    var scrollPos = window.scrollY + 120;
+    sectionIds.forEach(function(id, i){
+      var el = document.getElementById(id);
+      if(el && el.offsetTop <= scrollPos && el.offsetTop + el.offsetHeight > scrollPos){
+        tocLinks.forEach(function(a){ a.classList.remove("active"); });
+        tocLinks[i].classList.add("active");
+      }
+    });
+  });
+
+  /* ══════════════ DARK MODE ══════════════ */
+  var darkToggle = document.getElementById("dark-toggle");
+  var isDark = localStorage.getItem("darkMode") === "true";
+  if(isDark) document.body.classList.add("dark-mode");
+  updateDarkIcon();
+
+  darkToggle.addEventListener("click", function(){
+    document.body.classList.toggle("dark-mode");
+    isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDark);
+    updateDarkIcon();
+  });
+
+  function updateDarkIcon(){
+    darkToggle.textContent = document.body.classList.contains("dark-mode") ? "\u2600\uFE0F" : "\uD83C\uDF19";
+  }
+
+  /* ══════════════ FROG SCROLL-TO-TOP ══════════════ */
+  var backTop = document.getElementById("back-top");
+  window.addEventListener("scroll", function(){
+    if(window.scrollY > 400) backTop.classList.add("show");
+    else backTop.classList.remove("show");
+  });
+  backTop.addEventListener("click", function(){
+    window.scrollTo({top:0, behavior:"smooth"});
+    try { new Audio("ribbit.mp3").play(); } catch(e){}
+  });
+
+  /* ══════════════ SMOOTH SCROLL FOR TOC ══════════════ */
+  document.querySelectorAll('#toc-bar a').forEach(function(a){
+    a.addEventListener("click", function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute("href"));
+      if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+
+})();
+</script>
 </body>
 </html>
