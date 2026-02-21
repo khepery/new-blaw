@@ -671,8 +671,9 @@ playBark();
 window.scrollTo({top:0,behavior:"smooth"});
 }
 
+var barkAudio=new Audio("bark.mp3");barkAudio.volume=0.7;barkAudio.preload="auto";
 function playBark(){
-try{var a=new Audio("bark.mp3");a.volume=0.7;a.play();}catch(e){}
+try{barkAudio.currentTime=0;barkAudio.play();}catch(e){}
 }
 
 var observer=new IntersectionObserver(function(entries){
