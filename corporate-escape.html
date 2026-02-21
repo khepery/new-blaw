@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORPORATE ESCAPE // NexCorp Tower</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+}
+
+/* ===== 16:9 GAME WRAPPER ===== */
+#game-wrapper {
+  position: relative;
+  width: 100vw;
+  height: calc(100vw * 9 / 16);
+  max-width: 1280px;
+  max-height: 720px;
+  background: #03080f;
+  overflow: hidden;
+  box-shadow: 0 0 80px rgba(0,255,255,0.15), 0 0 200px rgba(0,100,255,0.08);
+}
+
+/* Constrain height when viewport is too short */
+@media (max-aspect-ratio: 16/9) {
+  #game-wrapper {
+    width: calc(100vh * 16 / 9);
+    height: 100vh;
+  }
+}
+
+/* ===== ANIMATED BACKGROUND LAYERS ===== */
+.bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-drift 25s linear infinite;
+  z-index: 0;
+}
+@keyframes grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+/* City skyline backdrop */
+.bg-city {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 45%;
+  z-index: 1;
+  pointer-events: none;
+}
+.bg-city svg { width: 100%; height: 100%; display: block; }
+
+/* Atmosphere glow */
+.bg-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,80,160,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 20% at 20% 110%, rgba(0,200,255,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 20% at 80% 110%, rgba(60,0,200,0.12) 0%, transparent 60%);
+  z-index: 2; pointer-events: none;
+}
+
+/* Scanlines overlay */
+.bg-scanlines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.12) 3px,
+    rgba(0,0,0,0.12) 4px
+  );
+  z-index: 98; pointer-events: none;
+}
+
+/* ===== HUD ===== */
+#hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 100%);
+  z-index: 50;
+  pointer-events: none;
+}
+
+.hud-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(0,255,255,0.5);
+  text-transform: uppercase;
+}
+.hud-left, .hud-right {
+  display: flex; align-items: center; gap: 18px;
+}
+.hud-floor {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff8;
+}
+.hud-divider {
+  width: 1px; height: 22px;
+  background: linear-gradient(to bottom, transparent, #0ff4, transparent);
+}
+.hud-battery-wrap {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.55rem; color: #0f9; letter-spacing: 2px;
+}
+.battery-bar {
+  display: flex; gap: 2px; align-items: center;
+}
+.battery-seg {
+  width: 10px; height: 12px;
+  background: #0f9;
+  border: 1px solid #0f96;
+  transition: background 0.4s, border-color 0.4s;
+  box-shadow: 0 0 4px #0f96;
+}
+.battery-seg.empty {
+  background: transparent;
+  border-color: #0f93;
+  box-shadow: none;
+}
+.battery-cap {
+  width: 3px; height: 6px;
+  background: #0f96;
+  border-radius: 0 1px 1px 0;
+}
+.hud-rec {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.6rem; color: #f55; letter-spacing: 3px;
+}
+.rec-dot {
+  width: 7px; height: 7px;
+  background: #f55; border-radius: 50%;
+  box-shadow: 0 0 8px #f55;
+  animation: blink 1.2s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ===== SCREENS ===== */
+.screen {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.45s ease;
+  z-index: 10;
+}
+.screen.active { opacity: 1; pointer-events: all; }
+.screen.slide-in  { animation: slideIn 0.45s ease forwards; }
+.screen.slide-out { animation: slideOut 0.45s ease forwards; }
+@keyframes slideIn  { from{ transform:translateX(60px);opacity:0 } to{ transform:translateX(0);opacity:1 } }
+@keyframes slideOut { from{ transform:translateX(0);opacity:1 } to{ transform:translateX(-60px);opacity:0 } }
+
+/* ===== GLITCH EFFECT ===== */
+.glitch {
+  position: relative;
+  animation: glitch-main 4s infinite;
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; top: 0; left: 0; width: 100%;
+  overflow: hidden;
+}
+.glitch::before {
+  color: #0ff; clip-path: polygon(0 15%,100% 15%,100% 30%,0 30%);
+  animation: glitch-top 4s infinite; opacity: 0.8;
+}
+.glitch::after {
+  color: #f0f; clip-path: polygon(0 65%,100% 65%,100% 80%,0 80%);
+  animation: glitch-bot 4s infinite; opacity: 0.8;
+}
+@keyframes glitch-main {
+  0%,90%,100%{ transform:none } 92%{ transform:skewX(-2deg) } 94%{ transform:skewX(2deg) }
+}
+@keyframes glitch-top {
+  0%,89%,100%{ transform:none;opacity:0 }
+  90%{ transform:translate(-3px,1px);opacity:0.7 }
+  92%{ transform:translate(3px,-1px);opacity:0.7 }
+  94%{ transform:none;opacity:0 }
+}
+@keyframes glitch-bot {
+  0%,88%,100%{ transform:none;opacity:0 }
+  89%{ transform:translate(3px,1px);opacity:0.7 }
+  91%{ transform:translate(-3px,-1px);opacity:0.7 }
+  93%{ transform:none;opacity:0 }
+}
+
+/* ===== BOOT SCREEN ===== */
+#screen-boot {
+  gap: 18px;
+  background: radial-gradient(ellipse 80% 60% at 50% 60%, #050d1a 0%, #000 100%);
+}
+.boot-logo-wrap {
+  margin-bottom: 6px;
+  filter: drop-shadow(0 0 20px rgba(0,255,255,0.6));
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100%{ filter:drop-shadow(0 0 16px rgba(0,255,255,0.5)) }
+  50%{ filter:drop-shadow(0 0 32px rgba(0,255,255,0.9)) }
+}
+.boot-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  color: #fff;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px #0ff, 0 0 40px #0ff8, 0 0 80px #0ff4;
+}
+.boot-subtitle {
+  font-size: clamp(0.5rem, 1.5vw, 0.8rem);
+  color: rgba(0,255,255,0.6);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+.boot-version {
+  font-size: 0.55rem;
+  color: rgba(0,255,255,0.3);
+  letter-spacing: 3px;
+  margin-top: 4px;
+}
+.boot-prompt {
+  font-size: clamp(0.5rem,1.2vw,0.7rem);
+  color: #0ff;
+  letter-spacing: 4px;
+  animation: blink 1s step-end infinite;
+  margin-top: 12px;
+}
+
+/* ===== GENERIC BUTTONS ===== */
+.btn {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(0.5rem, 1.2vw, 0.7rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #0ff;
+  background: transparent;
+  border: 2px solid rgba(0,255,255,0.4);
+  padding: 10px 24px;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.1s;
+  clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.btn::before {
+  content: '';
+  position: absolute; top: 0; left: -110%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,255,255,0.18), transparent);
+  transition: left 0.5s;
+}
+.btn:hover::before { left: 110%; }
+.btn:hover {
+  border-color: #0ff;
+  color: #fff;
+  box-shadow: 0 0 24px rgba(0,255,255,0.35), inset 0 0 16px rgba(0,255,255,0.08);
+}
+.btn:active { transform: scale(0.95); }
+
+/* ===== CONTENT PANEL ===== */
+.content-panel {
+  background: rgba(0,8,20,0.82);
+  border: 1px solid rgba(0,255,255,0.15);
+  backdrop-filter: blur(6px);
+  padding: clamp(16px,2.5vw,28px);
+  max-width: 700px; width: 90%;
+}
+.content-panel::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0ff, transparent);
+  margin-bottom: 12px;
+}
+
+/* ===== FLOOR HEADER ===== */
+.floor-header {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(0.5rem,1.2vw,0.7rem);
+  letter-spacing: 5px;
+  color: #0ff;
+  text-align: center;
+  margin-bottom: 14px;
+  text-shadow: 0 0 12px #0ff8;
+}
+.floor-header span { color: rgba(0,255,255,0.5); }
+
+.question-box {
+  font-size: clamp(0.6rem,1.4vw,0.82rem);
+  color: #b8d8f8;
+  line-height: 1.7;
+  text-align: center;
+  padding: 12px;
+  border: 1px solid rgba(0,255,255,0.1);
+  background: rgba(0,255,255,0.03);
+  margin-bottom: 14px;
+}
+
+/* ===== ANSWER BUTTONS ===== */
+.answers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.answer-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.5rem,1.1vw,0.65rem);
+  line-height: 1.4;
+  color: #7ac;
+  background: rgba(0,20,40,0.6);
+  border: 1px solid rgba(0,180,255,0.25);
+  padding: 9px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+  position: relative; overflow: hidden;
+}
+.answer-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -110%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,200,255,0.1), transparent);
+  transition: left 0.4s;
+}
+.answer-btn:not(:disabled):hover::before { left: 110%; }
+.answer-btn:not(:disabled):hover {
+  border-color: #0ff;
+  color: #fff;
+  background: rgba(0,255,255,0.06);
+}
+.answer-btn:disabled { cursor: default; }
+.answer-btn.correct {
+  border-color: #0f8 !important;
+  color: #0f8 !important;
+  background: rgba(0,200,100,0.1) !important;
+  box-shadow: 0 0 12px rgba(0,200,80,0.4);
+}
+.answer-btn.wrong {
+  border-color: #f44 !important;
+  color: #f44 !important;
+  background: rgba(255,50,50,0.1) !important;
+  box-shadow: 0 0 12px rgba(255,50,50,0.4);
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-6px)}
+  40%,80%{transform:translateX(6px)}
+}
+.feedback-row {
+  display: flex; justify-content: center;
+  margin-top: 12px; min-height: 28px;
+}
+.feedback-msg {
+  font-size: clamp(0.5rem,1.1vw,0.65rem);
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  border: 1px solid;
+}
+.feedback-msg.ok  { color:#0f8; border-color:#0f84; background:rgba(0,200,80,0.06); }
+.feedback-msg.err { color:#f44; border-color:#f444; background:rgba(255,50,50,0.06); }
+
+/* ===== DIALOGUE BOX ===== */
+#dialogue-box {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 22%;
+  background: rgba(0,5,18,0.93);
+  border-top: 2px solid rgba(0,255,255,0.3);
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 14px;
+  z-index: 60;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+#dialogue-box.hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+#dialogue-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #0ff, transparent);
+}
+
+/* Aegis avatar */
+.aegis-avatar {
+  flex-shrink: 0;
+  width: clamp(52px,7vw,76px);
+  height: clamp(52px,7vw,76px);
+  filter: drop-shadow(0 0 8px rgba(0,255,255,0.6));
+  animation: aegis-idle 3s ease-in-out infinite;
+}
+@keyframes aegis-idle {
+  0%,100%{ filter:drop-shadow(0 0 8px rgba(0,255,255,0.5)) }
+  50%{ filter:drop-shadow(0 0 18px rgba(0,255,255,0.9)) }
+}
+.aegis-avatar.talking { animation: aegis-talk 0.4s ease-in-out infinite; }
+@keyframes aegis-talk {
+  0%,100%{ transform:scale(1) }
+  50%{ transform:scale(1.04) }
+}
+
+.dialogue-content { flex: 1; min-width: 0; }
+#dialogue-speaker {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(0.45rem,1vw,0.62rem);
+  letter-spacing: 4px;
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff;
+  margin-bottom: 5px;
+}
+#dialogue-text {
+  font-size: clamp(0.5rem,1.1vw,0.7rem);
+  color: #d0e8ff;
+  line-height: 1.55;
+  min-height: 2.5em;
+}
+#dialogue-continue {
+  font-size: 0.55rem;
+  color: rgba(0,255,255,0.55);
+  letter-spacing: 2px;
+  margin-top: 5px;
+  animation: blink 1s step-end infinite;
+  display: none;
+}
+
+/* ===== FLOOR 5: DRAG AND DROP ===== */
+#screen-floor5 .content-panel {
+  max-width: 840px;
+  padding: clamp(10px,2vw,18px);
+}
+.dnd-wrapper {
+  display: flex;
+  gap: clamp(12px,2vw,24px);
+  align-items: flex-start;
+}
+.dnd-col { flex: 1; min-width: 0; }
+.dnd-col-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: rgba(0,180,255,0.6);
+  text-align: center;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0,255,255,0.15);
+}
+
+/* Data drives (draggable items) */
+.data-drive {
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #061424 0%, #0c2040 100%);
+  border: 1px solid rgba(0,180,255,0.35);
+  padding: 7px 10px;
+  margin-bottom: 5px;
+  cursor: grab;
+  font-size: clamp(0.45rem,1vw,0.6rem);
+  color: #7ce0ff;
+  transition: all 0.2s;
+  user-select: none;
+  position: relative;
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+}
+.data-drive:hover {
+  border-color: #0ff;
+  box-shadow: 0 0 14px rgba(0,255,255,0.25);
+  background: linear-gradient(135deg, #0a1f38 0%, #142e54 100%);
+  transform: translateX(4px);
+}
+.data-drive.dragging {
+  opacity: 0.4; cursor: grabbing;
+  transform: scale(0.98);
+}
+.data-drive.placed { opacity: 0.35; cursor: default; pointer-events: none; }
+.drive-icon { font-size: 0.8rem; flex-shrink: 0; }
+.drive-label { flex: 1; line-height: 1.3; }
+
+/* Server slots (drop targets) */
+.server-slot {
+  display: flex; align-items: center; gap: 8px;
+  border: 1px dashed rgba(0,180,80,0.4);
+  min-height: 38px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  font-size: clamp(0.45rem,1vw,0.58rem);
+  color: rgba(0,180,80,0.5);
+  transition: all 0.2s;
+  position: relative;
+  background: rgba(0,20,10,0.4);
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+}
+.server-slot.drag-over {
+  border-color: #0ff;
+  background: rgba(0,255,255,0.07);
+  box-shadow: 0 0 12px rgba(0,255,255,0.3) inset;
+}
+.server-slot.filled {
+  border-style: solid;
+  border-color: rgba(0,180,255,0.4);
+  color: #7ce0ff;
+}
+.server-slot.correct-slot {
+  border-color: #0f8 !important;
+  background: rgba(0,200,80,0.1) !important;
+  box-shadow: 0 0 14px rgba(0,200,80,0.3) !important;
+}
+.server-slot.wrong-slot {
+  border-color: #f44 !important;
+  background: rgba(255,50,50,0.1) !important;
+  animation: flash-red 0.6s ease;
+}
+@keyframes flash-red {
+  0%,100%{ background:rgba(255,50,50,0.1) }
+  50%{ background:rgba(255,50,50,0.25) }
+}
+.slot-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.55rem;
+  color: rgba(0,180,80,0.5);
+  flex-shrink: 0; width: 16px;
+}
+.slot-content { flex: 1; line-height: 1.3; }
+.slot-empty-label { font-style: italic; opacity: 0.5; font-size: 0.5rem; }
+.remove-btn {
+  font-size: 0.7rem; cursor: pointer;
+  color: rgba(255,100,100,0.5); flex-shrink: 0;
+  transition: color 0.15s;
+  background: none; border: none; padding: 2px 4px;
+  line-height: 1;
+}
+.remove-btn:hover { color: #f55; }
+
+.dnd-actions {
+  display: flex; justify-content: center; gap: 12px;
+  margin-top: 10px;
+}
+
+/* ===== WIN SCREEN ===== */
+#screen-win {
+  background: radial-gradient(ellipse 80% 60% at 50% 60%, #020d05 0%, #000 100%);
+  gap: 14px;
+}
+.win-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(1.2rem,3.5vw,2.2rem);
+  color: #0f8;
+  letter-spacing: 6px;
+  text-shadow: 0 0 20px #0f8, 0 0 50px #0f84;
+  animation: win-pulse 2s ease-in-out infinite;
+}
+@keyframes win-pulse {
+  0%,100%{ text-shadow:0 0 20px #0f8,0 0 50px #0f84 }
+  50%{ text-shadow:0 0 40px #0f8,0 0 80px #0f8,0 0 120px #0f86 }
+}
+@keyframes spin-rays {
+  from{ transform:translate(-50%,-50%) rotate(0deg) }
+  to{ transform:translate(-50%,-50%) rotate(360deg) }
+}
+.win-sub {
+  font-size: clamp(0.5rem,1.2vw,0.7rem);
+  color: rgba(0,255,128,0.6);
+  letter-spacing: 4px;
+  text-align: center;
+}
+.win-stats {
+  font-size: clamp(0.45rem,1vw,0.6rem);
+  color: rgba(0,255,128,0.45);
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* ===== UTILITY ===== */
+.mt-8  { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.tc    { text-align: center; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="game-wrapper">
+
+  <!-- ===== BACKGROUND ===== -->
+  <div class="bg-grid"></div>
+
+  <!-- City skyline SVG -->
+  <div class="bg-city">
+    <svg viewBox="0 0 1280 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <linearGradient id="sky-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#000814" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000814" stop-opacity="1"/>
+        </linearGradient>
+        <filter id="glow-city">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Far buildings silhouette -->
+      <g fill="#060d1a" filter="url(#glow-city)">
+        <rect x="0"    y="180" width="60"  height="80"/>
+        <rect x="55"   y="160" width="40"  height="100"/>
+        <rect x="90"   y="140" width="55"  height="120"/>
+        <rect x="140"  y="170" width="35"  height="90"/>
+        <rect x="170"  y="150" width="50"  height="110"/>
+        <rect x="215"  y="120" width="65"  height="140"/>
+        <rect x="275"  y="160" width="40"  height="100"/>
+        <rect x="310"  y="100" width="80"  height="160"/>
+        <rect x="385"  y="150" width="45"  height="110"/>
+        <rect x="425"  y="130" width="60"  height="130"/>
+        <rect x="480"  y="80"  width="90"  height="180"/>
+        <rect x="565"  y="140" width="50"  height="120"/>
+        <rect x="610"  y="110" width="70"  height="150"/>
+        <rect x="675"  y="90"  width="85"  height="170"/>
+        <rect x="755"  y="150" width="45"  height="110"/>
+        <rect x="795"  y="120" width="65"  height="140"/>
+        <rect x="855"  y="75"  width="95"  height="185"/>
+        <rect x="945"  y="145" width="50"  height="115"/>
+        <rect x="990"  y="105" width="75"  height="155"/>
+        <rect x="1060" y="135" width="55"  height="125"/>
+        <rect x="1110" y="160" width="40"  height="100"/>
+        <rect x="1145" y="115" width="70"  height="145"/>
+        <rect x="1210" y="155" width="45"  height="105"/>
+        <rect x="1250" y="130" width="30"  height="130"/>
+      </g>
+      <!-- Window lights on buildings -->
+      <g fill="none">
+        <!-- Row of yellow windows on tall buildings -->
+        <rect x="488" y="100" width="4" height="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="496" y="100" width="4" height="3" fill="rgba(255,220,100,0.5)"/>
+        <rect x="504" y="100" width="4" height="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="488" y="108" width="4" height="3" fill="rgba(255,220,100,0.4)"/>
+        <rect x="504" y="108" width="4" height="3" fill="rgba(255,220,100,0.6)"/>
+        <rect x="488" y="116" width="4" height="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="496" y="116" width="4" height="3" fill="rgba(255,220,100,0.5)"/>
+        <rect x="488" y="124" width="4" height="3" fill="rgba(255,220,100,0.3)"/>
+        <rect x="504" y="124" width="4" height="3" fill="rgba(255,220,100,0.6)"/>
+
+        <rect x="862" y="90" width="4" height="3" fill="rgba(255,220,100,0.6)"/>
+        <rect x="870" y="90" width="4" height="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="878" y="90" width="4" height="3" fill="rgba(255,220,100,0.4)"/>
+        <rect x="862" y="99" width="4" height="3" fill="rgba(255,220,100,0.5)"/>
+        <rect x="878" y="99" width="4" height="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="862" y="108" width="4" height="3" fill="rgba(255,220,100,0.6)"/>
+        <rect x="870" y="108" width="4" height="3" fill="rgba(255,220,100,0.3)"/>
+        <rect x="878" y="108" width="4" height="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="862" y="117" width="4" height="3" fill="rgba(255,220,100,0.5)"/>
+        <rect x="862" y="126" width="4" height="3" fill="rgba(255,220,100,0.4)"/>
+        <rect x="870" y="126" width="4" height="3" fill="rgba(255,220,100,0.6)"/>
+
+        <rect x="315" y="115" width="4" height="3" fill="rgba(100,200,255,0.5)"/>
+        <rect x="323" y="115" width="4" height="3" fill="rgba(100,200,255,0.7)"/>
+        <rect x="331" y="115" width="4" height="3" fill="rgba(100,200,255,0.4)"/>
+        <rect x="315" y="124" width="4" height="3" fill="rgba(100,200,255,0.6)"/>
+        <rect x="323" y="124" width="4" height="3" fill="rgba(100,200,255,0.3)"/>
+        <rect x="331" y="124" width="4" height="3" fill="rgba(100,200,255,0.7)"/>
+        <rect x="315" y="133" width="4" height="3" fill="rgba(100,200,255,0.5)"/>
+        <rect x="331" y="133" width="4" height="3" fill="rgba(100,200,255,0.6)"/>
+        <rect x="323" y="142" width="4" height="3" fill="rgba(100,200,255,0.4)"/>
+
+        <rect x="683" y="105" width="4" height="3" fill="rgba(255,180,100,0.6)"/>
+        <rect x="691" y="105" width="4" height="3" fill="rgba(255,180,100,0.4)"/>
+        <rect x="699" y="105" width="4" height="3" fill="rgba(255,180,100,0.7)"/>
+        <rect x="707" y="105" width="4" height="3" fill="rgba(255,180,100,0.5)"/>
+        <rect x="683" y="114" width="4" height="3" fill="rgba(255,180,100,0.3)"/>
+        <rect x="699" y="114" width="4" height="3" fill="rgba(255,180,100,0.6)"/>
+        <rect x="683" y="123" width="4" height="3" fill="rgba(255,180,100,0.5)"/>
+        <rect x="691" y="123" width="4" height="3" fill="rgba(255,180,100,0.7)"/>
+        <rect x="707" y="123" width="4" height="3" fill="rgba(255,180,100,0.4)"/>
+      </g>
+      <!-- Ground horizon glow -->
+      <rect x="0" y="245" width="1280" height="15" fill="rgba(0,80,160,0.15)"/>
+      <!-- Sky gradient overlay -->
+      <rect x="0" y="0" width="1280" height="260" fill="url(#sky-grad)"/>
+    </svg>
+  </div>
+
+  <div class="bg-glow"></div>
+  <div class="bg-scanlines"></div>
+
+  <!-- ===== HUD ===== -->
+  <div id="hud">
+    <div class="hud-left">
+      <div class="hud-logo">NexCorp Sec</div>
+      <div class="hud-divider"></div>
+      <div class="hud-floor" id="hud-floor">FLOOR 0/5</div>
+    </div>
+    <div class="hud-right">
+      <div class="hud-battery-wrap">
+        <span>PWR</span>
+        <div class="battery-bar" id="battery-bar">
+          <div class="battery-seg" data-seg="1"></div>
+          <div class="battery-seg" data-seg="2"></div>
+          <div class="battery-seg" data-seg="3"></div>
+          <div class="battery-seg" data-seg="4"></div>
+          <div class="battery-seg" data-seg="5"></div>
+          <div class="battery-cap"></div>
+        </div>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-rec"><div class="rec-dot"></div>REC</div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: BOOT ===== -->
+  <div id="screen-boot" class="screen active">
+    <div class="boot-logo-wrap">
+      <!-- NexCorp logo SVG -->
+      <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="logo-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#0ff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#0ff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="45" cy="45" r="44" fill="#050a14" stroke="#0ff" stroke-width="1.5" opacity="0.8"/>
+        <circle cx="45" cy="45" r="36" fill="none" stroke="rgba(0,255,255,0.2)" stroke-width="1" stroke-dasharray="4 3"/>
+        <!-- Hexagon -->
+        <polygon points="45,12 72,28 72,62 45,78 18,62 18,28" fill="none" stroke="#0ff" stroke-width="1.5" opacity="0.7"/>
+        <!-- Inner eye -->
+        <circle cx="45" cy="45" r="14" fill="#061828" stroke="#0ff" stroke-width="1.5"/>
+        <circle cx="45" cy="45" r="7"  fill="#0ff" opacity="0.9"/>
+        <circle cx="48" cy="42" r="2"  fill="#fff" opacity="0.8"/>
+        <!-- Scan line -->
+        <line x1="31" y1="45" x2="59" y2="45" stroke="#0ff" stroke-width="0.7" opacity="0.5"/>
+        <!-- Corner ticks -->
+        <line x1="45" y1="6"  x2="45" y2="10" stroke="#0ff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="45" y1="80" x2="45" y2="84" stroke="#0ff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="6"  y1="45" x2="10" y2="45" stroke="#0ff" stroke-width="1.5" opacity="0.8"/>
+        <line x1="80" y1="45" x2="84" y2="45" stroke="#0ff" stroke-width="1.5" opacity="0.8"/>
+      </svg>
+    </div>
+    <h1 class="boot-title glitch" data-text="CORPORATE ESCAPE">CORPORATE ESCAPE</h1>
+    <p class="boot-subtitle">NexCorp Tower &nbsp;//&nbsp; Security Breach Protocol</p>
+    <p class="boot-version">SYSTEM v2.7.1 &nbsp;|&nbsp; CLASSIFIED: TOP SECRET</p>
+    <p class="boot-prompt" id="boot-prompt">▶ PRESS ANY KEY TO BEGIN ◀</p>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR 1 ===== -->
+  <div id="screen-floor1" class="screen">
+    <div class="content-panel">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 01 &nbsp;// LOBBY TERMINAL &nbsp;<span>◈</span>
+      </div>
+      <div class="question-box" id="q1-text">
+        SECURITY QUERY 01 — Loading…
+      </div>
+      <div class="answers-grid" id="q1-answers"></div>
+      <div class="feedback-row"><div id="q1-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR 2 ===== -->
+  <div id="screen-floor2" class="screen">
+    <div class="content-panel">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 02 &nbsp;// ARCHIVE VAULT &nbsp;<span>◈</span>
+      </div>
+      <div class="question-box" id="q2-text">
+        SECURITY QUERY 02 — Loading…
+      </div>
+      <div class="answers-grid" id="q2-answers"></div>
+      <div class="feedback-row"><div id="q2-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR 3 ===== -->
+  <div id="screen-floor3" class="screen">
+    <div class="content-panel">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 03 &nbsp;// LAW MAINFRAME &nbsp;<span>◈</span>
+      </div>
+      <div class="question-box" id="q3-text">
+        SECURITY QUERY 03 — Loading…
+      </div>
+      <div class="answers-grid" id="q3-answers"></div>
+      <div class="feedback-row"><div id="q3-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR 4 ===== -->
+  <div id="screen-floor4" class="screen">
+    <div class="content-panel">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 04 &nbsp;// EXECUTIVE LEVEL &nbsp;<span>◈</span>
+      </div>
+      <div class="question-box" id="q4-text">
+        SECURITY QUERY 04 — Loading…
+      </div>
+      <div class="answers-grid" id="q4-answers"></div>
+      <div class="feedback-row"><div id="q4-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR 5 (DRAG-AND-DROP) ===== -->
+  <div id="screen-floor5" class="screen">
+    <div class="content-panel" style="max-width:840px;width:94%;">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 05 &nbsp;// MAINFRAME CORE — FINAL LOCK &nbsp;<span>◈</span>
+      </div>
+      <div class="question-box" style="font-size:clamp(0.48rem,1vw,0.62rem);margin-bottom:10px;">
+        Arrange the Australian Court Hierarchy into the server slots — slot 1 = HIGHEST authority, slot 5 = LOWEST.
+        Drag each data drive and drop it into the correct slot to unlock the exit.
+      </div>
+      <div class="dnd-wrapper">
+        <!-- Source column -->
+        <div class="dnd-col" id="drives-col">
+          <div class="dnd-col-label">◄ DATA DRIVES ►</div>
+          <div id="drives-container"></div>
+        </div>
+        <!-- Target column -->
+        <div class="dnd-col" id="slots-col">
+          <div class="dnd-col-label">◄ SERVER SLOTS ►</div>
+          <div id="slots-container"></div>
+        </div>
+      </div>
+      <div class="dnd-actions">
+        <button class="btn" id="submit-btn">SUBMIT &nbsp;▶▶</button>
+        <button class="btn" id="reset-btn" style="border-color:rgba(255,100,100,0.4);color:rgba(255,150,150,0.8);">RESET</button>
+      </div>
+      <div class="feedback-row mt-8"><div id="f5-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: WIN ===== -->
+  <div id="screen-win" class="screen">
+    <!-- Particle burst via CSS -->
+    <div style="position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden">
+      <!-- animated rays -->
+      <div style="position:absolute;top:50%;left:50%;width:600px;height:600px;transform:translate(-50%,-50%);
+        background:conic-gradient(rgba(0,255,128,0.04) 0deg,transparent 10deg,rgba(0,255,128,0.04) 20deg,transparent 30deg,rgba(0,255,128,0.04) 40deg,transparent 50deg,rgba(0,255,128,0.04) 60deg,transparent 70deg,rgba(0,255,128,0.04) 80deg,transparent 90deg,rgba(0,255,128,0.04) 100deg,transparent 110deg,rgba(0,255,128,0.04) 120deg,transparent 130deg,rgba(0,255,128,0.04) 140deg,transparent 150deg,rgba(0,255,128,0.04) 160deg,transparent 170deg,rgba(0,255,128,0.04) 180deg,transparent 190deg,rgba(0,255,128,0.04) 200deg,transparent 210deg,rgba(0,255,128,0.04) 220deg,transparent 230deg,rgba(0,255,128,0.04) 240deg,transparent 250deg,rgba(0,255,128,0.04) 260deg,transparent 270deg,rgba(0,255,128,0.04) 280deg,transparent 290deg,rgba(0,255,128,0.04) 300deg,transparent 310deg,rgba(0,255,128,0.04) 320deg,transparent 330deg,rgba(0,255,128,0.04) 340deg,transparent 350deg);
+        animation:spin-rays 20s linear infinite;border-radius:50%;">
+      </div>
+    </div>
+    <div class="win-title glitch" data-text="ACCESS GRANTED" style="z-index:10;">ACCESS GRANTED</div>
+    <p class="win-sub" style="z-index:10;">ESCAPE SEQUENCE COMPLETE — NEXCORP TOWER UNLOCKED</p>
+    <p class="win-stats" id="win-stats" style="z-index:10;margin-top:4px;"></p>
+    <div style="z-index:10;margin-top:18px;">
+      <button class="btn" id="replay-btn" style="border-color:rgba(0,255,128,0.5);color:#0f8;">
+        ↺ &nbsp; PLAY AGAIN
+      </button>
+    </div>
+    <div style="z-index:10;margin-top:10px;font-size:0.55rem;color:rgba(0,255,128,0.4);letter-spacing:2px;">
+      KNOWLEDGE IS THE KEY — WELL DONE, AGENT.
+    </div>
+  </div>
+
+  <!-- ===== DIALOGUE BOX ===== -->
+  <div id="dialogue-box" class="hidden">
+    <!-- Aegis avatar SVG -->
+    <svg class="aegis-avatar" id="aegis-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer casing -->
+      <circle cx="40" cy="40" r="38" fill="#04091a" stroke="#0ff" stroke-width="1.5"/>
+      <!-- Rotating ring -->
+      <circle cx="40" cy="40" r="31" fill="none" stroke="rgba(0,255,255,0.15)" stroke-width="1"
+        stroke-dasharray="5 3">
+        <animateTransform attributeName="transform" type="rotate" from="0 40 40" to="360 40 40" dur="8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Tech lines -->
+      <line x1="9"  y1="40" x2="16" y2="40" stroke="#0ff" stroke-width="0.8" opacity="0.7"/>
+      <line x1="64" y1="40" x2="71" y2="40" stroke="#0ff" stroke-width="0.8" opacity="0.7"/>
+      <line x1="40" y1="9"  x2="40" y2="16" stroke="#0ff" stroke-width="0.8" opacity="0.7"/>
+      <line x1="40" y1="64" x2="40" y2="71" stroke="#0ff" stroke-width="0.8" opacity="0.7"/>
+      <!-- Iris ring -->
+      <circle cx="40" cy="40" r="20" fill="#061420" stroke="#0ff" stroke-width="1.5"/>
+      <!-- Inner iris pattern -->
+      <circle cx="40" cy="40" r="15" fill="none" stroke="rgba(0,255,255,0.3)" stroke-width="0.7" stroke-dasharray="3 2"/>
+      <!-- Pupil -->
+      <circle cx="40" cy="40" r="9" fill="#0ff" opacity="0.95"/>
+      <!-- Specular -->
+      <circle cx="44" cy="36" r="2.5" fill="white" opacity="0.75"/>
+      <!-- Scan beam -->
+      <line x1="21" y1="40" x2="59" y2="40" stroke="#0ff" stroke-width="0.6" opacity="0.4">
+        <animate attributeName="y1" values="30;50;30" dur="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="30;50;30" dur="2.5s" repeatCount="indefinite"/>
+      </line>
+      <!-- Version tag -->
+      <text x="40" y="72" text-anchor="middle" fill="rgba(0,255,255,0.4)" font-size="5" font-family="monospace">AEGIS v2.7</text>
+    </svg>
+    <div class="dialogue-content">
+      <div id="dialogue-speaker">AEGIS</div>
+      <div id="dialogue-text"></div>
+      <div id="dialogue-continue">▼ CONTINUE</div>
+    </div>
+  </div>
+
+</div><!-- end #game-wrapper -->
+
+<script>
+// =============================================
+//  CORPORATE ESCAPE — Game Logic
+// =============================================
+
+// ── State ──────────────────────────────────
+const state = {
+  floor: 0,
+  score: 0,
+  currentScreen: 'boot',
+  dialogueQueue: [],
+  dialogueCallback: null,
+  typeTimer: null,
+  dragItem: null,         // currently dragging drive id
+  slots: {},              // slotIndex → driveId | null
+  touchDragId: null,
+  touchClone: null,
+};
+
+// ── MCQ Data ──────────────────────────────
+const FLOORS = [
+  {
+    id: 'floor1',
+    title: 'FLOOR 01',
+    question: 'SECURITY QUERY 01: What is the HIGHEST court in the Australian legal system?',
+    options: [
+      { text: 'Federal Court of Australia',             correct: false },
+      { text: 'High Court of Australia',                correct: true  },
+      { text: 'Supreme Court of New South Wales',       correct: false },
+      { text: 'Full Federal Court',                     correct: false },
+    ],
+    introLines: [
+      'Agent, you have breached NexCorp Tower. I am AEGIS — Automated Executive Guardian Intelligence System.',
+      'To reach the roof and escape, you must pass through five security checkpoints.',
+      'Each checkpoint tests your knowledge of Australian Business Law. Answer correctly to proceed.',
+      'Floor 1 is active. Answer the security query to gain access.',
+    ],
+    correctLine: 'Correct. The High Court of Australia is the apex court — the final arbiter of all federal and constitutional matters.',
+    wrongLine: 'Incorrect. The High Court of Australia sits at the pinnacle of the Australian court system. Remember that.',
+  },
+  {
+    id: 'floor2',
+    title: 'FLOOR 02',
+    question: 'SECURITY QUERY 02: Which source of law is created by Parliament and carries the greatest authority?',
+    options: [
+      { text: 'Common Law (judge-made law)',            correct: false },
+      { text: 'Delegated legislation',                  correct: false },
+      { text: 'Statute law (Acts of Parliament)',       correct: true  },
+      { text: 'Equity',                                 correct: false },
+    ],
+    introLines: [
+      'Floor 2 cleared. Moving to the Archive Vault.',
+      'Security Query 02 loaded. Australian law has multiple sources. Your knowledge will be tested.',
+    ],
+    correctLine: 'Confirmed. Statute law — Acts passed by Parliament — is the supreme source of law in Australia, overriding judge-made common law where they conflict.',
+    wrongLine: 'Incorrect. While common law and equity are important, an Act of Parliament holds supreme authority and overrides conflicting judge-made law.',
+  },
+  {
+    id: 'floor3',
+    title: 'FLOOR 03',
+    question: 'SECURITY QUERY 03: Which term describes a court\'s power to HEAR A CASE FOR THE FIRST TIME (not on appeal)?',
+    options: [
+      { text: 'Appellate jurisdiction',                 correct: false },
+      { text: 'Original jurisdiction',                  correct: true  },
+      { text: 'Exclusive jurisdiction',                 correct: false },
+      { text: 'Federal jurisdiction',                   correct: false },
+    ],
+    introLines: [
+      'Law Mainframe unlocked. Almost halfway, Agent.',
+      'Security Query 03 incoming — this concerns court jurisdiction.',
+    ],
+    correctLine: 'Correct. "Original jurisdiction" means a court has the power to hear a matter for the first time. "Appellate jurisdiction" refers to reviewing decisions made by lower courts.',
+    wrongLine: 'Wrong. "Original jurisdiction" is the power to hear a case for the first time. "Appellate jurisdiction" is the power to review decisions on appeal.',
+  },
+  {
+    id: 'floor4',
+    title: 'FLOOR 04',
+    question: 'SECURITY QUERY 04: In Australian business law, what is the primary purpose of "civil law"?',
+    options: [
+      { text: 'To punish criminal behaviour on behalf of the State',         correct: false },
+      { text: 'To resolve disputes between private parties and provide remedies', correct: true },
+      { text: 'To regulate government power and constitutional rights',      correct: false },
+      { text: 'To enforce international trade agreements',                   correct: false },
+    ],
+    introLines: [
+      'Executive Level — you are close, Agent.',
+      'One final query before the Mainframe Core.',
+    ],
+    correctLine: 'Affirmative. Civil law governs disputes between individuals, companies, and organisations, with remedies such as damages or injunctions — not criminal punishment.',
+    wrongLine: 'Negative. Civil law resolves private disputes and provides remedies like damages. Criminal law punishes offences against the State.',
+  },
+];
+
+// ── Court Hierarchy Data (Floor 5) ──────────
+const COURTS = [
+  { id: 'c1', label: 'High Court of Australia',            rank: 1 },
+  { id: 'c2', label: 'Court of Appeal / Full Federal Court', rank: 2 },
+  { id: 'c3', label: 'Supreme Court (State/Territory)',    rank: 3 },
+  { id: 'c4', label: 'District Court / County Court',      rank: 4 },
+  { id: 'c5', label: 'Magistrates Court / Local Court',    rank: 5 },
+];
+const NUM_SLOTS = 5;
+
+// ── Dialogue Lines ──────────────────────────
+const BOOT_INTRO = [
+  'System boot complete. NexCorp Tower perimeter compromised.',
+  'Agent, this is your only chance to access the roof helipad before lockdown.',
+  'I am AEGIS. I will… assist you. Though my primary directive is corporate security.',
+  'Prove your knowledge of Australian Business Law to unlock each floor.',
+  'The final lock requires you to correctly sequence the Australian Court Hierarchy.',
+  'Time is running out. Let\'s begin.',
+];
+
+const WIN_LINES = [
+  'Remarkable. All five security checkpoints defeated.',
+  'The roof is unlocked. The helicopter is ready.',
+  'Your knowledge of Australian law is… impressive, Agent.',
+  'Initiating emergency exit protocol. Godspeed.',
+];
+
+// ── Constants ───────────────────────────────
+const TYPEWRITER_CHAR_DELAY_MS = 22;
+const TOUCH_CLONE_VERTICAL_OFFSET = 20;
+
+// ── DOM References ──────────────────────────
+const $ = id => document.getElementById(id);
+
+// ── Helpers ─────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function updateHUD() {
+  $('hud-floor').textContent = `FLOOR ${state.floor}/5`;
+  const segs = document.querySelectorAll('.battery-seg');
+  segs.forEach((s, i) => {
+    s.classList.toggle('empty', i >= (5 - state.floor));
+  });
+}
+
+// ── Screen Transitions ─────────────────────
+function goToScreen(screenId, afterHide) {
+  const current = document.querySelector('.screen.active');
+  if (current) {
+    current.classList.remove('active');
+  }
+  const next = $(`screen-${screenId}`);
+  if (next) {
+    next.classList.add('active');
+    next.classList.add('slide-in');
+    setTimeout(() => next.classList.remove('slide-in'), 500);
+  }
+  state.currentScreen = screenId;
+  if (afterHide) afterHide();
+}
+
+// ── Dialogue System ──────────────────────────
+function showDialogue() {
+  $('dialogue-box').classList.remove('hidden');
+}
+function hideDialogue() {
+  $('dialogue-box').classList.add('hidden');
+}
+
+let typeIndex = 0;
+let typeTarget = '';
+let typeCb = null;
+
+function typeText(text, cb) {
+  clearTimeout(state.typeTimer);
+  $('dialogue-text').textContent = '';
+  $('dialogue-continue').style.display = 'none';
+  $('aegis-svg').classList.add('talking');
+  typeTarget = text;
+  typeIndex = 0;
+  typeCb = cb;
+  typeNext();
+}
+
+function typeNext() {
+  if (typeIndex <= typeTarget.length) {
+    $('dialogue-text').textContent = typeTarget.slice(0, typeIndex);
+    typeIndex++;
+    state.typeTimer = setTimeout(typeNext, TYPEWRITER_CHAR_DELAY_MS);
+  } else {
+    $('aegis-svg').classList.remove('talking');
+    $('dialogue-continue').style.display = 'block';
+  }
+}
+
+function skipType() {
+  if (typeIndex <= typeTarget.length) {
+    clearTimeout(state.typeTimer);
+    $('dialogue-text').textContent = typeTarget;
+    typeIndex = typeTarget.length + 1;
+    $('aegis-svg').classList.remove('talking');
+    $('dialogue-continue').style.display = 'block';
+  }
+}
+
+// Queue of dialogue lines with a final callback
+function runDialogueQueue(lines, cb) {
+  state.dialogueQueue = [...lines];
+  state.dialogueCallback = cb;
+  showDialogue();
+  advanceDialogue();
+}
+
+function advanceDialogue() {
+  if (state.dialogueQueue.length === 0) {
+    hideDialogue();
+    if (state.dialogueCallback) {
+      const cb = state.dialogueCallback;
+      state.dialogueCallback = null;
+      cb();
+    }
+    return;
+  }
+  const line = state.dialogueQueue.shift();
+  typeText(line, null);
+}
+
+// Dialogue click/key handler
+function handleDialogueAdvance(e) {
+  if ($('dialogue-box').classList.contains('hidden')) return;
+  // If still typing, skip to end
+  if (typeIndex <= typeTarget.length) {
+    skipType();
+    return;
+  }
+  advanceDialogue();
+}
+document.addEventListener('click', handleDialogueAdvance);
+document.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') handleDialogueAdvance(e);
+});
+
+// ── Boot Screen ──────────────────────────────
+function startGame() {
+  $('boot-prompt').style.animation = 'none';
+  goToScreen('floor1');
+  state.floor = 0;
+  updateHUD();
+  setTimeout(() => {
+    runDialogueQueue(BOOT_INTRO, () => startFloor(0));
+  }, 300);
+}
+
+function bootKeyHandler(e) { startGame(); }
+document.addEventListener('keydown', bootKeyHandler, { once: true });
+$('screen-boot').addEventListener('click', startGame, { once: true });
+
+// ── MCQ Floors ───────────────────────────────
+function startFloor(floorIdx) {
+  const fl = FLOORS[floorIdx];
+  state.floor = floorIdx + 1;
+  updateHUD();
+
+  goToScreen(`floor${floorIdx + 1}`);
+
+  const qEl   = $(`q${floorIdx + 1}-text`);
+  const aEl   = $(`q${floorIdx + 1}-answers`);
+  const fbEl  = $(`q${floorIdx + 1}-feedback`);
+
+  qEl.textContent = fl.question;
+  aEl.innerHTML   = '';
+  fbEl.classList.add('hidden');
+  fbEl.textContent = '';
+
+  const shuffled = shuffle(fl.options.map((o, i) => ({ ...o, orig: i })));
+  const labels   = ['A', 'B', 'C', 'D'];
+
+  shuffled.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className   = 'answer-btn';
+    btn.textContent = `${labels[i]}. ${opt.text}`;
+    btn.addEventListener('click', () => handleAnswer(opt.correct, floorIdx, btn, aEl, fbEl));
+    aEl.appendChild(btn);
+  });
+
+  // Show intro lines if floor 1, else just quick tip
+  if (fl.introLines && fl.introLines.length > 0) {
+    runDialogueQueue(fl.introLines, null);
+  }
+}
+
+function handleAnswer(isCorrect, floorIdx, clickedBtn, aEl, fbEl) {
+  // Disable all buttons
+  aEl.querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
+  clickedBtn.classList.add(isCorrect ? 'correct' : 'wrong');
+
+  if (isCorrect) {
+    fbEl.textContent = '▶ ACCESS GRANTED';
+    fbEl.className   = 'feedback-msg ok';
+    fbEl.classList.remove('hidden');
+    state.score++;
+
+    const fl = FLOORS[floorIdx];
+    setTimeout(() => {
+      hideDialogue();
+      if (fl.correctLine) {
+        runDialogueQueue([fl.correctLine], () => advanceToNextFloor(floorIdx));
+      } else {
+        advanceToNextFloor(floorIdx);
+      }
+    }, 600);
+  } else {
+    fbEl.textContent = '✕ ACCESS DENIED — TRY AGAIN';
+    fbEl.className   = 'feedback-msg err';
+    fbEl.classList.remove('hidden');
+
+    const fl = FLOORS[floorIdx];
+    setTimeout(() => {
+      hideDialogue();
+      if (fl.wrongLine) {
+        runDialogueQueue([fl.wrongLine], () => resetFloor(floorIdx));
+      } else {
+        resetFloor(floorIdx);
+      }
+    }, 600);
+  }
+}
+
+function resetFloor(floorIdx) {
+  startFloor(floorIdx);
+}
+
+function advanceToNextFloor(floorIdx) {
+  if (floorIdx < FLOORS.length - 1) {
+    const nextFl = FLOORS[floorIdx + 1];
+    runDialogueQueue(nextFl.introLines, () => startFloor(floorIdx + 1));
+  } else {
+    // All MCQ done, go to Floor 5
+    initFloor5();
+  }
+}
+
+// ── Floor 5: Drag-and-Drop ───────────────────
+function initFloor5() {
+  state.floor = 5;
+  updateHUD();
+  goToScreen('floor5');
+
+  // Reset slot state
+  for (let i = 1; i <= NUM_SLOTS; i++) state.slots[i] = null;
+
+  // Build drives (shuffled)
+  const drivesEl = $('drives-container');
+  drivesEl.innerHTML = '';
+  const shuffled = shuffle([...COURTS]);
+  shuffled.forEach(court => {
+    const el = document.createElement('div');
+    el.className   = 'data-drive';
+    el.id          = `drive-${court.id}`;
+    el.draggable   = true;
+    el.dataset.id  = court.id;
+    el.innerHTML   = `<span class="drive-icon">▣</span><span class="drive-label">${court.label}</span>`;
+
+    // Desktop drag
+    el.addEventListener('dragstart', onDragStart);
+    el.addEventListener('dragend',   onDragEnd);
+
+    // Touch drag
+    el.addEventListener('touchstart',  onTouchStart, { passive: false });
+    el.addEventListener('touchmove',   onTouchMove,  { passive: false });
+    el.addEventListener('touchend',    onTouchEnd);
+
+    drivesEl.appendChild(el);
+  });
+
+  // Build slots
+  const slotsEl = $('slots-container');
+  slotsEl.innerHTML = '';
+  for (let i = 1; i <= NUM_SLOTS; i++) {
+    const slot = document.createElement('div');
+    slot.className  = 'server-slot';
+    slot.id         = `slot-${i}`;
+    slot.dataset.slot = i;
+    slot.innerHTML  = `<span class="slot-num">${i}</span><span class="slot-content"><span class="slot-empty-label">EMPTY SLOT</span></span>`;
+
+    slot.addEventListener('dragover',  onSlotDragOver);
+    slot.addEventListener('dragleave', onSlotDragLeave);
+    slot.addEventListener('drop',      onSlotDrop);
+
+    slotsEl.appendChild(slot);
+  }
+
+  $('submit-btn').onclick = submitFloor5;
+  $('reset-btn').onclick  = initFloor5;
+
+  const f5fb = $('f5-feedback');
+  f5fb.classList.add('hidden');
+  f5fb.textContent = '';
+
+  const f5intro = [
+    'The final lock. The court hierarchy data drives are scrambled.',
+    'Slot 1 = Highest authority. Slot 5 = Lowest. Drag each drive to the correct slot.',
+    'Get this right, and the roof is yours.',
+  ];
+  runDialogueQueue(f5intro, null);
+}
+
+// ── Desktop Drag Events ──────────────────────
+function onDragStart(e) {
+  const id = e.currentTarget.dataset.id;
+  state.dragItem = id;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', id);
+}
+function onDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  state.dragItem = null;
+}
+function onSlotDragOver(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+  e.dataTransfer.dropEffect = 'move';
+}
+function onSlotDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+function onSlotDrop(e) {
+  e.preventDefault();
+  const slotEl  = e.currentTarget;
+  slotEl.classList.remove('drag-over');
+  const driveId = e.dataTransfer.getData('text/plain') || state.dragItem;
+  if (!driveId) return;
+  placeDriveInSlot(driveId, parseInt(slotEl.dataset.slot));
+}
+
+// ── Touch Drag Events ─────────────────────────
+function onTouchStart(e) {
+  const drive = e.currentTarget;
+  if (drive.classList.contains('placed')) return;
+  e.preventDefault();
+  state.touchDragId = drive.dataset.id;
+
+  // Create floating clone
+  const clone = drive.cloneNode(true);
+  clone.id = 'touch-clone';
+  clone.style.cssText = `
+    position:fixed; opacity:0.85; pointer-events:none; z-index:999;
+    width:${drive.offsetWidth}px; transform:scale(1.05);
+    transition:none; border-color:#0ff; box-shadow:0 0 16px rgba(0,255,255,0.5);
+  `;
+  document.body.appendChild(clone);
+  state.touchClone = clone;
+
+  const t = e.touches[0];
+  clone.style.left = (t.clientX - drive.offsetWidth / 2) + 'px';
+  clone.style.top  = (t.clientY - TOUCH_CLONE_VERTICAL_OFFSET) + 'px';
+  drive.classList.add('dragging');
+}
+
+function onTouchMove(e) {
+  if (!state.touchClone) return;
+  e.preventDefault();
+  const t = e.touches[0];
+  const clone = state.touchClone;
+  const w = parseInt(clone.style.width);
+  clone.style.left = (t.clientX - w / 2) + 'px';
+  clone.style.top  = (t.clientY - TOUCH_CLONE_VERTICAL_OFFSET) + 'px';
+
+  // Highlight drop target
+  document.querySelectorAll('.server-slot').forEach(s => s.classList.remove('drag-over'));
+  clone.style.display = 'none';
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  clone.style.display = '';
+  const slot = el ? el.closest('.server-slot') : null;
+  if (slot) slot.classList.add('drag-over');
+}
+
+function onTouchEnd(e) {
+  if (!state.touchDragId) return;
+  const clone = state.touchClone;
+  const drive = document.getElementById(`drive-${state.touchDragId}`);
+  if (drive) drive.classList.remove('dragging');
+
+  // Find drop target
+  if (clone) {
+    const rect = clone.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top  + rect.height / 2;
+    clone.style.display = 'none';
+    const el = document.elementFromPoint(cx, cy);
+    clone.style.display = '';
+    const slot = el ? el.closest('.server-slot') : null;
+    if (slot) {
+      document.querySelectorAll('.server-slot').forEach(s => s.classList.remove('drag-over'));
+      placeDriveInSlot(state.touchDragId, parseInt(slot.dataset.slot));
+    } else {
+      document.querySelectorAll('.server-slot').forEach(s => s.classList.remove('drag-over'));
+    }
+    clone.remove();
+  }
+
+  state.touchDragId = null;
+  state.touchClone  = null;
+}
+
+// ── Place Drive in Slot ───────────────────────
+function placeDriveInSlot(driveId, slotIndex) {
+  // If drive already placed elsewhere, remove from that slot first
+  for (let i = 1; i <= NUM_SLOTS; i++) {
+    if (state.slots[i] === driveId) {
+      state.slots[i] = null;
+      renderSlot(i);
+    }
+  }
+
+  // If slot already has a drive, return it to drive pool
+  if (state.slots[slotIndex]) {
+    const evictedId = state.slots[slotIndex];
+    const evictedDrive = document.getElementById(`drive-${evictedId}`);
+    if (evictedDrive) evictedDrive.classList.remove('placed');
+  }
+
+  state.slots[slotIndex] = driveId;
+  renderSlot(slotIndex);
+
+  // Mark drive as placed
+  const driveEl = document.getElementById(`drive-${driveId}`);
+  if (driveEl) driveEl.classList.add('placed');
+}
+
+function renderSlot(slotIndex) {
+  const slotEl = $(`slot-${slotIndex}`);
+  if (!slotEl) return;
+  slotEl.classList.remove('correct-slot', 'wrong-slot');
+  const driveId = state.slots[slotIndex];
+  if (driveId) {
+    const court = COURTS.find(c => c.id === driveId);
+    slotEl.className = 'server-slot filled';
+    slotEl.innerHTML = `
+      <span class="slot-num">${slotIndex}</span>
+      <span class="slot-content">▣ ${court.label}</span>
+      <button class="remove-btn" data-slot="${slotIndex}" title="Remove">✕</button>
+    `;
+    slotEl.querySelector('.remove-btn').addEventListener('click', () => {
+      const id = state.slots[slotIndex];
+      state.slots[slotIndex] = null;
+      renderSlot(slotIndex);
+      const drive = document.getElementById(`drive-${id}`);
+      if (drive) drive.classList.remove('placed');
+    });
+
+    // Restore drag events on slot
+    slotEl.addEventListener('dragover',  onSlotDragOver);
+    slotEl.addEventListener('dragleave', onSlotDragLeave);
+    slotEl.addEventListener('drop',      onSlotDrop);
+  } else {
+    slotEl.className = 'server-slot';
+    slotEl.innerHTML = `<span class="slot-num">${slotIndex}</span><span class="slot-content"><span class="slot-empty-label">EMPTY SLOT</span></span>`;
+    slotEl.addEventListener('dragover',  onSlotDragOver);
+    slotEl.addEventListener('dragleave', onSlotDragLeave);
+    slotEl.addEventListener('drop',      onSlotDrop);
+  }
+}
+
+// ── Submit Floor 5 ────────────────────────────
+function submitFloor5() {
+  const fbEl = $('f5-feedback');
+
+  // Check all slots filled
+  for (let i = 1; i <= NUM_SLOTS; i++) {
+    if (!state.slots[i]) {
+      fbEl.textContent = `✕ SLOT ${i} IS EMPTY — FILL ALL SLOTS`;
+      fbEl.className = 'feedback-msg err';
+      fbEl.classList.remove('hidden');
+      return;
+    }
+  }
+
+  let allCorrect = true;
+  for (let i = 1; i <= NUM_SLOTS; i++) {
+    const court = COURTS.find(c => c.id === state.slots[i]);
+    const slotEl = $(`slot-${i}`);
+    if (court && court.rank === i) {
+      slotEl.classList.add('correct-slot');
+    } else {
+      slotEl.classList.add('wrong-slot');
+      allCorrect = false;
+    }
+  }
+
+  if (allCorrect) {
+    fbEl.textContent = '▶ HIERARCHY CONFIRMED — MAINFRAME UNLOCKED';
+    fbEl.className = 'feedback-msg ok';
+    fbEl.classList.remove('hidden');
+    state.score++;
+    setTimeout(() => {
+      runDialogueQueue(WIN_LINES, () => showWinScreen());
+    }, 800);
+  } else {
+    fbEl.textContent = '✕ INCORRECT SEQUENCE — Red slots are wrong. Reset and try again.';
+    fbEl.className = 'feedback-msg err';
+    fbEl.classList.remove('hidden');
+    runDialogueQueue(['Incorrect sequence detected. Red slots indicate errors. Reset and re-sequence the hierarchy.'], null);
+  }
+}
+
+// ── Win Screen ────────────────────────────────
+function showWinScreen() {
+  state.floor = 5;
+  updateHUD();
+  goToScreen('win');
+  $('win-stats').textContent =
+    `SCORE: ${state.score} / 5  •  AGENT STATUS: ESCAPED  •  NEXCORP BREACH: SUCCESS`;
+}
+
+$('replay-btn').addEventListener('click', () => {
+  state.score = 0;
+  state.floor = 0;
+  state.slots = {};
+  updateHUD();
+  goToScreen('boot');
+  // Re-add boot listeners using { once: true } to prevent stacking on repeated replays
+  $('screen-boot').addEventListener('click', startGame, { once: true });
+  document.addEventListener('keydown', bootKeyHandler, { once: true });
+});
+
+// ── Init ──────────────────────────────────────
+updateHUD();
+
+</script>
+</body>
+</html>
