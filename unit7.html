@@ -74,15 +74,16 @@ body {
 
 /* ── BACK BUTTON ── */
 .back-to-main {
-  position: fixed; top: 20px; left: 20px; z-index: 1000;
-  width: 50px; height: 50px; border-radius: 50%;
-  background: var(--gradient); border: none; cursor: pointer;
+  position: fixed; top: 70px; left: 16px; z-index: 1000;
+  width: 52px; height: 52px; border-radius: 16px;
+  background: linear-gradient(135deg, #ff6f00, #e65100); border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow); transition: all var(--transition);
-  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(230,81,0,0.35); transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  text-decoration: none; font-size: 26px; line-height: 1;
+  animation: rocketPulse 2s ease-in-out infinite;
 }
-.back-to-main:hover { transform: scale(1.1); box-shadow: var(--shadow-lg); }
-.back-to-main svg { width: 24px; height: 24px; fill: #fff; }
+@keyframes rocketPulse { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+.back-to-main:hover { transform: scale(1.15) rotate(-8deg); box-shadow: 0 6px 24px rgba(230,81,0,0.5); animation: none; }
 
 /* ── PROGRESS BAR ── */
 #progress-bar {
@@ -130,10 +131,7 @@ body {
 }
 #toc-bar nav {
   display: flex; gap: 4px; padding: 10px 20px;
-  overflow-x: auto; justify-content: center;
-  scrollbar-width: none;
-}
-#toc-bar nav::-webkit-scrollbar { display:none; }
+  flex-wrap: wrap; justify-content: center;
 #toc-bar a {
   text-decoration: none; color: var(--text);
   padding: 6px 14px; border-radius: 20px;
@@ -509,9 +507,7 @@ body {
 <div id="progress-bar"></div>
 
 <!-- Back to Main -->
-<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main">
-  <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-</a>
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">🚀</a>
 
 <!-- Hero Section -->
 <section class="hero">
