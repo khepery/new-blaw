@@ -672,27 +672,7 @@ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function playBark(){
-try{
-var ctx=new(window.AudioContext||window.webkitAudioContext)();
-var now=ctx.currentTime;
-function woof(t){
-var o1=ctx.createOscillator(),o2=ctx.createOscillator();
-var g=ctx.createGain(),f=ctx.createBiquadFilter();
-o1.type="sawtooth";o2.type="square";
-o1.frequency.setValueAtTime(450,t);
-o1.frequency.exponentialRampToValueAtTime(180,t+0.12);
-o2.frequency.setValueAtTime(900,t);
-o2.frequency.exponentialRampToValueAtTime(350,t+0.12);
-f.type="bandpass";f.frequency.value=600;f.Q.value=2;
-g.gain.setValueAtTime(0.35,t);
-g.gain.setValueAtTime(0.4,t+0.02);
-g.gain.exponentialRampToValueAtTime(0.01,t+0.15);
-o1.connect(f);o2.connect(f);f.connect(g);g.connect(ctx.destination);
-o1.start(t);o1.stop(t+0.15);o2.start(t);o2.stop(t+0.15);
-}
-woof(now);woof(now+0.22);
-setTimeout(function(){ctx.close();},600);
-}catch(e){}
+try{var a=new Audio("bark.mp3");a.volume=0.7;a.play();}catch(e){}
 }
 
 var observer=new IntersectionObserver(function(entries){
