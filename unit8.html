@@ -1,777 +1,1428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 8 单元8: Consumer Protection Law 消费者保护法</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 8: Consumer Protection | UNSW College</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
-            min-height: 100vh;
-        }
+:root {
+  --primary: #00695c;
+  --primary-dark: #004d40;
+  --secondary: #00897b;
+  --accent: #26a69a;
+  --light-accent: #e0f2f1;
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --text: #263238;
+  --text-light: #546e7a;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --gradient: linear-gradient(135deg, #00695c, #26a69a);
+  --gradient2: linear-gradient(135deg, #004d40, #00897b);
 
-        :root {
-            --primary-color: #00838f;
-            --secondary-color: #4dd0e1;
-            --accent-color: #006064;
-            --text-color: #333;
-            --bg-light: #e0f7fa;
-        }
+  --overview: #00695c;
+  --overview-light: #e0f2f1;
+  --legislation: #1565c0;
+  --legislation-light: #e3f2fd;
+  --case-law: #6a1b9a;
+  --case-law-light: #f3e5f5;
+  --quality: #e65100;
+  --quality-light: #fff3e0;
+  --fitness: #c62828;
+  --fitness-light: #ffebee;
+  --description: #2e7d32;
+  --description-light: #e8f5e9;
+  --sample: #4527a0;
+  --sample-light: #ede7f6;
+  --norefund: #37474f;
+  --norefund-light: #eceff1;
+}
 
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            width: 0%;
-            z-index: 1000;
-            transition: width 0.3s ease;
-        }
+.dark-mode {
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --text: #e0e0e0;
+  --text-light: #b0bec5;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+  --light-accent: #0a1f1a;
+  --overview-light: #0a1f1a;
+  --legislation-light: #0d2137;
+  --case-law-light: #1a0a24;
+  --quality-light: #1f1200;
+  --fitness-light: #1f0a0a;
+  --description-light: #0a1f0d;
+  --sample-light: #1a0d2e;
+  --norefund-light: #1a1a1a;
+}
 
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-        .back-to-top:hover {
-            background: var(--accent-color);
-            transform: translateY(-5px);
-        }
+body {
+  font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+}
 
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+/* ── BACK BUTTON ── */
+.back-to-main {
+  position: fixed; top: 20px; left: 20px; z-index: 1000;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: var(--gradient); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: all var(--transition);
+  text-decoration: none;
+}
+.back-to-main:hover { transform: scale(1.1); box-shadow: var(--shadow-lg); }
+.back-to-main svg { width: 24px; height: 24px; fill: #fff; }
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px; z-index: 9999;
+  background: var(--gradient); width: 0%; transition: width 0.15s;
+}
 
-        .section {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-left: 5px solid var(--primary-color);
-        }
+/* ── HERO ── */
+.hero {
+  background: var(--gradient);
+  color: #fff; text-align: center;
+  padding: 100px 24px 80px;
+  position: relative; overflow: hidden;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800; margin-bottom: 8px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.hero .chinese {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.3rem; opacity: 0.9; margin-bottom: 16px;
+}
+.hero .subtitle {
+  font-size: 1.15rem; opacity: 0.85; max-width: 700px; margin: 0 auto;
+}
+.float-emoji {
+  position: absolute; font-size: 2rem; opacity: 0.15;
+  animation: floatEmoji 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes floatEmoji {
+  0% { transform: translateY(100vh) rotate(0deg); opacity:0; }
+  10% { opacity:0.15; }
+  90% { opacity:0.15; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity:0; }
+}
 
-        .section-title {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary-color);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* ── TOC NAV ── */
+#toc-bar {
+  position: sticky; top: 0; z-index: 998;
+  background: var(--card-bg); border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: background var(--transition);
+}
+#toc-bar nav {
+  display: flex; gap: 4px; padding: 10px 20px;
+  overflow-x: auto; justify-content: center;
+  scrollbar-width: none;
+}
+#toc-bar nav::-webkit-scrollbar { display:none; }
+#toc-bar a {
+  text-decoration: none; color: var(--text);
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 0.82rem; font-weight: 500;
+  white-space: nowrap; transition: all var(--transition);
+}
+#toc-bar a:hover { background: var(--light-accent); }
+#toc-bar a.active { background: var(--primary); color: #fff; }
 
-        .toggle-icon {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
+/* ── SECTIONS ── */
+.section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 48px 56px;
+  margin: 32px 0;
+  box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.6s ease-out, background var(--transition);
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+.section:hover { box-shadow: var(--shadow-lg); }
 
-        .toggle-icon.rotated {
-            transform: rotate(180deg);
-        }
+.section-label {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 20px; font-size: 0.75rem;
+  font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 12px;
+}
 
-        .section-content {
-            margin-top: 1rem;
-            max-height: 5000px;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
+.section h2 {
+  font-size: 1.8rem; font-weight: 700;
+  margin-bottom: 6px; display: flex;
+  align-items: center; gap: 12px;
+}
+.section h2 .emoji { font-size: 1.6rem; }
+.section .zh-title {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1rem; color: var(--text-light);
+  margin-bottom: 20px;
+}
+.section h3 {
+  font-size: 1.25rem; font-weight: 600;
+  margin: 28px 0 12px; color: var(--primary);
+}
+.section .zh-sub {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  margin-top: -8px; margin-bottom: 12px;
+}
+.section p { margin-bottom: 14px; }
+.section .zh-text {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.9rem; color: var(--text-light);
+  display: block; margin-top: 2px;
+}
 
-        .section-content.collapsed {
-            max-height: 0;
-        }
+/* ── TOOLTIPS ── */
+.tooltip-term {
+  border-bottom: 2px dashed var(--primary);
+  color: var(--primary); cursor: help;
+  position: relative; font-weight: 500;
+}
+.tip-box {
+  position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-dark); color: #fff;
+  padding: 10px 14px; border-radius: 10px;
+  font-size: 0.82rem; font-weight: 400;
+  max-width: 300px; min-width: 200px;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+  z-index: 100; line-height: 1.5;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.tooltip-term:hover .tip-box { opacity: 1; pointer-events: auto; }
 
-        .subsection {
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: var(--bg-light);
-            border-radius: 5px;
-        }
+/* ── FEATURE CARDS ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; margin: 20px 0;
+}
+.feature-card {
+  background: var(--card-bg);
+  border-radius: 12px; padding: 24px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: all var(--transition);
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.feature-card .card-icon { font-size: 2rem; margin-bottom: 10px; }
+.feature-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.feature-card .zh-card {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.82rem; color: var(--text-light);
+}
 
-        .subsection h3 {
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
+/* ── CASE BOX ── */
+.case-box {
+  border-radius: 12px; padding: 22px 26px;
+  margin: 14px 0;
+  border-left: 5px solid;
+}
+.case-facts { background: var(--legislation-light); border-color: var(--legislation); }
+.case-issue { background: var(--case-law-light); border-color: var(--case-law); }
+.case-decision { background: var(--description-light); border-color: var(--description); }
+.case-significance { background: var(--overview-light); border-color: var(--overview); }
+.case-box h4 {
+  font-size: 1rem; font-weight: 600;
+  margin-bottom: 6px; display: flex;
+  align-items: center; gap: 8px;
+}
 
-        .case-box {
-            background: #b2ebf2;
-            padding: 1.5rem;
-            border-left: 4px solid var(--primary-color);
-            margin: 1rem 0;
-            border-radius: 5px;
-        }
+/* ── COMPARISON TABLE ── */
+.compare-table {
+  width: 100%; border-collapse: separate;
+  border-spacing: 0; border-radius: 12px;
+  overflow: hidden; margin: 20px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.compare-table th {
+  background: var(--primary); color: #fff;
+  padding: 14px 18px; font-weight: 600;
+  font-size: 0.9rem; text-align: left;
+}
+.compare-table td {
+  padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.9rem; vertical-align: top;
+}
+.compare-table tr:nth-child(even) td { background: var(--light-accent); }
+.compare-table tr:hover td { background: rgba(0,105,92,0.05); }
 
-        .case-title {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
+/* ── ELEMENT STEPS ── */
+.element-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; margin: 24px 0;
+}
+.element-step {
+  background: var(--card-bg);
+  border-radius: 14px; padding: 28px 24px;
+  text-align: center; position: relative;
+  border-top: 5px solid var(--primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: all var(--transition);
+}
+.element-step:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.element-num {
+  font-size: 2.5rem; font-weight: 800;
+  color: var(--primary); line-height: 1;
+  margin-bottom: 4px;
+}
+.element-step h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.element-step .zh-step {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  margin-bottom: 8px;
+}
+.element-step p { font-size: 0.88rem; color: var(--text-light); }
 
-        .highlight {
-            background: #80deea;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-weight: 500;
-        }
+.element-step:nth-child(1) { border-color: #e53935; }
+.element-step:nth-child(1) .element-num { color: #e53935; }
+.element-step:nth-child(2) { border-color: #1565c0; }
+.element-step:nth-child(2) .element-num { color: #1565c0; }
+.element-step:nth-child(3) { border-color: #2e7d32; }
+.element-step:nth-child(3) .element-num { color: #2e7d32; }
+.element-step:nth-child(4) { border-color: #6a1b9a; }
+.element-step:nth-child(4) .element-num { color: #6a1b9a; }
 
-        .element-box {
-            background: white;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-left: 3px solid var(--accent-color);
-            border-radius: 3px;
-        }
+/* ── HIGHLIGHT LIST ── */
+.highlight-list { list-style: none; padding: 0; }
+.highlight-list li {
+  padding: 12px 16px; margin: 8px 0;
+  border-radius: 10px; background: var(--light-accent);
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.92rem; transition: all var(--transition);
+}
+.highlight-list li:hover { transform: translateX(4px); }
+.highlight-list .li-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
 
-        ul, ol {
-            margin-left: 2rem;
-            margin-top: 0.5rem;
-        }
+/* ── KEY POINT BOX ── */
+.key-point {
+  background: var(--light-accent);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 24px; margin: 16px 0;
+}
+.key-point strong { color: var(--primary); }
 
-        li {
-            margin: 0.5rem 0;
-        }
+/* ── TUTORIAL Q&A ── */
+.tutorial-q {
+  background: var(--light-accent);
+  border-radius: 12px; padding: 22px;
+  margin: 14px 0;
+}
+.tutorial-q h4 { font-weight: 600; margin-bottom: 10px; color: var(--primary); }
+.tutorial-answer {
+  display: none; margin-top: 12px; padding: 14px;
+  background: var(--card-bg); border-radius: 10px;
+  border-left: 4px solid var(--description);
+}
+.tutorial-answer.show { display: block; }
+.toggle-answer {
+  display: inline-block; padding: 6px 16px;
+  border-radius: 8px; font-weight: 600;
+  font-size: 0.85rem; cursor: pointer;
+  border: 2px solid var(--primary);
+  background: transparent; color: var(--primary);
+  transition: all var(--transition);
+  margin-top: 8px;
+}
+.toggle-answer:hover { background: var(--primary); color: #fff; }
 
-        .question-box {
-            background: #b2dfdb;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            border: 2px dashed var(--primary-color);
-        }
+/* ── FLASHCARDS ── */
+#flashcard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px; margin: 20px 0;
+}
+.flashcard {
+  height: 210px; perspective: 800px;
+  cursor: pointer; outline: none;
+}
+.flashcard-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; inset: 0;
+  border-radius: 14px; padding: 24px;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.flashcard-front {
+  background: var(--gradient);
+  color: #fff;
+}
+.fc-term { font-size: 1.1rem; font-weight: 700; }
+.fc-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.9rem; opacity: 0.85; margin-top: 6px;
+}
+.fc-hint {
+  font-size: 0.72rem; opacity: 0.5;
+  margin-top: 12px; text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.flashcard-back {
+  background: var(--card-bg);
+  border: 2px solid var(--accent);
+  color: var(--text);
+  transform: rotateY(180deg);
+  font-size: 0.88rem; line-height: 1.6;
+  overflow-y: auto;
+}
 
-        .question-title {
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-        }
+/* ── QUIZ ── */
+.quiz-q {
+  background: var(--light-accent);
+  border-radius: 12px; padding: 22px;
+  margin: 14px 0;
+}
+.q-text { font-weight: 600; margin-bottom: 12px; font-size: 0.95rem; }
+.q-num { color: var(--primary); font-weight: 700; }
+.q-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  display: block; margin-top: 4px;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  background: var(--card-bg);
+  border: 2px solid transparent;
+  border-radius: 10px; padding: 12px 16px;
+  cursor: pointer; font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.quiz-opt:hover { border-color: var(--accent); transform: translateX(4px); }
+.quiz-opt.correct {
+  background: #c8e6c9; border-color: #2e7d32;
+  pointer-events: none;
+}
+.quiz-opt.wrong {
+  background: #ffcdd2; border-color: #c62828;
+  pointer-events: none;
+}
+.quiz-opt.disabled { pointer-events: none; opacity: 0.5; }
+.quiz-result {
+  display: none; text-align: center;
+  padding: 28px; border-radius: 14px;
+  background: var(--gradient); color: #fff;
+  margin-top: 20px;
+}
+.quiz-result.show {
+  display: block;
+  animation: popIn 0.5s ease;
+}
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-        .guarantee-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block; padding: 10px 24px;
+  border-radius: 8px; font-weight: 600;
+  font-size: 0.9rem; cursor: pointer;
+  border: none; transition: all var(--transition);
+  text-decoration: none;
+}
+.btn-primary { background: var(--gradient); color: #fff; }
+.btn-primary:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
 
-        .guarantee-table th, .guarantee-table td {
-            border: 1px solid var(--secondary-color);
-            padding: 0.75rem;
-            text-align: left;
-        }
+/* ── BACK TO TOP (FROG) ── */
+#back-top {
+  position: fixed; bottom: 30px; right: 30px;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--gradient); border: none;
+  font-size: 1.6rem; cursor: pointer;
+  box-shadow: var(--shadow); z-index: 999;
+  opacity: 0; transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+#back-top.show { opacity: 1; animation: bounce 2s infinite; }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
 
-        .guarantee-table th {
-            background: var(--primary-color);
-            color: white;
-        }
+/* ── DARK TOGGLE ── */
+#dark-toggle {
+  position: fixed; bottom: 100px; right: 30px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--card-bg); border: 2px solid var(--accent);
+  font-size: 1.3rem; cursor: pointer; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: all var(--transition);
+}
+#dark-toggle:hover { transform: scale(1.1); }
 
-        .guarantee-table tr:nth-child(even) {
-            background: var(--bg-light);
-        }
+/* ── CONFETTI ── */
+.confetti-piece {
+  position: fixed; top: -10px; z-index: 10000;
+  pointer-events: none;
+  animation: confettiFall 3s ease-out forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity:0; }
+}
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .section {
-                padding: 1rem;
-            }
-        }
-    </style>
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .section { padding: 28px 22px; }
+  .hero { padding: 80px 18px 60px; }
+  .hero h1 { font-size: 1.6rem; }
+  .element-flow { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  #toc-bar nav { justify-content: flex-start; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table th, .compare-table td { padding: 10px 12px; }
+}
+</style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    <button class="back-to-top" id="backToTop">↑</button>
 
-    <header>
-        <h1>Unit 8 单元8</h1>
-        <h2>Consumer Protection Law 消费者保护法</h2>
-        <h3>Australian Consumer Law (ACL) 澳大利亚消费者法</h3>
-    </header>
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
 
-    <div class="container">
-        <!-- Overview Section -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Overview 概述
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <ul>
-                    <li><span class="highlight">Competition and Consumer Act 2010 (Cth) 2010年竞争与消费者法（联邦）</span></li>
-                    <li><span class="highlight">Australian Consumer Law (ACL) 澳大利亚消费者法</span></li>
-                    <li><span class="highlight">Misleading or deceptive conduct 误导或欺骗性行为</span></li>
-                    <li><span class="highlight">Consumer guarantees 消费者保证</span></li>
-                </ul>
-            </div>
-        </div>
+<!-- Back to Main -->
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main">
+  <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+</a>
 
-        <!-- ACL Introduction -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                The Australian Consumer Law (ACL) 澳大利亚消费者法
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="subsection">
-                    <h3>Competition and Consumer Act 2010 (Cth) 2010年竞争与消费者法（联邦）</h3>
-                    <ul>
-                        <li>Designed 设计 to promote 促进 fair trading 公平交易 and competition 竞争 in the marketplace 市场.</li>
-                        <li>Aims 旨在 to protect 保护 consumers 消费者, encourage 鼓励 competition 竞争, and regulate 监管 various 各种 commercial practices 商业行为.</li>
-                    </ul>
-                </div>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="float-emoji" style="left:5%;animation-delay:0s">🛒</div>
+  <div class="float-emoji" style="left:18%;animation-delay:3s">🛡️</div>
+  <div class="float-emoji" style="left:32%;animation-delay:6s">⚖️</div>
+  <div class="float-emoji" style="left:50%;animation-delay:2s">📋</div>
+  <div class="float-emoji" style="left:68%;animation-delay:8s">🔍</div>
+  <div class="float-emoji" style="left:85%;animation-delay:5s">💼</div>
+  <h1>Unit 8: Consumer Protection</h1>
+  <p class="chinese">第八单元：消费者保护法</p>
+  <p class="subtitle">Explore the Australian Consumer Law, misleading or deceptive conduct, consumer guarantees, and statutory protections.</p>
+  <p class="chinese" style="font-size:0.95rem;opacity:0.75;margin-top:6px;">探索澳大利亚消费者法、误导或欺骗性行为、消费者保证和法定保护。</p>
+</section>
 
-                <div class="subsection">
-                    <h3>Key Aspects 关键方面</h3>
-                    <ul>
-                        <li><span class="highlight">Competition Law 竞争法</span>: Prohibits 禁止 anti-competitive practices 反竞争行为 such as 诸如 cartels 卡特尔, abuse 滥用 of market power 市场力量, and anti-competitive 反竞争 mergers 合并 and acquisitions 收购.</li>
-                        <li><span class="highlight">Consumer Protection 消费者保护</span>: Provides 提供 consumer protections 消费者保护 against 针对 unfair trading practices 不公平交易行为, including 包括 misleading 误导 and deceptive conduct 欺骗性行为, false advertising 虚假广告, and unfair contract terms 不公平合同条款.</li>
-                    </ul>
-                </div>
+<!-- TOC Navigation Bar -->
+<div id="toc-bar">
+  <nav>
+    <a href="#overview">🛒 Overview</a>
+    <a href="#acl">📜 ACL</a>
+    <a href="#section18">⚖️ Section 18</a>
+    <a href="#cases">🏛️ Cases</a>
+    <a href="#guarantees">🛡️ Guarantees</a>
+    <a href="#s54">✅ s54</a>
+    <a href="#s55">🎯 s55</a>
+    <a href="#s56">📝 s56</a>
+    <a href="#s57">🔍 s57</a>
+    <a href="#norefund">🚫 No Refund</a>
+    <a href="#tutorial">📝 Tutorial</a>
+    <a href="#key-terms">📖 Terms</a>
+    <a href="#flashcards">🃏 Flashcards</a>
+    <a href="#quiz">🧠 Quiz</a>
+  </nav>
+</div>
 
-                <div class="subsection">
-                    <h3>Australian Consumer Law 澳大利亚消费者法 (Schedule 2 附表2 of CCA)</h3>
-                    <ul>
-                        <li><span class="highlight">Commonwealth regime 联邦制度</span> governing 管理 the supply 供应 of goods 商品 and services 服务 by a person 人 to a consumer 消费者</li>
-                        <li><span class="highlight">Purpose 目的</span> of the ACL: To enhance 增进 the welfare 福利 of consumers 消费者</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+<div class="container">
 
-        <!-- Section 18 -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Section 18 第18条 - Misleading or Deceptive Conduct 误导或欺骗性行为
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <h3>Section 18(1) of the Australian Consumer Law 澳大利亚消费者法第18(1)条</h3>
-                    <p><strong>A person 人 must not 不得, in trade or commerce 在贸易或商业中, engage in 从事 conduct 行为 that is misleading or deceptive 误导或欺骗性的 or is likely 可能 to mislead or deceive 误导或欺骗.</strong></p>
-                    <p style="margin-top: 0.5rem;">Aims 旨在 to protect 保护 consumers 消费者 and businesses 企业 from false 虚假的 or misleading 误导性的 statements 陈述 that could affect 影响 their decisions 决定 or actions 行为.</p>
-                </div>
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: OVERVIEW
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="overview">
+  <span class="section-label" style="background:var(--overview-light);color:var(--overview);">Section 1</span>
+  <h2><span class="emoji">🛒</span> Overview</h2>
+  <p class="zh-title">概述</p>
 
-                <div class="subsection">
-                    <h3>Four Elements 四个要素 of Section 18 第18条</h3>
-                    
-                    <div class="element-box">
-                        <h4>1. 'A Person' '一个人'</h4>
-                        <p>Section 18 targets 针对 conduct 行为 by all persons 所有人:</p>
-                        <ul>
-                            <li><span class="highlight">Individual 个人</span></li>
-                            <li><span class="highlight">Corporation 公司</span> (legal person 法人: upon 在 incorporation 注册成立, a company 公司 becomes 成为 a separate legal entity 独立法律实体 to that of 相对于 its owners 所有者)</li>
-                        </ul>
-                    </div>
+  <p>This unit examines <span class="tooltip-term">consumer protection law<span class="tip-box">Consumer Protection Law 消费者保护法 — Laws designed to protect consumers from unfair trading practices and ensure product quality. 旨在保护消费者免受不公平贸易行为并确保产品质量的法律。</span></span> in Australia, focusing on the Australian Consumer Law (ACL) within the Competition and Consumer Act 2010 (Cth).</p>
+  <span class="zh-text">本单元研究澳大利亚的消费者保护法，重点关注《2010年竞争和消费者法》（联邦）中的澳大利亚消费者法（ACL）。</span>
 
-                    <div class="element-box">
-                        <h4>2. 'Trade or Commerce' '贸易或商业'</h4>
-                        <p>Transaction 交易 must have 必须具有 a trading 贸易 or commercial character 商业性质:</p>
-                        <ul>
-                            <li>Goods 商品 or services 服务 supplied 供应 in a private 私人 or personal capacity 个人身份 will not breach 不违反 s 18</li>
-                            <li><strong>Examples 例子 of conduct 行为 which is not 不是 in 'trade or commerce' '贸易或商业':</strong>
-                                <ul>
-                                    <li>A private sale 私人销售 of property 房产 by an individual 个人 unless 除非 in a business context 商业背景</li>
-                                    <li>A statement 声明 of government policy 政府政策 made 做出 by a minister 部长</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+  <h3>Key Topics Covered</h3>
+  <p class="zh-sub">本单元涵盖的关键主题</p>
 
-                    <div class="element-box">
-                        <h4>3. 'Engaging in Conduct' '从事行为'</h4>
-                        <ul>
-                            <li>Includes 包括 doing 做 (act 行为) or refusing 拒绝 to do 做 an act 行为 (omission 不作为)</li>
-                            <li>A person 人 engages in 从事 conduct 行为 if they make 做出 the statement 陈述, perform 执行 an act 行为, make 做出 a claim 声称 or refuses 拒绝 to do so 这样做.</li>
-                            <li>Essentially 本质上, the phrase 短语 covers 涵盖 virtually 几乎 every act 每个行为 and it may even cover 甚至涵盖 inaction 不作为.</li>
-                            <li>In some circumstances 在某些情况下, remaining silent 保持沉默 can constitute 构成 'engaging in conduct' '从事行为'.</li>
-                            <li><strong>Example 例子:</strong> Providing 提供 wrong 错误的 (act 行为) or providing 提供 no information 无信息, or hiding 隐藏 some vital information 重要信息 (omission 不作为)</li>
-                        </ul>
-                    </div>
-
-                    <div class="element-box">
-                        <h4>4. 'Mislead or Deceive' '误导或欺骗' or 'Likely to Mislead or Deceive' '可能误导或欺骗'</h4>
-                        <p><span class="highlight">Mislead 误导</span>: To lead 引导 a person 人 into error 错误 or to create 造成 a false impression 虚假印象</p>
-                        
-                        <p style="margin-top: 1rem;"><strong>Important Concepts 重要概念:</strong></p>
-                        <ul>
-                            <li><span class="highlight">Silence 沉默</span>: In some circumstances 在某些情况下, failure 未能 to disclose 披露 information 信息 can be misleading 可能误导. This is particularly 特别是 the case 情况 if a business 企业 provides 提供 some information 一些信息 to a consumer 消费者 but does not mention 未提及 important details 重要细节 the consumer 消费者 should know 应当知道 that are relevant 相关 to their decision 决定.</li>
-                            <li><span class="highlight">Fine print and qualifications 细则和限定条件</span>: It can be misleading 可能误导 when 当 the fine print 细则 contradicts 矛盾 the main message 主要信息 of the advertisement 广告.</li>
-                            <li><span class="highlight">Wildly exaggerated claims (puffery) 夸大其词的声称（吹嘘）</span>: 'Puffery' '吹嘘' refers to 指 wildly exaggerated 极度夸大 and vague claims 模糊声称 about a product 产品 or service 服务 that no one 没人 could treat 对待 seriously 认真地. For example 例如, a restaurant 餐厅 claims 声称 they have 拥有 the 'best steaks 最好的牛排 on earth 地球上'. These types 这类 of statements 陈述 are generally 通常 not considered 不被视为 misleading 误导.</li>
-                        </ul>
-
-                        <p style="margin-top: 1rem;"><strong>Key Point 关键点:</strong></p>
-                        <ul>
-                            <li>It is not necessary 无需 to prove 证明 that the conduct 行为 actually did 实际上 mislead 误导 or deceive 欺骗 anyone 任何人, so long as 只要 there is a real 真实的 and not a remote chance 并非遥远的可能 of it.</li>
-                            <li><span class="highlight">Intention 意图 to mislead or deceive 误导或欺骗 is not relevant 不相关</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Case Examples for Section 18 -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Case Examples 案例 - Section 18 第18条
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <div class="case-title">ACCC v Apple Pty Ltd 澳大利亚竞争与消费者委员会诉苹果有限公司案 [2012] FCA 646</div>
-                    <ul>
-                        <li><span class="highlight">Conduct 行为</span>: Apple in its advertising 广告 implied 暗示 that the "iPad with WiFi + 4G" could connect 连接 directly 直接 to the Telstra LTE mobile data network 电信LTE移动数据网络 in Australia 澳大利亚.</li>
-                        <li><span class="highlight">Fact 事实</span>: The "iPad with WiFi + 4G" could not connect 不能连接 to any networks 任何网络 which have been promoted 被宣传 in Australia as 4G networks 4G网络, in particular 特别是 Telstra's LTE network 电信的LTE网络.</li>
-                        <li><span class="highlight">Misleading or deceptive 误导或欺骗</span>: Australian consumers 澳大利亚消费者 thought 认为 that the product 产品 'iPad with WiFi + 4G' can 可以, with a SIM card SIM卡, connect 连接 to a 4G mobile data network 4G移动数据网络 in Australia 澳大利亚, when 当 this is not the case 并非如此.</li>
-                        <li><strong>Note 注意:</strong> Intention 意图 to mislead or deceive 误导或欺骗 is not relevant 不相关</li>
-                    </ul>
-                </div>
-
-                <div class="case-box">
-                    <div class="case-title">ACCC v Reckitt Benckiser (Australia) Pty Ltd 澳大利亚竞争与消费者委员会诉利洁时（澳大利亚）有限公司案 [2016] FCAFC 181</div>
-                    <ul>
-                        <li><span class="highlight">Conduct 行为</span>: Reckitt Benckiser represented 声称 that its Nurofen Specific Pain products 芬必得特定疼痛产品 were each formulated 配制 to treat 治疗 a specific type 特定类型 of pain 疼痛.</li>
-                        <li><span class="highlight">Fact 事实</span>: 'Specific pain' range products 特定疼痛系列产品 all contained 都含有 the same active ingredient 相同的活性成分 and did the same thing 做同样的事.</li>
-                        <li><span class="highlight">Misleading or deceive 误导或欺骗</span>: Consumers 消费者 thought 认为 they needed 需要 to buy 购买 multiple products 多个产品 to achieve 达到 adequate 充分的 pain relief 疼痛缓解.</li>
-                    </ul>
-                </div>
-
-                <div class="case-box">
-                    <div class="case-title">ACCC v Samsung Electronics Australia Pty Ltd 澳大利亚竞争与消费者委员会诉三星电子澳大利亚有限公司案 [2022] FCA 875</div>
-                    <ul>
-                        <li><span class="highlight">Conduct 行为</span>: Samsung made claims 做出声称 in nine advertisements 九个广告 over 超过 2.5 years 年 that certain 某些 Galaxy phones 盖乐世手机 were water resistant 防水 to 1.5 metres 米 for 30 minutes 分钟 and showed 展示 the phones being exposed to 暴露于 ocean 海洋 and pool water 泳池水.</li>
-                        <li><span class="highlight">Fact 事实</span>: The phones 手机 were not suitable 不适合 for use 使用 in all types 所有类型 of water 水 and such use 此类使用 would damage 损坏 them 它们.</li>
-                        <li><span class="highlight">Misleading or deceptive 误导或欺骗</span>: Cause 导致 consumers 消费者 to believe 相信 that the Galaxy phones 盖乐世手机 would be suitable 适合 for use 使用 in, or exposure to 暴露于, all types 所有类型 of water 水, including 包括, for example 例如, oceans 海洋 and swimming pools 游泳池; and the useful life 使用寿命 of the phones 手机 would not be adversely affected 不会受到不利影响 if the phones 手机 were used 被使用 in, or exposed to 暴露于, all types 所有类型 of water 水, including 包括, for example 例如, oceans 海洋 and swimming pools 游泳池.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Consumer Guarantees Overview -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Consumer Guarantees 消费者保证 - Sections 54-57 第54-57条
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="subsection">
-                    <h3>Introduction 介绍</h3>
-                    <ul>
-                        <li>Transactions 交易 with consumers 消费者 for the sale 销售 of goods 商品 and services 服务 in <span class="highlight">business to consumer contracts 企业对消费者合同</span> are regulated 受监管 by <span class="highlight">non-excludable consumer guarantees 不可排除的消费者保证</span> in the Australian Consumer Law (ACL) 澳大利亚消费者法.</li>
-                        <li>The ACL is consumer protection law 消费者保护法 which applies to 适用于 a transaction 交易 involving 涉及 a 'consumer' 消费者 as buyer 买方.</li>
-                        <li>The ACL does not apply 不适用 to <span class="highlight">business to business contracts 企业对企业合同</span> — these are regulated 受监管 by the state 州 and territory 领地 Sale of Goods Acts 商品销售法.</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Consumer Guarantees for the Sale of Goods 商品销售的消费者保证</h3>
-                    <table class="guarantee-table">
-                        <thead>
-                            <tr>
-                                <th>Section 条款</th>
-                                <th>Guarantee 保证</th>
-                                <th>Consumer Guarantee by 消费者保证由</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>54</td>
-                                <td>The goods 商品 are of acceptable quality 可接受质量</td>
-                                <td>Both supplier 供应商 and manufacturer 制造商</td>
-                            </tr>
-                            <tr>
-                                <td>55</td>
-                                <td>The goods 商品 are fit for 适合 their disclosed purpose 披露的目的</td>
-                                <td>Supplier 供应商</td>
-                            </tr>
-                            <tr>
-                                <td>56</td>
-                                <td>The goods 商品 match 符合 their description 描述</td>
-                                <td>Both supplier 供应商 and manufacturer 制造商</td>
-                            </tr>
-                            <tr>
-                                <td>57</td>
-                                <td>The goods 商品 match 符合 the sample 样品 or demonstration model 演示模型</td>
-                                <td>Supplier 供应商</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 54 -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Section 54 第54条 - Acceptable Quality 可接受质量
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <p><strong>Goods 商品 supplied 供应 to a consumer 消费者 are of <span class="highlight">acceptable quality 可接受质量</span>.</strong></p>
-                </div>
-
-                <div class="subsection">
-                    <h3>What is Acceptable Quality 什么是可接受质量?</h3>
-                    <p><strong>Goods 商品 are of acceptable quality 可接受质量 if they are 如果它们:</strong></p>
-                    <ul>
-                        <li><span class="highlight">Fit for the purpose 适合目的</span> for which 为其 goods 商品 of that kind 该类 are commonly bought 通常购买</li>
-                        <li><span class="highlight">Acceptable in appearance and finish 外观和完成度可接受</span></li>
-                        <li><span class="highlight">Free from defects 无缺陷</span></li>
-                        <li><span class="highlight">Safe 安全</span></li>
-                        <li><span class="highlight">Durable 耐用</span></li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Having Regard to 考虑到:</h3>
-                    <ul>
-                        <li><span class="highlight">Nature of the goods 商品性质</span>:
-                            <ul>
-                                <li>The materials 材料 used 使用 or composition 组成 of the components 组件 (if any 如果有)</li>
-                                <li>The type 类型 of good 商品 and its use 使用</li>
-                                <li>For example 例如, goods 商品 that are more portable 更便携 or contain 含有 complex components 复杂组件 would generally 通常 be reasonably expected 合理预期 to last 持续 for a shorter time period 更短时间 than goods 商品 that are stationary 固定的 and relatively simple 相对简单.</li>
-                            </ul>
-                        </li>
-                        <li><span class="highlight">Price of the goods 商品价格</span>:
-                            <ul>
-                                <li>The price 价格 of a good 商品 can generally 通常 be linked to 与...相关 the quality 质量 of the materials 材料 and the manufacturing techniques 制造技术 used 使用 to produce 生产 the good 商品.</li>
-                                <li>Goods 商品 purchased 购买 at a high price 高价 can be expected 可预期 to last 持续 longer 更长时间 than goods 商品 purchased 购买 at a lower price 较低价格.</li>
-                            </ul>
-                        </li>
-                        <li><span class="highlight">Any statements 任何陈述</span> made 做出 about the goods 商品 on any packaging 包装 or label 标签 on the goods 商品</li>
-                        <li><span class="highlight">Any representation 任何声称</span> made 做出 about the goods 商品 by the supplier 供应商 or manufacturer 制造商 of the goods 商品</li>
-                        <li><span class="highlight">Any other relevant circumstances 任何其他相关情况</span> relating to 与...相关 the supply 供应 of the goods 商品</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>The Guarantee Does Not Apply 保证不适用 Where 当:</h3>
-                    <ul>
-                        <li>The reason 原因 or reasons 原因 why they are not of acceptable quality 为何它们不具可接受质量 have been <span class="highlight">specifically drawn to 特别提请 a consumer's attention 消费者注意</span></li>
-                        <li>They are damaged 被损坏 by <span class="highlight">abnormal use 异常使用</span></li>
-                        <li>The consumer 消费者 acquiring 获得 the goods 商品 <span class="highlight">examines 检查</span> them before 之前 the consumer 消费者 agrees 同意 to the supply 供应 of the goods 商品; and the examination 检查 ought reasonably 应合理地 to have revealed 揭示 that the goods 商品 were not of acceptable quality 不具可接受质量</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 55 -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Section 55 第55条 - Fitness for Disclosed Purpose 适合披露目的
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <p><strong>Goods 商品 supplied 供应 to a consumer 消费者 must be <span class="highlight">reasonably fit 合理适合</span> for purpose 目的 that consumer 消费者 made known 告知 (expressly 明示 or by implication 默示) to the supplier 供应商, and any purpose 任何目的 for which 为其 the supplier 供应商 represents 声称 that they are reasonably fit 它们合理适合.</strong></p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Disclosed Purpose 披露目的</h3>
-                    <p>A <span class="highlight">disclosed purpose 披露目的</span> is a particular purpose 特定目的 (whether or not 无论是否 that purpose 该目的 is a purpose 目的 for which 为其 the goods 商品 are commonly supplied 通常供应) for which 为其 the goods 商品 are being acquired 被获得 by the consumer 消费者 and that the consumer 消费者 makes known 告知, <span class="highlight">expressly 明示</span> or by <span class="highlight">implication 默示</span>, to the supplier 供应商 or salesperson 销售人员.</p>
-                </div>
-
-                <div class="subsection">
-                    <h3>The Guarantee Does Not Apply 保证不适用</h3>
-                    <p>If the circumstances 情况 show 表明 that the consumer 消费者 did not rely on 未依赖, or that it was <span class="highlight">unreasonable 不合理</span> for the consumer 消费者 to rely on 依赖, the skill 技能 or judgment 判断 of the supplier 供应商 or salesperson 销售人员.</p>
-                    <p><strong>Example 例子:</strong> It would not be reasonable 不合理 if a consumer 消费者 tells 告诉 a checkout operator 收银员 at a department store 百货商店 that he or she wants 想要 goods 商品 to achieve 达到 a particular purpose 特定目的.</p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Two Main Tests 两个主要测试</h3>
-                    <p><strong>Both must be fulfilled 两者都必须满足:</strong></p>
-                    <ol>
-                        <li>Has the consumer 消费者 <span class="highlight">made known 告知</span> to the supplier 供应商 or manufacturer 制造商 the disclosed purpose 披露目的 of the goods 商品?</li>
-                        <li>Has the consumer 消费者 <span class="highlight">reasonably relied 合理依赖</span> on the supplier's 供应商的 skill 技能 or judgment 判断?</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 56 -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Section 56 第56条 - Correspondence with Description 符合描述
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <p><strong>Goods 商品 supplied 供应 to a consumer 消费者 must <span class="highlight">correspond with 符合</span> their description 描述.</strong></p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Key Points 关键点</h3>
-                    <ul>
-                        <li>Concerned with 关注 <span class="highlight">description 描述</span> rather than 而非 <span class="highlight">quality 质量</span>.</li>
-                        <li>Description 描述 may include 可能包括 the <span class="highlight">colour 颜色</span>, <span class="highlight">size 尺寸</span> or <span class="highlight">kind 类型</span> of the goods 商品.</li>
-                        <li>This means 意味着 that the focus 重点 is on whether 是否 the product 产品 matches 符合 the description 描述, rather than 而非 on the overall quality 整体质量 or performance 性能 of the product 产品.</li>
-                        <li><strong>Example 例子:</strong> If you buy 购买 a shirt 衬衫 described as 描述为 "100% cotton 100%棉", the primary concern 主要关注点 is that the shirt 衬衫 is indeed 确实 made of 由...制成 100% cotton 100%棉, regardless of 无论 whether 是否 the fabric 面料 is of high or low quality 高质量还是低质量.</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>A Supply of Goods by Description 按描述供应商品 Includes 包括:</h3>
-                    <ul>
-                        <li>Sales 销售 where 当 the consumer 消费者 has not seen 未见过 the goods 商品 and relies on 依赖 a description 描述 in, for example 例如, a website 网站, a newspaper advertisement 报纸广告 or catalogue 目录</li>
-                        <li>Sales 销售 where 当 the consumer 消费者 relies on 依赖 a description 描述 of goods 商品 which do not yet exist 尚不存在</li>
-                        <li>Sales 销售 where 当 the consumer 消费者 has actually seen 实际见过 the goods 商品 (the goods 商品 have been described 被描述 in the label 标签 on the goods 商品, or the description 描述 is set out 列出 in the contract 合同)</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Important Note 重要说明</h3>
-                    <p>If the supply 供应 is a sale 销售 by demonstration model 演示模型 as well as 以及 a sale 销售 by description 描述, the goods 商品 must correspond with 符合 both the demonstration model 演示模型 (under 根据 s 57 第57条) and the description 描述.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 57 -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Section 57 第57条 - Supply by Sample or Demonstration Model 按样品或演示模型供应
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <p><strong>If goods 商品 are sold 销售 by reference to 参照 a sample 样品 or a demonstration model 演示模型:</strong></p>
-                    <ul>
-                        <li>Goods 商品 supplied 供应 must <span class="highlight">match 符合</span> (correspond with 对应) that sample 样品 or that demonstration model 演示模型 in quality 质量, state 状态 or condition 条件.</li>
-                        <li>Consumer 消费者 will be given 被给予 a <span class="highlight">reasonable opportunity 合理机会</span> to compare 比较 the goods 商品 with the sample 样品.</li>
-                        <li>Goods 商品 will be <span class="highlight">free from 无</span> any defect 缺陷 that is not apparent 不明显 from reasonable examination 合理检查 of the sample 样品 or demonstration model 演示模型.</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Key Points 关键点</h3>
-                    <ul>
-                        <li>The guarantee 保证 does not apply 不适用 to supply 供应 of goods 商品 at a <span class="highlight">conventional auction 常规拍卖</span>.</li>
-                        <li>The sample 样品 and the demonstration model 演示模型 speak for themselves 代表自己, but they can only say so much 只能说这么多. Any defects 任何缺陷 that cannot be disclosed 不能被披露 by the sample 样品 or demonstration model 演示模型 are not excluded 不被排除 by inspecting 检查 the sample 样品 or the demonstration model 演示模型.</li>
-                        <li>If goods 商品 are supplied 供应 by reference to 参照 a sample 样品 or demonstration model 演示模型 as well as 以及 by description 描述, the guarantees 保证 in sections 条款 56 and 57 both apply 都适用.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- No Refund Signs -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                'No Refund' Signs '不退款'标志
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="case-box">
-                    <ul>
-                        <li>The consumer guarantees 消费者保证 <span class="highlight">cannot be excluded 不能被排除</span> with 'no refund' signs 不退款标志, etc 等.</li>
-                        <li><span class="highlight">Attempts 试图</span> to exclude 排除 the consumer guarantees 消费者保证 are <span class="highlight">void 无效</span> under 根据 the ACL.</li>
-                        <li>Sellers/retailers 销售商/零售商 cannot say 不能说 'no refunds' 不退款.</li>
-                        <li>A 'no refund' policy '不退款'政策 stops 阻止 consumers 消费者 claiming 索取 their <span class="highlight">statutory rights 法定权利</span> under 根据 the ACL (their non-excludable consumer guarantees 不可排除的消费者保证) and is <span class="highlight">illegal 非法</span>.</li>
-                        <li>The ACCC 澳大利亚竞争与消费者委员会 is a strong regulator 强力监管者 of attempts 试图 to exclude 排除 them.</li>
-                        <li>Any attempt 任何试图 to exclude 排除 the consumer guarantees 消费者保证 is <span class="highlight">false or misleading 虚假或误导</span>, and is <span class="highlight">void 无效</span> (of no effect 无效果) under 根据 the ACL.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tutorial Questions -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Tutorial Questions 辅导问题
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <div class="question-box">
-                    <div class="question-title">Question 1 问题1: Four Elements of Section 18 第18条的四个要素</div>
-                    <p><strong>What does s 18 第18条 of the Australian Consumer Law (ACL) 澳大利亚消费者法 prohibit 禁止?</strong></p>
-                    <p><strong>Answer 答案:</strong> Section 18 第18条 prohibits 禁止 a person 人 from engaging in 从事 conduct 行为 that is misleading or deceptive 误导或欺骗性的 or is likely 可能 to mislead or deceive 误导或欺骗 in trade or commerce 在贸易或商业中.</p>
-                    
-                    <p style="margin-top: 1rem;"><strong>Explain the elements 解释要素 of s 18 第18条:</strong></p>
-                    <ol>
-                        <li><span class="highlight">'A person' '一个人'</span> - Individual 个人 or corporation 公司</li>
-                        <li><span class="highlight">'Trade or commerce' '贸易或商业'</span> - Must have trading 贸易 or commercial character 商业性质</li>
-                        <li><span class="highlight">'Engaging in conduct' '从事行为'</span> - Doing 做 or refusing 拒绝 to do 做 an act 行为, includes 包括 silence 沉默</li>
-                        <li><span class="highlight">'Misleading or deceptive' '误导或欺骗'</span> - Creating 造成 a false impression 虚假印象, leading 引导 into error 错误</li>
-                    </ol>
-                </div>
-
-                <div class="question-box">
-                    <div class="question-title">Question 2 问题2: Coles Bread Case 科尔斯面包案 (IPAC Analysis IPAC分析)</div>
-                    
-                    <p><strong>Facts 事实:</strong></p>
-                    <p>Coles Supermarkets 科尔斯超市 made claims 做出声称 that its 'Cuisine Royale' '皇家美食' and 'Coles Bakery' '科尔斯烘焙' bread 面包 was 'Baked Today, Sold Today' '今日烘焙，今日销售' and in some cases 在某些情况下 'Freshly Baked In-Store' '店内新鲜烘焙'.</p>
-
-                    <p>These bread products 这些面包产品 were partially baked 部分烘焙 and frozen 冷冻 off site 场外 by a supplier 供应商 (in the case 在情况下 of Cuisine Royale, this baking 烘焙 and freezing 冷冻 took place 发生 overseas 海外), transported 运输 and 'finished' '完成' at in-store bakeries 店内烘焙坊 within 在 Coles supermarkets 科尔斯超市.</p>
-
-                    <p><strong>Issue 争议点:</strong> Whether 是否 Coles breached 违反 s 18 第18条?</p>
-
-                    <p><strong>Principle & Application 原则与应用:</strong></p>
-                    <ol>
-                        <li><span class="highlight">'A person' '一个人'</span>: Coles is a corporation 公司 ✓</li>
-                        <li><span class="highlight">'Trade or commerce' '贸易或商业'</span>: Selling bread 销售面包 in supermarket 超市 is commercial activity 商业活动 ✓</li>
-                        <li><span class="highlight">'Engaging in conduct' '从事行为'</span>: Coles made advertising claims 做出广告声称 ✓</li>
-                        <li><span class="highlight">'Misleading or deceptive' '误导或欺骗'</span>: Claims 声称 "Baked Today" and "Freshly Baked" misled 误导 consumers 消费者 into thinking 认为 bread 面包 was baked 烘焙 from scratch 从头 on the day 当天, when 当 it was actually 实际上 par-baked 部分烘焙 and frozen 冷冻 off-site 场外 earlier 更早 ✓</li>
-                    </ol>
-
-                    <p><strong>Conclusion 结论:</strong> Coles breached 违反 s 18 第18条 of the ACL.</p>
-                </div>
-
-                <div class="question-box">
-                    <div class="question-title">Question 3 问题3: Pool Fence Case 泳池围栏案 (IPAC Analysis IPAC分析)</div>
-                    
-                    <p><strong>Facts 事实:</strong></p>
-                    <p>The 'Be-Safe Pool Fence - Portable Pool Fence Starter Kit' '保安泳池围栏-便携式泳池围栏套装' made by 由...制造 Clark Rubber 克拉克橡胶公司 and sold 销售 across 遍布 Australia 澳大利亚 costing 花费 $799 was recalled 被召回 after video 视频 emerged 出现 of a toddler 幼童 easily 轻易地 reaching through 伸手穿过 a gap 缝隙 and opening 打开 it.</p>
-
-                    <p>Australian safety standards 澳大利亚安全标准 say 规定 pool fence latches 泳池围栏门闩 must reach 必须达到 1200mm but the Be-Safe gate 保安门 is barely 仅 870mm high 高.</p>
-
-                    <p>The fence 围栏 failed 未能 to meet 达到 standards 标准 for safety 安全, and the latch 门闩 doesn't close 关闭 and secure 固定 itself properly 正确地.</p>
-
-                    <p><strong>Issue 争议点:</strong> Whether 是否 Clark Rubber breached 违反 s 54 第54条 (acceptable quality 可接受质量)?</p>
-
-                    <p><strong>Principle & Application 原则与应用:</strong></p>
-                    <p>Under 根据 s 54 第54条, goods 商品 must be of <span class="highlight">acceptable quality 可接受质量</span>, meaning 意味着 they must be:</p>
-                    <ul>
-                        <li><span class="highlight">Fit for purpose 适合目的</span>: The fence 围栏 is supposed 应该 to keep 保持 children 儿童 safe 安全 from pools 泳池. A toddler 幼童 could easily 轻易地 open 打开 it, so NOT fit for purpose 不适合目的 ✗</li>
-                        <li><span class="highlight">Safe 安全</span>: The fence 围栏 poses 构成 a serious safety risk 严重安全风险 - NOT safe 不安全 ✗</li>
-                        <li><span class="highlight">Free from defects 无缺陷</span>: The latch 门闩 doesn't work properly 工作正常, height 高度 below 低于 standard 标准 - has defects 有缺陷 ✗</li>
-                    </ul>
-
-                    <p><strong>Having regard to 考虑到:</strong></p>
-                    <ul>
-                        <li><span class="highlight">Nature of goods 商品性质</span>: Safety equipment 安全设备 for pool 泳池 - must meet 必须达到 high safety standards 高安全标准</li>
-                        <li><span class="highlight">Price 价格</span>: $799 - expensive 昂贵, consumers 消费者 expect 期望 high quality 高质量 and safety 安全</li>
-                        <li><span class="highlight">Statements/representations 陈述/声称</span>: Marketed 销售 as pool safety fence 泳池安全围栏</li>
-                    </ul>
-
-                    <p><strong>Conclusion 结论:</strong> Clark Rubber breached 违反 s 54 第54条 as the fence 围栏 was not of acceptable quality 不具可接受质量. The goods 商品 were not safe 不安全, not fit for purpose 不适合目的, and had defects 有缺陷.</p>
-                </div>
-
-                <div class="question-box">
-                    <div class="question-title">Question 4 问题4: In-Class Scenarios 课堂场景</div>
-                    
-                    <p><strong>Scenario (a):</strong> Ella 埃拉 bought 购买 a washing machine 洗衣机 from X, which was significantly 显著地 more expensive 更昂贵 than other models 其他型号. The machine 机器 broke down 损坏 after 之后 just 仅 2 months 月 of use 使用.</p>
-                    <p><strong>Advice 建议:</strong> X likely breached 可能违反 s 54 第54条 (acceptable quality 可接受质量). Given 鉴于 the high price 高价, consumers 消费者 expect 期望 durability 耐用性. 2 months 月 is unreasonably short 不合理地短 for an expensive 昂贵的 washing machine 洗衣机 - not durable 不耐用.</p>
-
-                    <p><strong>Scenario (b):</strong> Mark 马克 purchased 购买 a sofa 沙发 after seeing 看到 a display model 展示模型. When delivered 交付, it differed 不同 in both colour 颜色 and fabric 面料 from the sample 样品.</p>
-                    <p><strong>Advice 建议:</strong> X breached 违反 s 57 第57条 (supply by sample/demonstration model 按样品/演示模型供应). The goods 商品 must match 符合 the sample 样品 in quality 质量, state 状态 or condition 条件. Different 不同的 colour 颜色 and fabric 面料 = does not match 不符合.</p>
-
-                    <p><strong>Scenario (c):</strong> Lisa 丽莎 told 告诉 store assistant 店员 at X she needed 需要 a vacuum cleaner 吸尘器 for cleaning 清洁 pet hair 宠物毛发. Assistant 店员 showed 展示 vacuum cleaners 吸尘器 but explicitly mentioned 明确提到 they were unsure 不确定 if any would meet 满足 her specific requirements 具体要求. Lisa chose 选择 one but it did not effectively remove 有效去除 pet hair 宠物毛发.</p>
-                    <p><strong>Advice 建议:</strong> X likely did NOT breach 可能未违反 s 55 第55条. While 虽然 Lisa disclosed 披露 the purpose 目的 (cleaning pet hair 清洁宠物毛发), the assistant 店员 explicitly said 明确说 they were unsure 不确定. It was <span class="highlight">unreasonable 不合理</span> for Lisa to rely on 依赖 the assistant's 店员的 skill/judgment 技能/判断 when 当 they clearly stated 明确表示 uncertainty 不确定性.</p>
-
-                    <p><strong>Scenario (d):</strong> Bob 鲍勃 purchased 购买 a leather jacket 皮夹克 online 在线. The product description 产品描述 stated 声明 "100% genuine leather 100%真皮". When delivered 交付, Bob realized 意识到 it was made from 由...制成 synthetic materials 合成材料.</p>
-                    <p><strong>Advice 建议:</strong> X breached 违反 s 56 第56条 (correspondence with description 符合描述). The jacket 夹克 was described as 被描述为 "100% genuine leather 100%真皮" but was actually 实际上 synthetic 合成的. The goods 商品 do not correspond with 不符合 their description 描述.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Key Terms -->
-        <div class="section">
-            <h2 class="section-title" onclick="toggleSection(this)">
-                Key Terms 关键术语
-                <span class="toggle-icon">▼</span>
-            </h2>
-            <div class="section-content">
-                <ul>
-                    <li><span class="highlight">Misleading or Deceptive Conduct 误导或欺骗性行为</span>: Conduct 行为 that creates 造成 a false impression 虚假印象 or leads 引导 into error 错误</li>
-                    <li><span class="highlight">Consumer Guarantees 消费者保证</span>: Non-excludable rights 不可排除的权利 under 根据 the ACL</li>
-                    <li><span class="highlight">Acceptable Quality 可接受质量</span>: Goods 商品 are fit for purpose 适合目的, safe 安全, durable 耐用, and free from defects 无缺陷</li>
-                    <li><span class="highlight">Fitness for Disclosed Purpose 适合披露目的</span>: Goods 商品 must be suitable 适合 for the specific purpose 具体目的 made known 告知 to the supplier 供应商</li>
-                    <li><span class="highlight">Correspondence with Description 符合描述</span>: Goods 商品 must match 符合 their description 描述</li>
-                    <li><span class="highlight">Supply by Sample 按样品供应</span>: Goods 商品 must match 符合 the sample 样品 or demonstration model 演示模型</li>
-                    <li><span class="highlight">Trade or Commerce 贸易或商业</span>: Activities 活动 with commercial 商业的 or trading character 贸易性质</li>
-                    <li><span class="highlight">Puffery 吹嘘</span>: Wildly exaggerated 极度夸大 and vague claims 模糊声称 not taken seriously 不被认真对待</li>
-                </ul>
-            </div>
-        </div>
+  <div class="feature-grid">
+    <div class="feature-card" style="border-color:var(--overview);">
+      <div class="card-icon">📜</div>
+      <h4>Competition and Consumer Act 2010 (Cth)</h4>
+      <p>The principal federal legislation governing competition and consumer protection.</p>
+      <span class="zh-card">《2010年竞争和消费者法》（联邦）：管辖竞争和消费者保护的主要联邦立法。</span>
     </div>
+    <div class="feature-card" style="border-color:var(--legislation);">
+      <div class="card-icon">🛡️</div>
+      <h4>Australian Consumer Law (ACL)</h4>
+      <p>Schedule 2 of the CCA — the national consumer protection regime.</p>
+      <span class="zh-card">《澳大利亚消费者法》：CCA附表2——全国消费者保护制度。</span>
+    </div>
+    <div class="feature-card" style="border-color:var(--case-law);">
+      <div class="card-icon">⚖️</div>
+      <h4>Misleading or Deceptive Conduct</h4>
+      <p>Section 18 — prohibits misleading or deceptive conduct in trade or commerce.</p>
+      <span class="zh-card">误导或欺骗性行为：第18条——禁止在贸易或商业中的误导或欺骗性行为。</span>
+    </div>
+    <div class="feature-card" style="border-color:var(--quality);">
+      <div class="card-icon">✅</div>
+      <h4>Consumer Guarantees</h4>
+      <p>Sections 54–57 — non-excludable guarantees for goods supplied to consumers.</p>
+      <span class="zh-card">消费者保证：第54-57条——向消费者供应商品的不可排除保证。</span>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Progress Bar
-        window.addEventListener('scroll', () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight - windowHeight;
-            const scrolled = window.scrollY;
-            const progress = (scrolled / documentHeight) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        });
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: THE AUSTRALIAN CONSUMER LAW (ACL)
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="acl">
+  <span class="section-label" style="background:var(--legislation-light);color:var(--legislation);">Section 2</span>
+  <h2><span class="emoji">📜</span> The Australian Consumer Law (ACL)</h2>
+  <p class="zh-title">澳大利亚消费者法（ACL）</p>
 
-        // Back to Top Button
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.style.display = 'flex';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
+  <div class="key-point">
+    <p><strong>📌 Competition and Consumer Act 2010 (Cth):</strong> The CCA aims to <strong>promote fair trading and competition</strong> and <strong>protect consumers</strong>.</p>
+    <span class="zh-text">《2010年竞争和消费者法》（联邦）：CCA旨在促进公平贸易和竞争，保护消费者。</span>
+  </div>
 
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+  <h3>Key Aspects of the CCA</h3>
+  <p class="zh-sub">CCA的关键方面</p>
 
-        // Toggle Section
-        function toggleSection(element) {
-            const content = element.nextElementSibling;
-            const icon = element.querySelector('.toggle-icon');
-            
-            content.classList.toggle('collapsed');
-            icon.classList.toggle('rotated');
-        }
+  <div class="feature-grid">
+    <div class="feature-card" style="border-color:var(--legislation);">
+      <div class="card-icon">🏢</div>
+      <h4>Competition Law</h4>
+      <p>Regulates cartels, abuse of market power, and anti-competitive mergers.</p>
+      <span class="zh-card">竞争法：监管卡特尔、滥用市场支配地位和反竞争合并。</span>
+    </div>
+    <div class="feature-card" style="border-color:var(--overview);">
+      <div class="card-icon">🛒</div>
+      <h4>Consumer Protection</h4>
+      <p>Addresses unfair trading, misleading conduct, false advertising, and unfair contract terms.</p>
+      <span class="zh-card">消费者保护：处理不公平交易、误导行为、虚假广告和不公平合同条款。</span>
+    </div>
+  </div>
 
-        // Initially expand all sections
-        window.addEventListener('load', () => {
-            const sections = document.querySelectorAll('.section-content');
-            sections.forEach(section => {
-                section.classList.remove('collapsed');
-            });
-        });
-    </script>
+  <div class="key-point" style="margin-top:20px;">
+    <p><strong>📌 Australian Consumer Law (Schedule 2 of CCA):</strong> A Commonwealth regime governing the <strong>supply of goods and services</strong>. Its purpose is to <strong>enhance the welfare of consumers</strong>.</p>
+    <span class="zh-text">澳大利亚消费者法（CCA附表2）：管辖商品和服务供应的联邦制度。其目的是增进消费者福利。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: SECTION 18 — MISLEADING OR DECEPTIVE CONDUCT
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="section18">
+  <span class="section-label" style="background:var(--case-law-light);color:var(--case-law);">Section 3</span>
+  <h2><span class="emoji">⚖️</span> Section 18 — Misleading or Deceptive Conduct</h2>
+  <p class="zh-title">第18条 — 误导或欺骗性行为</p>
+
+  <div class="key-point">
+    <p><strong>📌 Section 18(1):</strong> <em>"A person must not, in trade or commerce, engage in conduct that is misleading or deceptive or is likely to mislead or deceive."</em></p>
+    <span class="zh-text">第18(1)条："任何人不得在贸易或商业中从事误导性或欺骗性的行为，或可能误导或欺骗的行为。"</span>
+  </div>
+
+  <h3>Four Elements of Section 18</h3>
+  <p class="zh-sub">第18条的四个要素</p>
+
+  <div class="element-flow">
+    <div class="element-step">
+      <div class="element-num">1</div>
+      <h4>'A Person'</h4>
+      <p class="zh-step">"任何人"</p>
+      <p>Individual or Corporation.</p>
+      <span class="zh-text">个人或公司。</span>
+    </div>
+    <div class="element-step">
+      <div class="element-num">2</div>
+      <h4>'Trade or Commerce'</h4>
+      <p class="zh-step">"贸易或商业"</p>
+      <p>Must have trading or commercial character. NOT: private sale by individual, government policy statement.</p>
+      <span class="zh-text">必须具有贸易或商业性质。不包括：个人私人出售、政府政策声明。</span>
+    </div>
+    <div class="element-step">
+      <div class="element-num">3</div>
+      <h4>'Engaging in Conduct'</h4>
+      <p class="zh-step">"从事行为"</p>
+      <p>Doing or refusing to do an act (including silence).</p>
+      <span class="zh-text">做出或拒绝做出某种行为（包括沉默）。</span>
+    </div>
+    <div class="element-step">
+      <div class="element-num">4</div>
+      <h4>'Mislead or Deceive'</h4>
+      <p class="zh-step">"误导或欺骗"</p>
+      <p>Create false impression. Silence can be misleading. Fine print contradicting main message. Puffery generally not misleading. Intention not relevant.</p>
+      <span class="zh-text">造成错误印象。沉默可以是误导性的。细则与主要信息矛盾。吹嘘一般不构成误导。意图不相关。</span>
+    </div>
+  </div>
+
+  <div class="key-point" style="margin-top:24px;">
+    <p><strong>🔑 Key Points 关键要点:</strong></p>
+    <ul class="highlight-list">
+      <li><span class="li-icon">🔇</span><div><strong>Silence</strong> can be misleading — failing to disclose material information.<span class="zh-text">沉默可以是误导性的——未披露重要信息。</span></div></li>
+      <li><span class="li-icon">📄</span><div><strong>Fine print</strong> contradicting the main message can amount to misleading conduct.<span class="zh-text">与主要信息矛盾的细则可构成误导行为。</span></div></li>
+      <li><span class="li-icon">📢</span><div><strong>Puffery</strong> — wildly exaggerated, vague claims — is generally NOT misleading.<span class="zh-text">吹嘘——极度夸张、模糊的声称——通常不构成误导。</span></div></li>
+      <li><span class="li-icon">🎯</span><div><strong>Intention is NOT relevant</strong> — liability is strict; it doesn't matter if you intended to mislead.<span class="zh-text">意图不相关——责任是严格的；是否有意误导并不重要。</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4: CASE EXAMPLES — SECTION 18
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="cases">
+  <span class="section-label" style="background:var(--case-law-light);color:var(--case-law);">Section 4</span>
+  <h2><span class="emoji">🏛️</span> Case Examples — Section 18</h2>
+  <p class="zh-title">案例分析 — 第18条</p>
+
+  <h3>ACCC v Apple [2012] FCA 646</h3>
+  <p class="zh-sub">ACCC诉苹果 [2012] FCA 646</p>
+
+  <div class="case-box case-facts">
+    <h4>📋 Facts 案件事实</h4>
+    <p>Apple marketed the iPad as having <strong>"4G" connectivity</strong> in Australia. However, the device <strong>could not connect to Australian 4G networks</strong> — it only supported overseas 4G frequencies.</p>
+    <span class="zh-text">苹果在澳大利亚将iPad宣传为具有"4G"连接功能。然而，该设备无法连接到澳大利亚的4G网络——它只支持海外4G频率。</span>
+  </div>
+  <div class="case-box case-decision">
+    <h4>⚖️ Decision 判决</h4>
+    <p>Apple's representation that the iPad was "4G" capable was <strong>misleading</strong> because Australian consumers would reasonably expect it to connect to Australian 4G networks.</p>
+    <span class="zh-text">苹果关于iPad具有"4G"功能的陈述是误导性的，因为澳大利亚消费者有理由期望它能连接到澳大利亚的4G网络。</span>
+  </div>
+
+  <h3>ACCC v Reckitt Benckiser [2016] FCAFC 181</h3>
+  <p class="zh-sub">ACCC诉利洁时 [2016] FCAFC 181</p>
+
+  <div class="case-box case-facts">
+    <h4>📋 Facts 案件事实</h4>
+    <p>Nurofen marketed <strong>"Specific Pain" products</strong> (e.g., Nurofen Back Pain, Nurofen Period Pain, Nurofen Migraine Pain) at different prices. All products contained the <strong>same active ingredient</strong> (ibuprofen lysine 342mg).</p>
+    <span class="zh-text">诺洛芬销售"特定疼痛"产品（如诺洛芬背痛、经期疼痛、偏头痛），价格各不相同。所有产品含有相同的活性成分（布洛芬赖氨酸342mg）。</span>
+  </div>
+  <div class="case-box case-decision">
+    <h4>⚖️ Decision 判决</h4>
+    <p>The marketing was <strong>misleading and deceptive</strong> — consumers were led to believe the products were specifically formulated for different types of pain when they were all identical.</p>
+    <span class="zh-text">该营销是误导和欺骗性的——消费者被引导相信产品是针对不同类型疼痛专门配制的，但实际上它们完全相同。</span>
+  </div>
+
+  <h3>ACCC v Samsung [2022] FCA 875</h3>
+  <p class="zh-sub">ACCC诉三星 [2022] FCA 875</p>
+
+  <div class="case-box case-facts">
+    <h4>📋 Facts 案件事实</h4>
+    <p>Samsung advertised its Galaxy phones as being <strong>water resistant</strong>. Advertisements showed phones being used in pools and the ocean. However, the phones were <strong>not suitable for all water types</strong> — exposure to certain water conditions could damage the devices.</p>
+    <span class="zh-text">三星将其Galaxy手机宣传为防水。广告展示了手机在游泳池和海洋中使用的场景。然而，这些手机并不适用于所有类型的水——暴露在某些水质条件下可能损坏设备。</span>
+  </div>
+  <div class="case-box case-decision">
+    <h4>⚖️ Decision 判决</h4>
+    <p>Samsung's advertising was <strong>misleading</strong> — the water resistance claims created a false impression about the suitability of the phones for use in various water conditions.</p>
+    <span class="zh-text">三星的广告是误导性的——防水声称对手机在各种水质条件下的适用性造成了错误印象。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5: CONSUMER GUARANTEES — SECTIONS 54-57
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="guarantees">
+  <span class="section-label" style="background:var(--overview-light);color:var(--overview);">Section 5</span>
+  <h2><span class="emoji">🛡️</span> Consumer Guarantees — Sections 54–57</h2>
+  <p class="zh-title">消费者保证 — 第54-57条</p>
+
+  <div class="key-point">
+    <p><strong>📌 Key Principle 关键原则:</strong> Consumer guarantees are <strong>non-excludable</strong> rights in <strong>business to consumer (B2C) contracts</strong>. They do <strong>NOT</strong> apply to business to business (B2B) contracts.</p>
+    <span class="zh-text">消费者保证是企业对消费者（B2C）合同中不可排除的权利。它们不适用于企业对企业（B2B）合同。</span>
+  </div>
+
+  <table class="compare-table" style="margin-top:20px;">
+    <thead>
+      <tr>
+        <th>Section 条款</th>
+        <th>Guarantee 保证</th>
+        <th>Liable Party 责任方</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>s54</strong></td>
+        <td>Acceptable quality<br><span class="zh-text">可接受质量</span></td>
+        <td>Supplier + Manufacturer<br><span class="zh-text">供应商 + 制造商</span></td>
+      </tr>
+      <tr>
+        <td><strong>s55</strong></td>
+        <td>Fit for disclosed purpose<br><span class="zh-text">适合披露目的</span></td>
+        <td>Supplier<br><span class="zh-text">供应商</span></td>
+      </tr>
+      <tr>
+        <td><strong>s56</strong></td>
+        <td>Match description<br><span class="zh-text">符合描述</span></td>
+        <td>Supplier + Manufacturer<br><span class="zh-text">供应商 + 制造商</span></td>
+      </tr>
+      <tr>
+        <td><strong>s57</strong></td>
+        <td>Match sample / demonstration model<br><span class="zh-text">与样品/演示模型一致</span></td>
+        <td>Supplier<br><span class="zh-text">供应商</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6: SECTION 54 — ACCEPTABLE QUALITY
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="s54">
+  <span class="section-label" style="background:var(--quality-light);color:var(--quality);">Section 6</span>
+  <h2><span class="emoji">✅</span> Section 54 — Acceptable Quality</h2>
+  <p class="zh-title">第54条 — 可接受质量</p>
+
+  <div class="key-point">
+    <p><strong>📌 Section 54:</strong> Goods supplied to a consumer must be of <strong>acceptable quality</strong>.</p>
+    <span class="zh-text">向消费者供应的商品必须具有可接受的质量。</span>
+  </div>
+
+  <h3>Goods Must Be:</h3>
+  <p class="zh-sub">商品必须：</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">🎯</span><div><strong>Fit for purpose</strong> — suitable for the purpose goods of that kind are commonly supplied for.<span class="zh-text">适合用途——适合该类商品通常供应的用途。</span></div></li>
+    <li><span class="li-icon">✨</span><div><strong>Acceptable in appearance and finish</strong> — meets expectations for appearance quality.<span class="zh-text">外观和做工可接受——达到外观质量预期。</span></div></li>
+    <li><span class="li-icon">🔧</span><div><strong>Free from defects</strong> — no manufacturing or other defects.<span class="zh-text">无缺陷——无制造或其他缺陷。</span></div></li>
+    <li><span class="li-icon">🛡️</span><div><strong>Safe</strong> — the goods must be safe for their intended use.<span class="zh-text">安全——商品在其预期用途中必须是安全的。</span></div></li>
+    <li><span class="li-icon">⏳</span><div><strong>Durable</strong> — the goods must last a reasonable time.<span class="zh-text">耐用——商品必须持续合理的时间。</span></div></li>
+  </ul>
+
+  <h3>Having Regard To:</h3>
+  <p class="zh-sub">参考因素：</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">📦</span><div><strong>Nature of the goods</strong> — what type of product it is.<span class="zh-text">商品的性质——产品的类型。</span></div></li>
+    <li><span class="li-icon">💲</span><div><strong>Price</strong> — the amount paid for the goods.<span class="zh-text">价格——为商品支付的金额。</span></div></li>
+    <li><span class="li-icon">🏷️</span><div><strong>Statements on packaging</strong> — labels and markings on the product.<span class="zh-text">包装上的声明——产品上的标签和标记。</span></div></li>
+    <li><span class="li-icon">📢</span><div><strong>Representations by supplier/manufacturer</strong> — any claims made about the product.<span class="zh-text">供应商/制造商的陈述——关于产品的任何声明。</span></div></li>
+    <li><span class="li-icon">📝</span><div><strong>Other relevant circumstances</strong>.<span class="zh-text">其他相关情况。</span></div></li>
+  </ul>
+
+  <h3>Does NOT Apply When:</h3>
+  <p class="zh-sub">不适用的情况：</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">👁️</span><div>Defects were <strong>drawn to the consumer's attention</strong> before purchase.<span class="zh-text">购买前已将缺陷告知消费者。</span></div></li>
+    <li><span class="li-icon">⚠️</span><div>Goods were <strong>damaged by abnormal use</strong> by the consumer.<span class="zh-text">商品因消费者异常使用而损坏。</span></div></li>
+    <li><span class="li-icon">🔎</span><div>Consumer <strong>examined</strong> the goods and the examination <strong>should have revealed</strong> the defect.<span class="zh-text">消费者检查了商品，且检查应当已经发现了缺陷。</span></div></li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 7: SECTION 55 — FITNESS FOR DISCLOSED PURPOSE
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="s55">
+  <span class="section-label" style="background:var(--fitness-light);color:var(--fitness);">Section 7</span>
+  <h2><span class="emoji">🎯</span> Section 55 — Fitness for Disclosed Purpose</h2>
+  <p class="zh-title">第55条 — 适合披露目的</p>
+
+  <div class="key-point">
+    <p><strong>📌 Section 55:</strong> Goods must be <strong>reasonably fit for the purpose made known to the supplier</strong> by the consumer.</p>
+    <span class="zh-text">商品必须合理地适合消费者向供应商告知的目的。</span>
+  </div>
+
+  <h3>Two Tests</h3>
+  <p class="zh-sub">两项测试</p>
+
+  <div class="element-flow" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+    <div class="element-step" style="border-color:#c62828;">
+      <div class="element-num" style="color:#c62828;">1</div>
+      <h4>Has the consumer made known the purpose?</h4>
+      <p class="zh-step">消费者是否已告知其目的？</p>
+      <p>The consumer must have communicated the specific purpose to the supplier.</p>
+      <span class="zh-text">消费者必须已向供应商传达了具体目的。</span>
+    </div>
+    <div class="element-step" style="border-color:#1565c0;">
+      <div class="element-num" style="color:#1565c0;">2</div>
+      <h4>Has the consumer reasonably relied on the supplier's skill/judgment?</h4>
+      <p class="zh-step">消费者是否合理地依赖了供应商的技能/判断？</p>
+      <p>It must be reasonable for the consumer to rely on the supplier's expertise in recommending goods.</p>
+      <span class="zh-text">消费者依赖供应商推荐商品的专业知识必须是合理的。</span>
+    </div>
+  </div>
+
+  <div class="key-point" style="margin-top:20px;">
+    <p><strong>⚠️ Exception 例外:</strong> The guarantee does <strong>NOT</strong> apply when it is <strong>unreasonable for the consumer to rely on the supplier's judgment</strong>.</p>
+    <span class="zh-text">当消费者依赖供应商的判断是不合理时，该保证不适用。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 8: SECTION 56 — CORRESPONDENCE WITH DESCRIPTION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="s56">
+  <span class="section-label" style="background:var(--description-light);color:var(--description);">Section 8</span>
+  <h2><span class="emoji">📝</span> Section 56 — Correspondence with Description</h2>
+  <p class="zh-title">第56条 — 符合描述</p>
+
+  <div class="key-point">
+    <p><strong>📌 Section 56:</strong> Goods must <strong>correspond with the description</strong> — including colour, size, and kind. The focus is on <strong>description, not quality</strong>.</p>
+    <span class="zh-text">商品必须符合描述——包括颜色、尺寸和种类。重点在于描述，而非质量。</span>
+  </div>
+
+  <h3>Applies To:</h3>
+  <p class="zh-sub">适用于：</p>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">🌐</span><div><strong>Unseen goods</strong> — purchased via website or catalogue.<span class="zh-text">未见商品——通过网站或目录购买。</span></div></li>
+    <li><span class="li-icon">🔮</span><div><strong>Goods not yet existing</strong> — goods made to order or pre-ordered.<span class="zh-text">尚未存在的商品——定制或预订商品。</span></div></li>
+    <li><span class="li-icon">👀</span><div><strong>Goods actually seen</strong> — if there is a label or contract description that differs from the actual product.<span class="zh-text">实际看到的商品——如果标签或合同描述与实际产品不同。</span></div></li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 9: SECTION 57 — SUPPLY BY SAMPLE/DEMONSTRATION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="s57">
+  <span class="section-label" style="background:var(--sample-light);color:var(--sample);">Section 9</span>
+  <h2><span class="emoji">🔍</span> Section 57 — Supply by Sample or Demonstration Model</h2>
+  <p class="zh-title">第57条 — 按样品或演示模型供应</p>
+
+  <div class="key-point">
+    <p><strong>📌 Section 57:</strong> When goods are supplied by reference to a sample or demonstration model, the goods supplied must match the sample.</p>
+    <span class="zh-text">当商品参照样品或演示模型供应时，所供应的商品必须与样品一致。</span>
+  </div>
+
+  <ul class="highlight-list">
+    <li><span class="li-icon">✅</span><div>Goods must <strong>match the sample in quality, state, and condition</strong>.<span class="zh-text">商品在质量、状态和条件方面必须与样品一致。</span></div></li>
+    <li><span class="li-icon">🔄</span><div>Consumer must be given a <strong>reasonable opportunity to compare</strong> the goods with the sample.<span class="zh-text">必须给消费者合理的机会将商品与样品进行比较。</span></div></li>
+    <li><span class="li-icon">🔧</span><div>Goods must be <strong>free from non-apparent defects</strong> — defects not obvious from the sample.<span class="zh-text">商品必须没有不明显的缺陷——从样品中不明显的缺陷。</span></div></li>
+  </ul>
+
+  <div class="key-point" style="margin-top:20px;">
+    <p><strong>⚠️ Exception 例外:</strong> This guarantee does <strong>NOT</strong> apply to a <strong>conventional auction</strong> (sale by auctioneer).</p>
+    <span class="zh-text">此保证不适用于传统拍卖（由拍卖师进行的拍卖）。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 10: 'NO REFUND' SIGNS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="norefund">
+  <span class="section-label" style="background:var(--norefund-light);color:var(--norefund);">Section 10</span>
+  <h2><span class="emoji">🚫</span> 'No Refund' Signs</h2>
+  <p class="zh-title">"不退款"标志</p>
+
+  <div class="case-box" style="background:var(--fitness-light);border-color:var(--fitness);">
+    <h4>⚠️ Consumer Guarantees CANNOT Be Excluded 消费者保证不能被排除</h4>
+    <p>Consumer guarantees under the ACL are <strong>non-excludable</strong>. Any attempt to exclude, restrict, or modify these guarantees is <strong>VOID</strong>.</p>
+    <span class="zh-text">ACL下的消费者保证是不可排除的。任何试图排除、限制或修改这些保证的行为都是无效的。</span>
+  </div>
+
+  <div class="case-box" style="background:var(--legislation-light);border-color:var(--legislation);">
+    <h4>🚫 'No Refund' Policies Are ILLEGAL 不退款政策是违法的</h4>
+    <p>'No refund' signs <strong>stop consumers from claiming their statutory rights</strong>. Displaying such signs is a contravention of the ACL.</p>
+    <span class="zh-text">"不退款"标志阻止消费者主张其法定权利。展示此类标志违反了ACL。</span>
+  </div>
+
+  <div class="case-box" style="background:var(--overview-light);border-color:var(--overview);">
+    <h4>🏛️ ACCC Enforcement ACCC执法</h4>
+    <p>The ACCC <strong>strongly regulates</strong> attempts to exclude consumer guarantees. Businesses that display 'no refund' signs may face penalties.</p>
+    <span class="zh-text">ACCC强力监管试图排除消费者保证的行为。展示"不退款"标志的企业可能面临处罚。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 11: TUTORIAL QUESTIONS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="tutorial">
+  <span class="section-label" style="background:var(--overview-light);color:var(--overview);">Section 11</span>
+  <h2><span class="emoji">📝</span> Tutorial Questions</h2>
+  <p class="zh-title">辅导练习题</p>
+
+  <p>Test your understanding by working through these tutorial questions. Click "Show Answer" to reveal the suggested response.</p>
+  <span class="zh-text">通过这些辅导练习题测试你的理解。点击"显示答案"查看建议回答。</span>
+
+  <!-- Q1 -->
+  <div class="tutorial-q">
+    <h4>Q1: What are the four elements of Section 18 of the ACL?</h4>
+    <span class="zh-text">Q1: ACL第18条的四个要素是什么？</span>
+    <button class="toggle-answer" onclick="toggleAnswer(this)">Show Answer 显示答案</button>
+    <div class="tutorial-answer">
+      <p>The four elements are: (1) <strong>'A person'</strong> — individual or corporation; (2) <strong>'In trade or commerce'</strong> — must have a trading or commercial character; (3) <strong>'Engage in conduct'</strong> — doing or refusing to do an act, including silence; (4) <strong>'Misleading or deceptive or likely to mislead or deceive'</strong> — creates a false impression. Intention is not relevant.</p>
+      <span class="zh-text">四个要素是：(1)"任何人"——个人或公司；(2)"在贸易或商业中"——必须具有贸易或商业性质；(3)"从事行为"——做出或拒绝做出某种行为，包括沉默；(4)"误导或欺骗或可能误导或欺骗"——造成错误印象。意图不相关。</span>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="tutorial-q">
+    <h4>Q2: Coles Bread Case — IPAC Analysis: Coles advertised bread as "baked today, sold today" but the bread was actually par-baked weeks earlier, frozen, and then finished in-store. Analyse using IPAC.</h4>
+    <span class="zh-text">Q2: Coles面包案 — IPAC分析：Coles宣传面包为"今天烘焙，今天出售"，但面包实际上是几周前半烘焙的，冷冻后在店内完成烘焙。使用IPAC进行分析。</span>
+    <button class="toggle-answer" onclick="toggleAnswer(this)">Show Answer 显示答案</button>
+    <div class="tutorial-answer">
+      <p><strong>Issue:</strong> Whether Coles' advertising that bread was "baked today, sold today" constitutes misleading or deceptive conduct under s18 ACL.</p>
+      <p><strong>Principle:</strong> Section 18(1) ACL prohibits a person, in trade or commerce, from engaging in conduct that is misleading or deceptive or likely to mislead or deceive. Silence and incomplete information can amount to misleading conduct.</p>
+      <p><strong>Application:</strong> Coles is a corporation acting in trade or commerce. The claim "baked today, sold today" creates a false impression that the bread was freshly made from scratch that day. In reality, the bread was par-baked weeks before, frozen, and merely finished in-store. A reasonable consumer would believe the bread was freshly baked from raw ingredients. The omission of the par-baking and freezing process is misleading.</p>
+      <p><strong>Conclusion:</strong> Coles' advertising is likely to constitute misleading or deceptive conduct under s18 ACL.</p>
+      <span class="zh-text">争议：Coles宣传面包"今天烘焙，今天出售"是否构成ACL第18条下的误导或欺骗行为。原则：ACL第18(1)条禁止任何人在贸易或商业中从事误导或欺骗或可能误导或欺骗的行为。沉默和不完整的信息可构成误导行为。适用：Coles是在贸易或商业中运营的公司。"今天烘焙，今天出售"的声称造成了面包当天从头开始新鲜制作的错误印象。实际上，面包是几周前半烘焙的，冷冻后仅在店内完成。合理消费者会认为面包是从原材料新鲜烘焙的。省略半烘焙和冷冻过程是误导性的。结论：Coles的广告可能构成ACL第18条下的误导或欺骗行为。</span>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="tutorial-q">
+    <h4>Q3: Pool Fence Case — Section 54 Analysis: A consumer purchased a pool fence advertised as "child-proof" and meeting Australian standards. The fence collapsed within two weeks. Analyse under s54.</h4>
+    <span class="zh-text">Q3: 泳池围栏案 — 第54条分析：消费者购买了宣传为"防儿童"并符合澳大利亚标准的泳池围栏。围栏在两周内倒塌。根据第54条进行分析。</span>
+    <button class="toggle-answer" onclick="toggleAnswer(this)">Show Answer 显示答案</button>
+    <div class="tutorial-answer">
+      <p>Under <strong>s54 ACL</strong>, goods must be of acceptable quality — fit for purpose, safe, durable, free from defects, and acceptable in appearance. A pool fence that collapses within two weeks is (1) not <strong>fit for purpose</strong> — it fails to serve as a safety barrier; (2) not <strong>safe</strong> — a collapsed fence poses a drowning risk; (3) not <strong>durable</strong> — two weeks is unreasonably short; (4) not <strong>free from defects</strong>. Having regard to the representations that it was "child-proof" and met Australian standards, a reasonable consumer would expect it to last and function properly. The consumer has a valid claim under s54.</p>
+      <span class="zh-text">根据ACL第54条，商品必须具有可接受质量——适合用途、安全、耐用、无缺陷和外观可接受。两周内倒塌的泳池围栏(1)不适合用途——无法作为安全屏障；(2)不安全——倒塌的围栏构成溺水风险；(3)不耐用——两周时间不合理地短；(4)有缺陷。考虑到其"防儿童"和符合澳大利亚标准的陈述，合理消费者有理由期望其能持续使用并正常运作。消费者根据第54条有有效的索赔权。</span>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="tutorial-q">
+    <h4>Q4: In-class Scenarios — Identify the relevant consumer guarantee for each:</h4>
+    <span class="zh-text">Q4: 课堂情境——为每个情境确定相关的消费者保证：</span>
+    <button class="toggle-answer" onclick="toggleAnswer(this)">Show Answer 显示答案</button>
+    <div class="tutorial-answer">
+      <p><strong>(a) Washing Machine (s54):</strong> A consumer buys a washing machine that breaks down after one month. Under s54, goods must be of acceptable quality — durable, fit for purpose, and free from defects. A washing machine should last significantly longer than one month.</p>
+      <span class="zh-text">(a) 洗衣机（第54条）：消费者购买的洗衣机一个月后出现故障。根据第54条，商品必须具有可接受质量——耐用、适合用途且无缺陷。洗衣机应当使用远超一个月。</span>
+      <p><strong>(b) Sofa (s57):</strong> A consumer selects a sofa based on a floor sample but the delivered sofa differs in colour and texture. Under s57, goods must match the sample or demonstration model in quality, state, and condition.</p>
+      <span class="zh-text">(b) 沙发（第57条）：消费者根据展示样品选择了沙发，但送到的沙发在颜色和质地上不同。根据第57条，商品必须在质量、状态和条件方面与样品一致。</span>
+      <p><strong>(c) Vacuum Cleaner (s55):</strong> A consumer tells the supplier they need a vacuum for pet hair, and the recommended vacuum cannot pick up pet hair. Under s55, goods must be reasonably fit for the disclosed purpose.</p>
+      <span class="zh-text">(c) 吸尘器（第55条）：消费者告诉供应商需要一台用于清理宠物毛发的吸尘器，但推荐的吸尘器无法吸起宠物毛发。根据第55条，商品必须合理地适合披露的目的。</span>
+      <p><strong>(d) Leather Jacket (s56):</strong> A consumer orders a "genuine leather" jacket online but receives a faux leather jacket. Under s56, goods must correspond with their description.</p>
+      <span class="zh-text">(d) 皮夹克（第56条）：消费者在网上订购了"真皮"夹克，但收到的是人造皮革夹克。根据第56条，商品必须符合其描述。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 12: KEY TERMS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="key-terms">
+  <span class="section-label" style="background:var(--light-accent);color:var(--primary);">Reference</span>
+  <h2><span class="emoji">📖</span> Key Terms</h2>
+  <p class="zh-title">关键术语</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Term 术语</th>
+        <th>Definition 定义</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Australian Consumer Law</strong><br><span class="zh-text">澳大利亚消费者法</span></td>
+        <td>Schedule 2 of the Competition and Consumer Act 2010 — the national consumer protection regime.<br><span class="zh-text">《2010年竞争和消费者法》附表2——全国消费者保护制度。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Misleading or Deceptive Conduct</strong><br><span class="zh-text">误导或欺骗性行为</span></td>
+        <td>Conduct that creates a false impression or leads into error in trade or commerce (s18 ACL).<br><span class="zh-text">在贸易或商业中造成错误印象或导致错误的行为（ACL第18条）。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Consumer Guarantees</strong><br><span class="zh-text">消费者保证</span></td>
+        <td>Non-excludable statutory rights under ACL that protect consumers in B2C transactions (ss 54–57).<br><span class="zh-text">ACL下保护消费者在B2C交易中的不可排除法定权利（第54-57条）。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Acceptable Quality (s54)</strong><br><span class="zh-text">可接受质量（第54条）</span></td>
+        <td>Goods must be fit for purpose, safe, durable, free from defects, and acceptable in appearance.<br><span class="zh-text">商品必须适合用途、安全、耐用、无缺陷且外观可接受。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Fitness for Disclosed Purpose (s55)</strong><br><span class="zh-text">适合披露目的（第55条）</span></td>
+        <td>Goods must be reasonably fit for the specific purpose communicated by the consumer to the supplier.<br><span class="zh-text">商品必须合理地适合消费者向供应商告知的具体目的。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Correspondence with Description (s56)</strong><br><span class="zh-text">符合描述（第56条）</span></td>
+        <td>Goods must match their description in colour, size, or kind.<br><span class="zh-text">商品必须在颜色、尺寸或种类方面与描述一致。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Puffery</strong><br><span class="zh-text">吹嘘</span></td>
+        <td>Wildly exaggerated and vague claims about a product that no reasonable person would take seriously.<br><span class="zh-text">关于产品的极度夸张和模糊的声称，没有合理的人会认真对待。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Trade or Commerce</strong><br><span class="zh-text">贸易或商业</span></td>
+        <td>Activities with a trading or commercial character; private sales by individuals are excluded.<br><span class="zh-text">具有贸易或商业性质的活动；个人私人销售被排除在外。</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FLASHCARDS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="flashcards">
+  <span class="section-label" style="background:var(--light-accent);color:var(--primary);">Review</span>
+  <h2><span class="emoji">🃏</span> Flashcards</h2>
+  <p class="zh-title">闪卡复习</p>
+  <p>Click each card to reveal the definition. Master these key terms!</p>
+  <span class="zh-text">点击每张卡片查看定义。掌握这些关键术语！</span>
+
+  <div id="flashcard-container">
+    <!-- Flashcards populated by JS -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     QUIZ
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="quiz">
+  <span class="section-label" style="background:var(--light-accent);color:var(--primary);">Test Yourself</span>
+  <h2><span class="emoji">🧠</span> Knowledge Check Quiz</h2>
+  <p class="zh-title">知识检测</p>
+  <p>Test your understanding of Consumer Protection Law. Select the correct answer for each question.</p>
+  <span class="zh-text">测试你对消费者保护法的理解。为每个问题选择正确答案。</span>
+
+  <div id="quiz-container">
+    <!-- Quiz populated by JS -->
+  </div>
+  <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+</div><!-- /container -->
+
+<!-- Back to Top (Frog) -->
+<button id="back-top" title="Back to top 🐸">🐸</button>
+
+<!-- Dark Mode Toggle -->
+<button id="dark-toggle" title="Toggle dark mode">🌙</button>
+
+<!-- Ribbit Sound -->
+<audio id="ribbit-sound" src="ribbit.mp3" preload="auto"></audio>
+
+<script>
+/* ═══════════════════════════════
+   TUTORIAL ANSWER TOGGLE
+   ═══════════════════════════════ */
+function toggleAnswer(btn) {
+  const answer = btn.nextElementSibling;
+  answer.classList.toggle('show');
+  btn.textContent = answer.classList.contains('show') ? 'Hide Answer 隐藏答案' : 'Show Answer 显示答案';
+}
+
+/* ═══════════════════════════════
+   FLASHCARD DATA
+   ═══════════════════════════════ */
+const flashcards = [
+  {
+    term: "Misleading or Deceptive Conduct",
+    zh: "误导或欺骗性行为",
+    def: "Conduct that creates a false impression or leads into error in trade or commerce. Prohibited by s18 ACL.\n\n在贸易或商业中造成错误印象或导致错误的行为。被ACL第18条禁止。"
+  },
+  {
+    term: "Section 18",
+    zh: "第18条",
+    def: "A person must not, in trade or commerce, engage in conduct that is misleading or deceptive or is likely to mislead or deceive.\n\n任何人不得在贸易或商业中从事误导性或欺骗性的行为，或可能误导或欺骗的行为。"
+  },
+  {
+    term: "Consumer Guarantees",
+    zh: "消费者保证",
+    def: "Non-excludable rights under the ACL that protect consumers in B2C transactions. Include guarantees of acceptable quality, fitness for purpose, correspondence with description, and matching sample.\n\nACL下保护消费者在B2C交易中的不可排除权利。包括可接受质量、适合用途、符合描述和与样品一致的保证。"
+  },
+  {
+    term: "Acceptable Quality (s54)",
+    zh: "可接受质量（第54条）",
+    def: "Goods must be fit for purpose, safe, durable, free from defects, and acceptable in appearance and finish.\n\n商品必须适合用途、安全、耐用、无缺陷，且外观和做工可接受。"
+  },
+  {
+    term: "Fitness for Disclosed Purpose (s55)",
+    zh: "适合披露目的（第55条）",
+    def: "Goods must be reasonably fit for the specific purpose made known to the supplier by the consumer.\n\n商品必须合理地适合消费者向供应商告知的具体目的。"
+  },
+  {
+    term: "Correspondence with Description (s56)",
+    zh: "符合描述（第56条）",
+    def: "Goods must match their description in colour, size, or kind. Applies to unseen goods, goods not yet existing, and goods actually seen.\n\n商品必须在颜色、尺寸或种类方面与描述一致。适用于未见商品、尚未存在的商品和实际看到的商品。"
+  },
+  {
+    term: "Supply by Sample (s57)",
+    zh: "按样品供应（第57条）",
+    def: "Goods must match the sample or demonstration model in quality, state, or condition. Consumer must have a reasonable opportunity to compare.\n\n商品必须在质量、状态或条件方面与样品或演示模型一致。消费者必须有合理的机会进行比较。"
+  },
+  {
+    term: "Puffery",
+    zh: "吹嘘",
+    def: "Wildly exaggerated and vague claims about a product that no one could treat seriously. Generally not considered misleading under s18.\n\n关于产品的极度夸张和模糊的声称，没有人会认真对待。根据第18条通常不被视为误导。"
+  },
+  {
+    term: "Trade or Commerce",
+    zh: "贸易或商业",
+    def: "Activities with a trading or commercial character. Private sales by individuals and government policy statements are excluded.\n\n具有贸易或商业性质的活动。个人私人销售和政府政策声明被排除在外。"
+  },
+  {
+    term: "No Refund Signs",
+    zh: "不退款标志",
+    def: "Attempts to exclude consumer guarantees are void and illegal under ACL. 'No refund' policies stop consumers from claiming statutory rights. The ACCC strongly regulates such practices.\n\n试图排除消费者保证的行为在ACL下是无效和违法的。"不退款"政策阻止消费者主张法定权利。ACCC强力监管此类做法。"
+  }
+];
+
+/* ═══════════════════════════════
+   QUIZ DATA
+   ═══════════════════════════════ */
+const quizData = [
+  {
+    q: "What does Section 18 of the ACL prohibit?",
+    zh: "ACL第18条禁止什么？",
+    opts: ["Unfair contract terms (不公平合同条款)", "Misleading or deceptive conduct in trade or commerce (贸易或商业中的误导或欺骗行为)", "Anti-competitive mergers (反竞争合并)", "Price fixing (价格固定)"],
+    ans: 1
+  },
+  {
+    q: "Which element is NOT one of the four elements of Section 18?",
+    zh: "以下哪项不是第18条的四个要素之一？",
+    opts: ["A person (任何人)", "Trade or commerce (贸易或商业)", "Criminal intent (犯罪意图)", "Mislead or deceive (误导或欺骗)"],
+    ans: 2
+  },
+  {
+    q: "In ACCC v Apple, what was misleading?",
+    zh: "在ACCC诉苹果案中，什么是误导性的？",
+    opts: ["iPad 4G could connect to Australian 4G networks (iPad 4G可以连接澳大利亚4G网络)", "iPad was cheaper than competitors (iPad比竞争对手便宜)", "iPad had longer battery life than claimed (iPad电池寿命比宣称的长)", "iPad came with free accessories (iPad附赠免费配件)"],
+    ans: 0
+  },
+  {
+    q: "Consumer guarantees apply to which contracts?",
+    zh: "消费者保证适用于哪类合同？",
+    opts: ["Business to business contracts (企业对企业合同)", "Business to consumer contracts (企业对消费者合同)", "Government contracts (政府合同)", "International contracts (国际合同)"],
+    ans: 1
+  },
+  {
+    q: "Under Section 54, goods must be all EXCEPT?",
+    zh: "根据第54条，商品必须满足以下所有条件，除了？",
+    opts: ["Fit for purpose (适合用途)", "Safe (安全)", "Durable (耐用)", "The cheapest available (最便宜的)"],
+    ans: 3
+  },
+  {
+    q: "When does the s55 guarantee NOT apply?",
+    zh: "第55条保证在什么情况下不适用？",
+    opts: ["When the consumer is a business (当消费者是企业时)", "When goods are expensive (当商品昂贵时)", "When it's unreasonable for consumer to rely on supplier's judgment (当消费者依赖供应商判断不合理时)", "When goods are imported (当商品是进口的时)"],
+    ans: 2
+  },
+  {
+    q: "'No refund' signs in stores are?",
+    zh: "商店中的"不退款"标志是？",
+    opts: ["Illegal and void under ACL (根据ACL是违法和无效的)", "Legal if clearly displayed (如果清楚展示则合法)", "Only valid for sale items (仅对特价商品有效)", "Required by law (法律要求的)"],
+    ans: 0
+  },
+  {
+    q: "Which case involved identical active ingredients in 'specific pain' products?",
+    zh: "哪个案件涉及"特定疼痛"产品中相同的活性成分？",
+    opts: ["ACCC v Apple (ACCC诉苹果)", "ACCC v Reckitt Benckiser (ACCC诉利洁时)", "ACCC v Samsung (ACCC诉三星)", "ACCC v Coles (ACCC诉Coles)"],
+    ans: 1
+  }
+];
+
+/* ═══════════════════════════════
+   RENDER FLASHCARDS
+   ═══════════════════════════════ */
+(function renderFlashcards() {
+  const container = document.getElementById('flashcard-container');
+  flashcards.forEach(fc => {
+    const div = document.createElement('div');
+    div.className = 'flashcard';
+    div.setAttribute('role', 'button');
+    div.setAttribute('tabindex', '0');
+    div.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="fc-term">${fc.term}</div>
+          <div class="fc-zh">${fc.zh}</div>
+          <div class="fc-hint">tap to flip 点击翻转</div>
+        </div>
+        <div class="flashcard-back">
+          <p>${fc.def.replace(/\n/g, '<br>')}</p>
+        </div>
+      </div>`;
+    div.addEventListener('click', () => div.classList.toggle('flipped'));
+    div.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        div.classList.toggle('flipped');
+      }
+    });
+    container.appendChild(div);
+  });
+})();
+
+/* ═══════════════════════════════
+   RENDER QUIZ
+   ═══════════════════════════════ */
+(function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  let answered = 0;
+  let score = 0;
+
+  quizData.forEach((q, qi) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'quiz-q';
+    let optsHTML = '';
+    q.opts.forEach((opt, oi) => {
+      optsHTML += `<div class="quiz-opt" data-qi="${qi}" data-oi="${oi}">${opt}</div>`;
+    });
+    qDiv.innerHTML = `
+      <div class="q-text">
+        <span class="q-num">Q${qi + 1}.</span> ${q.q}
+        <span class="q-zh">${q.zh}</span>
+      </div>
+      <div class="quiz-options">${optsHTML}</div>`;
+    container.appendChild(qDiv);
+  });
+
+  container.addEventListener('click', function(e) {
+    const opt = e.target.closest('.quiz-opt');
+    if (!opt || opt.classList.contains('correct') || opt.classList.contains('wrong') || opt.classList.contains('disabled')) return;
+
+    const qi = parseInt(opt.dataset.qi);
+    const oi = parseInt(opt.dataset.oi);
+    const siblings = container.querySelectorAll(`.quiz-opt[data-qi="${qi}"]`);
+
+    if (oi === quizData[qi].ans) {
+      opt.classList.add('correct');
+      score++;
+    } else {
+      opt.classList.add('wrong');
+      siblings[quizData[qi].ans].classList.add('correct');
+    }
+    siblings.forEach(s => { if (s !== opt && !s.classList.contains('correct')) s.classList.add('disabled'); });
+
+    answered++;
+    if (answered === quizData.length) {
+      showResult(score, quizData.length);
+    }
+  });
+
+  function showResult(s, total) {
+    const el = document.getElementById('quiz-result');
+    const pct = Math.round((s / total) * 100);
+    let msg = '';
+    if (pct === 100) {
+      msg = '🎉 Perfect Score! 满分！';
+      launchConfetti();
+    } else if (pct >= 80) {
+      msg = '🌟 Excellent! 优秀！';
+    } else if (pct >= 60) {
+      msg = '👍 Good effort! 不错！';
+    } else {
+      msg = '📚 Keep studying! 继续加油！';
+    }
+    el.innerHTML = `<h3>${msg}</h3><p>You scored ${s}/${total} (${pct}%)</p><p>你的得分：${s}/${total} (${pct}%)</p>`;
+    el.classList.add('show');
+  }
+})();
+
+/* ═══════════════════════════════
+   CONFETTI
+   ═══════════════════════════════ */
+function launchConfetti() {
+  const colors = ['#00695c','#26a69a','#00897b','#004d40','#43a047','#1565c0','#6a1b9a','#e65100'];
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const size = Math.random() * 10 + 6;
+    piece.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      width: ${size}px; height: ${size}px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-duration: ${Math.random() * 2 + 2}s;
+      animation-delay: ${Math.random() * 1.5}s;
+    `;
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
+
+/* ═══════════════════════════════
+   DARK MODE
+   ═══════════════════════════════ */
+(function initDarkMode() {
+  const toggle = document.getElementById('dark-toggle');
+  const saved = localStorage.getItem('blaw-theme');
+  if (saved === 'dark') {
+    document.body.classList.add('dark-mode');
+    toggle.textContent = '☀️';
+  }
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    toggle.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('blaw-theme', isDark ? 'dark' : 'light');
+  });
+})();
+
+/* ═══════════════════════════════
+   SCROLL ANIMATIONS (IntersectionObserver)
+   ═══════════════════════════════ */
+(function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '-40px 0px' });
+
+  document.querySelectorAll('.section').forEach(s => observer.observe(s));
+})();
+
+/* ═══════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════ */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+/* ═══════════════════════════════
+   BACK TO TOP (FROG + RIBBIT)
+   ═══════════════════════════════ */
+(function initBackTop() {
+  const btn = document.getElementById('back-top');
+  const ribbit = document.getElementById('ribbit-sound');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => {
+    if (ribbit) {
+      ribbit.currentTime = 0;
+      ribbit.play().catch(() => {});
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+/* ═══════════════════════════════
+   TOC ACTIVE LINK TRACKING
+   ═══════════════════════════════ */
+(function initTocTracking() {
+  const links = document.querySelectorAll('#toc-bar a');
+  const sections = [];
+  links.forEach(link => {
+    const id = link.getAttribute('href').substring(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ el, link });
+  });
+
+  window.addEventListener('scroll', () => {
+    let current = null;
+    sections.forEach(({ el, link }) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 120) current = link;
+    });
+    links.forEach(l => l.classList.remove('active'));
+    if (current) current.classList.add('active');
+  });
+})();
+</script>
 </body>
 </html>
