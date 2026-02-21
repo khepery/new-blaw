@@ -83,7 +83,8 @@ body {
   animation: rocketPulse 2s ease-in-out infinite;
 }
 @keyframes rocketPulse { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
-.back-to-main:hover { transform: scale(1.15) rotate(-8deg); box-shadow: 0 6px 24px rgba(230,81,0,0.5); animation: none; }
+.back-to-main:hover {
+            animation: backBtnPulse 0.6s ease; transform: scale(1.15) rotate(-8deg); box-shadow: 0 6px 24px rgba(230,81,0,0.5); animation: none; }
 
 /* ── PROGRESS BAR ── */
 #progress-bar {
@@ -500,6 +501,7 @@ body {
   .compare-table { font-size: 0.8rem; }
   .compare-table th, .compare-table td { padding: 10px 12px; }
 }
+@keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
 </style>
 </head>
 <body>
@@ -508,7 +510,7 @@ body {
 <div id="progress-bar"></div>
 
 <!-- Back to Main -->
-<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">🚀</a>
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">◀️</a>
 
 <!-- Hero Section -->
 <section class="hero">

@@ -83,7 +83,8 @@ body {
   animation: shieldBounce 2s ease-in-out infinite;
 }
 @keyframes shieldBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
-.back-to-main:hover { transform: scale(1.15) rotate(8deg); box-shadow: 0 6px 24px rgba(0,77,64,0.5); animation: none; }
+.back-to-main:hover {
+            animation: backBtnPulse 0.6s ease; transform: scale(1.15) rotate(8deg); box-shadow: 0 6px 24px rgba(0,77,64,0.5); animation: none; }
 
 /* ── PROGRESS BAR ── */
 #progress-bar {
@@ -500,6 +501,7 @@ body {
   .compare-table { font-size: 0.8rem; }
   .compare-table th, .compare-table td { padding: 10px 12px; }
 }
+@keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
 </style>
 </head>
 <body>
@@ -508,12 +510,12 @@ body {
 <div id="progress-bar"></div>
 
 <!-- Back to Main -->
-<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">🛡️</a>
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">↩️</a>
 
 <!-- Hero Section -->
 <section class="hero">
   <div class="float-emoji" style="left:5%;animation-delay:0s">🛒</div>
-  <div class="float-emoji" style="left:18%;animation-delay:3s">🛡️</div>
+  <div class="float-emoji" style="left:18%;animation-delay:3s">↩️</div>
   <div class="float-emoji" style="left:32%;animation-delay:6s">⚖️</div>
   <div class="float-emoji" style="left:50%;animation-delay:2s">📋</div>
   <div class="float-emoji" style="left:68%;animation-delay:8s">🔍</div>
@@ -568,7 +570,7 @@ body {
       <span class="zh-card">《2010年竞争和消费者法》（联邦）：管辖竞争和消费者保护的主要联邦立法。</span>
     </div>
     <div class="feature-card" style="border-color:var(--legislation);">
-      <div class="card-icon">🛡️</div>
+      <div class="card-icon">↩️</div>
       <h4>Australian Consumer Law (ACL)</h4>
       <p>Schedule 2 of the CCA — the national consumer protection regime.</p>
       <span class="zh-card">《澳大利亚消费者法》：CCA附表2——全国消费者保护制度。</span>
@@ -739,7 +741,7 @@ body {
      ═══════════════════════════════════════════════════ -->
 <section class="section" id="guarantees">
   <span class="section-label" style="background:var(--overview-light);color:var(--overview);">Section 5</span>
-  <h2><span class="emoji">🛡️</span> Consumer Guarantees — Sections 54–57</h2>
+  <h2><span class="emoji">↩️</span> Consumer Guarantees — Sections 54–57</h2>
   <p class="zh-title">消费者保证 — 第54-57条</p>
 
   <div class="key-point">
@@ -800,7 +802,7 @@ body {
     <li><span class="li-icon">🎯</span><div><strong>Fit for purpose</strong> — suitable for the purpose goods of that kind are commonly supplied for.<span class="zh-text">适合用途——适合该类商品通常供应的用途。</span></div></li>
     <li><span class="li-icon">✨</span><div><strong>Acceptable in appearance and finish</strong> — meets expectations for appearance quality.<span class="zh-text">外观和做工可接受——达到外观质量预期。</span></div></li>
     <li><span class="li-icon">🔧</span><div><strong>Free from defects</strong> — no manufacturing or other defects.<span class="zh-text">无缺陷——无制造或其他缺陷。</span></div></li>
-    <li><span class="li-icon">🛡️</span><div><strong>Safe</strong> — the goods must be safe for their intended use.<span class="zh-text">安全——商品在其预期用途中必须是安全的。</span></div></li>
+    <li><span class="li-icon">↩️</span><div><strong>Safe</strong> — the goods must be safe for their intended use.<span class="zh-text">安全——商品在其预期用途中必须是安全的。</span></div></li>
     <li><span class="li-icon">⏳</span><div><strong>Durable</strong> — the goods must last a reasonable time.<span class="zh-text">耐用——商品必须持续合理的时间。</span></div></li>
   </ul>
 

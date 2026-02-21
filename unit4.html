@@ -668,6 +668,7 @@
         }
         
         .back-to-main:hover {
+            animation: backBtnPulse 0.6s ease;
             background-color: var(--secondary-color);
             transform: scale(1.1);
         }
@@ -816,9 +817,10 @@
             .section-title h2 { font-size: 1.4rem; }
             .content-card h3 { font-size: 1.3rem; }
          }
-    </style>
+    @keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
+</style>
 </head>
-<body>    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">📜
+<body>    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">↩️
     </a>
 
     <header>
@@ -1804,7 +1806,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* Setup header animation */
     const headerBg = document.getElementById('header-animation');
     if (headerBg) {
-        const symbols = ['§', '⚖️', '📜', '🔨', '✒️', '📋'];
+        const symbols = ['§', '⚖️', '↩️', '🔨', '✒️', '📋'];
         for (let i = 0; i < 20; i++) {
             const symbol = document.createElement('span');
             symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
