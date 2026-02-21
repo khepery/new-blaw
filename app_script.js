@@ -5,7 +5,7 @@ let currentQuizData = [];
 let selectedAnswers = {};
 
 const quizzes = {
-    unit4_1_mcq: [
+    unit6_1_mcq: [
         {
             question: "What is the 'neighbour principle'?",
             chinese: "什么是'邻人原则'？",
@@ -92,7 +92,7 @@ const quizzes = {
             correct: 2
         }
     ],
-    unit4_2_mcq: [
+    unit6_2_mcq: [
         {
             question: "What kind of harm involves financial loss without any physical injury or property damage?",
             chinese: "什么样的伤害涉及在没有任何身体伤害或财产损失的情况下的经济损失？",
@@ -179,7 +179,7 @@ const quizzes = {
             correct: 1
         }
     ],
-    unit4_3_mcq: [
+    unit6_3_mcq: [
         {
             question: "Which principle establishes the duty of care in negligence cases?",
             chinese: "哪个原则确立了疏忽案件中的注意义务？",

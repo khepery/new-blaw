@@ -192,7 +192,7 @@
         /* Back to Main Button */
         .back-to-main {
             position: fixed;
-            top: 20px;
+            top: 80px;
             left: 20px;
             background-color: var(--primary-color);
             color: white;
@@ -210,15 +210,12 @@
         }
         
         .back-to-main:hover {
+            animation: backBtnPulse 0.6s ease;
             background-color: var(--secondary-color);
             transform: scale(1.1);
         }
         
-        .back-to-main svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
+        .back-to-main { font-size: 24px; line-height: 1; }
         
         /* Animation keyframes */
         @keyframes float {
@@ -308,10 +305,7 @@
         height: 40px;
     }
     
-    .back-to-main svg {
-        width: 20px;
-        height: 20px;
-    }
+    .back-to-main { font-size: 20px; }
 }
 
 /* For very small screens */
@@ -336,13 +330,11 @@
         margin-bottom: 0.5rem;
     }
 }
-    </style>
+    @keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
+</style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
+    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">⬅️
     </a>
     
     <header>
@@ -394,7 +386,7 @@
                         <span class="chinese">多诺霍诉史蒂文森</span>
                     </h3>
                     <p>Study the landmark case that established the neighbor principle and modern duty of care concept.</p>
-                    <a href="unit4a.html#unit4-1" class="card-link">Learn More</a>
+                    <a href="unit4a.html#unit6-1" class="card-link">Learn More</a>
                 </div>
             </div>
             
@@ -413,7 +405,7 @@
                         <span class="chinese">疏忽的要素</span>
                     </h3>
                     <p>Understand the four essential elements: duty of care, breach of duty, causation, and remoteness of damage.</p>
-                    <a href="unit4a.html#unit4-1" class="card-link">Explore</a>
+                    <a href="unit4a.html#unit6-1" class="card-link">Explore</a>
                 </div>
             </div>
             
@@ -432,7 +424,7 @@
                         <span class="chinese">疏忽的抗辩</span>
                     </h3>
                     <p>Learn about contributory negligence, voluntary assumption of risk, and other defenses available.</p>
-                    <a href="unit4a.html#unit4-2" class="card-link">Explore</a>
+                    <a href="unit4a.html#unit6-2" class="card-link">Explore</a>
                 </div>
             </div>
             
