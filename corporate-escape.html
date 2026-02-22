@@ -1049,7 +1049,7 @@ html, body {
         <span>◈</span>&nbsp; FLOOR 07 &nbsp;// MAINFRAME CORE — FINAL LOCK &nbsp;<span>◈</span>
         <span class="cn-text">主机核心 — 最终锁定</span>
       </div>
-      <div class="question-box" style="font-size:clamp(0.7rem,1.2vw,0.85rem);margin-bottom:10px;">
+      <div class="question-box" style="font-size:clamp(0.75rem,1.4vw,0.95rem);margin-bottom:10px;">
         Arrange the Australian Court Hierarchy into the server slots — slot 1 = HIGHEST authority, slot 5 = LOWEST.
         Drag each data drive and drop it into the correct slot to unlock the exit.
         <span class="cn-text">将澳大利亚法院层级排列到服务器插槽中——插槽1=最高权威，插槽5=最低。将每个数据驱动器拖放到正确的插槽中以解锁出口。</span>
@@ -1178,7 +1178,7 @@ const state = {
   touchClone: null,
 };
 
-// ── Question Bank (30 questions across Units 0-11) ─────────
+// ── Question Bank (29 questions across Units 0-11) ─────────
 const QUESTION_BANK = [
   // Unit 0 - Course Structure
   {
@@ -1603,7 +1603,7 @@ const QUESTION_BANK = [
 ];
 
 // ── Number of MCQ questions per game ──────────
-const MCQ_PER_GAME = 6;
+const MCQ_PER_GAME = 6; // Must not exceed QUESTION_BANK.length
 
 // ── Intro lines per floor number ─────────────
 const FLOOR_INTROS = [
@@ -1637,7 +1637,7 @@ const FLOOR_INTROS = [
 // ── Build active FLOORS for this playthrough ─
 function buildFloors() {
   const shuffled = shuffle(QUESTION_BANK);
-  const selected = shuffled.slice(0, MCQ_PER_GAME);
+  const selected = shuffled.slice(0, Math.min(MCQ_PER_GAME, QUESTION_BANK.length));
   return selected.map((q, i) => ({
     id: `floor${i + 1}`,
     title: `FLOOR 0${i + 1}`,

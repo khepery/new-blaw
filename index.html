@@ -51,6 +51,10 @@
             --ipac-tool-color: #00695c;
             --ipac-tool-light: #e0f2f1;
             --ipac-tool-accent: #004d40;
+
+            /* Corporate Escape Game Colors */
+            --game-color: #0a1628;
+            --game-accent: #00ffff;
         }
 
         * {
@@ -150,6 +154,17 @@
         .tool-content p { color: var(--med-text); margin-bottom: 1rem; font-size: 0.95rem; }
         .tool-link { display: inline-block; background-color: var(--ipac-tool-color); color: white; padding: 0.7rem 1.2rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; }
         .tool-link:hover { background-color: var(--ipac-tool-accent); }
+
+        /* Game Section Styles */
+        .game-section { background-color: var(--game-color); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow), 0 0 20px rgba(0, 255, 255, 0.15); border: 1px solid rgba(0, 255, 255, 0.3); }
+        .game-section h2 { color: var(--game-accent); margin-bottom: 1.5rem; border-bottom: 2px solid rgba(0, 255, 255, 0.3); padding-bottom: 0.5rem; font-family: 'Segoe UI', sans-serif; }
+        .game-tile { background-color: rgba(0, 255, 255, 0.05); border-left: 5px solid var(--game-accent); border-radius: 8px; padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .game-tile:hover { box-shadow: 0 0 18px rgba(0, 255, 255, 0.25); transform: translateY(-3px); }
+        .tool-icon-game { background-color: rgba(0, 255, 255, 0.1); border: 2px solid var(--game-accent); color: var(--game-accent); min-width: 60px; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; }
+        .tool-content-game h3 { color: var(--game-accent); font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .tool-content-game p { color: rgba(200, 230, 255, 0.75); margin-bottom: 1rem; font-size: 0.95rem; }
+        .game-link { display: inline-block; background: linear-gradient(90deg, #003366, #005599); color: var(--game-accent); border: 1px solid var(--game-accent); padding: 0.7rem 1.2rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background 0.3s ease, box-shadow 0.3s ease; letter-spacing: 1px; }
+        .game-link:hover { background: linear-gradient(90deg, #004488, #0077cc); box-shadow: 0 0 12px rgba(0, 255, 255, 0.4); }
         .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem; }
         .unit-card { background-color: white; border-radius: 8px; overflow: hidden; box-shadow: var(--box-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; height: 100%; display: flex; flex-direction: column; }
         .unit-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
@@ -550,6 +565,22 @@
                     </div>
                 </div>
             </div>
+
+            <section class="game-section">
+                <h2>🎮 Review Game — Corporate Escape / <span style="font-size:0.85em;opacity:0.8;">复习游戏 — 企业逃脱</span></h2>
+                <div class="game-tile">
+                    <div class="tool-icon-game">🚀</div>
+                    <div class="tool-content-game">
+                        <h3 class="bilingual">
+                            <span>Corporate Escape</span>
+                            <span style="font-size:0.7em;color:rgba(0,255,255,0.6);font-weight:normal;">企业逃脱游戏</span>
+                        </h3>
+                        <p>Test your knowledge of ALL course content in an immersive cyberpunk escape room! Answer business law questions across all 12 units to escape NexCorp Tower. Features randomized questions for unlimited replay value.</p>
+                        <p style="font-size:0.85rem;color:rgba(150,200,255,0.6);">在沉浸式赛博朋克密室中测试你对所有课程内容的了解！回答跨越12个单元的商业法律问题，逃出奈克斯科普大厦。具有随机题目功能，无限回放价值。</p>
+                        <a href="corporate-escape.html" class="game-link">Launch Corporate Escape 🚀</a>
+                    </div>
+                </div>
+            </section>
         </main>
     
         <footer>
