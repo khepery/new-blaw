@@ -1,868 +1,1182 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 5: Contracts Part 2 - Business Environments</title>
-    <link rel="stylesheet" href="unit5_styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5: Contracts Part 2 - Business Environments</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary: #1a237e;
+  --primary-dark: #0d1642;
+  --secondary: #283593;
+  --accent: #3f51b5;
+  --light-accent: #e8eaf6;
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --text: #263238;
+  --text-light: #546e7a;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --gradient: linear-gradient(135deg, #1a237e, #3f51b5);
+  --gradient2: linear-gradient(135deg, #0d1642, #283593);
+
+  --elements: #1565c0;
+  --elements-light: #e3f2fd;
+  --consideration: #6a1b9a;
+  --consideration-light: #f3e5f5;
+  --cases-consid: #00695c;
+  --cases-consid-light: #e0f2f1;
+  --intention: #e65100;
+  --intention-light: #fff3e0;
+  --cases-intent: #c62828;
+  --cases-intent-light: #ffebee;
+  --ipac: #2e7d32;
+  --ipac-light: #e8f5e9;
+}
+
+.dark-mode {
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --text: #e0e0e0;
+  --text-light: #b0bec5;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+  --light-accent: #1a1a2e;
+  --elements-light: #0d2137;
+  --consideration-light: #1a0a24;
+  --cases-consid-light: #0a1f1a;
+  --intention-light: #1f1200;
+  --cases-intent-light: #1f0a0a;
+  --ipac-light: #0a1f0d;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background var(--transition), color var(--transition);
+}
+
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+/* ── BACK BUTTON ── */
+.back-to-main {
+  position: fixed; top: 80px; left: 20px; z-index: 1000;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: var(--gradient); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: all var(--transition);
+  text-decoration: none;
+}
+.back-to-main:hover {
+            animation: backBtnPulse 0.6s ease; transform: scale(1.1); box-shadow: var(--shadow-lg); }
+.back-to-main { font-size: 24px; line-height: 1; }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 4px; z-index: 9999;
+  background: var(--gradient); width: 0%; transition: width 0.15s;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--gradient);
+  color: #fff; text-align: center;
+  padding: 100px 24px 80px;
+  position: relative; overflow: hidden;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800; margin-bottom: 8px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.hero .chinese {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1.3rem; opacity: 0.9; margin-bottom: 16px;
+}
+.hero .subtitle {
+  font-size: 1.15rem; opacity: 0.85; max-width: 700px; margin: 0 auto;
+}
+.float-emoji {
+  position: absolute; font-size: 2rem; opacity: 0.15;
+  animation: floatEmoji 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes floatEmoji {
+  0% { transform: translateY(100vh) rotate(0deg); opacity:0; }
+  10% { opacity:0.15; }
+  90% { opacity:0.15; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity:0; }
+}
+
+/* ── TOC NAV ── */
+#toc-bar {
+  position: sticky; top: 0; z-index: 998;
+  background: var(--card-bg); border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: background var(--transition);
+}
+#toc-bar nav {
+  display: flex; gap: 4px; padding: 10px 20px;
+  overflow-x: auto; justify-content: center;
+  scrollbar-width: none;
+}
+#toc-bar nav::-webkit-scrollbar { display:none; }
+#toc-bar a {
+  text-decoration: none; color: var(--text);
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 0.82rem; font-weight: 500;
+  white-space: nowrap; transition: all var(--transition);
+}
+#toc-bar a:hover { background: var(--light-accent); }
+#toc-bar a.active { background: var(--primary); color: #fff; }
+
+/* ── SECTIONS ── */
+.section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 48px 56px;
+  margin: 32px 0;
+  box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.6s ease-out, background var(--transition);
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+.section:hover { box-shadow: var(--shadow-lg); }
+
+.section-label {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 20px; font-size: 0.75rem;
+  font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 12px;
+}
+
+.section h2 {
+  font-size: 1.8rem; font-weight: 700;
+  margin-bottom: 6px; display: flex;
+  align-items: center; gap: 12px;
+}
+.section h2 .emoji { font-size: 1.6rem; }
+.section .zh-title {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 1rem; color: var(--text-light);
+  margin-bottom: 20px;
+}
+.section h3 {
+  font-size: 1.25rem; font-weight: 600;
+  margin: 28px 0 12px; color: var(--primary);
+}
+.section .zh-sub {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  margin-top: -8px; margin-bottom: 12px;
+}
+.section p { margin-bottom: 14px; }
+.section .zh-text {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.9rem; color: var(--text-light);
+  display: block; margin-top: 2px;
+}
+
+/* ── TOOLTIPS ── */
+.tooltip-term {
+  border-bottom: 2px dashed var(--primary);
+  color: var(--primary); cursor: help;
+  position: relative; font-weight: 500;
+}
+.tip-box {
+  position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary-dark); color: #fff;
+  padding: 10px 14px; border-radius: 10px;
+  font-size: 0.82rem; font-weight: 400;
+  max-width: 300px; min-width: 200px;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+  z-index: 100; line-height: 1.5;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.tooltip-term:hover .tip-box { opacity: 1; pointer-events: auto; }
+
+/* ── FEATURE CARDS ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; margin: 20px 0;
+}
+.feature-card {
+  background: var(--card-bg);
+  border-radius: 12px; padding: 24px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: all var(--transition);
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.feature-card .card-icon { font-size: 2rem; margin-bottom: 10px; }
+.feature-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.feature-card .zh-card {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.82rem; color: var(--text-light);
+}
+
+/* ── COMPARISON TABLE ── */
+.compare-table {
+  width: 100%; border-collapse: separate;
+  border-spacing: 0; border-radius: 12px;
+  overflow: hidden; margin: 20px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.compare-table th {
+  background: var(--primary); color: #fff;
+  padding: 14px 18px; font-weight: 600;
+  font-size: 0.9rem; text-align: left;
+}
+.compare-table td {
+  padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.9rem; vertical-align: top;
+}
+.compare-table tr:nth-child(even) td { background: var(--light-accent); }
+.compare-table tr:hover td { background: rgba(26,35,126,0.05); }
+
+/* ── CASE BOXES ── */
+.case-box {
+  border-radius: 12px; padding: 22px 26px;
+  margin: 14px 0;
+  border-left: 5px solid;
+}
+.case-box h4 {
+  font-size: 1rem; font-weight: 600;
+  margin-bottom: 6px; display: flex;
+  align-items: center; gap: 8px;
+}
+.case-box .case-label {
+  display: inline-block; padding: 2px 10px;
+  border-radius: 12px; font-size: 0.72rem;
+  font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 8px;
+}
+
+/* ── IPAC STEPS ── */
+.ipac-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; margin: 24px 0;
+}
+.ipac-step {
+  background: var(--card-bg);
+  border-radius: 14px; padding: 28px 24px;
+  text-align: center; position: relative;
+  border-top: 5px solid var(--primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: all var(--transition);
+}
+.ipac-step:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.ipac-letter {
+  font-size: 2.5rem; font-weight: 800;
+  color: var(--primary); line-height: 1;
+  margin-bottom: 4px;
+}
+.ipac-step h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.ipac-step .zh-ipac {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  margin-bottom: 8px;
+}
+.ipac-step p { font-size: 0.88rem; color: var(--text-light); }
+
+.ipac-step:nth-child(1) { border-color: #e53935; }
+.ipac-step:nth-child(1) .ipac-letter { color: #e53935; }
+.ipac-step:nth-child(2) { border-color: #1565c0; }
+.ipac-step:nth-child(2) .ipac-letter { color: #1565c0; }
+.ipac-step:nth-child(3) { border-color: #2e7d32; }
+.ipac-step:nth-child(3) .ipac-letter { color: #2e7d32; }
+.ipac-step:nth-child(4) { border-color: #6a1b9a; }
+.ipac-step:nth-child(4) .ipac-letter { color: #6a1b9a; }
+
+/* ── PRACTICE EXERCISE ── */
+.practice-box {
+  background: var(--light-accent);
+  border-radius: 14px; padding: 28px;
+  margin: 20px 0; border: 2px dashed var(--accent);
+}
+.practice-box h4 {
+  font-size: 1.05rem; font-weight: 600;
+  margin-bottom: 14px; color: var(--primary);
+}
+
+/* ── HIGHLIGHT LIST ── */
+.highlight-list { list-style: none; padding: 0; }
+.highlight-list li {
+  padding: 12px 16px; margin: 8px 0;
+  border-radius: 10px; background: var(--light-accent);
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.92rem; transition: all var(--transition);
+}
+.highlight-list li:hover { transform: translateX(4px); }
+.highlight-list .li-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+
+/* ── KEY POINT BOX ── */
+.key-point {
+  background: var(--light-accent);
+  border-left: 5px solid var(--primary);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 24px; margin: 16px 0;
+}
+.key-point strong { color: var(--primary); }
+
+/* ── FLASHCARDS ── */
+#flashcard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px; margin: 20px 0;
+}
+.flashcard {
+  height: 210px; perspective: 800px;
+  cursor: pointer; outline: none;
+}
+.flashcard-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; inset: 0;
+  border-radius: 14px; padding: 24px;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.flashcard-front {
+  background: var(--gradient);
+  color: #fff;
+}
+.fc-term { font-size: 1.1rem; font-weight: 700; }
+.fc-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.9rem; opacity: 0.85; margin-top: 6px;
+}
+.fc-hint {
+  font-size: 0.72rem; opacity: 0.5;
+  margin-top: 12px; text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.flashcard-back {
+  background: var(--card-bg);
+  border: 2px solid var(--accent);
+  color: var(--text);
+  transform: rotateY(180deg);
+  font-size: 0.88rem; line-height: 1.6;
+  overflow-y: auto;
+}
+
+/* ── QUIZ ── */
+.quiz-q {
+  background: var(--light-accent);
+  border-radius: 12px; padding: 22px;
+  margin: 14px 0;
+}
+.q-text { font-weight: 600; margin-bottom: 12px; font-size: 0.95rem; }
+.q-num { color: var(--primary); font-weight: 700; }
+.q-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.85rem; color: var(--text-light);
+  display: block; margin-top: 4px;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  background: var(--card-bg);
+  border: 2px solid transparent;
+  border-radius: 10px; padding: 12px 16px;
+  cursor: pointer; font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.quiz-opt:hover { border-color: var(--accent); transform: translateX(4px); }
+.quiz-opt.correct {
+  background: #c8e6c9; border-color: #2e7d32;
+  pointer-events: none;
+}
+.quiz-opt.wrong {
+  background: #ffcdd2; border-color: #c62828;
+  pointer-events: none;
+}
+.quiz-opt.disabled { pointer-events: none; opacity: 0.5; }
+.quiz-result {
+  display: none; text-align: center;
+  padding: 28px; border-radius: 14px;
+  background: var(--gradient); color: #fff;
+  margin-top: 20px;
+}
+.quiz-result.show {
+  display: block;
+  animation: popIn 0.5s ease;
+}
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block; padding: 10px 24px;
+  border-radius: 8px; font-weight: 600;
+  font-size: 0.9rem; cursor: pointer;
+  border: none; transition: all var(--transition);
+  text-decoration: none;
+}
+.btn-primary { background: var(--gradient); color: #fff; }
+.btn-primary:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+/* ── BACK TO TOP ── */
+#back-top {
+  position: fixed; bottom: 30px; right: 30px;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--gradient); border: none;
+  font-size: 1.6rem; cursor: pointer;
+  box-shadow: var(--shadow); z-index: 999;
+  opacity: 0; transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+#back-top.show { opacity: 1; animation: bounce 2s infinite; }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── DARK TOGGLE ── */
+#dark-toggle {
+  position: fixed; bottom: 100px; right: 30px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--card-bg); border: 2px solid var(--accent);
+  font-size: 1.3rem; cursor: pointer; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: all var(--transition);
+}
+#dark-toggle:hover { transform: scale(1.1); }
+
+/* ── CONFETTI ── */
+.confetti-piece {
+  position: fixed; top: -10px; z-index: 10000;
+  pointer-events: none;
+  animation: confettiFall 3s ease-out forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity:0; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .section { padding: 28px 22px; }
+  .hero { padding: 80px 18px 60px; }
+  .hero h1 { font-size: 1.6rem; }
+  .ipac-flow { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  #toc-bar nav { justify-content: flex-start; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table th, .compare-table td { padding: 10px 12px; }
+}
+@keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
+</style>
 </head>
+<body>
 
-<body class="bg-[var(--light-bg)] text-[var(--dark-text)] leading-relaxed">
-    <header
-        class="bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-[var(--light-text)] py-8 md:py-12 px-4 text-center relative overflow-hidden">
-                <div class="header-animation absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-            <div class="floating-icon text-4xl md:text-5xl text-white/10"
-                style="top: 10%; left: 5%; animation-delay: -2s;">🛒</div>
-            <div class="floating-icon text-4xl md:text-5xl text-white/10"
-                style="top: 60%; right: 10%; animation-delay: -4s;">📋</div>
-            <div class="floating-icon text-4xl md:text-5xl text-white/10"
-                style="bottom: 20%; left: 15%; animation-delay: -6s;">⚖️</div>
-            <div class="floating-icon text-4xl md:text-5xl text-white/10"
-                style="top: 30%; right: 25%; animation-delay: -8s;">🏷️</div>
-            <div class="floating-icon text-4xl md:text-5xl text-white/10"
-                style="top: 75%; left: 35%; animation-delay: -10s;">✅</div>
-        </div>
-        <div class="header-content relative z-10">
-            <h1 class="text-3xl md:text-4xl font-bold mb-2 md:mb-4 animate-fadeInDown">Unit 5: Contracts Part 2 <span class="text-2xl md:text-3xl opacity-90 italic text-[var(--light-text)]">合同法（二）</span></h1>
-            <p class="text-base md:text-lg">Master contract terms, vitiating factors, and remedies. <span
-                    class="text-sm md:text-base opacity-90 italic text-[var(--light-text)]">掌握合同条款、无效因素和救济措施。</span>
-            </p>
-        </div>
-            </header>
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
 
-    <!-- Fixed Navigation Bar with Progress Bar -->
-<!-- Fixed Navigation Bar with Progress Bar -->
-<div class="sticky top-0 z-[1000] relative">
-    <!-- Back button -->
-    <a href="index.html?skip_intro=true" title="Back to Main Menu" class="absolute top-1/2 left-4 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors no-underline">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-    </a>
+<!-- Back to Main -->
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">🔙</a>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-[var(--primary-color)] py-2 px-4 shadow-md">
-        <ul class="nav-links max-w-6xl mx-auto flex flex-wrap justify-center gap-x-2 gap-y-1">
-            <li><a href="#intro"
-                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)] active">Introduction
-                    <span class="chinese-text-nav">介绍</span></a></li>
-            <li><a href="#acl-overview"
-                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Australian
-                    Consumer Law <span class="chinese-text-nav">澳大利亚消费者法</span></a></li>
-            <li><a href="#misleading-conduct"
-                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Misleading
-                    Conduct <span class="chinese-text-nav">误导性行为</span></a></li>
-            <li><a href="#consumer-guarantees"
-                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Consumer
-                    Guarantees <span class="chinese-text-nav">消费者保证</span></a></li>
-            <li><a href="#application"
-                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Application
-                    <span class="chinese-text-nav">应用</span></a></li>
-            <li><a href="#summary"
-                    class="nav-link text-[var(--light-text)] no-underline px-3 py-2 rounded-md transition-colors duration-300 text-sm hover:bg-[var(--secondary-color)]">Summary
-                    <span class="chinese-text-nav">总结</span></a></li>
-        </ul>
-    </nav>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="float-emoji" style="left:5%;animation-delay:0s">⚖️</div>
+  <div class="float-emoji" style="left:15%;animation-delay:3s">📝</div>
+  <div class="float-emoji" style="left:30%;animation-delay:6s">💰</div>
+  <div class="float-emoji" style="left:50%;animation-delay:2s">🔙</div>
+  <div class="float-emoji" style="left:70%;animation-delay:8s">🏛️</div>
+  <div class="float-emoji" style="left:85%;animation-delay:5s">📚</div>
+  <div class="float-emoji" style="left:92%;animation-delay:11s">🔍</div>
+  <h1>Unit 5: Contracts Part 2</h1>
+  <p class="chinese">第五单元：合同法（二）</p>
+  <p class="subtitle">Master consideration, intention to create legal relations, and apply IPAC to contract problems.</p>
+  <p class="chinese" style="font-size:0.95rem;opacity:0.75;margin-top:6px;">掌握对价、创设法律关系的意图，并将IPAC方法应用于合同法问题。</p>
+</section>
 
-    <!-- Progress Bar -->
-    <div class="progress-container bg-gray-200">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <!-- Dark Mode Toggle -->
-    <div id="darkModeToggle" class="absolute top-1/2 right-4 -translate-y-1/2 z-50 cursor-pointer p-2 rounded-full">
-        <span id="sunIcon" title="Activate light mode">☀️</span>
-        <span id="moonIcon" title="Activate dark mode" class="hidden">🌙</span>
-    </div>
+<!-- TOC Navigation Bar -->
+<div id="toc-bar">
+  <nav>
+    <a href="#elements">📋 Elements Review</a>
+    <a href="#consideration">💰 Consideration</a>
+    <a href="#cases-consideration">⚖️ Cases: Consideration</a>
+    <a href="#intention">🤝 Intention</a>
+    <a href="#cases-intention">🏛️ Cases: Intention</a>
+    <a href="#ipac">🔍 IPAC</a>
+    <a href="#flashcards">🃏 Flashcards</a>
+    <a href="#quiz">🧠 Quiz</a>
+  </nav>
 </div>
 
-    <main class="max-w-6xl mx-auto p-4 md:p-8">
-        <section id="intro"
-            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
-            <h2
-                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
-                Welcome to Unit 5! <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">欢迎来到第五单元！</span>
-            </h2>
-            <p class="mb-4 text-base">In this unit, you'll learn about consumer protection law in Australia - one of
-                the most important areas for both consumers and businesses. We'll explore how the law protects
-                consumers from unfair business practices and guarantees certain standards for products and services.
-            </p>
-            <p class="chinese-text-body mb-4 text-sm">在本单元中，您将学习澳大利亚的消费者保护法 -
-                这是对消费者和企业都非常重要的领域之一。我们将探讨法律如何保护消费者免受不公平的商业行为，并为产品和服务保证一定的标准。</p>
+<div class="container">
 
-            <div
-                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
-                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">What is Consumer Protection
-                    Law? <span class="text-base opacity-90 italic text-gray-600">什么是消费者保护法？</span></h4>
-                <p class="mb-2 text-base">Consumer protection law refers to the regulations designed to ensure fair
-                    trade and competition and the free flow of truthful information in the marketplace. These laws
-                    are designed to prevent businesses from engaging in fraud or unfair practices and to protect
-                    individuals from scams and deception.</p>
-                <p class="chinese-text-body text-sm">
-                    消费者保护法是指旨在确保公平贸易和竞争以及市场信息自由流通的法规。这些法律旨在防止企业从事欺诈或不公平的做法，并保护个人免受骗局和欺骗。</p>
-            </div>
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: ESSENTIAL ELEMENTS REVIEW
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="elements">
+  <span class="section-label" style="background:var(--elements-light);color:var(--elements);">Section 1</span>
+  <h2><span class="emoji">📋</span> Essential Elements of a Contract</h2>
+  <p class="zh-title">合同的基本要素</p>
 
-            <div
-                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
-                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">Why is it Important? <span
-                        class="text-base opacity-90 italic text-gray-600">为什么它很重要？</span></h4>
-                <p class="mb-2 text-base">Consumer protection laws help maintain a fair marketplace where consumers
-                    can confidently purchase goods and services knowing they have legal rights if something goes
-                    wrong. For businesses, understanding these laws is crucial to operate ethically and avoid legal
-                    penalties.</p>
-                <p class="chinese-text-body text-sm">
-                    消费者保护法有助于维持一个公平的市场，消费者可以放心地购买商品和服务，因为他们知道如果出现问题，他们有法律权利。对于企业来说，了解这些法律对于道德经营和避免法律处罚至关重要。</p>
-            </div>
-        </section>
+  <p>A valid contract requires three essential elements:</p>
+  <span class="zh-text">一个有效的合同需要三个基本要素：</span>
 
-        <section id="acl-overview"
-            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
-            <h2
-                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
-                Australian Consumer Law Overview <span
-                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">澳大利亚消费者法概述</span></h2>
-            <p class="mb-6 text-base">The Australian Consumer Law (ACL) is a national law that aims to protect
-                consumers and ensure fair trading in Australia. It's contained in Schedule 2 of the Competition and
-                Consumer Act 2010 (Cth).</p>
-            <p class="chinese-text-body mb-6 text-sm">
-                澳大利亚消费者法（ACL）是一项旨在保护消费者并确保澳大利亚公平交易的国家法律。它包含在《2010年竞争与消费者法》（联邦）附表2中。</p>
+  <ul class="highlight-list" style="margin-top:10px;">
+    <li><span class="li-icon">1️⃣</span><div><strong><span class="tooltip-term">Agreement<span class="tip-box">Agreement 合意 &mdash; Formed by a valid offer and acceptance. One party makes an offer and the other accepts it. 由有效的要约和承诺构成。一方发出要约，另一方接受。</span></span> (Offer + Acceptance)</strong> — covered in Unit 4.<span class="zh-text">合意（要约 + 承诺）— 详见第四单元。</span></div></li>
+    <li><span class="li-icon">2️⃣</span><div><strong><span class="tooltip-term">Consideration<span class="tip-box">Consideration 对价 &mdash; Something of legal value exchanged for a promise. The 'price' paid in return for a promise. 为承诺而交换的具有法律价值的东西。</span></span></strong> — the 'price' paid for a promise.<span class="zh-text">对价 — 为承诺而支付的"代价"。</span></div></li>
+    <li><span class="li-icon">3️⃣</span><div><strong><span class="tooltip-term">Intention to create legal relations<span class="tip-box">Intention 意图 &mdash; Parties must intend their agreement to have legal consequences. Determined objectively by the court. 各方必须有意使其协议具有法律后果。由法院客观确定。</span></span></strong> — parties must intend legal consequences.<span class="zh-text">创设法律关系的意图 — 各方必须有意产生法律后果。</span></div></li>
+  </ul>
 
-            <div
-                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
-                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">Key Features of the ACL <span
-                        class="text-base opacity-90 italic text-gray-600">ACL的主要特点</span></h4>
-                <ul class="list-disc ml-5 mt-2 text-base space-y-1">
-                    <li>It applies nationally and in all states and territories <span
-                            class="chinese-text-body text-sm">它适用于全国和所有州和领地</span></li>
-                    <li>It covers all businesses and consumers in Australia <span
-                            class="chinese-text-body text-sm">它覆盖澳大利亚的所有企业和消费者</span></li>
-                    <li>It protects consumers when they buy goods and services <span
-                            class="chinese-text-body text-sm">它在消费者购买商品和服务时保护他们</span></li>
-                    <li>It ensures businesses compete fairly <span
-                            class="chinese-text-body text-sm">它确保企业公平竞争</span></li>
-                </ul>
-            </div>
+  <p style="margin-top:16px;">This unit focuses on the remaining two essential elements: <strong>Consideration</strong> and <strong>Intention to create legal relations</strong>.</p>
+  <span class="zh-text">本单元重点讨论其余两个基本要素：对价和创设法律关系的意图。</span>
 
-            <div
-                class="info-box example-box mt-6 bg-emerald-50 border-l-4 border-[var(--success-color)] p-4 md:p-6 rounded-lg relative">
-                <h4 class="text-[var(--success-color)] font-semibold text-lg mb-2">Main Protections Under the ACL
-                    <span class="text-base opacity-90 italic text-gray-600">ACL下的主要保护</span>
-                </h4>
-                <ul class="list-disc ml-5 mt-2 text-base space-y-1">
-                    <li><strong>Misleading or deceptive conduct</strong> (Section 18) <span
-                            class="chinese-text-body text-sm"><strong>误导或欺骗性行为</strong>（第18条）</span></li>
-                    <li><strong>Consumer guarantees</strong> (Sections 54-57) <span
-                            class="chinese-text-body text-sm"><strong>消费者保证</strong>（第54-57条）</span></li>
-                    <li>Unfair contract terms <span class="chinese-text-body text-sm">不公平合同条款</span></li>
-                    <li>Product safety <span class="chinese-text-body text-sm">产品安全</span></li>
-                    <li>Unsolicited consumer agreements <span
-                            class="chinese-text-body text-sm">未经请求的消费者协议</span></li>
-                </ul>
-            </div>
+  <div class="key-point" style="margin-top:20px;">
+    <p><strong>💡 Remember 记住:</strong> Without ALL three elements (agreement, consideration, intention), there is NO enforceable contract.</p>
+    <span class="zh-text">记住：缺少三个要素中的任何一个（合意、对价、意图），就不存在可执行的合同。</span>
+  </div>
+</section>
 
-            <div class="mt-6">
-                <h3 class="text-[var(--primary-color)] text-xl font-semibold mb-3">Application of the ACL <span
-                        class="text-lg opacity-90 italic text-gray-600">ACL的应用</span></h3>
-                <p class="mb-4 text-base">The ACL applies to all sectors of the Australian economy and is enforced
-                    by the Australian Competition and Consumer Commission (ACCC) at the federal level and by state
-                    and territory consumer protection agencies.</p>
-                <p class="chinese-text-body mb-4 text-sm">
-                    ACL适用于澳大利亚经济的所有部门，由澳大利亚竞争与消费者委员会（ACCC）在联邦层面执行，并由州和领地消费者保护机构执行。</p>
-            </div>
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: CONSIDERATION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="consideration">
+  <span class="section-label" style="background:var(--consideration-light);color:var(--consideration);">Section 2</span>
+  <h2><span class="emoji">💰</span> Consideration</h2>
+  <p class="zh-title">对价（约因）</p>
 
-            <button id="quizBtn_acl_overview"
-                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">ACL
-                Overview Quiz <span class="text-sm opacity-90 italic">ACL概述测验</span></button>
-        </section>
+  <p><strong>Definition:</strong> Something of legal value exchanged for a promise. The "price" paid or given in return for a promise.</p>
+  <span class="zh-text">定义：为换取承诺而交换的具有法律价值的东西。为承诺而支付的"代价"。</span>
 
-        <section id="misleading-conduct"
-            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
-            <h2
-                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
-                Section 18: Misleading or Deceptive Conduct <span
-                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">第18条：误导或欺骗性行为</span></h2>
-            <p class="mb-6 text-base">Section 18 is one of the most important and widely used provisions of the
-                Australian Consumer Law. It prohibits conduct in trade or commerce that is misleading or deceptive
-                or is likely to mislead or deceive. <span class="chinese-text-body text-sm">第18条是澳大利亚消费者法中最重要和最广泛使用的条款之一。它禁止在贸易或商业中进行误导或欺骗或可能误导或欺骗的行为。</span></p>
+  <p>Essential in every simple contract. No consideration = no contract = promise unenforceable.</p>
+  <span class="zh-text">每个简单合同都必须有对价。没有对价 = 没有合同 = 承诺不可执行。</span>
 
-            <div
-                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
-                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">Section 18 of the ACL <span
-                        class="text-base opacity-90 italic text-gray-600">ACL第18条</span></h4>
-                <p class="mb-2 text-base font-semibold">"A person must not, in trade or commerce, engage in conduct
-                    that is misleading or deceptive or is likely to mislead or deceive." <span class="chinese-text-body text-sm font-semibold">"任何人在贸易或商业活动中，不得从事误导性或欺骗性，或可能产生误导或欺骗的行为。"</span></p>
+  <h3>Types of Consideration</h3>
+  <p class="zh-sub">对价的类型</p>
 
-                <h5 class="text-[var(--secondary-color)] font-semibold text-base mb-2">Elements of Section 18 <span
-                        class="text-sm opacity-90 italic text-gray-600">第18条的要素</span></h5>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="py-2 px-4 border-b text-left">Element <span
-                                        class="text-sm opacity-90 italic">要素</span></th>
-                                <th class="py-2 px-4 border-b text-left">Explanation <span
-                                        class="text-sm opacity-90 italic">解释</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="py-2 px-4 border-b font-semibold">A person <span class="chinese-text-body text-sm">当事人</span></td>
-                                <td class="py-2 px-4 border-b">Includes both individuals and companies <span
-                                        class="chinese-text-body text-sm block">包括个人和公司</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b font-semibold">In trade or commerce <span class="chinese-text-body text-sm">在贸易或商业中</span></td>
-                                <td class="py-2 px-4 border-b">The transaction must have a trading or commercial
-                                    character; private or non-commercial sales are excluded <span
-                                        class="chinese-text-body text-sm block">交易必须具有贸易或商业性质；私人或非商业销售被排除在外</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b font-semibold">Engage in conduct <span class="chinese-text-body text-sm">从事行为</span></td>
-                                <td class="py-2 px-4 border-b">Doing or refusing to do an act; includes remaining
-                                    silent <span class="chinese-text-body text-sm block">作为或不作为；包括保持沉默</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border-b font-semibold">Misleading or deceptive or likely to
-                                    mislead or deceive <span class="chinese-text-body text-sm">误导或欺骗，或可能误导或欺骗</span></td>
-                                <td class="py-2 px-4 border-b">To lead someone into error <span
-                                        class="chinese-text-body text-sm block">引导某人陷入错误</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="topic-grid grid grid-cols-1 gap-8 my-8">
-                <div class="case-study-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg">
-                    <div class="flex items-start mb-4">
-                        <div class="bg-blue-500 text-white rounded-full p-3 mr-4">
-                            <span class="text-2xl">🏷️</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-blue-900 mb-1">Case Study: Misleading Pricing <span class="chinese-text-body text-sm">案例研究：误导性定价</span></h3>
-                            <p class="text-blue-700">Polex Pty Ltd Watch Pricing <span class="chinese-text-body text-sm">Polex有限公司手表定价</span></p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/80 rounded-lg p-4 mb-4">
-                        <h4 class="font-semibold text-blue-900 mb-2">📖 The Scenario <span class="chinese-text-body text-sm">情景</span></h4>
-                        <p class="text-gray-700">Polex Pty Ltd advertised a designer watch as "Was $2,500, now $1,500!" However, the watch has always been priced at $1,800. <span class="chinese-text-body text-sm">Polex有限公司为一款名牌手表打广告称“原价$2,500，现价$1,500！”然而，该手表一直以来的定价都是$1,800。</span></p>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-white/80 rounded-lg p-4">
-                            <h4 class="font-semibold text-blue-900 mb-2">🔍 Analysis <span class="chinese-text-body text-sm">分析</span></h4>
-                            <ul class="space-y-2 text-sm">
-                                <li><span class="font-semibold">Person:</span> Polex Pty Ltd ✓ <span class="chinese-text-body text-sm">当事人：Polex有限公司 ✓</span></li>
-                                <li><span class="font-semibold">Trade/Commerce:</span> Selling watches ✓ <span class="chinese-text-body text-sm">贸易/商业中：销售手表 ✓</span></li>
-                                <li><span class="font-semibold">Conduct:</span> False pricing claim ✓ <span class="chinese-text-body text-sm">行为：虚假定价声明 ✓</span></li>
-                                <li><span class="font-semibold">Misleading:</span> Yes - false "was" price ✓ <span class="chinese-text-body text-sm">误导性：是 - 虚假的“原价” ✓</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-white/80 rounded-lg p-4">
-                            <h4 class="font-semibold text-blue-900 mb-2">⚖️ Verdict <span class="chinese-text-body text-sm">裁决</span></h4>
-                            <p class="text-red-600 font-semibold mb-2">BREACH of Section 18 <span class="chinese-text-body text-sm">违反第18条</span></p>
-                            <p class="text-sm text-gray-700">The false "was" price misleads consumers about the discount offered. <span class="chinese-text-body text-sm">虚假的“原价”误导了消费者对所提供折扣的判断。</span></p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 bg-yellow-100 rounded-lg p-3">
-                        <p class="text-sm"><span class="font-semibold">💡 Key Takeaway:</span> Businesses must ensure all pricing claims are accurate and verifiable. <span class="chinese-text-body text-sm"><span class="font-semibold">关键要点：</span>企业必须确保所有定价声明都是准确且可验证的。</span></p>
-                    </div>
-                </div>
-
-                <div class="case-study-card bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 shadow-lg">
-                    <div class="flex items-start mb-4">
-                        <div class="bg-green-500 text-white rounded-full p-3 mr-4">
-                            <span class="text-2xl">🍽️</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-green-900 mb-1">Case Study: Puffery vs Deception <span class="chinese-text-body text-sm">案例研究：“夸大宣传”与欺骗</span></h3>
-                            <p class="text-green-700">Restaurant "Best Steaks" Claim <span class="chinese-text-body text-sm">餐厅“最佳牛排”声明</span></p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/80 rounded-lg p-4 mb-4">
-                        <h4 class="font-semibold text-green-900 mb-2">📖 The Scenario <span class="chinese-text-body text-sm">情景</span></h4>
-                        <p class="text-gray-700">A restaurant claims it has the "best steaks on earth" and the "tastiest food in town". <span class="chinese-text-body text-sm">一家餐厅声称拥有“地球上最好的牛排”和“城里最美味的食物”。</span></p>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-white/80 rounded-lg p-4">
-                            <h4 class="font-semibold text-green-900 mb-2">🔍 What is Puffery? <span class="chinese-text-body text-sm">什么是“夸大宣传”？</span></h4>
-                            <p class="text-sm text-gray-700 mb-2">Puffery is obvious exaggeration that no reasonable person would take literally. <span class="chinese-text-body text-sm">“夸大宣传”是明显的夸张，任何有理性的人都不会信以为真。</span></p>
-                            <ul class="text-sm space-y-1">
-                                <li>• "Best in the world" <span class="chinese-text-body text-sm">“世界第一”</span></li>
-                                <li>• "Tastiest ever" <span class="chinese-text-body text-sm">“史上最美味”</span></li>
-                                <li>• "Most amazing" <span class="chinese-text-body text-sm">“最惊艳”</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-white/80 rounded-lg p-4">
-                            <h4 class="font-semibold text-green-900 mb-2">⚖️ Verdict <span class="chinese-text-body text-sm">裁决</span></h4>
-                            <p class="text-green-600 font-semibold mb-2">NO BREACH <span class="chinese-text-body text-sm">未违规</span></p>
-                            <p class="text-sm text-gray-700">These claims are mere puffery - exaggerated sales talk not taken literally. <span class="chinese-text-body text-sm">这些声明仅仅是“夸大宣传”——不会被信以为真的夸张推销说辞。</span></p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 bg-yellow-100 rounded-lg p-3">
-                        <p class="text-sm"><span class="font-semibold">💡 Key Takeaway:</span> Puffery is allowed, but specific measurable claims must be accurate. <span class="chinese-text-body text-sm"><span class="font-semibold">关键要点：</span>允许“夸大宣传”，但具体可衡量的声明必须准确。</span></p>
-                    </div>
-                </div>
-
-                <div class="case-study-card bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg">
-                    <div class="flex items-start mb-4">
-                        <div class="bg-orange-500 text-white rounded-full p-3 mr-4">
-                            <span class="text-2xl">🍞</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-orange-900 mb-1">Real Case: ACCC v Coles <span class="chinese-text-body text-sm">真实案例：ACCC诉Coles案</span></h3>
-                            <p class="text-orange-700">"Freshly Baked" Bread Claims <span class="chinese-text-body text-sm">“新鲜出炉”面包声明</span></p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/80 rounded-lg p-4 mb-4">
-                        <h4 class="font-semibold text-orange-900 mb-2">📖 The Facts <span class="chinese-text-body text-sm">事实</span></h4>
-                        <p class="text-gray-700">Coles promoted bread as "Baked Today, Sold Today" and "Freshly Baked In-Store". In reality, the bread was partially baked and frozen off-site, then "finished" in-store. <span class="chinese-text-body text-sm">Coles宣传其面包为“今日烘焙，今日销售”和“店内新鲜出炉”。实际上，面包是在异地部分烘焙并冷冻，然后在店内“完成”烘焙。</span></p>
-                    </div>
-                    
-                    <div class="bg-white/80 rounded-lg p-4 mb-4">
-                        <h4 class="font-semibold text-orange-900 mb-2">🏛️ Court's Decision <span class="chinese-text-body text-sm">法院判决</span></h4>
-                        <p class="text-gray-700 mb-2">The Federal Court found Coles breached s18 because: <span class="chinese-text-body text-sm">联邦法院裁定Coles违反了第18条，因为：</span></p>
-                        <ul class="text-sm space-y-1">
-                            <li>• The claims implied bread was baked from scratch daily <span class="chinese-text-body text-sm">声明暗示面包是每天从零开始烘焙的</span></li>
-                            <li>• Consumers expected fresh, not frozen, products <span class="chinese-text-body text-sm">消费者期望的是新鲜而非冷冻产品</span></li>
-                            <li>• Coles failed to disclose the partial baking process <span class="chinese-text-body text-sm">Coles未能披露部分烘焙的过程</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mt-4 bg-red-100 rounded-lg p-3">
-                        <p class="text-sm"><span class="font-semibold">⚠️ Important:</span> Even technically true statements can be misleading if they create a false overall impression. <span class="chinese-text-body text-sm"><span class="font-semibold">重要提示：</span>即使技术上真实的陈述，如果造成了错误的整体印象，也可能具有误导性。</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <button id="quizBtn_misleading_conduct"
-                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Misleading
-                Conduct Quiz <span class="text-sm opacity-90 italic">误导性行为测验</span></button>
-
-            <div class="mt-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
-                <h3 class="text-[var(--primary-color)] text-xl font-semibold mb-3">Interactive: Misleading Ad Analyzer <span
-                        class="text-lg opacity-90 italic text-gray-600">互动：误导性广告分析器</span></h3>
-                <p class="mb-4 text-base">Learn to identify misleading conduct by analyzing different advertising scenarios. Choose a scenario and see if it breaches Section 18. <span class="chinese-text-body text-sm">通过分析不同的广告情景，学习识别误导性行为。选择一个情景，看看它是否违反了第18条。</span></p>
-                
-                <div id="misleadingAdAnalyzer" class="bg-white p-6 rounded-lg shadow-inner">
-                    <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-3">Select a Scenario to Analyze: <span class="chinese-text-body text-sm">选择一个情景进行分析：</span></h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="scenarioButtons">
-                            <button class="scenario-btn bg-blue-100 hover:bg-blue-200 p-4 rounded-lg text-left transition-all" data-scenario="1">
-                                <span class="font-semibold">Scenario 1: Tech Store <span class="chinese-text-body text-sm">情景1：科技商店</span></span>
-                                <p class="text-sm text-gray-600 mt-1">"Limited Time Only" Claims <span class="chinese-text-body text-sm">“限时特卖”声明</span></p>
-                            </button>
-                            <button class="scenario-btn bg-green-100 hover:bg-green-200 p-4 rounded-lg text-left transition-all" data-scenario="2">
-                                <span class="font-semibold">Scenario 2: Health Product <span class="chinese-text-body text-sm">情景2：保健品</span></span>
-                                <p class="text-sm text-gray-600 mt-1">"Doctor Recommended" Claims <span class="chinese-text-body text-sm">“医生推荐”声明</span></p>
-                            </button>
-                            <button class="scenario-btn bg-yellow-100 hover:bg-yellow-200 p-4 rounded-lg text-left transition-all" data-scenario="3">
-                                <span class="font-semibold">Scenario 3: Car Dealership <span class="chinese-text-body text-sm">情景3：汽车经销商</span></span>
-                                <p class="text-sm text-gray-600 mt-1">"No Deposit" Advertising <span class="chinese-text-body text-sm">“零首付”广告</span></p>
-                            </button>
-                            <button class="scenario-btn bg-red-100 hover:bg-red-200 p-4 rounded-lg text-left transition-all" data-scenario="4">
-                                <span class="font-semibold">Scenario 4: Online Course <span class="chinese-text-body text-sm">情景4：在线课程</span></span>
-                                <p class="text-sm text-gray-600 mt-1">"Guaranteed Results" Claims <span class="chinese-text-body text-sm">“保证结果”声明</span></p>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="scenarioDisplay" class="hidden">
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2" id="scenarioTitle"></h5>
-                            <p id="scenarioDescription" class="text-gray-700"></p>
-                            <div id="scenarioDetails" class="mt-3 text-sm text-gray-600"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="block font-semibold mb-2">Your Analysis: Does this breach Section 18? <span class="chinese-text-body text-sm">你的分析：这是否违反了第18条？</span></label>
-                            <div class="flex gap-4 mb-3">
-                                <button id="yesBreachBtn" class="flex-1 bg-red-100 hover:bg-red-200 p-3 rounded-lg font-semibold text-red-700 transition-all">
-                                    Yes - It's Misleading <span class="chinese-text-body text-sm">是 - 这是误导性的</span>
-                                </button>
-                                <button id="noBreachBtn" class="flex-1 bg-green-100 hover:bg-green-200 p-3 rounded-lg font-semibold text-green-700 transition-all">
-                                    No - It's Acceptable <span class="chinese-text-body text-sm">否 - 这是可接受的</span>
-                                </button>
-                            </div>
-                            <textarea id="studentReasoning" class="w-full p-3 border rounded-lg" rows="3" 
-                                placeholder="Explain your reasoning... (请解释你的理由...)"></textarea>
-                        </div>
-                        
-                        <button id="checkAnalysisBtn" class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-2 px-4 rounded transition-all">
-                            Check Your Analysis <span class="chinese-text-body text-sm">检查你的分析</span>
-                        </button>
-                        
-                        <div id="analysisResult" class="hidden mt-4">
-                            <div class="bg-blue-50 p-4 rounded-lg">
-                                <h5 class="font-bold mb-2" id="expertAnalysisTitle">Expert Analysis: <span class="chinese-text-body text-sm">专家分析：</span></h5>
-                                <div id="expertAnalysis"></div>
-                                <div id="keyLearningPoints" class="mt-3"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="knowledgeCheckBtn_misleading_conduct"
-                class="btn btn-warning mt-6 inline-block px-5 py-2.5 bg-[var(--warning-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#d39e00] hover:-translate-y-0.5 hover:shadow-md">Section
-                18 Knowledge Check <span class="text-sm opacity-90 italic">第18条知识检验</span></button>
-
-            <div id="kc_misleading_conduct"
-                class="knowledge-check-box bg-yellow-50 border border-yellow-400 rounded-lg p-6 mt-6 shadow-sm hidden">
-                <h4 class="text-yellow-700 text-xl font-semibold border-b-2 border-yellow-500 pb-2 mb-4">Test Your
-                    Knowledge <span class="text-lg opacity-90 italic">检验您的知识</span></h4>
-                <div class="knowledge-check-content space-y-4">
-                    <div class="knowledge-check-item">
-                        <p class="mb-3 text-base">Section 18 of the Australian Consumer Law prohibits a <span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="person"></span>, in <span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="trade or commerce"></span>, from engaging in conduct that is <span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="misleading or deceptive"></span> or is likely to <span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="mislead or deceive"></span>.</p>
-                    </div>
-                    <div class="knowledge-check-item">
-                        <p class="mt-2 mb-3 text-base">When a restaurant claims it has "the best coffee in town,"
-                            this is likely to be considered <span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="puffery"></span> rather than misleading conduct because reasonable
-                            consumers would not take such claims <span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="literally"></span>.</p>
-                    </div>
-                    <div class="knowledge-check-item">
-                        <p class="mt-2 mb-3 text-base">In the ACCC v Coles case, the court found that Coles' claims
-                            that its bread was "<span class="blank-container inline-block relative mx-1"><input
-                                    type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="freshly baked"></span>" and "<span
-                                class="blank-container inline-block relative mx-1"><input type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="baked today"></span>" were misleading because the bread was
-                            actually partially <span class="blank-container inline-block relative mx-1"><input
-                                    type="text"
-                                    class="blank-input border-2 border-dashed border-[var(--accent-color)] bg-transparent py-1 px-2 font-bold text-[var(--primary-color)] min-w-[100px] text-center focus:outline-none focus:border-[var(--secondary-color)]"
-                                    data-answer="baked and frozen"></span> off site by a supplier.</p>
-                    </div>
-                </div>
-                <div class="knowledge-check-buttons flex flex-wrap gap-2 mt-4">
-                    <button id="checkAnswersBtn_kc_misleading_conduct"
-                        class="btn btn-success inline-block px-5 py-2.5 bg-[var(--success-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#1e7e34] hover:-translate-y-0.5 hover:shadow-md">Check
-                        My Answers <span class="text-sm opacity-90 italic">检查我的答案</span></button>
-                    <button id="revealAnswersBtn_kc_misleading_conduct"
-                        class="btn btn-info inline-block px-5 py-2.5 bg-[#17a2b8] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[#117a8b] hover:-translate-y-0.5 hover:shadow-md">Reveal
-                        Answers <span class="text-sm opacity-90 italic">显示答案</span></button>
-                </div>
-            </div>
-        </section>
-
-        <section id="consumer-guarantees"
-            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
-            <h2
-                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
-                Consumer Guarantees <span class="text-xl md:text-2xl opacity-90 italic text-gray-600">消费者保证</span>
-            </h2>
-            <p class="mb-6 text-base">The Australian Consumer Law provides automatic guarantees for goods and
-                services purchased by consumers. These guarantees apply regardless of any warranties offered by
-                sellers or manufacturers. <span class="chinese-text-body text-sm">澳大利亚消费者法为消费者购买的商品和服务提供自动保证。无论销售商或制造商是否提供任何保修，这些保证都适用。</span></p>
-
-            <div
-                class="info-box definition-box mt-6 bg-sky-50 border-l-4 border-[var(--secondary-color)] p-4 md:p-6 rounded-lg relative">
-                <h4 class="text-[var(--secondary-color)] font-semibold text-lg mb-2">What are Consumer Guarantees?
-                    <span class="text-base opacity-90 italic text-gray-600">什么是消费者保证？</span>
-                </h4>
-                <p class="mb-2 text-base">Consumer guarantees are automatic rights that apply to all purchases of
-                    goods and services by consumers under the Australian Consumer Law. They can't be excluded, even
-                    by agreement. <span class="chinese-text-body text-sm">消费者保证是根据澳大利亚消费者法，适用于消费者购买的所有商品和服务的自动权利。即使通过协议也无法排除。</span></p>
-            </div>
-
-            <div class="mt-8 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 border border-indigo-200">
-                <h3 class="text-[var(--primary-color)] text-xl font-semibold mb-3">Interactive: Consumer Guarantees Sorting Game
-                    <span class="text-lg opacity-90 italic text-gray-600">互动：消费者保证分类游戏</span>
-                </h3>
-                <p class="mb-4 text-base">Test your understanding by sorting scenarios into the correct consumer guarantee sections. <span class="chinese-text-body text-sm">通过将情景分类到正确的消费者保证部分来测试您的理解。</span></p>
-                
-                <div id="guaranteeMatchGame" class="bg-white p-6 rounded-lg shadow-inner">
-                    <button id="startGameBtn"
-                        class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-lg">
-                        Start Game <span class="chinese-text-body text-sm">开始游戏</span>
-                    </button>
-                    
-                    <div id="gameContent" class="hidden mt-6">
-                        <div class="mb-4 text-center">
-                            <span class="text-lg font-semibold">Score: <span id="gameScore">0</span> / <span id="totalScenarios">8</span> <span class="chinese-text-body text-sm">得分</span></span>
-                        </div>
-                        
-                        <div id="currentScenario" class="bg-gray-50 p-6 rounded-lg mb-6">
-                            <h4 class="font-bold text-lg mb-3" id="scenarioNumber"></h4>
-                            <p id="scenarioText" class="text-gray-700 mb-4"></p>
-                            
-                            <div class="grid grid-cols-2 gap-4">
-                                <button class="guarantee-btn bg-blue-100 hover:bg-blue-200 p-4 rounded-lg transition-all" data-section="54">
-                                    <span class="font-semibold">Section 54</span>
-                                    <p class="text-sm text-gray-600 mt-1">Acceptable Quality <span class="chinese-text-body text-sm">可接受的质量</span></p>
-                                </button>
-                                <button class="guarantee-btn bg-green-100 hover:bg-green-200 p-4 rounded-lg transition-all" data-section="55">
-                                    <span class="font-semibold">Section 55</span>
-                                    <p class="text-sm text-gray-600 mt-1">Fitness for Purpose <span class="chinese-text-body text-sm">适合特定目的</span></p>
-                                </button>
-                                <button class="guarantee-btn bg-yellow-100 hover:bg-yellow-200 p-4 rounded-lg transition-all" data-section="56">
-                                    <span class="font-semibold">Section 56</span>
-                                    <p class="text-sm text-gray-600 mt-1">Supply by Description <span class="chinese-text-body text-sm">按描述供应</span></p>
-                                </button>
-                                <button class="guarantee-btn bg-purple-100 hover:bg-purple-200 p-4 rounded-lg transition-all" data-section="57">
-                                    <span class="font-semibold">Section 57</span>
-                                    <p class="text-sm text-gray-600 mt-1">Supply by Sample <span class="chinese-text-body text-sm">按样品供应</span></p>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div id="gameFeedback" class="hidden">
-                            <div class="p-4 rounded-lg mb-4" id="feedbackBox">
-                                <h5 class="font-bold mb-2" id="feedbackTitle"></h5>
-                                <p id="feedbackText"></p>
-                            </div>
-                            <button id="nextScenarioBtn" class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-2 px-4 rounded transition-all">
-                                Next Scenario → <span class="chinese-text-body text-sm">下一个情景 →</span>
-                            </button>
-                        </div>
-                        
-                        <div id="gameComplete" class="hidden text-center">
-                            <h4 class="text-2xl font-bold mb-4">Game Complete!</h4>
-                            <p class="text-lg mb-4">Your final score: <span id="finalScore"></span></p>
-                            <div id="performanceFeedback" class="mb-4"></div>
-                            <button id="resetGameBtn" class="bg-[var(--secondary-color)] hover:bg-[var(--primary-color)] text-white font-bold py-3 px-6 rounded-lg transition-all">
-                                Play Again <span class="chinese-text-body text-sm">再玩一次</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="quizBtn_consumer_guarantees"
-                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Consumer
-                Guarantees Quiz <span class="text-sm opacity-90 italic">消费者保证测验</span></button>
-
-        </section>
-
-        <section id="application"
-            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
-            <h2
-                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
-                Application of Consumer Protection Law <span
-                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">消费者保护法的应用</span></h2>
-            <p class="mb-6 text-base">In this section, we'll apply the IPAC (Issue, Principle, Application,
-                Conclusion) method to analyze a comprehensive consumer law scenario. <span class="chinese-text-body text-sm">在本节中，我们将应用IPAC（问题，原则，应用，结论）方法来分析一个全面的消费者法律情景。</span></p>
-
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 shadow-lg">
-                <div class="flex items-center mb-6">
-                    <div class="bg-orange-500 text-white rounded-full p-4 mr-4">
-                        <span class="text-3xl">🧥</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-800">Case Study: South Face Waterproof Jacket <span class="chinese-text-body text-sm">案例研究：South Face防水夹克</span></h3>
-                        <p class="text-gray-600">A Comprehensive IPAC Analysis <span class="chinese-text-body text-sm">一个全面的IPAC分析</span></p>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg p-6 mb-6 shadow-md">
-                    <h4 class="font-bold text-lg mb-3 text-blue-800">📋 Case Facts <span class="chinese-text-body text-sm">案件事实</span></h4>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h5 class="font-semibold mb-2">The Purchase <span class="chinese-text-body text-sm">购买过程</span></h5>
-                            <ul class="text-sm space-y-1">
-                                <li>• Mr. Lee needs jacket for New Zealand mountains <span class="chinese-text-body text-sm">李先生需要一件用于新西兰山区的夹克</span></li>
-                                <li>• Temperature will be below 0°C <span class="chinese-text-body text-sm">温度将低于0°C</span></li>
-                                <li>• Told staff he's unfamiliar with adventure clothing <span class="chinese-text-body text-sm">告诉店员他不熟悉户外服装</span></li>
-                                <li>• Staff recommended "South Face Waterproof 550" <span class="chinese-text-body text-sm">店员推荐了“South Face Waterproof 550”</span></li>
-                                <li>• Price: $600 <span class="chinese-text-body text-sm">价格：$600</span></li>
-                            </ul>
-                        </div>
-                        <div class="bg-red-50 p-4 rounded-lg">
-                            <h5 class="font-semibold mb-2">The Problems <span class="chinese-text-body text-sm">出现的问题</span></h5>
-                            <ul class="text-sm space-y-1">
-                                <li>• Jacket failed to protect from cold <span class="chinese-text-body text-sm">夹克未能防寒</span></li>
-                                <li>• Mr. Lee became very sick <span class="chinese-text-body text-sm">李先生病得很重</span></li>
-                                <li>• Zipper fell off on day 2 <span class="chinese-text-body text-sm">第二天拉链脱落</span></li>
-                                <li>• Filling fell out on day 3 <span class="chinese-text-body text-sm">第三天填充物脱落</span></li>
-                                <li>• Filling was mix of feathers & cotton (not 100% duck feathers) <span class="chinese-text-body text-sm">填充物是羽毛和棉花的混合物（非100%鸭绒）</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-purple-600 text-white p-4">
-                            <h4 class="font-bold text-lg flex items-center">
-                                <span class="bg-white text-purple-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">I</span>
-                                Issue (问题)
-                            </h4>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-gray-700">Has South Face breached any implied guarantees under the Australian Consumer Law? <span class="chinese-text-body text-sm">South Face是否违反了澳大利亚消费者法下的任何默示保证？</span></p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-blue-600 text-white p-4">
-                            <h4 class="font-bold text-lg flex items-center">
-                                <span class="bg-white text-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">P</span>
-                                Principle (原则)
-                            </h4>
-                        </div>
-                        <div class="p-6">
-                            <p class="mb-4">The ACL provides three relevant consumer guarantees: <span class="chinese-text-body text-sm">ACL提供了三个相关的消费者保证：</span></p>
-                            <div class="grid md:grid-cols-3 gap-3">
-                                <div class="bg-blue-50 p-3 rounded">
-                                    <h5 class="font-semibold text-blue-800">Section 54 <span class="chinese-text-body text-sm">第54条</span></h5>
-                                    <p class="text-sm">Goods must be of acceptable quality <span class="chinese-text-body text-sm">商品必须具有可接受的质量</span></p>
-                                </div>
-                                <div class="bg-green-50 p-3 rounded">
-                                    <h5 class="font-semibold text-green-800">Section 55 <span class="chinese-text-body text-sm">第55条</span></h5>
-                                    <p class="text-sm">Goods must be fit for disclosed purpose <span class="chinese-text-body text-sm">商品必须适合所披露的目的</span></p>
-                                </div>
-                                <div class="bg-yellow-50 p-3 rounded">
-                                    <h5 class="font-semibold text-yellow-800">Section 56 <span class="chinese-text-body text-sm">第56条</span></h5>
-                                    <p class="text-sm">Goods must match their description <span class="chinese-text-body text-sm">商品必须与其描述相符</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-green-600 text-white p-4">
-                            <h4 class="font-bold text-lg flex items-center">
-                                <span class="bg-white text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">A</span>
-                                Application (应用)
-                            </h4>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div class="border-l-4 border-blue-500 pl-4">
-                                <h5 class="font-semibold mb-2">Section 54 Analysis <span class="chinese-text-body text-sm">第54条分析</span></h5>
-                                <p class="text-sm mb-2">The jacket was NOT of acceptable quality because: <span class="chinese-text-body text-sm">该夹克不具有可接受的质量，因为：</span></p>
-                                <ul class="text-sm space-y-1 ml-4">
-                                    <li>❌ Not fit for purpose (failed to protect from cold) <span class="chinese-text-body text-sm">不适合用途（未能防寒）</span></li>
-                                    <li>❌ Had defects (zipper fell off) <span class="chinese-text-body text-sm">存在缺陷（拉链脱落）</span></li>
-                                    <li>❌ Not durable (filling fell out after 3 days) <span class="chinese-text-body text-sm">不耐用（3天后填充物脱落）</span></li>
-                                </ul>
-                            </div>
-                            
-                            <div class="border-l-4 border-green-500 pl-4">
-                                <h5 class="font-semibold mb-2">Section 55 Analysis <span class="chinese-text-body text-sm">第55条分析</span></h5>
-                                <p class="text-sm mb-2">The jacket was NOT fit for disclosed purpose because: <span class="chinese-text-body text-sm">该夹克不适合所披露的目的，因为：</span></p>
-                                <ul class="text-sm space-y-1 ml-4">
-                                    <li>✓ Mr. Lee disclosed specific purpose (below 0°C hiking) <span class="chinese-text-body text-sm">李先生披露了特定目的（低于0°C徒步）</span></li>
-                                    <li>✓ He relied on staff recommendation <span class="chinese-text-body text-sm">他依赖了店员的推荐</span></li>
-                                    <li>❌ Jacket failed in those conditions <span class="chinese-text-body text-sm">夹克在那些条件下失效</span></li>
-                                </ul>
-                            </div>
-                            
-                            <div class="border-l-4 border-yellow-500 pl-4">
-                                <h5 class="font-semibold mb-2">Section 56 Analysis <span class="chinese-text-body text-sm">第56条分析</span></h5>
-                                <p class="text-sm mb-2">The jacket did NOT match its description because: <span class="chinese-text-body text-sm">该夹克与其描述不符，因为：</span></p>
-                                <ul class="text-sm space-y-1 ml-4">
-                                    <li>📄 Described as "100% duck feathers" <span class="chinese-text-body text-sm">描述为“100%鸭绒”</span></li>
-                                    <li>❌ Actually contained cotton mixed with feathers <span class="chinese-text-body text-sm">实际上含有棉花和羽毛的混合物</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-red-600 text-white p-4">
-                            <h4 class="font-bold text-lg flex items-center">
-                                <span class="bg-white text-red-600 rounded-full w-8 h-8 flex items-center justify-center mr-3">C</span>
-                                Conclusion (结论)
-                            </h4>
-                        </div>
-                        <div class="p-6">
-                            <div class="bg-red-50 p-4 rounded-lg mb-4">
-                                <p class="font-semibold text-red-800 mb-2">South Face has breached ALL THREE consumer guarantees: <span class="chinese-text-body text-sm">South Face违反了所有三项消费者保证：</span></p>
-                                <ul class="text-sm space-y-1">
-                                    <li>✓ Section 54 - Acceptable quality <span class="chinese-text-body text-sm">第54条 - 可接受的质量</span></li>
-                                    <li>✓ Section 55 - Fitness for disclosed purpose <span class="chinese-text-body text-sm">第55条 - 适合所披露的目的</span></li>
-                                    <li>✓ Section 56 - Correspondence with description <span class="chinese-text-body text-sm">第56条 - 与描述相符</span></li>
-                                </ul>
-                            </div>
-                            <div class="bg-green-50 p-4 rounded-lg">
-                                <p class="font-semibold text-green-800 mb-2">Mr. Lee's Rights: <span class="chinese-text-body text-sm">李先生的权利：</span></p>
-                                <p class="text-sm">Entitled to remedy under ACL - refund, replacement, or repair <span class="chinese-text-body text-sm">根据ACL有权获得补救 - 退款、更换或维修</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="quizBtn_application"
-                class="btn mt-6 inline-block px-5 py-2.5 bg-[var(--secondary-color)] text-white no-underline rounded-lg transition-all duration-300 ease-linear border-none cursor-pointer text-[0.9rem] hover:bg-[var(--primary-color)] hover:-translate-y-0.5 hover:shadow-md">Application
-                Quiz <span class="text-sm opacity-90 italic">应用测验</span></button>
-        </section>
-
-        <section id="summary"
-            class="content-section bg-white rounded-xl p-6 md:p-8 mb-8 md:mb-12 shadow-[var(--card-shadow)] scroll-mt-20">
-            <h2
-                class="text-[var(--primary-color)] border-b-2 border-[var(--secondary-color)] pb-2 mb-6 text-2xl md:text-3xl font-semibold">
-                Unit 5 Mastery Summary <span
-                    class="text-xl md:text-2xl opacity-90 italic text-gray-600">第五单元精通总结</span></h2>
-            
-            <div class="mb-8">
-                <h3 class="text-xl font-bold mb-4 text-center">🎯 Key Concepts Quick Reference <span class="chinese-text-body text-sm">核心概念快速参考</span></h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="summary-card bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="text-3xl">📜</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Australian Consumer Law <span class="chinese-text-body text-sm">澳大利亚消费者法</span></h4>
-                            <p class="text-sm opacity-90">The foundation of consumer protection <span class="chinese-text-body text-xs">消费者保护的基础</span></p>
-                        </div>
-                        <div class="card-back hidden p-4">
-                            <h5 class="font-bold mb-3">Remember: <span class="chinese-text-body text-sm">记住：</span></h5>
-                            <ul class="text-sm space-y-2">
-                                <li>📍 Schedule 2 of Competition & Consumer Act 2010 <span class="chinese-text-body text-xs">《2010年竞争与消费者法》附表2</span></li>
-                                <li>🌏 Applies nationally to ALL businesses & consumers <span class="chinese-text-body text-xs">全国范围内适用于所有企业和消费者</span></li>
-                                <li>🛡️ Cannot be excluded by agreement <span class="chinese-text-body text-xs">不能通过协议排除</span></li>
-                                <li>👮 Enforced by ACCC <span class="chinese-text-body text-xs">由ACCC执行</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="summary-card bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="text-3xl">⚠️</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Section 18: Misleading Conduct <span class="chinese-text-body text-sm">第18条：误导性行为</span></h4>
-                            <p class="text-sm opacity-90">The most used provision <span class="chinese-text-body text-xs">最常用的条款</span></p>
-                        </div>
-                        <div class="card-back hidden p-4">
-                            <h5 class="font-bold mb-3">Remember: <span class="chinese-text-body text-sm">记住：</span></h5>
-                            <ul class="text-sm space-y-2">
-                                <li><strong>Rule:</strong> No misleading or deceptive conduct <span class="chinese-text-body text-xs">规则：不得有误导或欺骗行为</span></li>
-                                <li><strong>Test:</strong> Does it lead a consumer into error? <span class="chinese-text-body text-xs">测试：是否会引导消费者犯错？</span></li>
-                                <li><strong>Puffery:</strong> Exaggerated claims are okay (e.g., "Best coffee in town") <span class="chinese-text-body text-xs">夸大宣传：允许夸张的说法（例如“镇上最好的咖啡”）</span></li>
-                                <li><strong>Intention:</strong> Not relevant. It doesn't matter if you meant to mislead. <span class="chinese-text-body text-xs">意图：不相关。你是否意图误导并不重要。</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="summary-card bg-gradient-to-br from-red-500 to-red-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="text-3xl">✅</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">s54: Acceptable Quality <span class="chinese-text-body text-sm">第54条：可接受的质量</span></h4>
-                            <p class="text-sm opacity-90">Goods must meet a basic standard <span class="chinese-text-body text-xs">商品必须符合基本标准</span></p>
-                        </div>
-                        <div class="card-back hidden p-4">
-                            <h5 class="font-bold mb-3">Key aspects: <span class="chinese-text-body text-sm">关键方面：</span></h5>
-                            <ul class="text-sm space-y-2">
-                                <li>Fit for common purposes <span class="chinese-text-body text-xs">适合通用目的</span></li>
-                                <li>Acceptable appearance & finish <span class="chinese-text-body text-xs">外观和做工可接受</span></li>
-                                <li>Free from defects <span class="chinese-text-body text-xs">无瑕疵</span></li>
-                                <li>Safe & Durable <span class="chinese-text-body text-xs">安全耐用</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="summary-card bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 transform transition-all hover:scale-105 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="text-3xl">🎯</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Click to flip <span class="chinese-text-body text-xs">点击翻转</span></span>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">s55, s56, s57: Specific Guarantees <span class="chinese-text-body text-sm">第55, 56, 57条：具体保证</span></h4>
-                            <p class="text-sm opacity-90">Matching specific needs & claims <span class="chinese-text-body text-xs">匹配特定需求和声明</span></p>
-                        </div>
-                        <div class="card-back hidden p-4">
-                            <h5 class="font-bold mb-3">Remember: <span class="chinese-text-body text-sm">记住：</span></h5>
-                            <ul class="text-sm space-y-2">
-                                <li><strong>s55:</strong> Fit for a purpose you disclosed <span class="chinese-text-body text-xs">第55条：适合您披露的用途</span></li>
-                                <li><strong>s56:</strong> Matches the description given <span class="chinese-text-body text-xs">第56条：与所给描述相符</span></li>
-                                <li><strong>s57:</strong> Matches the sample/demo model shown <span class="chinese-text-body text-xs">第57条：与所示样品/演示模型相符</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 text-center">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Ready to Test Your Mastery? <span class="chinese-text-body text-sm">准备好测试您的掌握程度了吗？</span></h3>
-                <p class="mb-6 text-gray-600">Take the final review quiz to solidify your knowledge of Unit 5. <span class="chinese-text-body text-sm">参加期末复习测验，巩固您对第五单元的知识。</span></p>
-                <button id="quizBtn_final_review" class="btn bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-8 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-                    Take Final Review Quiz <span class="text-base opacity-90 italic">期末复习测验</span>
-                </button>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-[var(--primary-color)] text-[var(--light-text)] py-8 mt-12 text-center">
-        <div class="max-w-6xl mx-auto px-4">
-            <p class="mb-2">Consumer Protection Law Learning Hub</p>
-            <p class="text-sm opacity-80">&copy; <span id="currentYear"></span> All Rights Reserved. <span
-                    class="chinese-text-body text-sm opacity-80" id="currentYearChinese"></span> 版权所有。</p>
-        </div>
-    </footer>
-
-    <div id="scrollUpBtn" class="hidden">
-        <span>🐸</span>
+  <div class="feature-grid">
+    <div class="feature-card" style="border-color:#2e7d32;">
+      <div class="card-icon">⏳</div>
+      <h4>Executory (Future) 待执行对价（未来）</h4>
+      <p>A promise to do something in the future. E.g. X promises to pay Y in return for Y's promise to wash X's car.</p>
+      <span class="zh-card">对未来做某事的承诺。例如：X承诺付钱给Y，以换取Y承诺洗X的车。</span>
+      <p style="margin-top:8px;"><span style="color:#2e7d32;font-weight:700;">✅ VALID 有效</span></p>
     </div>
-
-    <audio id="frog-sound" src="ribbit.mp3" preload="auto"></audio>
-
-    <div id="quizModal"
-        class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[2000]">
-        <div class="bg-[var(--quiz-card-bg)] rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <header class="p-5 border-b border-gray-200">
-                <h2 class="text-xl font-bold text-[var(--primary-color)]">Knowledge Check Quiz <span
-                        class="text-lg opacity-90 italic text-gray-600">知识检验测验</span></h2>
-            </header>
-            <div id="quizContentContainer" class="p-6 overflow-y-auto">
-            </div>
-            <footer class="p-5 border-t border-gray-200 bg-gray-50 rounded-b-xl flex justify-end gap-4">
-                <button id="checkAnswersBtn" class="btn bg-[var(--success-color)] text-white">Check Answers <span
-                        class="text-sm opacity-90 italic">检查答案</span></button>
-                <button id="closeQuizModalBtn" class="btn bg-gray-200 text-gray-700">Close <span
-                        class="text-sm opacity-90 italic">关闭</span></button>
-            </footer>
-        </div>
+    <div class="feature-card" style="border-color:#1565c0;">
+      <div class="card-icon">✅</div>
+      <h4>Executed (Present) 已执行对价（现在）</h4>
+      <p>Performing a required act. E.g. <em>Carlill v Carbolic Smoke Ball Co</em> — using the product as directed constituted executed consideration.</p>
+      <span class="zh-card">执行所要求的行为。例如：Carlill v Carbolic Smoke Ball Co — 按指示使用产品构成已执行对价。</span>
+      <p style="margin-top:8px;"><span style="color:#1565c0;font-weight:700;">✅ VALID 有效</span></p>
     </div>
+    <div class="feature-card" style="border-color:#c62828;">
+      <div class="card-icon">⛔</div>
+      <h4>Past 过去的对价</h4>
+      <p>Consideration that pre-dates the promise. E.g. X promises to pay Y after Y has already completed the work without any prior agreement.</p>
+      <span class="zh-card">先于承诺的对价。例如：在没有事先约定的情况下，Y已完成工作后X才承诺付款。</span>
+      <p style="margin-top:8px;"><span style="color:#c62828;font-weight:700;">❌ NOT VALID 无效</span></p>
+    </div>
+  </div>
 
-    <script>
-        // JavaScript for summary card flipping
-        document.querySelectorAll('.summary-card').forEach(card => {
-            card.addEventListener('click', function () {
-                this.querySelector('.card-front').classList.toggle('hidden');
-                this.querySelector('.card-back').classList.toggle('hidden');
-            });
-        });
-    </script>
-    <script src="unit5_fixes.js"></script>
+  <h3>Key Rules</h3>
+  <p class="zh-sub">关键规则</p>
 
+  <ul class="highlight-list">
+    <li><span class="li-icon">📌</span><div>Consideration may be "executed" or "executory" but CANNOT be "past".<span class="zh-text">对价可以是"已执行的"或"待执行的"，但不能是"过去的"。</span></div></li>
+    <li><span class="li-icon">⚠️</span><div>Past consideration is NOT valid consideration.<span class="zh-text">过去的对价不是有效的对价。</span></div></li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: KEY CASES ON CONSIDERATION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="cases-consideration">
+  <span class="section-label" style="background:var(--cases-consid-light);color:var(--cases-consid);">Section 3</span>
+  <h2><span class="emoji">⚖️</span> Key Cases: Consideration</h2>
+  <p class="zh-title">对价关键判例</p>
+
+  <!-- Case 1: Roscorla v Thomas -->
+  <div class="case-box" style="background:var(--cases-consid-light);border-color:var(--cases-consid);">
+    <span class="case-label" style="background:var(--cases-consid);color:#fff;">Case 1</span>
+    <h4>📜 Roscorla v Thomas (1842) 3 QB 234</h4>
+
+    <p><strong>Facts:</strong> Roscorla purchased a horse from Thomas for £30. After the purchase was completed, Thomas promised the horse was "free from vice" (sound and well-behaved).</p>
+    <span class="zh-text">事实：Roscorla以30英镑从Thomas处购买了一匹马。购买完成后，Thomas承诺这匹马"没有恶习"（健康且性情良好）。</span>
+
+    <p><strong>Issue:</strong> Was Thomas's promise supported by consideration?</p>
+    <span class="zh-text">问题：Thomas的承诺是否有对价支持？</span>
+
+    <p><strong>Held:</strong> The promise was <strong>NOT</strong> supported by consideration. The payment of £30 was <strong>PAST consideration</strong> — it had already been given before the promise was made. Therefore the promise was not enforceable.</p>
+    <span class="zh-text">判决：该承诺没有对价支持。30英镑的付款是过去的对价——在承诺作出之前就已经支付了。因此该承诺不可执行。</span>
+
+    <div class="key-point" style="margin-top:12px;">
+      <p><strong>⚖️ Principle 原则:</strong> Past consideration is not good consideration.</p>
+      <span class="zh-text">过去的对价不是有效的对价。</span>
+    </div>
+  </div>
+
+  <!-- Case 2: Stilk v Myrick -->
+  <div class="case-box" style="background:var(--cases-consid-light);border-color:var(--cases-consid);">
+    <span class="case-label" style="background:var(--cases-consid);color:#fff;">Case 2</span>
+    <h4>📜 Stilk v Myrick (1809) 2 Camp 317</h4>
+
+    <p><strong>Facts:</strong> Sailors contracted to sail a ship for a round-trip voyage. During the voyage, two sailors deserted. The captain promised the remaining sailors extra wages if they sailed the ship short-handed back to London.</p>
+    <span class="zh-text">事实：水手们签约驾船进行往返航行。航行期间，两名水手逃跑了。船长承诺如果剩余水手在人手不足的情况下把船开回伦敦，将支付额外工资。</span>
+
+    <p><strong>Issue:</strong> Were the remaining sailors entitled to the extra wages?</p>
+    <span class="zh-text">问题：剩余水手是否有权获得额外工资？</span>
+
+    <p><strong>Held:</strong> The promise was <strong>NOT</strong> supported by fresh consideration. The sailors were already under an existing contractual duty to sail the ship. Performing an <strong>EXISTING duty</strong> is NOT sufficient consideration for a new promise.</p>
+    <span class="zh-text">判决：该承诺没有新的对价支持。水手们已经有驾船的合同义务。履行现有义务不构成新承诺的充分对价。</span>
+
+    <div class="key-point" style="margin-top:12px;">
+      <p><strong>⚖️ Principle 原则:</strong> Performance of an existing contractual duty is not good consideration.</p>
+      <span class="zh-text">履行现有合同义务不是有效的对价。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4: INTENTION TO CREATE LEGAL RELATIONS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="intention">
+  <span class="section-label" style="background:var(--intention-light);color:var(--intention);">Section 4</span>
+  <h2><span class="emoji">🔙</span> Intention to Create Legal Relations</h2>
+  <p class="zh-title">创设法律关系的意图</p>
+
+  <p>Parties must intend their agreement to have legal consequences.</p>
+  <span class="zh-text">各方必须有意使其协议具有法律后果。</span>
+
+  <p>The court determines intention <strong>objectively</strong> — what would a reasonable person conclude?</p>
+  <span class="zh-text">法院客观地确定意图——一个理性人会得出什么结论？</span>
+
+  <h3>Two Presumptions</h3>
+  <p class="zh-sub">两种推定</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Type 类型</th>
+        <th>Presumption 推定</th>
+        <th>Rebuttable? 可推翻？</th>
+        <th>Examples 例子</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Social / Domestic Agreements</strong><br><span class="zh-text">社交/家庭协议</span></td>
+        <td><span style="color:#c62828;font-weight:700;">NO intention ❌</span><br><span class="zh-text" style="color:#c62828;">推定没有创设法律关系的意图</span></td>
+        <td><span style="color:#2e7d32;font-weight:700;">YES ✅</span><br><span class="zh-text">可被推翻（可用证据推翻）</span></td>
+        <td>Agreements between family members, friends, social arrangements<br><span class="zh-text">家庭成员之间、朋友之间、社交安排的协议</span></td>
+      </tr>
+      <tr>
+        <td><strong>Commercial / Business Agreements</strong><br><span class="zh-text">商业/商务协议</span></td>
+        <td><span style="color:#2e7d32;font-weight:700;">YES, intention ✅</span><br><span class="zh-text" style="color:#2e7d32;">推定有创设法律关系的意图</span></td>
+        <td><span style="color:#2e7d32;font-weight:700;">YES ✅</span><br><span class="zh-text">该推定也可被推翻</span></td>
+        <td>Business contracts, employment agreements, sales transactions<br><span class="zh-text">商业合同、雇佣协议、销售交易</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5: KEY CASES ON INTENTION
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="cases-intention">
+  <span class="section-label" style="background:var(--cases-intent-light);color:var(--cases-intent);">Section 5</span>
+  <h2><span class="emoji">🏛️</span> Key Cases: Intention to Create Legal Relations</h2>
+  <p class="zh-title">创设法律关系意图的关键判例</p>
+
+  <!-- Case 1: Balfour v Balfour -->
+  <div class="case-box" style="background:var(--cases-intent-light);border-color:var(--cases-intent);">
+    <span class="case-label" style="background:var(--cases-intent);color:#fff;">Case 1</span>
+    <h4>📜 Balfour v Balfour [1919] 2 KB 571</h4>
+
+    <p><strong>Facts:</strong> Husband worked in Ceylon (Sri Lanka). He promised his wife £30 per month while she stayed in England for health reasons. The marriage later broke down.</p>
+    <span class="zh-text">事实：丈夫在锡兰（斯里兰卡）工作。他承诺妻子因健康原因留在英国期间每月支付30英镑。婚姻后来破裂。</span>
+
+    <p><strong>Issue:</strong> Was there a binding contract between husband and wife?</p>
+    <span class="zh-text">问题：丈夫和妻子之间是否存在具有约束力的合同？</span>
+
+    <p><strong>Held:</strong> No binding contract. This was a <strong>DOMESTIC agreement</strong> — the presumption is NO intention to create legal relations. The presumption was <strong>NOT rebutted</strong>.</p>
+    <span class="zh-text">判决：不存在具有约束力的合同。这是家庭协议——推定没有创设法律关系的意图。该推定未被推翻。</span>
+  </div>
+
+  <!-- Case 2: Merritt v Merritt -->
+  <div class="case-box" style="background:var(--cases-intent-light);border-color:var(--cases-intent);">
+    <span class="case-label" style="background:var(--cases-intent);color:#fff;">Case 2</span>
+    <h4>📜 Merritt v Merritt [1970] 1 WLR 1211</h4>
+
+    <p><strong>Facts:</strong> Husband and wife had <strong>SEPARATED</strong>. The husband agreed <strong>IN WRITING</strong> to transfer the house to the wife if she paid the remaining mortgage instalments.</p>
+    <span class="zh-text">事实：丈夫和妻子已经分居。丈夫书面同意，如果妻子偿还剩余的抵押贷款分期付款，就将房屋转让给她。</span>
+
+    <p><strong>Issue:</strong> Was there intention to create legal relations despite being a family matter?</p>
+    <span class="zh-text">问题：尽管是家庭事务，是否有创设法律关系的意图？</span>
+
+    <p><strong>Held:</strong> Yes — the presumption was <strong>REBUTTED</strong>. The couple had separated, and the agreement was in writing. These factors showed clear intention to be legally bound.</p>
+    <span class="zh-text">判决：是的——推定被推翻了。夫妻已经分居，协议是书面的。这些因素表明有明确的法律约束意图。</span>
+  </div>
+
+  <!-- Case 3: Wakeling v Ripley -->
+  <div class="case-box" style="background:var(--cases-intent-light);border-color:var(--cases-intent);">
+    <span class="case-label" style="background:var(--cases-intent);color:#fff;">Case 3</span>
+    <h4>📜 Wakeling v Ripley (1951) 51 SR (NSW) 183</h4>
+
+    <p><strong>Facts:</strong> A couple relocated from England to Australia based on the brother-in-law's promise to provide accommodation and leave them his estate in his will.</p>
+    <span class="zh-text">事实：一对夫妻基于姐/妹夫承诺提供住所并在遗嘱中留给他们遗产，从英国搬到了澳大利亚。</span>
+
+    <p><strong>Issue:</strong> Was there intention to create legal relations in this family arrangement?</p>
+    <span class="zh-text">问题：这个家庭安排中是否有创设法律关系的意图？</span>
+
+    <p><strong>Held:</strong> Yes — the presumption of no intention was <strong>REBUTTED</strong>. The couple gave up their life in England and relocated to Australia — this showed the parties intended legal consequences.</p>
+    <span class="zh-text">判决：是的——没有意图的推定被推翻了。夫妻放弃了在英国的生活搬到澳大利亚——这表明各方意图产生法律后果。</span>
+  </div>
+
+  <!-- Case 4: Ermogenous v Greek Orthodox Community -->
+  <div class="case-box" style="background:var(--cases-intent-light);border-color:var(--cases-intent);">
+    <span class="case-label" style="background:var(--cases-intent);color:#fff;">Case 4</span>
+    <h4>📜 Ermogenous v Greek Orthodox Community of SA Inc (2002) 209 CLR 95</h4>
+
+    <p><strong>Facts:</strong> A church leader (Archbishop) argued his engagement with the Church was a binding employment contract.</p>
+    <span class="zh-text">事实：一位教会领袖（大主教）主张他与教会的聘用关系是具有约束力的雇佣合同。</span>
+
+    <p><strong>Issue:</strong> Does the presumption against intention apply in a religious/voluntary context?</p>
+    <span class="zh-text">问题：在宗教/志愿者背景下，反对意图的推定是否适用？</span>
+
+    <p><strong>Held:</strong> The High Court said the presumption against intention in a religious context is <strong>REBUTTABLE</strong>. The court must consider <strong>ALL the circumstances</strong> of the case, not merely apply a blanket presumption.</p>
+    <span class="zh-text">判决：高等法院认为在宗教背景下反对意图的推定是可以被推翻的。法院必须考虑案件的所有情况，而不是仅仅适用一个笼统的推定。</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6: IPAC FOR CONTRACT PROBLEMS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="ipac">
+  <span class="section-label" style="background:var(--ipac-light);color:var(--ipac);">Section 6</span>
+  <h2><span class="emoji">🔍</span> IPAC for Contract Problems</h2>
+  <p class="zh-title">合同法问题的IPAC分析方法</p>
+
+  <p>Apply the <strong>IPAC method</strong> specifically to contract law problems involving consideration and intention.</p>
+  <span class="zh-text">将IPAC方法专门应用于涉及对价和意图的合同法问题。</span>
+
+  <div class="ipac-flow">
+    <div class="ipac-step">
+      <div class="ipac-letter">I</div>
+      <h4>Issue 法律问题</h4>
+      <p class="zh-ipac">识别合同法问题</p>
+      <p>Identify the contract law issue. Is it about offer, acceptance, consideration, or intention?</p>
+      <span class="zh-text">识别合同法问题。是关于要约、承诺、对价还是意图？</span>
+    </div>
+    <div class="ipac-step">
+      <div class="ipac-letter">P</div>
+      <h4>Principles 法律原则</h4>
+      <p class="zh-ipac">陈述相关合同法原则</p>
+      <p>State the relevant contract law principles. Define consideration/intention rules. Cite relevant cases (e.g. <em>Roscorla v Thomas</em>, <em>Balfour v Balfour</em>).</p>
+      <span class="zh-text">陈述相关的合同法原则。定义对价/意图规则。引用相关判例。</span>
+    </div>
+    <div class="ipac-step">
+      <div class="ipac-letter">A</div>
+      <h4>Application 法律适用</h4>
+      <p class="zh-ipac">将原则应用于事实</p>
+      <p>Apply principles to the facts. Was there valid consideration? Was it past, executed, or executory? Is this a domestic or commercial agreement? Has the presumption been rebutted?</p>
+      <span class="zh-text">将原则应用于事实。是否有有效的对价？是过去的、已执行的还是待执行的？这是家庭协议还是商业协议？推定是否被推翻？</span>
+    </div>
+    <div class="ipac-step">
+      <div class="ipac-letter">C</div>
+      <h4>Conclusion 结论</h4>
+      <p class="zh-ipac">提供基于分析的结论</p>
+      <p>State whether a valid contract exists based on your analysis.</p>
+      <span class="zh-text">根据你的分析说明是否存在有效的合同。</span>
+    </div>
+  </div>
+
+  <div class="practice-box" style="margin-top:24px;">
+    <h4>📝 Practice Scenario 练习场景</h4>
+    <p>Tom agrees to sell his car to Jerry for $5,000. After Jerry pays, Tom discovers the car has a hidden defect and promises Jerry the car is "mechanically perfect." Is Tom's promise enforceable? Apply IPAC.</p>
+    <span class="zh-text">Tom同意以5,000澳元将他的车卖给Jerry。Jerry付款后，Tom发现车有一个隐藏缺陷，并向Jerry承诺车"机械状况完好"。Tom的承诺是否可以执行？应用IPAC分析。</span>
+
+    <div class="key-point" style="margin-top:16px;">
+      <p><strong>💡 Hint 提示:</strong> Consider whether Jerry's payment of $5,000 is past consideration in relation to Tom's later promise. Think about <em>Roscorla v Thomas</em>.</p>
+      <span class="zh-text">考虑Jerry支付的5,000澳元相对于Tom后来的承诺是否构成过去的对价。想想 Roscorla v Thomas 案。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FLASHCARDS
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="flashcards">
+  <span class="section-label" style="background:var(--light-accent);color:var(--primary);">Review</span>
+  <h2><span class="emoji">🃏</span> Flashcards</h2>
+  <p class="zh-title">闪卡复习</p>
+  <p>Click each card to reveal the definition. Master these key terms!</p>
+  <span class="zh-text">点击每张卡片查看定义。掌握这些关键术语！</span>
+
+  <div id="flashcard-container">
+    <!-- Flashcards populated by JS -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     QUIZ
+     ═══════════════════════════════════════════════════ -->
+<section class="section" id="quiz">
+  <span class="section-label" style="background:var(--light-accent);color:var(--primary);">Test Yourself</span>
+  <h2><span class="emoji">🧠</span> Knowledge Check Quiz</h2>
+  <p class="zh-title">知识检测</p>
+  <p>Test your understanding of Contracts Part 2. Select the correct answer for each question.</p>
+  <span class="zh-text">测试你对合同法（二）的理解。为每个问题选择正确答案。</span>
+
+  <div id="quiz-container">
+    <!-- Quiz populated by JS -->
+  </div>
+  <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+</div><!-- /container -->
+
+<!-- Back to Top -->
+<button id="back-top" title="Back to top">⬆️</button>
+
+<!-- Dark Mode Toggle -->
+<button id="dark-toggle" title="Toggle dark mode">🌙</button>
+
+<script>
+/* ═══════════════════════════════
+   FLASHCARD DATA
+   ═══════════════════════════════ */
+const flashcards = [
+  {
+    term: "Consideration",
+    zh: "对价",
+    def: "Something of legal value exchanged for a promise; the 'price' paid in return for a promise. Essential in every simple contract.\n\n为承诺而交换的具有法律价值的东西；为承诺而支付的\u201c代价\u201d。每个简单合同都必须有对价。"
+  },
+  {
+    term: "Executory Consideration",
+    zh: "待执行对价",
+    def: "A promise to do something in the future. Both parties exchange promises. Valid consideration.\n\n对未来做某事的承诺。双方交换承诺。有效的对价。"
+  },
+  {
+    term: "Executed Consideration",
+    zh: "已执行对价",
+    def: "Performing a required act at the time the contract is made. E.g. Carlill v Carbolic Smoke Ball.\n\n在合同订立时执行所要求的行为。例如：Carlill v Carbolic Smoke Ball。"
+  },
+  {
+    term: "Past Consideration",
+    zh: "过去的对价",
+    def: "Consideration given before the promise was made. NOT valid. E.g. Roscorla v Thomas.\n\n在承诺作出之前给予的对价。无效。例如：Roscorla v Thomas。"
+  },
+  {
+    term: "Intention to Create Legal Relations",
+    zh: "创设法律关系的意图",
+    def: "Parties must intend their agreement to have legal consequences. Determined objectively by the court.\n\n各方必须有意使其协议具有法律后果。由法院客观确定。"
+  },
+  {
+    term: "Social/Domestic Presumption",
+    zh: "社交/家庭推定",
+    def: "Presumed NO intention to create legal relations. Rebuttable. E.g. Balfour v Balfour.\n\n推定没有创设法律关系的意图。可被推翻。例如：Balfour v Balfour。"
+  },
+  {
+    term: "Commercial Presumption",
+    zh: "商业推定",
+    def: "Presumed intention to create legal relations. Also rebuttable.\n\n推定有创设法律关系的意图。同样可被推翻。"
+  },
+  {
+    term: "Roscorla v Thomas",
+    zh: "罗斯科拉诉托马斯案",
+    def: "Past consideration is not good consideration. Horse purchase — promise made after payment was already completed.\n\n过去的对价不是有效的对价。买马案——承诺在付款完成后才作出。"
+  },
+  {
+    term: "Stilk v Myrick",
+    zh: "斯蒂尔克诉迈里克案",
+    def: "Existing contractual duty is not good consideration. Sailors already obliged to sail the ship.\n\n履行现有合同义务不是有效的对价。水手们已经有驾船的义务。"
+  },
+  {
+    term: "Balfour v Balfour",
+    zh: "巴尔弗诉巴尔弗案",
+    def: "Domestic agreement — presumption of no intention. Husband's promise to wife not enforceable.\n\n家庭协议——推定没有创设法律关系的意图。丈夫对妻子的承诺不可执行。"
+  }
+];
+
+/* ═══════════════════════════════
+   QUIZ DATA
+   ═══════════════════════════════ */
+const quizData = [
+  {
+    q: "What is consideration in contract law?",
+    zh: "合同法中的对价是什么？",
+    opts: ["A written document (书面文件)", "Something of legal value exchanged for a promise (为承诺交换的具有法律价值的东西)", "A verbal agreement (口头协议)", "A court order (法院命令)"],
+    ans: 1
+  },
+  {
+    q: "Which type of consideration is NOT valid?",
+    zh: "哪种对价类型无效？",
+    opts: ["Executory (待执行)", "Executed (已执行)", "Past (过去的)", "Future (未来的)"],
+    ans: 2
+  },
+  {
+    q: "In Roscorla v Thomas, why was the promise unenforceable?",
+    zh: "在Roscorla v Thomas案中，为什么承诺不可执行？",
+    opts: ["There was no agreement (没有合意)", "The payment was past consideration (付款是过去的对价)", "There was fraud (存在欺诈)", "The price was too low (价格太低)"],
+    ans: 1
+  },
+  {
+    q: "In Stilk v Myrick, what principle was established?",
+    zh: "在Stilk v Myrick案中确立了什么原则？",
+    opts: ["Past consideration is invalid (过去的对价无效)", "Performing an existing duty is not good consideration (履行现有义务不是有效的对价)", "Domestic agreements are not binding (家庭协议没有约束力)", "All promises need written evidence (所有承诺都需要书面证据)"],
+    ans: 1
+  },
+  {
+    q: "For social/domestic agreements, what is the presumption regarding intention?",
+    zh: "对于社交/家庭协议，关于意图的推定是什么？",
+    opts: ["Presumed intention exists (推定存在意图)", "No presumption applies (不适用推定)", "Presumed NO intention to create legal relations (推定没有创设法律关系的意图)", "Intent must be proven in writing (意图必须以书面形式证明)"],
+    ans: 2
+  },
+  {
+    q: "In Balfour v Balfour, why was the husband's promise NOT enforceable?",
+    zh: "在Balfour v Balfour案中，丈夫的承诺为什么不可执行？",
+    opts: ["No consideration (没有对价)", "It was a domestic agreement with no intention presumed (这是推定没有意图的家庭协议)", "The wife didn't accept (妻子没有接受)", "The amount was too small (金额太少)"],
+    ans: 1
+  },
+  {
+    q: "What distinguished Merritt v Merritt from Balfour v Balfour?",
+    zh: "Merritt v Merritt与Balfour v Balfour有什么不同？",
+    opts: ["Higher monetary amount (更高的金额)", "The couple had separated and the agreement was in writing (夫妻已分居且协议是书面的)", "It involved property (涉及财产)", "It was heard by a higher court (由更高级别的法院审理)"],
+    ans: 1
+  },
+  {
+    q: "In Wakeling v Ripley, why was the presumption of no intention rebutted?",
+    zh: "在Wakeling v Ripley案中，为什么没有意图的推定被推翻？",
+    opts: ["The agreement was in writing (协议是书面的)", "It was a commercial deal (这是商业交易)", "The couple relocated from England to Australia based on the promise (夫妻基于承诺从英国搬到澳大利亚)", "A lawyer was involved (有律师参与)"],
+    ans: 2
+  },
+  {
+    q: "What is the presumption for commercial/business agreements?",
+    zh: "商业协议的推定是什么？",
+    opts: ["No intention to be bound (没有约束意图)", "Presumed intention to create legal relations (推定有创设法律关系的意图)", "Must be registered with the government (必须在政府注册)", "Only valid if in writing (仅书面才有效)"],
+    ans: 1
+  },
+  {
+    q: "If no consideration exists in a simple contract, what is the result?",
+    zh: "如果简单合同中没有对价，结果是什么？",
+    opts: ["The contract is voidable (合同可撤销)", "The contract is valid but weak (合同有效但效力弱)", "The promise is unenforceable — no contract (承诺不可执行——没有合同)", "The court will supply consideration (法院会补充对价)"],
+    ans: 2
+  }
+];
+
+/* ═══════════════════════════════
+   RENDER FLASHCARDS
+   ═══════════════════════════════ */
+(function renderFlashcards() {
+  const container = document.getElementById('flashcard-container');
+  flashcards.forEach(fc => {
+    const div = document.createElement('div');
+    div.className = 'flashcard';
+    div.setAttribute('role', 'button');
+    div.setAttribute('tabindex', '0');
+    div.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="fc-term">${fc.term}</div>
+          <div class="fc-zh">${fc.zh}</div>
+          <div class="fc-hint">tap to flip 点击翻转</div>
+        </div>
+        <div class="flashcard-back">
+          <p>${fc.def.replace(/\n/g, '<br>')}</p>
+        </div>
+      </div>`;
+    div.addEventListener('click', () => div.classList.toggle('flipped'));
+    div.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        div.classList.toggle('flipped');
+      }
+    });
+    container.appendChild(div);
+  });
+})();
+
+/* ═══════════════════════════════
+   RENDER QUIZ
+   ═══════════════════════════════ */
+(function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  let answered = 0;
+  let score = 0;
+
+  quizData.forEach((q, qi) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'quiz-q';
+    let optsHTML = '';
+    q.opts.forEach((opt, oi) => {
+      optsHTML += `<div class="quiz-opt" data-qi="${qi}" data-oi="${oi}">${opt}</div>`;
+    });
+    qDiv.innerHTML = `
+      <div class="q-text">
+        <span class="q-num">Q${qi + 1}.</span> ${q.q}
+        <span class="q-zh">${q.zh}</span>
+      </div>
+      <div class="quiz-options">${optsHTML}</div>`;
+    container.appendChild(qDiv);
+  });
+
+  container.addEventListener('click', function(e) {
+    const opt = e.target.closest('.quiz-opt');
+    if (!opt || opt.classList.contains('correct') || opt.classList.contains('wrong') || opt.classList.contains('disabled')) return;
+
+    const qi = parseInt(opt.dataset.qi);
+    const oi = parseInt(opt.dataset.oi);
+    const siblings = container.querySelectorAll(`.quiz-opt[data-qi="${qi}"]`);
+
+    if (oi === quizData[qi].ans) {
+      opt.classList.add('correct');
+      score++;
+    } else {
+      opt.classList.add('wrong');
+      siblings[quizData[qi].ans].classList.add('correct');
+    }
+    siblings.forEach(s => { if (s !== opt && !s.classList.contains('correct')) s.classList.add('disabled'); });
+
+    answered++;
+    if (answered === quizData.length) {
+      showResult(score, quizData.length);
+    }
+  });
+
+  function showResult(s, total) {
+    const el = document.getElementById('quiz-result');
+    const pct = Math.round((s / total) * 100);
+    let msg = '';
+    if (pct === 100) {
+      msg = '🎉 Perfect Score! 满分！';
+      launchConfetti();
+    } else if (pct >= 80) {
+      msg = '🌟 Excellent! 优秀！';
+    } else if (pct >= 60) {
+      msg = '👍 Good effort! 不错！';
+    } else {
+      msg = '📚 Keep studying! 继续加油！';
+    }
+    el.innerHTML = `<h3>${msg}</h3><p>You scored ${s}/${total} (${pct}%)</p><p>你的得分：${s}/${total} (${pct}%)</p>`;
+    el.classList.add('show');
+  }
+})();
+
+/* ═══════════════════════════════
+   CONFETTI
+   ═══════════════════════════════ */
+function launchConfetti() {
+  const colors = ['#1a237e','#3f51b5','#ffb300','#e53935','#1976d2','#43a047','#ff7043','#6a1b9a'];
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const size = Math.random() * 10 + 6;
+    piece.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      width: ${size}px; height: ${size}px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-duration: ${Math.random() * 2 + 2}s;
+      animation-delay: ${Math.random() * 1.5}s;
+    `;
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
+
+/* ═══════════════════════════════
+   DARK MODE
+   ═══════════════════════════════ */
+(function initDarkMode() {
+  const toggle = document.getElementById('dark-toggle');
+  const saved = localStorage.getItem('blaw-theme');
+  if (saved === 'dark') {
+    document.body.classList.add('dark-mode');
+    toggle.textContent = '☀️';
+  }
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    toggle.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('blaw-theme', isDark ? 'dark' : 'light');
+  });
+})();
+
+/* ═══════════════════════════════
+   SCROLL ANIMATIONS (IntersectionObserver)
+   ═══════════════════════════════ */
+(function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '-40px 0px' });
+
+  document.querySelectorAll('.section').forEach(s => observer.observe(s));
+})();
+
+/* ═══════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════ */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+/* ═══════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════ */
+(function initBackTop() {
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+/* ═══════════════════════════════
+   TOC ACTIVE LINK TRACKING
+   ═══════════════════════════════ */
+(function initTocTracking() {
+  const links = document.querySelectorAll('#toc-bar a');
+  const sections = [];
+  links.forEach(link => {
+    const id = link.getAttribute('href').substring(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ el, link });
+  });
+
+  window.addEventListener('scroll', () => {
+    let current = null;
+    sections.forEach(({ el, link }) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 120) current = link;
+    });
+    links.forEach(l => l.classList.remove('active'));
+    if (current) current.classList.add('active');
+  });
+})();
+</script>
 </body>
-
 </html>

@@ -1,480 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 10: Sustainability Part 2 - Business Environments</title>
-    <style>
-        :root {
-            --primary-color: #4527a0;
-            --secondary-color: #5e35b1;
-            --accent-color: #7e57c2;
-            --light-accent: #ede7f6;
-            --light-bg: #f8fafc;
-            --dark-text: #1e293b;
-            --light-text: #f8fafc;
-            --med-text: #64748b;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            text-align: center;
-            padding: 3rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .header-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.3;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .content-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        /* Back to Main Button */
-        .back-to-main {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        
-        .back-to-main:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-        
-        .back-to-main svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            margin-top: 3rem;
-        }
-        
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            header p {
-                font-size: 1rem;
-            }
-            
-            .back-to-main {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
-            }
-            
-            .back-to-main svg {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 10: Sustainability Part 2 – Ethics & CSR | UNSW College</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary: #4527a0;
+  --primary-dark: #311b92;
+  --secondary: #5e35b1;
+  --accent: #7e57c2;
+  --light-accent: #ede7f6;
+  --bg: #f5f5fa;
+  --card-bg: #ffffff;
+  --text: #263238;
+  --text-light: #546e7a;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --gradient: linear-gradient(135deg, #4527a0, #7e57c2);
+  --gradient2: linear-gradient(135deg, #311b92, #5e35b1);
+  --stake-direct: #1565c0; --stake-direct-light: #e3f2fd;
+  --stake-indirect: #00695c; --stake-indirect-light: #e0f2f1;
+  --ethics-util: #e65100; --ethics-util-light: #fff3e0;
+  --ethics-deont: #1565c0; --ethics-deont-light: #e3f2fd;
+  --ethics-rel: #6a1b9a; --ethics-rel-light: #f3e5f5;
+  --ethics-univ: #2e7d32; --ethics-univ-light: #e8f5e9;
+  --csr-econ: #37474f; --csr-legal: #1565c0; --csr-ethical: #e65100; --csr-phil: #c62828;
+}
+.dark-mode {
+  --bg: #121212; --card-bg: #1e1e1e; --text: #e0e0e0; --text-light: #b0bec5;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3); --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+  --light-accent: #1a122e; --stake-direct-light: #0d2137; --stake-indirect-light: #0a1f1a;
+  --ethics-util-light: #1f1200; --ethics-deont-light: #0d2137;
+  --ethics-rel-light: #1a0a24; --ethics-univ-light: #0a1f0d;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins','Noto Sans SC',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; transition:background var(--transition),color var(--transition); }
+.container { max-width:1400px; margin:0 auto; padding:0 24px; }
+
+.back-to-main { position:fixed; top:80px; left:20px; z-index:1000; width:50px; height:50px; border-radius:50%; background:var(--gradient); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); transition:all var(--transition); text-decoration:none; font-size:24px; line-height:1; }
+.back-to-main:hover { transform:scale(1.15) translateX(-3px); box-shadow:var(--shadow-lg); }
+
+#progress-bar { position:fixed; top:0; left:0; height:4px; z-index:9999; background:var(--gradient); width:0%; transition:width 0.15s; }
+
+.hero { background:var(--gradient); color:#fff; text-align:center; padding:100px 24px 80px; position:relative; overflow:hidden; }
+.hero h1 { font-size:clamp(2rem,5vw,3.2rem); font-weight:800; margin-bottom:8px; text-shadow:0 2px 12px rgba(0,0,0,0.2); }
+.hero .subtitle { font-size:1.2rem; opacity:0.9; max-width:700px; margin:0 auto; }
+.floating-icon { position:absolute; font-size:2.5rem; opacity:0.15; animation:floatIcon 6s ease-in-out infinite; }
+@keyframes floatIcon { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(10deg)} }
+
+.dark-toggle { position:fixed; bottom:110px; right:30px; z-index:999; width:48px; height:48px; border-radius:50%; background:var(--gradient); border:none; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); transition:all var(--transition); }
+.dark-toggle:hover { transform:scale(1.1); box-shadow:var(--shadow-lg); }
+
+#toc-bar { position:sticky; top:0; z-index:998; background:var(--card-bg); border-bottom:2px solid var(--accent); box-shadow:var(--shadow); transition:background var(--transition); }
+#toc-bar nav { display:flex; flex-wrap:wrap; justify-content:center; gap:4px; padding:10px 16px; max-width:1400px; margin:0 auto; }
+.toc-btn { padding:6px 14px; border:none; border-radius:20px; background:var(--light-accent); color:var(--text); cursor:pointer; font-size:0.8rem; font-weight:500; transition:all var(--transition); white-space:nowrap; font-family:'Poppins','Noto Sans SC',sans-serif; }
+.toc-btn:hover,.toc-btn.active { background:var(--gradient); color:#fff; transform:translateY(-1px); }
+
+.content-section { background:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow); padding:48px; margin:32px auto; max-width:1400px; opacity:0; transform:translateY(30px); transition:opacity 0.6s ease,transform 0.6s ease,background var(--transition); }
+.content-section.visible { opacity:1; transform:translateY(0); }
+.content-section h2 { font-size:1.8rem; font-weight:700; color:var(--primary); margin-bottom:24px; padding-bottom:12px; border-bottom:3px solid var(--accent); }
+.content-section h3 { font-size:1.2rem; font-weight:600; color:var(--secondary); margin:20px 0 12px; }
+.content-section p,.content-section li { color:var(--text-light); font-size:1rem; margin-bottom:10px; }
+.content-section ul { padding-left:24px; }
+.zh { color:var(--text-light); font-size:0.9rem; opacity:0.85; font-style:italic; }
+
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin:20px 0; }
+.info-card { padding:24px; border-radius:var(--radius); border-left:5px solid var(--primary); transition:transform var(--transition),box-shadow var(--transition); }
+.info-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.info-card h4 { font-size:1.1rem; font-weight:600; margin-bottom:8px; }
+.info-card p { font-size:0.95rem; }
+
+.pyramid-container { display:flex; flex-direction:column; align-items:center; margin:24px 0; }
+.pyramid-level { text-align:center; padding:16px; color:#fff; font-weight:600; clip-path:polygon(10% 0%,90% 0%,100% 100%,0% 100%); transition:transform var(--transition); cursor:default; }
+.pyramid-level:hover { transform:scale(1.05); }
+.pyramid-level .zh-p { font-size:0.85rem; font-weight:400; opacity:0.9; }
+
+.tooltip-term { color:var(--primary); font-weight:600; cursor:help; border-bottom:2px dotted var(--accent); position:relative; }
+.tooltip-term:hover::after { content:attr(data-tip); position:absolute; bottom:130%; left:50%; transform:translateX(-50%); background:var(--primary-dark); color:#fff; padding:8px 14px; border-radius:8px; font-size:0.8rem; font-weight:400; white-space:pre-line; width:max-content; max-width:320px; z-index:100; box-shadow:var(--shadow-lg); pointer-events:none; }
+
+.compare-table { width:100%; border-collapse:collapse; margin:20px 0; border-radius:var(--radius); overflow:hidden; }
+.compare-table th { background:var(--gradient); color:#fff; padding:14px 16px; font-weight:600; text-align:left; }
+.compare-table td { padding:12px 16px; border-bottom:1px solid var(--light-accent); }
+.compare-table tr:hover td { background:var(--light-accent); }
+
+.flashcard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; margin:24px 0; }
+.flashcard { height:200px; perspective:1000px; cursor:pointer; }
+.flashcard-inner { width:100%; height:100%; transition:transform 0.6s; transform-style:preserve-3d; position:relative; }
+.flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
+.flashcard-front,.flashcard-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center; }
+.flashcard-front { background:var(--gradient); color:#fff; font-size:1.1rem; font-weight:600; }
+.flashcard-back { background:var(--card-bg); border:2px solid var(--accent); transform:rotateY(180deg); color:var(--text); font-size:0.9rem; }
+
+.quiz-container { margin:24px 0; }
+.quiz-q { background:var(--light-accent); border-radius:var(--radius); padding:24px; margin-bottom:16px; }
+.quiz-q h4 { color:var(--primary); margin-bottom:12px; font-weight:600; }
+.quiz-option { display:block; width:100%; text-align:left; padding:12px 16px; margin:6px 0; border:2px solid var(--accent); border-radius:10px; background:var(--card-bg); cursor:pointer; font-size:0.95rem; font-family:'Poppins','Noto Sans SC',sans-serif; transition:all var(--transition); color:var(--text); }
+.quiz-option:hover { border-color:var(--primary); background:var(--light-accent); }
+.quiz-option.correct { border-color:#2e7d32; background:#e8f5e9; color:#2e7d32; }
+.quiz-option.wrong { border-color:#c62828; background:#ffebee; color:#c62828; }
+.quiz-option:disabled { cursor:default; opacity:0.8; }
+.quiz-score { text-align:center; font-size:1.3rem; font-weight:700; color:var(--primary); margin-top:16px; }
+
+.scroll-top { position:fixed; bottom:30px; right:30px; z-index:999; width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,#2e7d32,#66bb6a); border:none; cursor:pointer; font-size:32px; display:none; align-items:center; justify-content:center; box-shadow:var(--shadow-lg); transition:all var(--transition); animation:frogBounce 2s ease-in-out infinite; }
+.scroll-top:hover { transform:scale(1.2); }
+@keyframes frogBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+.esg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:20px 0; }
+.esg-card { padding:24px; border-radius:var(--radius); text-align:center; transition:transform var(--transition); }
+.esg-card:hover { transform:translateY(-4px); }
+.esg-card .esg-icon { font-size:2.5rem; margin-bottom:10px; }
+.esg-card h4 { font-size:1.1rem; margin-bottom:8px; }
+
+footer { background:var(--gradient); color:#fff; text-align:center; padding:32px 24px; margin-top:48px; }
+
+.confetti { position:fixed; top:-10px; z-index:10000; width:10px; height:10px; border-radius:2px; animation:confettiFall 3s ease-out forwards; pointer-events:none; }
+@keyframes confettiFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+
+@media (max-width:768px) { .content-section{padding:24px} .esg-grid{grid-template-columns:1fr} .info-grid{grid-template-columns:1fr} }
+</style>
 </head>
 <body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
-    </a>
-    
-    <header>
-        <div class="header-animation" id="header-animation"></div>
-        <div class="header-content">
-            <h1>Unit 10: Sustainability Part 2</h1>
-            <p>Business Environments - FS2025</p>
-        </div>
-    </header>
-    
-    <main>
-        <div class="content-card">
-            <h2>Unit 10: Sustainability Part 2 
-                <span style="display: block; font-size: 0.8em; color: #666; margin-top: 0.5rem;">单元10：可持续发展（二）</span>
-            </h2>
-            
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #ede7f6; border-left: 4px solid #4527a0; border-radius: 4px;">
-                <h3 style="color: #4527a0; margin-bottom: 1rem;">Welcome to Unit 10 欢迎来到第十单元</h3>
-                <p style="margin-bottom: 0.5rem;">This unit focuses on environmental law and regulation, examining how legal frameworks address environmental challenges in business.</p>
-                <p style="color: #666; font-size: 0.95em;">本单元重点关注环境法律法规，研究法律框架如何应对商业中的环境挑战。</p>
-            </div>
+<div id="progress-bar"></div>
+<a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main 返回主页">🔙</a>
 
-            <h3 style="color: #4527a0; margin-top: 2rem;">Topics Covered 涵盖主题</h3>
-            
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">1. Environmental Law and Regulation 环境法律法规</h4>
-                <p>Legal frameworks protecting the environment, including:</p>
-                <p style="color: #666; font-size: 0.95em;">保护环境的法律框架，包括：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Environment Protection and Biodiversity Conservation Act 1999 (EPBC Act) 1999年环境保护和生物多样性保护法</li>
-                    <li>National Environment Protection Measures 国家环境保护措施</li>
-                    <li>State and territory environmental laws 州和领地环境法</li>
-                </ul>
-            </div>
+<header class="hero">
+  <span class="floating-icon" style="top:15%;left:10%;animation-delay:0s">&#x2696;&#xFE0F;</span>
+  <span class="floating-icon" style="top:60%;left:85%;animation-delay:1s">&#x1F30D;</span>
+  <span class="floating-icon" style="top:25%;left:75%;animation-delay:2s">&#x1F91D;</span>
+  <span class="floating-icon" style="top:70%;left:15%;animation-delay:3s">&#x1F4CA;</span>
+  <span class="floating-icon" style="top:40%;left:50%;animation-delay:4s">&#x1F3E2;</span>
+  <div class="header-content">
+    <h1>Unit 10: Ethics &amp; Social Responsibility<br>第十单元：伦理与社会责任</h1>
+    <p class="subtitle">The Broader Role of Business in Society<br>企业在社会中的更广泛角色</p>
+  </div>
+</header>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">2. Climate Change Legislation 气候变化立法</h4>
-                <p>Laws addressing greenhouse gas emissions and climate adaptation:</p>
-                <p style="color: #666; font-size: 0.95em;">解决温室气体排放和气候适应的法律：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>National Greenhouse and Energy Reporting Act 国家温室气体和能源报告法</li>
-                    <li>Renewable Energy Target 可再生能源目标</li>
-                    <li>Paris Agreement commitments 巴黎协定承诺</li>
-                </ul>
-            </div>
+<div id="toc-bar">
+  <nav>
+    <button class="toc-btn" onclick="scrollTo_s('stakeholders')">Stakeholders 利益相关者</button>
+    <button class="toc-btn" onclick="scrollTo_s('multirole')">Business Role 企业角色</button>
+    <button class="toc-btn" onclick="scrollTo_s('csr')">CSR 企业社会责任</button>
+    <button class="toc-btn" onclick="scrollTo_s('ethics')">Ethics 伦理基础</button>
+    <button class="toc-btn" onclick="scrollTo_s('legal-ethical')">Legal vs Ethical 法律与伦理</button>
+    <button class="toc-btn" onclick="scrollTo_s('globalisation')">Globalisation 全球化</button>
+    <button class="toc-btn" onclick="scrollTo_s('pyramid')">CSR Pyramid 金字塔</button>
+    <button class="toc-btn" onclick="scrollTo_s('esg')">ESG Reporting 报告</button>
+    <button class="toc-btn" onclick="scrollTo_s('flashcards')">Flashcards 闪卡</button>
+    <button class="toc-btn" onclick="scrollTo_s('quiz')">Quiz 测验</button>
+  </nav>
+</div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">3. Carbon Pricing Mechanisms 碳定价机制</h4>
-                <p>Economic tools to reduce emissions:</p>
-                <p style="color: #666; font-size: 0.95em;">减少排放的经济工具：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Carbon taxes 碳税</li>
-                    <li>Emissions trading schemes 排放交易计划</li>
-                    <li>Safeguard Mechanism 保障机制</li>
-                </ul>
-            </div>
+<button class="dark-toggle" onclick="document.body.classList.toggle('dark-mode')" title="Toggle Dark Mode 切换深色模式">&#x1F319;</button>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">4. Corporate Environmental Responsibility 企业环境责任</h4>
-                <p>Businesses' obligations to minimize environmental impact through:</p>
-                <p style="color: #666; font-size: 0.95em;">企业通过以下方式最小化环境影响的义务：</p>
-                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
-                    <li>Environmental management systems 环境管理系统</li>
-                    <li>Environmental reporting and disclosure 环境报告和披露</li>
-                    <li>Due diligence in supply chains 供应链尽职调查</li>
-                </ul>
-            </div>
+<!-- SECTION 1: STAKEHOLDERS -->
+<section class="content-section" id="stakeholders">
+  <h2>1. The Company in Society: Stakeholders<br><span class="zh">企业与社会：利益相关者</span></h2>
+  <p><span class="tooltip-term" data-tip="Individuals, groups, or society at large that influence or are influenced by the company.&#10;利益相关者：影响公司或受公司影响的个人、团体或社会整体。">Stakeholders</span> are individuals, groups, or society at large that influence or are influenced by the company.</p>
+  <p class="zh">利益相关者是影响公司或受公司影响的个人、团体或社会整体。</p>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">5. Environmental Impact Assessments 环境影响评估</h4>
-                <p>Evaluating potential environmental effects of proposed projects before approval.</p>
-                <p style="color: #666; font-size: 0.95em;">在批准之前评估拟议项目的潜在环境影响。</p>
-            </div>
+  <div class="info-grid">
+    <div class="info-card" style="background:var(--stake-direct-light);border-color:var(--stake-direct);">
+      <h4 style="color:var(--stake-direct);">&#x1F3AF; Direct Stakeholders 直接利益相关者</h4>
+      <ul>
+        <li>Owners 所有者</li>
+        <li>Employees 员工</li>
+        <li>Customers 客户</li>
+        <li>Suppliers 供应商</li>
+      </ul>
+      <p class="zh">直接参与企业日常运营的人群。</p>
+    </div>
+    <div class="info-card" style="background:var(--stake-indirect-light);border-color:var(--stake-indirect);">
+      <h4 style="color:var(--stake-indirect);">&#x1F310; Indirect Stakeholders 间接利益相关者</h4>
+      <ul>
+        <li>Local community 当地社区</li>
+        <li>Society at large 社会整体</li>
+        <li>Ecological environment 生态环境</li>
+        <li>Government &amp; regulators 政府与监管机构</li>
+      </ul>
+      <p class="zh">间接受到企业活动影响的群体。</p>
+    </div>
+  </div>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">6. Pollution Control and Prevention 污染控制与预防</h4>
-                <p>Legal requirements for managing air, water, soil, and noise pollution.</p>
-                <p style="color: #666; font-size: 0.95em;">管理空气、水、土壤和噪音污染的法律要求。</p>
-            </div>
+  <h3>Stakeholder Interests 利益相关者利益</h3>
+  <ul>
+    <li>Enriching owners while satisfying customers. <span class="zh">在满足客户需求的同时为所有者创造财富。</span></li>
+    <li>Involvement in society through employment, taxes, and community engagement. <span class="zh">通过就业、税收和社区参与融入社会。</span></li>
+    <li>Balancing diverse and sometimes competing interests. <span class="zh">平衡多样化且有时相互竞争的利益。</span></li>
+  </ul>
+</section>
 
-            <div style="margin: 1.5rem 0;">
-                <h4 style="color: #333; margin-bottom: 0.5rem;">7. Renewable Energy and Green Technology 可再生能源与绿色技术</h4>
-                <p>Legal incentives and frameworks supporting clean energy transition.</p>
-                <p style="color: #666; font-size: 0.95em;">支持清洁能源转型的法律激励和框架。</p>
-            </div>
+<!-- SECTION 2: BUSINESS MULTIDIMENSIONAL ROLE -->
+<section class="content-section" id="multirole">
+  <h2>2. Business's Multidimensional Role<br><span class="zh">企业的多维角色</span></h2>
+  <div class="info-grid">
+    <div class="info-card" style="background:var(--ethics-util-light);border-color:var(--ethics-util);">
+      <h4 style="color:var(--ethics-util);">&#x1F4CB; Traditional Economic Goal 传统经济目标</h4>
+      <p>Primary focus: Maximising profit for owners and shareholders.</p>
+      <p class="zh">首要关注点：为所有者和股东实现利润最大化。</p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-deont-light);border-color:var(--ethics-deont);">
+      <h4 style="color:var(--ethics-deont);">&#x1F31F; Emerging Perspective 新兴视角</h4>
+      <p>Businesses have a broader societal role, influencing employees, customers, communities, and global issues like climate change.</p>
+      <p class="zh">企业承担更广泛的社会角色，影响员工、客户、社区以及气候变化等全球性问题。</p>
+    </div>
+  </div>
+  <h3>New Expectations 新期望</h3>
+  <ul>
+    <li><strong>Stakeholder perspective 利益相关者视角:</strong> Customers, employees, suppliers, community, and the environment. <span class="zh">客户、员工、供应商、社区和环境。</span></li>
+    <li><strong>Global perspective 全球视角:</strong> Role in climate change and sustainability; environmental responsibility. <span class="zh">在气候变化与可持续发展中的角色；环境责任。</span></li>
+    <li><strong>Broader societal issues 更广泛的社会问题:</strong> Businesses are increasingly expected to address societal issues and contribute positively. <span class="zh">企业日益被期望解决社会问题并做出积极贡献。</span></li>
+  </ul>
+  <div class="info-card" style="background:var(--light-accent);border-color:var(--primary);margin-top:16px;">
+    <h4 style="color:var(--primary);">&#x1F4A1; Key Question 关键问题</h4>
+    <p><em>&ldquo;What does a business exist to do? How should a business relate to stakeholders and society?&rdquo;</em></p>
+    <p class="zh"><em>「企业的存在是为了什么？企业应如何与利益相关者和社会相处？」</em></p>
+  </div>
+</section>
 
-            <div style="margin: 2rem 0; padding: 1.5rem; background: #ede7f6; border-left: 4px solid #4527a0; border-radius: 4px;">
-                <h4 style="color: #4527a0; margin-bottom: 0.5rem;">Key Learning Outcomes 主要学习成果</h4>
-                <p style="margin-bottom: 0.5rem;">By the end of this unit, you should be able to:</p>
-                <p style="color: #666; font-size: 0.95em; margin-bottom: 1rem;">在本单元结束时，您应该能够：</p>
-                <ul style="margin-left: 2rem;">
-                    <li>Understand key environmental legislation in Australia 了解澳大利亚的关键环境立法</li>
-                    <li>Explain climate change mitigation strategies 解释气候变化缓解策略</li>
-                    <li>Analyze corporate environmental responsibilities 分析企业环境责任</li>
-                    <li>Apply environmental law to business scenarios 将环境法应用于商业场景</li>
-                </ul>
-            </div>
-        </div>
-    </main>
-    
-    <footer>
-        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
-    </footer>
-    
-    <script>
-        // Add dynamic shapes to header background
-        function setupHeaderAnimation() {
-            const headerBg = document.getElementById('header-animation');
-            const shapeCount = 10;
-            const shapes = ['circle', 'square', 'triangle'];
-            
-            for (let i = 0; i < shapeCount; i++) {
-                const div = document.createElement('div');
-                const size = Math.random() * 60 + 20;
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                div.style.width = `${size}px`;
-                div.style.height = `${size}px`;
-                div.style.left = `${Math.random() * 100}%`;
-                div.style.top = `${Math.random() * 100}%`;
-                div.style.position = 'absolute';
-                
-                if (shapeType === 'circle') {
-                    div.style.borderRadius = '50%';
-                } else if (shapeType === 'square') {
-                    div.style.borderRadius = '4px';
-                } else if (shapeType === 'triangle') {
-                    div.style.width = '0';
-                    div.style.height = '0';
-                    div.style.borderLeft = `${size/2}px solid transparent`;
-                    div.style.borderRight = `${size/2}px solid transparent`;
-                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
-                    div.style.background = 'transparent';
-                }
-                
-                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
-                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
-                
-                headerBg.appendChild(div);
-            }
-        }
-        
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
-        
-        // Initialize header animation when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            setupHeaderAnimation();
-            initializeInteractiveFeatures();
-        });
-        
-        // Interactive Features (same as unit9)
-        function initializeInteractiveFeatures() {
-            const contentDivs = document.querySelectorAll('main .content-card > div[style*="margin: 1.5rem 0"]');
-            contentDivs.forEach((div, index) => {
-                if (div.querySelector('h4')) {
-                    makeCollapsible(div, index);
-                }
-            });
-            addProgressTracker();
-            addHoverEffects();
-        }
-        
-        function makeCollapsible(element, index) {
-            const header = element.querySelector('h4');
-            if (!header) return;
-            
-            const content = Array.from(element.children).slice(1);
-            const contentWrapper = document.createElement('div');
-            contentWrapper.className = 'collapsible-content';
-            contentWrapper.style.maxHeight = '2000px';
-            contentWrapper.style.overflow = 'hidden';
-            contentWrapper.style.transition = 'max-height 0.4s ease';
-            
-            content.forEach(child => contentWrapper.appendChild(child.cloneNode(true)));
-            content.forEach(child => child.remove());
-            element.appendChild(contentWrapper);
-            
-            header.style.cursor = 'pointer';
-            header.style.userSelect = 'none';
-            header.style.position = 'relative';
-            header.style.paddingRight = '30px';
-            header.style.transition = 'all 0.3s';
-            
-            const icon = document.createElement('span');
-            icon.innerHTML = '▼';
-            icon.style.position = 'absolute';
-            icon.style.right = '0';
-            icon.style.top = '50%';
-            icon.style.transform = 'translateY(-50%)';
-            icon.style.transition = 'transform 0.3s';
-            icon.style.fontSize = '0.8em';
-            header.appendChild(icon);
-            
-            header.addEventListener('click', function() {
-                const isCollapsed = contentWrapper.style.maxHeight === '0px';
-                contentWrapper.style.maxHeight = isCollapsed ? '2000px' : '0px';
-                icon.style.transform = isCollapsed ? 'translateY(-50%) rotate(0deg)' : 'translateY(-50%) rotate(-90deg)';
-                header.style.color = isCollapsed ? '#4527a0' : '#666';
-            });
-            
-            header.addEventListener('mouseenter', function() {
-                header.style.color = '#4527a0';
-                header.style.transform = 'translateX(5px)';
-            });
-            
-            header.addEventListener('mouseleave', function() {
-                if (contentWrapper.style.maxHeight !== '0px') {
-                    header.style.color = '#333';
-                }
-                header.style.transform = 'translateX(0)';
-            });
-        }
-        
-        function addProgressTracker() {
-            const progressBar = document.createElement('div');
-            progressBar.id = 'reading-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 4px;
-                background: linear-gradient(90deg, #4527a0, #7e57c2);
-                z-index: 9999;
-                transition: width 0.2s ease;
-            `;
-            document.body.appendChild(progressBar);
-            
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrolled = window.scrollY;
-                const progress = (scrolled / documentHeight) * 100;
-                progressBar.style.width = progress + '%';
-            });
-            
-            const backToTop = document.createElement('button');
-            backToTop.innerHTML = '↑';
-            backToTop.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #4527a0, #7e57c2);
-                color: white;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                opacity: 0;
-                transition: all 0.3s;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(69, 39, 160, 0.3);
-            `;
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(backToTop);
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.style.opacity = '1';
-                    backToTop.style.transform = 'scale(1)';
-                } else {
-                    backToTop.style.opacity = '0';
-                    backToTop.style.transform = 'scale(0.8)';
-                }
-            });
-            
-            backToTop.addEventListener('mouseenter', function() {
-                backToTop.style.transform = 'scale(1.1)';
-            });
-            
-            backToTop.addEventListener('mouseleave', function() {
-                backToTop.style.transform = 'scale(1)';
-            });
-        }
-        
-        function addHoverEffects() {
-            const listItems = document.querySelectorAll('ul li, ol li');
-            listItems.forEach(item => {
-                item.style.transition = 'all 0.2s';
-                item.style.paddingLeft = '0';
-                
-                item.addEventListener('mouseenter', function() {
-                    item.style.paddingLeft = '10px';
-                    item.style.color = '#4527a0';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    item.style.paddingLeft = '0';
-                    item.style.color = '';
-                });
-            });
-            
-            const contentCard = document.querySelector('.content-card');
-            if (contentCard) {
-                const strongElements = contentCard.querySelectorAll('strong');
-                strongElements.forEach(strong => {
-                    strong.style.cursor = 'help';
-                    strong.style.transition = 'all 0.2s';
-                    strong.style.position = 'relative';
-                    
-                    strong.addEventListener('mouseenter', function() {
-                        strong.style.color = '#4527a0';
-                        strong.style.textShadow = '0 0 10px rgba(69, 39, 160, 0.3)';
-                    });
-                    
-                    strong.addEventListener('mouseleave', function() {
-                        strong.style.color = '';
-                        strong.style.textShadow = '';
-                    });
-                });
-            }
-        }
-    </script>
+<!-- SECTION 3: CSR -->
+<section class="content-section" id="csr">
+  <h2>3. Corporate Social Responsibility (CSR)<br><span class="zh">企业社会责任</span></h2>
+  <p><span class="tooltip-term" data-tip="A framework encouraging businesses to act ethically and contribute to economic development while improving quality of life.&#10;企业社会责任：鼓励企业在促进经济发展的同时，以道德方式经营并改善生活质量的框架。">CSR</span> is a framework that encourages businesses to act ethically and contribute to economic development while improving the quality of life for employees, communities, and the environment.</p>
+  <p class="zh">企业社会责任是一个鼓励企业以道德方式经营、促进经济发展并改善员工、社区和环境生活质量的框架。</p>
+
+  <h3>The Business Case for CSR 企业社会责任的商业论据</h3>
+  <div class="info-grid">
+    <div class="info-card" style="background:var(--ethics-univ-light);border-color:var(--ethics-univ);">
+      <h4 style="color:var(--ethics-univ);">&#x1F3DB;&#xFE0F; Ethical Foundations 伦理基础</h4>
+      <p>Companies are expected to operate in a manner that is ethical and responsible.</p>
+      <p class="zh">企业被期望以道德和负责任的方式运营。</p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-util-light);border-color:var(--ethics-util);">
+      <h4 style="color:var(--ethics-util);">&#x1F4E2; Public Expectations 公众期望</h4>
+      <p>Growing public demand for businesses to engage in social and environmental issues.</p>
+      <p class="zh">公众日益要求企业参与社会和环境问题。</p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-deont-light);border-color:var(--ethics-deont);">
+      <h4 style="color:var(--ethics-deont);">&#x1F504; CSR in Practice 实践中的CSR</h4>
+      <p>Examples: sustainable sourcing, reducing carbon footprints, and fair labour practices.</p>
+      <p class="zh">例如：可持续采购、减少碳足迹、公平劳动实践。</p>
+    </div>
+  </div>
+
+  <h3>CSR and Sustainability 企业社会责任与可持续发展</h3>
+  <ul>
+    <li>Sustainability focuses on ensuring that today's business practices do not compromise future generations' ability to meet their needs. <span class="zh">可持续发展注重确保当今的商业实践不会损害子孙后代满足需求的能力。</span></li>
+    <li>CSR and sustainability emphasise considering future stakeholders, not just present-day interests. <span class="zh">CSR和可持续发展强调考虑未来的利益相关者，而不仅仅是当前利益。</span></li>
+    <li>Conflicts may arise between social goals (e.g., paying living wages, adopting cleaner technologies) and economic objectives. <span class="zh">社会目标（如支付生活工资、采用清洁技术）与经济目标之间可能产生冲突。</span></li>
+  </ul>
+</section>
+
+<!-- SECTION 4: ETHICAL FOUNDATIONS -->
+<section class="content-section" id="ethics">
+  <h2>4. Ethical Foundations in Business<br><span class="zh">商业伦理基础</span></h2>
+  <p><strong>Ethics</strong> is fundamentally about systems of values (standards of morality) that help individuals and societies determine what is right or wrong. These systems guide decision-making and differ across cultures.</p>
+  <p class="zh"><strong>伦理</strong>从根本上是关于帮助个人和社会判断对错的价值体系（道德标准）。这些体系指导决策，因文化而异。</p>
+
+  <div class="info-grid">
+    <div class="info-card" style="background:var(--ethics-util-light);border-color:var(--ethics-util);">
+      <h4 style="color:var(--ethics-util);">&#x2696;&#xFE0F; Utilitarian Ethics 功利主义伦理</h4>
+      <p>Decisions based on ethical <strong>consequences</strong>. Morality judged by outcome. Focuses on the <em>greatest good for the greatest number</em>. Society-centred.</p>
+      <p class="zh">基于伦理<strong>后果</strong>做决策。以结果判断道德。关注<em>最大多数人的最大利益</em>。以社会为中心。</p>
+      <p style="margin-top:8px"><strong>Example 例子:</strong> A government vaccination program &mdash; protects majority, even if some individuals face side effects. <span class="zh">政府疫苗接种计划&mdash;&mdash;保护大多数人，即使少数人面临副作用。</span></p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-deont-light);border-color:var(--ethics-deont);">
+      <h4 style="color:var(--ethics-deont);">&#x1F4DC; Deontological Ethics 义务论伦理</h4>
+      <p>Decisions based on ethical <strong>principles</strong>. Morality judged by adherence to rules and duties regardless of outcome. Individual rights-focused.</p>
+      <p class="zh">基于伦理<strong>原则</strong>做决策。以是否遵循规则和义务判断道德，而非结果。关注个人权利。</p>
+      <p style="margin-top:8px"><strong>Example 例子:</strong> A company reduces waste because it is the <em>right thing to do</em>, not just because it saves money. <span class="zh">公司减少浪费是因为这是<em>正确的事</em>，而不仅仅因为省钱。</span></p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-rel-light);border-color:var(--ethics-rel);">
+      <h4 style="color:var(--ethics-rel);">&#x1F30F; Ethical Relativism 伦理相对主义</h4>
+      <p>Moral standards are culturally bound and subjective. What is acceptable in one culture may be condemned in another.</p>
+      <p class="zh">道德标准受文化约束且是主观的。一种文化中可接受的行为在另一种文化中可能被谴责。</p>
+      <p style="margin-top:8px"><strong>Example 例子:</strong> Bribery may be seen as common practice in some regions but strictly prohibited elsewhere. <span class="zh">贿赂在某些地区可能被视为惯例，但在其他地方被严格禁止。</span></p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-univ-light);border-color:var(--ethics-univ);">
+      <h4 style="color:var(--ethics-univ);">&#x1F310; Universalism 普遍主义</h4>
+      <p>There are universal moral principles that apply across all cultures. Certain ethical standards are non-negotiable regardless of cultural context.</p>
+      <p class="zh">存在适用于所有文化的普遍道德原则。某些伦理标准无论文化背景如何都不可妥协。</p>
+      <p style="margin-top:8px"><strong>Example 例子:</strong> Ethical standards against child labour and modern slavery apply universally. <span class="zh">反对童工和现代奴隶制的伦理标准普遍适用。</span></p>
+    </div>
+  </div>
+
+  <table class="compare-table" style="margin-top:24px;">
+    <tr><th>Aspect 方面</th><th>Utilitarianism 功利主义</th><th>Deontology 义务论</th></tr>
+    <tr><td>Focus 关注点</td><td>Consequences / Outcomes 后果/结果</td><td>Principles / Duties 原则/义务</td></tr>
+    <tr><td>Question 问题</td><td>What produces the most good? 什么能产生最大利益？</td><td>What is the right thing to do? 正确的做法是什么？</td></tr>
+    <tr><td>Orientation 取向</td><td>Society-centred 以社会为中心</td><td>Individual rights-focused 以个人权利为中心</td></tr>
+  </table>
+</section>
+
+<!-- SECTION 5: LEGAL VS ETHICAL -->
+<section class="content-section" id="legal-ethical">
+  <h2>5. Legal vs Ethical Obligations<br><span class="zh">法律义务与伦理义务</span></h2>
+  <p>Businesses have both <strong>legal</strong> and <strong>ethical</strong> duties. These often overlap but are not identical.</p>
+  <p class="zh">企业同时承担<strong>法律</strong>和<strong>伦理</strong>义务。两者经常重叠但并不完全相同。</p>
+
+  <table class="compare-table">
+    <tr><th>Type 类型</th><th>Example 例子</th></tr>
+    <tr><td>&#x2696;&#xFE0F; <strong>Legal</strong> obligation 法律义务</td><td>Adhering to minimum wage laws. 遵守最低工资法。</td></tr>
+    <tr><td>&#x1F49B; <strong>Ethical</strong> obligation 伦理义务</td><td>Paying employees a living wage beyond the legal minimum. 向员工支付超过法定最低标准的生活工资。</td></tr>
+  </table>
+
+  <h3>Balancing Ethical and Legal Obligations 平衡伦理和法律义务</h3>
+  <ul>
+    <li><strong>Dual responsibilities 双重责任:</strong> Businesses have both ethical and legal duties to protect the environment. <span class="zh">企业对保护环境负有伦理和法律的双重义务。</span></li>
+    <li><strong>Scope of duty 义务范围:</strong> Obligations extend to workers, local communities, and future generations (<span class="tooltip-term" data-tip="The concept that current actions should not compromise the wellbeing of future generations.&#10;代际正义：当前行为不应损害子孙后代的福祉。">intergenerational justice</span>). <span class="zh">义务延伸到工人、当地社区和子孙后代（代际正义）。</span></li>
+    <li><strong>Sustainability 可持续性:</strong> Firms must consider long-term impacts, balancing present needs with those of future generations. <span class="zh">企业必须考虑长期影响，平衡当前需求与子孙后代的需求。</span></li>
+  </ul>
+
+  <div class="info-card" style="background:var(--ethics-rel-light);border-color:var(--ethics-rel);margin-top:16px;">
+    <h4 style="color:var(--ethics-rel);">&#x26A0;&#xFE0F; Negligence in Manufacturing 制造业中的过失</h4>
+    <p>When a company fails to meet the expected standard of care, leading to unsafe products or practices. Ethically, this questions whether a company is doing enough to prevent harm. Impact extends to consumers, employees, and communities.</p>
+    <p class="zh">当公司未能达到预期的注意标准，导致不安全的产品或做法时。从伦理角度看，这质疑了公司是否已充分防止伤害。影响延伸到消费者、员工和社区。</p>
+  </div>
+</section>
+
+<!-- SECTION 6: GLOBALISATION -->
+<section class="content-section" id="globalisation">
+  <h2>6. Globalisation and Extended Supply Chains<br><span class="zh">全球化与延伸供应链</span></h2>
+  <p>Globalisation has led to extended supply chains through trade relations, foreign direct investment (FDI), and outsourcing.</p>
+  <p class="zh">全球化通过贸易关系、外国直接投资（FDI）和外包形成了延伸的供应链。</p>
+
+  <div class="info-grid">
+    <div class="info-card" style="background:var(--stake-direct-light);border-color:var(--stake-direct);">
+      <h4 style="color:var(--stake-direct);">&#x1F3ED; MNEs and Global Chains 跨国企业与全球链</h4>
+      <p>Multinational Enterprises (MNEs) engage with multiple countries for supply and production, introducing both risks and responsibilities.</p>
+      <p class="zh">跨国企业在多个国家从事供应和生产，带来风险和责任。</p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-util-light);border-color:var(--ethics-util);">
+      <h4 style="color:var(--ethics-util);">&#x26A0;&#xFE0F; Risks in Global Chains 全球链风险</h4>
+      <ul>
+        <li>Fragility of key suppliers 关键供应商的脆弱性</li>
+        <li>Transport disruptions 运输中断</li>
+        <li>Labour rights violations 劳工权利侵犯</li>
+        <li>Environmental harm 环境损害</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Where Do Business Duties Come From? 企业义务从何而来？</h3>
+  <ul>
+    <li><strong>Ethical considerations 伦理考量:</strong> Influence individual and group behaviour within businesses. <span class="zh">影响企业内部个人和群体行为。</span></li>
+    <li><strong>CSR obligations CSR义务:</strong> Extend responsibilities to stakeholders beyond legal obligations. <span class="zh">将责任延伸到法律义务之外的利益相关者。</span></li>
+    <li><strong>Shifting public expectations 公众期望的转变:</strong> Consumers and stakeholders are more informed and concerned about ethical practices. <span class="zh">消费者和利益相关者更加了解并关注伦理实践。</span></li>
+  </ul>
+</section>
+
+<!-- SECTION 7: CARROLL'S CSR PYRAMID -->
+<section class="content-section" id="pyramid">
+  <h2>7. Carroll's Four-Dimensional CSR Pyramid (1991)<br><span class="zh">卡罗尔的四维CSR金字塔（1991年）</span></h2>
+
+  <div class="pyramid-container">
+    <div class="pyramid-level" style="width:200px;background:var(--csr-phil);">&#x1F381; Philanthropic<br><span class="zh-p">慈善责任</span></div>
+    <div class="pyramid-level" style="width:280px;background:var(--csr-ethical);">&#x1F49B; Ethical<br><span class="zh-p">伦理责任</span></div>
+    <div class="pyramid-level" style="width:360px;background:var(--csr-legal);">&#x2696;&#xFE0F; Legal<br><span class="zh-p">法律责任</span></div>
+    <div class="pyramid-level" style="width:440px;background:var(--csr-econ);">&#x1F4B0; Economic<br><span class="zh-p">经济责任</span></div>
+  </div>
+
+  <div class="info-grid" style="margin-top:24px;">
+    <div class="info-card" style="background:#eceff1;border-color:var(--csr-econ);">
+      <h4 style="color:var(--csr-econ);">&#x1F4B0; Economic Responsibility 经济责任</h4>
+      <p>Foundation of the pyramid. Companies must be profitable and provide returns to shareholders.</p>
+      <p class="zh">金字塔的基础。企业必须盈利并为股东提供回报。</p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-deont-light);border-color:var(--csr-legal);">
+      <h4 style="color:var(--csr-legal);">&#x2696;&#xFE0F; Legal Responsibility 法律责任</h4>
+      <p>Compliance with laws and regulations, going beyond minimal standards.</p>
+      <p class="zh">遵守法律法规，超越最低标准。</p>
+    </div>
+    <div class="info-card" style="background:var(--ethics-util-light);border-color:var(--csr-ethical);">
+      <h4 style="color:var(--csr-ethical);">&#x1F49B; Ethical Responsibility 伦理责任</h4>
+      <p>Adherence to ethical norms and exceeding legal requirements. Doing what is right, just, and fair.</p>
+      <p class="zh">遵守伦理规范并超越法律要求。做正确、公正和公平的事情。</p>
+    </div>
+    <div class="info-card" style="background:#ffebee;border-color:var(--csr-phil);">
+      <h4 style="color:var(--csr-phil);">&#x1F381; Philanthropic Responsibility 慈善责任</h4>
+      <p>Charitable contributions &mdash; desirable but less critical. Being a good corporate citizen.</p>
+      <p class="zh">慈善捐助&mdash;&mdash;值得期望但不太关键。做一个好的企业公民。</p>
+    </div>
+  </div>
+
+  <h3>Weak vs Strong CSR 弱CSR vs 强CSR</h3>
+  <table class="compare-table">
+    <tr><th>Weak CSR 弱CSR</th><th>Strong CSR 强CSR</th></tr>
+    <tr><td>Philanthropic activities as adjunct to business 慈善活动作为商业的附属</td><td>CSR embedded in core business strategy CSR融入核心商业战略</td></tr>
+    <tr><td>Charitable giving after profits 盈利后的慈善捐赠</td><td>Social and environmental goals integrated 社会和环境目标被整合</td></tr>
+    <tr><td>CSR when it enhances reputation 当CSR能提升声誉时才做</td><td>CSR as source of competitive advantage CSR作为竞争优势来源</td></tr>
+  </table>
+</section>
+
+<!-- SECTION 8: ESG REPORTING -->
+<section class="content-section" id="esg">
+  <h2>8. ESG &amp; Sustainability Reporting<br><span class="zh">ESG与可持续发展报告</span></h2>
+  <p>Sustainability reporting is increasingly integral to MNEs' CSR strategies, focusing on social and environmental impacts. Often categorised under <span class="tooltip-term" data-tip="Environmental, Social, and Governance &mdash; a framework for non-financial reporting.&#10;ESG：环境、社会和公司治理&mdash;&mdash;一个非财务报告框架。">ESG</span> Reporting.</p>
+  <p class="zh">可持续发展报告日益成为跨国企业CSR战略的核心组成部分，关注社会和环境影响。通常归类为ESG报告。</p>
+
+  <div class="esg-grid">
+    <div class="esg-card" style="background:var(--ethics-univ-light);border:2px solid var(--ethics-univ);">
+      <div class="esg-icon">&#x1F33F;</div>
+      <h4 style="color:var(--ethics-univ);">Environmental 环境</h4>
+      <p>Climate change, resource management, pollution control.</p>
+      <p class="zh">气候变化、资源管理、污染控制。</p>
+    </div>
+    <div class="esg-card" style="background:var(--ethics-deont-light);border:2px solid var(--ethics-deont);">
+      <div class="esg-icon">&#x1F465;</div>
+      <h4 style="color:var(--ethics-deont);">Social 社会</h4>
+      <p>Labour practices, community engagement, human rights.</p>
+      <p class="zh">劳动实践、社区参与、人权。</p>
+    </div>
+    <div class="esg-card" style="background:var(--ethics-rel-light);border:2px solid var(--ethics-rel);">
+      <div class="esg-icon">&#x1F3DB;&#xFE0F;</div>
+      <h4 style="color:var(--ethics-rel);">Governance 治理</h4>
+      <p>Board diversity, anti-corruption, executive pay, transparency.</p>
+      <p class="zh">董事会多元化、反腐败、高管薪酬、透明度。</p>
+    </div>
+  </div>
+
+  <h3>Third-Party Verification Challenges 第三方验证挑战</h3>
+  <ul>
+    <li><strong>RSPO</strong> (Roundtable on Sustainable Palm Oil): Aimed at sustainable palm oil but criticised for not fully ensuring sustainability. <span class="zh">可持续棕榈油圆桌会议：旨在可持续棕榈油但因未能完全确保可持续性而受到批评。</span></li>
+    <li><strong>Fairtrade Foundation</strong>: Provides fair trade certification but faces scrutiny on effectiveness. <span class="zh">公平贸易基金会：提供公平贸易认证，但其有效性受到审视。</span></li>
+  </ul>
+</section>
+
+<!-- FLASHCARDS -->
+<section class="content-section" id="flashcards">
+  <h2>&#x1F9E0; Flashcards 闪卡 <span class="zh" style="font-weight:400">(click to flip 点击翻转)</span></h2>
+  <div class="flashcard-grid" id="flashcard-grid"></div>
+</section>
+
+<!-- QUIZ -->
+<section class="content-section" id="quiz">
+  <h2>&#x1F4DD; Self-Test Quiz 自测测验</h2>
+  <div class="quiz-container" id="quiz-container"></div>
+  <div class="quiz-score" id="quiz-score" style="display:none;"></div>
+</section>
+
+<footer>
+  <p>Business Environments 商业环境学习资源 | UNSW College</p>
+  <p style="font-size:0.85rem;opacity:0.8;margin-top:8px;">&copy; 2025 All Rights Reserved 版权所有</p>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'});try{new Audio('ribbit.mp3').play()}catch(e){}">&#x1F438;</button>
+
+<script>
+function scrollTo_s(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.08});
+document.querySelectorAll('.content-section').forEach(function(s){obs.observe(s)});
+
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  var pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress-bar').style.width=pct+'%';
+  var btn=document.getElementById('scrollTopBtn');
+  btn.style.display=h.scrollTop>400?'flex':'none';
+});
+
+var flashcards=[
+  {front:"Stakeholders\n利益相关者",back:"Individuals, groups, or society at large that influence or are influenced by the company.\n影响公司或受公司影响的个人、团体或社会整体。"},
+  {front:"CSR\n企业社会责任",back:"Corporate Social Responsibility \u2014 a framework encouraging businesses to act ethically while contributing to economic development.\n鼓励企业在促进经济发展的同时以道德方式经营的框架。"},
+  {front:"Utilitarian Ethics\n功利主义伦理",back:"Decisions based on consequences. Greatest good for the greatest number.\n基于后果做决策。最大多数人的最大利益。"},
+  {front:"Deontological Ethics\n义务论伦理",back:"Decisions based on principles and duties, regardless of outcome.\n基于原则和义务做决策，而非结果。"},
+  {front:"Ethical Relativism\n伦理相对主义",back:"Moral standards are culturally bound and subjective.\n道德标准受文化约束且是主观的。"},
+  {front:"Universalism\n普遍主义",back:"Universal moral principles apply across all cultures (e.g., anti-child labour).\n普遍道德原则适用于所有文化（如反对童工）。"},
+  {front:"Carroll\u2019s CSR Pyramid\n卡罗尔CSR金字塔",back:"4 levels: Economic (base) \u2192 Legal \u2192 Ethical \u2192 Philanthropic (top).\n四个层次：经济（底层）\u2192 法律 \u2192 伦理 \u2192 慈善（顶层）。"},
+  {front:"ESG\nESG报告",back:"Environmental, Social, and Governance \u2014 a non-financial reporting framework.\n环境、社会和公司治理\u2014\u2014非财务报告框架。"},
+  {front:"Intergenerational Justice\n代际正义",back:"Current actions should not compromise the wellbeing of future generations.\n当前行为不应损害子孙后代的福祉。"},
+  {front:"Weak vs Strong CSR\n弱CSR vs 强CSR",back:"Weak: philanthropy as add-on. Strong: CSR embedded in core strategy as competitive advantage.\n弱：慈善作为附加。强：CSR融入核心战略作为竞争优势。"}
+];
+
+var fcGrid=document.getElementById('flashcard-grid');
+flashcards.forEach(function(fc){
+  var div=document.createElement('div');
+  div.className='flashcard';
+  div.innerHTML='<div class="flashcard-inner"><div class="flashcard-front">'+fc.front.replace(/\n/g,'<br>')+'</div><div class="flashcard-back">'+fc.back.replace(/\n/g,'<br>')+'</div></div>';
+  div.onclick=function(){div.classList.toggle('flipped')};
+  fcGrid.appendChild(div);
+});
+
+var quizData=[
+  {q:"What is the primary focus of utilitarian ethics?\n功利主义伦理的首要关注点是什么？",opts:["Following rules regardless of outcome 无论结果如何都遵循规则","Greatest good for the greatest number 最大多数人的最大利益","Cultural norms determine morality 文化规范决定道德","Universal principles for all 所有人的普遍原则"],ans:1},
+  {q:"Which type of stakeholder includes employees and customers?\n哪种类型的利益相关者包括员工和客户？",opts:["Indirect stakeholders 间接利益相关者","External stakeholders 外部利益相关者","Direct stakeholders 直接利益相关者","Passive stakeholders 被动利益相关者"],ans:2},
+  {q:"What is at the base of Carroll\u2019s CSR Pyramid?\n卡罗尔CSR金字塔的基础是什么？",opts:["Philanthropic responsibility 慈善责任","Ethical responsibility 伦理责任","Legal responsibility 法律责任","Economic responsibility 经济责任"],ans:3},
+  {q:"What does ESG stand for?\nESG代表什么？",opts:["Ethics, Society, Growth 伦理、社会、增长","Environmental, Social, Governance 环境、社会、治理","Economic, Sustainable, Global 经济、可持续、全球","Ethical Standards Guidelines 伦理标准指南"],ans:1},
+  {q:"Ethical relativism suggests that moral standards are...?\n伦理相对主义认为道德标准是...？",opts:["Universal and absolute 普遍和绝对的","Culturally bound and subjective 受文化约束且主观的","Based on legal requirements 基于法律要求","Determined by profit 由利润决定"],ans:1},
+  {q:"Which is an example of a LEGAL (not ethical) obligation?\n以下哪个是法律（而非伦理）义务的例子？",opts:["Paying a living wage 支付生活工资","Adhering to minimum wage laws 遵守最低工资法","Sustainable sourcing 可持续采购","Community volunteering 社区志愿服务"],ans:1},
+  {q:"What is intergenerational justice?\n什么是代际正义？",opts:["Fair pay across age groups 不同年龄组的公平薪酬","Current actions should not compromise future generations 当前行为不应损害子孙后代","Justice between nations 国家间的正义","Equal rights for all generations alive today 当今所有世代的平等权利"],ans:1},
+  {q:"Which ethical theory focuses on duties and rules rather than outcomes?\n哪种伦理理论关注义务和规则而非结果？",opts:["Utilitarianism 功利主义","Ethical relativism 伦理相对主义","Deontological ethics 义务论伦理","Universalism 普遍主义"],ans:2}
+];
+
+var score=0,answered=0;
+var qContainer=document.getElementById('quiz-container');
+quizData.forEach(function(q,qi){
+  var div=document.createElement('div');
+  div.className='quiz-q';
+  div.innerHTML='<h4>Q'+(qi+1)+'. '+q.q.replace(/\n/g,'<br>')+'</h4>';
+  q.opts.forEach(function(opt,oi){
+    var btn=document.createElement('button');
+    btn.className='quiz-option';
+    btn.textContent=opt;
+    btn.onclick=function(){
+      if(div.dataset.done)return;
+      div.dataset.done='1';
+      answered++;
+      div.querySelectorAll('.quiz-option').forEach(function(b,bi){
+        b.disabled=true;
+        if(bi===q.ans)b.classList.add('correct');
+      });
+      if(oi===q.ans){score++;try{new Audio('correct.mp3').play()}catch(e){}}
+      else{btn.classList.add('wrong');try{new Audio('wrong.mp3').play()}catch(e){}}
+      if(answered===quizData.length){
+        var el=document.getElementById('quiz-score');
+        el.style.display='block';
+        el.textContent='Score \u5F97\u5206: '+score+'/'+quizData.length+(score>=7?' \uD83C\uDF89 Excellent!':score>=5?' \uD83D\uDC4D Good job!':' \uD83D\uDCDA Keep studying!');
+        if(score>=6)launchConfetti();
+      }
+    };
+    div.appendChild(btn);
+  });
+  qContainer.appendChild(div);
+});
+
+function launchConfetti(){
+  var colors=['#4527a0','#7e57c2','#e65100','#2e7d32','#1565c0','#c62828'];
+  for(var i=0;i<60;i++){
+    var c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDelay=Math.random()*2+'s';
+    c.style.animationDuration=(2+Math.random()*2)+'s';
+    document.body.appendChild(c);
+    setTimeout(function(el){el.remove()},5000,c);
+  }
+}
+</script>
 </body>
 </html>

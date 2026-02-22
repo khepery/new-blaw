@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 4: Contracts Part 1 - Business Environments</title>
+    <title>Unit 4: Contracts Part 1 - Business Environments</title>    <link rel="stylesheet" href="unit3_styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #b71c1c;
-            --secondary-color: #c62828;
-            --accent-color: #e53935;
-            --light-accent: #ffebee;
-            --light-bg: #f8fafc;
-            --dark-text: #1e293b;
-            --light-text: #f8fafc;
-            --med-text: #64748b;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --primary-color: #1b5e20;
+            --secondary-color: #2e7d32;
+            --accent-color: #4caf50;
+            --light-accent: #e8f5e9;
+            --light-bg: #f8f9fa;
+            --dark-text: #1b5e20; 
+            --content-text: #333; 
+            --light-text: #ffffff;
+            --med-text: #6a6a6a;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            
+            --offer-color: #2196f3; 
+            --offer-light: #e3f2fd;
+            --acceptance-color: #ff9800; 
+            --acceptance-light: #fff3e0;
+            --consideration-color: #9c27b0; 
+            --consideration-light: #f3e5f5;
+            --intention-color: #e91e63;
+            --intention-light: #fce4ec;
+            --terms-color: #795548; 
+            --terms-light: #efebe9;
+            --breach-color: #f44336; 
+            --breach-light: #ffebee;
+            --remedy-color: #607d8b; 
+            --remedy-light: #eceff1;
+
+            --bilateral-color: #00bcd4;
+            --bilateral-light: #e0f7fa;
+            --unilateral-color: #795548; 
+            --unilateral-light: #efebe9;
         }
         
         * {
@@ -23,11 +45,23 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+          html {
+            scroll-padding-top: 80px;
+        }
         
+        .quiz-explanation {
+            display: none;
+        }
+        
+        .quiz-explanation.show {
+            display: block;
+        }
+
         body {
             background-color: var(--light-bg);
-            color: var(--dark-text);
+            color: var(--content-text); 
             line-height: 1.6;
+            overflow-x: hidden; 
         }
         
         header {
@@ -51,9 +85,10 @@
             margin-bottom: 1rem;
         }
         
-        header p {
+        header p.bilingual-header-subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
+            color: var(--light-text); 
         }
         
         .header-animation {
@@ -65,11 +100,176 @@
             z-index: 1;
             opacity: 0.3;
         }
+
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100; 
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0.2rem 0;
+            z-index: 100;
+        }
+          .nav-button {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            margin: 0.3rem 0.4rem;
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+        
+        .nav-button:hover::before {
+            left: 100%;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 2px solid var(--accent-color);
+        }
+        
+        .nav-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            transform: scale(0.98);
+            border: 2px solid var(--accent-color);
+        }
         
         main {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .section {
+            margin-bottom: 3rem;            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding-top: 85px;
+            margin-top: -85px; 
+            position: relative;
+            z-index: 0;  /* Base layer for section */
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--light-accent);
+            z-index: 10;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            color: white; 
+        }
+        
+        .section-icon.overview { background-color: var(--accent-color); }
+        .section-icon.formation { background-color: var(--offer-color); } 
+        .section-icon.consideration-intention { 
+            background-color: var(--consideration-color); 
+            z-index: 1;
+        } 
+        .section-icon.terms-breach-remedies { background-color: var(--terms-color); }
+        .section-icon.scenarios { background-color: var(--intention-color); }
+        .section-icon.quiz { background-color: var(--acceptance-color); }        .section-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .section-icon:hover {
+            animation: pulse 0.6s ease-out forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }  /* Increased scale for more noticeable effect */
+            100% { transform: scale(1); }
+        }
+
+        .section-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        
+        .section-icon .material-symbols-outlined {
+            font-size: 32px;
+            line-height: 1;
+            color: #fff;
+        }
+        
+        .section-title {
+            flex-grow: 1;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem; 
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+        
+        .section-title p.subtitle { 
+            color: var(--med-text);
+            font-size: 1.1rem;
         }
         
         .content-card {
@@ -78,14 +278,379 @@
             box-shadow: var(--box-shadow);
             padding: 2rem;
             margin-bottom: 2rem;
-            overflow: hidden;
             position: relative;
+            overflow: visible !important; 
+        }
+
+        .content-card h3 { 
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--light-accent);
+            font-size: 1.6rem;
+        }
+        .content-card h3:first-child {
+            margin-top: 0;
+        }
+
+        .content-card h4 {
+            color: var(--primary-color);
+            margin-top: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
         }
         
-        /* Back to Main Button */
+        .bilingual-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            gap: 1.5rem; 
+        }
+        
+        .english {
+            flex: 1 1 45%;
+            min-width: 300px; 
+            padding-right: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chinese {
+            flex: 1 1 45%;
+            min-width: 300px; 
+            color: var(--med-text);
+            border-left: 1px solid #e5e7eb;
+            padding-left: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bilingual-text > div > p, .bilingual-text > div > ul {
+            margin-bottom: 0.8rem;
+        }
+        
+        .bilingual-inline { display: block; }
+        .bilingual-inline .chinese { margin-left: 5px; font-size: 0.9em; color: var(--med-text); display: inline; border:none; padding:0;}
+        header h1 .bilingual-inline .chinese { font-size: 0.7em; display: block; opacity: 0.9;}
+        .section-title h2 .bilingual-inline .chinese { font-size: 0.7em; display: block; font-weight: normal; }
+        .section-title p.subtitle .bilingual-inline .chinese { font-size: 1em; display: block;}
+        .content-card h3 .bilingual-inline .chinese { font-size: 0.7em; display: block; font-weight: normal;}
+        .content-card h4 .bilingual-inline .chinese { font-size: 0.7em; display: block; font-weight: normal;}
+        .example-box h5 .bilingual-inline .chinese { font-size: 0.8em; display: block; font-weight: normal; color: var(--med-text);}
+        .nav-button .bilingual-inline .chinese { font-size: 0.75em; display:block; font-weight:normal;}
+        .quiz-question h4 .bilingual-inline .chinese { font-size:0.8em; display:block; font-weight: normal;}
+        .quiz-options li .bilingual-inline .chinese { font-size:0.9em; display:inline;}
+        .quiz-explanation strong .bilingual-inline .chinese { font-size:1em; display:inline;}
+        .quiz-explanation p .bilingual-inline .chinese { font-size:1em; display:block;}
+        .funfact-button-span .bilingual-inline .chinese {
+            font-size: 0.8em; 
+            display: block; 
+            font-weight: normal;
+        }
+
+        .fun-fact-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+
+        h2 .bilingual-inline > span:first-child,
+        h3 .bilingual-inline > span:first-child,
+        h4 .bilingual-inline > span:first-child,
+        h5 .bilingual-inline > span:first-child {
+             font-weight: bold; 
+        }
+        .nav-button .bilingual-inline > span:first-child { font-weight:600;}
+
+
+        .feature-list {
+            list-style: none;
+            margin: 1rem 0;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 2.2rem; 
+            margin-bottom: 0.8rem;
+        }
+        
+        .feature-list li::before {
+            content: '✓'; 
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1.3;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 2px dotted var(--accent-color);
+            cursor: help;
+            color: var(--primary-color);
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 320px; 
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            border-radius: 6px;
+            padding: 12px;
+            position: absolute;
+            z-index: 1005; 
+            bottom: 135%; 
+            left: 50%;
+            transform: translateX(-50%); 
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+            font-size: 0.9rem;
+            font-weight: normal;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+            line-height: 1.4;
+        }
+
+        .tooltip .tooltiptext .chinese-tooltip {
+            display: block;
+            font-size: 0.85rem;
+            color: #e0e0e0;
+            margin-top: 8px;
+            border-top: 1px solid #5a8b5e;
+            padding-top: 8px;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: var(--primary-color) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+            transition-delay: 0s;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .case-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: visible !important; 
+        }
+        
+        .case-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        .case-card h4 { 
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .case-year {
+            font-size: 0.9rem;
+            color: var(--med-text);
+            font-weight: normal;
+        }
+        
+        .case-facts, .case-decision, .case-principle, .case-significance {
+            margin-bottom: 1rem;
+        }
+        
+        .case-facts h5, .case-decision h5, .case-principle h5, .case-significance h5 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.05rem;
+        }
+        
+        .example-box {
+            background-color: #e3f2fd; 
+            border: 2px solid var(--offer-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: visible !important; 
+        }
+        
+        .example-box::before {
+            content: "💡";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+        
+        .example-box h5 {
+            color: var(--offer-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }        .quiz-container, .ipac-container {
+            background: var(--light-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0; 
+            overflow: visible;
+            display: block;
+            position: relative;
+            z-index: 1050;
+        }
+
+        .ipac-scenario { 
+            background: white;
+            border-radius: 8px; 
+            padding: 1.5rem;
+            margin-bottom: 2rem; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12); 
+            border-left: 5px solid var(--accent-color); 
+        }
+        .ipac-scenario h4 { 
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+        }
+        .ipac-scenario > p:first-of-type { 
+            margin-bottom: 1rem;
+        }
+        .ipac-section-box { 
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+         .ipac-section-box p {
+            margin-bottom: 0.5rem;
+        }
+        .ipac-section-box strong { 
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+          .quiz-question {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: block;
+            position: relative;
+            z-index: 1060;
+        }
+        
+        .quiz-question h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+        }
+        
+        .quiz-options {
+            list-style: none;
+            margin: 1rem 0;
+            padding: 0;
+        }
+        
+        .quiz-options li {
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .quiz-options li:hover {
+            background: var(--light-accent);
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        .quiz-options li.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left-color: #28a745;
+            font-weight: bold;
+        }
+        .quiz-options li.incorrect { 
+            background-color: #f8d7da; 
+            color: #721c24; 
+            border-left-color: #dc3545;
+        }
+
+        .quiz-answer-reveal { margin-top: 10px; }
+        .quiz-answer-reveal button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        .quiz-answer-reveal button:hover { background-color: var(--secondary-color); }
+        .quiz-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--content-text);
+        }
+        .quiz-explanation p { margin-bottom: 0.5em;} 
+        .quiz-fill-blank-answer {
+             margin: 1rem 0; padding: 1rem; background-color: var(--light-accent); border-radius: 4px;
+        }
+        .quiz-fill-blank-answer strong { color: var(--primary-color); }
+        
         .back-to-main {
             position: fixed;
-            top: 20px;
+            top: 80px;
             left: 20px;
             background-color: var(--primary-color);
             color: white;
@@ -98,20 +663,41 @@
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            z-index: 1000;
-            transition: background-color 0.3s, transform 0.3s;
+            z-index: 1001; 
+            transition: all 0.3s;
         }
         
         .back-to-main:hover {
+            animation: backBtnPulse 0.6s ease;
             background-color: var(--secondary-color);
             transform: scale(1.1);
         }
         
-        .back-to-main svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
+        .back-to-main { font-size: 24px; line-height: 1; }
+
+        #scrollToTopBtn {
+            display: none; 
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            border: none;
+            outline: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
         }
+        #scrollToTopBtn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        #scrollToTopBtn svg { width: 24px; height: 24px; vertical-align: middle; }
         
         footer {
             text-align: center;
@@ -119,123 +705,1189 @@
             background-color: var(--primary-color);
             color: var(--light-text);
             margin-top: 3rem;
+        }        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeInModal 0.3s ease-out;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .modal-content {
+            background-color: #fff;
+            color: var(--content-text);
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: calc(100vh - 40px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideInModal 0.3s ease-out;
+            overflow-y: auto;
+            margin: auto;
+            z-index: 2001;
+        }
+        .modal-close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .modal-close-btn:hover,
+        .modal-close-btn:focus {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #funFactModalTitle {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        #funFactModalTextEn { font-size: 1rem; margin-bottom: 10px; }
+        #funFactModalTextCn { margin-top: 10px; font-size: 0.95rem; color: var(--med-text); }
+        @keyframes fadeInModal { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes slideInModal { from {transform: translateY(-50px);} to {transform: translateY(0);} }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
         
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse { animation: pulse 4s ease-in-out infinite; }
+        .animate-slide { animation: slideIn 0.6s ease-out forwards; }
+        
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
+            html { scroll-padding-top: 60px; }
+            .section { padding-top: 60px; margin-top: -60px; }
+            .card-grid, .case-grid, .concept-grid {
+                grid-template-columns: 1fr;
             }
-            
-            header p {
-                font-size: 1rem;
+            header h1 { font-size: 2rem; }
+            .section-title h2 { font-size: 1.6rem; }
+            .nav-button { font-size: 0.8rem; padding: 0.5rem 0.7rem;}
+
+            .tooltip .tooltiptext {
+                width: 90vw; 
+                max-width: 280px;
             }
-            
-            .back-to-main {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
+             .bilingual-text {
+                flex-direction: column;
+                gap: 0.5rem; 
             }
-            
-            .back-to-main svg {
-                width: 20px;
-                height: 20px;
+            .bilingual-text .chinese {
+                border-left: none;
+                border-top: 1px solid #e0e0e0;
+                padding-left: 0;
+                padding-top: 1rem;
+                margin-top: 1rem;
+            }
+             .modal-content {
+                width: 90%;
+                margin: 20% auto;
             }
         }
-    </style>
+         @media (max-width: 480px) {
+            .nav-button { font-size: 0.75rem; padding: 0.4rem 0.6rem; margin: 0.2rem 0.3rem;}
+            header h1 { font-size: 1.8rem; }
+            .section-title h2 { font-size: 1.4rem; }
+            .content-card h3 { font-size: 1.3rem; }
+         }
+    @keyframes backBtnPulse { 0% { transform: scale(1); } 30% { transform: scale(1.2) translateX(-5px); } 60% { transform: scale(1.1); } 100% { transform: scale(1.1); } }
+</style>
 </head>
-<body>
-    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
+<body>    <a href="index.html?skip_intro=true" class="back-to-main" title="Back to Main Page 返回主页">↩️
     </a>
-    
+
     <header>
         <div class="header-animation" id="header-animation"></div>
         <div class="header-content">
-            <h1>Unit 4: Contracts Part 1</h1>
-            <p>Business Environments - FS2025</p>
+            <h1>
+                <span class="bilingual-inline">
+                    <span>Unit 4: Contracts Part 1</span>
+                    <span class="chinese">单元4：合同法（一）</span>
+                </span>
+            </h1>
+            <p class="bilingual-header-subtitle">
+                <span class="bilingual-inline">
+                    <span>Contract Formation: Offer, Acceptance, Consideration &amp; Intention</span>
+                    <span class="chinese">合同的形成：要约、承诺、对价与意图</span>
+                </span>
+            </p>
         </div>
     </header>
     
-    <main>
-        <div class="content-card">
-            <h2>Content Coming Soon</h2>
-            <p>This page is under development. The content for Unit 4: Contracts Part 1 will be available soon.</p>
-            <p>Topics to be covered will include:</p>
-            <ul>
-                <li>Introduction to Contract Law</li>
-                <li>Offer and Acceptance</li>
-                <li>Intention to Create Legal Relations</li>
-                <li>Consideration</li>
-                <li>Capacity to Contract</li>
-                <li>Legality and Public Policy</li>
-                <li>Essential Elements of a Valid Contract</li>
-                <li>Formation of Contracts</li>
-            </ul>
-            <p>Please check back later for complete content.</p>
+    <nav>
+        <div class="nav-container">
+            <button class="nav-button active" data-target="overview"><span class="bilingual-inline"><span>Overview</span><span class="chinese">概述</span></span></button>
+            <button class="nav-button" data-target="formation"><span class="bilingual-inline"><span>Offer &amp; Acceptance</span><span class="chinese">要约与承诺</span></span></button>
+            <button class="nav-button" data-target="consideration-intention"><span class="bilingual-inline"><span>Consideration &amp; Intention</span><span class="chinese">对价与意图</span></span></button>            <button class="nav-button" data-target="terms-breach-remedies"><span class="bilingual-inline"><span>Terms, Breach &amp; Remedies</span><span class="chinese">条款、违约与救济</span></span></button>
+            <button class="nav-button" data-target="scenarios"><span class="bilingual-inline"><span>Practice (IPAC)</span><span class="chinese">案例练习(IPAC)</span></span></button>
+            <button class="nav-button" data-target="quiz"><span class="bilingual-inline"><span>Quiz</span><span class="chinese">测验</span></span></button>
         </div>
-    </main>
+    </nav>
     
-    <footer>
-        <p>Business Environments Learning Resource - UNSW College - Coroiu Marius</p>
-        <p>© 2025 All Rights Reserved</p>
-    </footer>
-    
-    <script>
-        // Add dynamic shapes to header background
-        function setupHeaderAnimation() {
-            const headerBg = document.getElementById('header-animation');
-            const shapeCount = 10;
-            const shapes = ['circle', 'square', 'triangle'];
+    <main>
+        <section id="overview" class="section visible">
+            <div class="section-header">
+                <div class="section-icon overview">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.5 21a3 3 0 01-3 3H5.25a3 3 0 01-3-3V3a3 3 0 013-3h11.25a3 3 0 013 3v18zM16.5 10.5V6a.75.75 0 00-.75-.75h-6A.75.75 0 009 6v4.5a.75.75 0 00.75.75h6a.75.75 0 00.75-.75zm-6 5.25v1.5c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-1.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75z"/>
+                     </svg>
+                </div>
+                <div class="section-title">
+                    <h2><span class="bilingual-inline"><span>Contract Law Overview</span><span class="chinese">合同法概述</span></span></h2>
+                    <p class="subtitle"><span class="bilingual-inline"><span>Fundamental principles of legally binding agreements.</span><span class="chinese">具有法律约束力协议的基本原则。</span></span></p>
+                </div>
+            </div>
             
-            for (let i = 0; i < shapeCount; i++) {
-                const div = document.createElement('div');
-                const size = Math.random() * 60 + 20;
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                
-                div.style.width = `${size}px`;
-                div.style.height = `${size}px`;
-                div.style.left = `${Math.random() * 100}%`;
-                div.style.top = `${Math.random() * 100}%`;
-                div.style.position = 'absolute';
-                
-                if (shapeType === 'circle') {
-                    div.style.borderRadius = '50%';
-                } else if (shapeType === 'square') {
-                    div.style.borderRadius = '4px';
-                } else if (shapeType === 'triangle') {
-                    div.style.width = '0';
-                    div.style.height = '0';
-                    div.style.borderLeft = `${size/2}px solid transparent`;
-                    div.style.borderRight = `${size/2}px solid transparent`;
-                    div.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.2)`;
-                    div.style.background = 'transparent';
-                }
-                
-                div.style.background = shapeType !== 'triangle' ? 'rgba(255, 255, 255, 0.2)' : 'transparent';
-                div.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
-                
-                headerBg.appendChild(div);
-            }
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>What is a Contract?</span><span class="chinese">什么是合同？</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>A <span class="tooltip">contract<span class="tooltiptext">A contract is a legally enforceable agreement between two or more parties that creates mutual obligations. The elements of a valid contract typically include offer, acceptance, consideration, and the intention to create legal relations.<span class="chinese-tooltip">合同是两个或多个当事人之间订立的具有法律约束力、产生相互义务的协议。有效合同的要素通常包括要约、承诺、对价和订立法律关系的意图。</span></span></span> is a legally enforceable agreement between two or more parties that creates mutual obligations. To be valid, it typically requires several essential elements.</p>
+                        <p>An <span class="tooltip">agreement<span class="tooltiptext">An agreement is reached when there is an offer by one party and acceptance by another. It is a meeting of the minds that can form a legally binding contract if other elements such as consideration and intention to create legal relations are present.<span class="chinese-tooltip">当一方提出要约而另一方接受时，协议即达成。这是一种意思表示一致，如果存在对价和订立法律关系的意图等其他要素，则可以构成具有法律约束力的合同。</span></span></span> is the foundation, formed by a valid offer and acceptance.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>合同是两个或多个当事人之间订立的具有法律约束力、产生相互义务的协议。一份有效的合同通常需要几个基本要素。</p>
+                        <p>协议是基础，由有效的要约和承诺构成。</p>
+                    </div>
+                </div>
+
+                <h3><span class="bilingual-inline"><span>Essential Elements of a Contract</span><span class="chinese">合同的基本要素</span></span></h3>
+                 <div class="bilingual-text">
+                    <div class="english">
+                        <p>For a contract to be legally binding, the following elements are generally required:</p>
+                        <ul class="feature-list">
+                            <li><strong>Offer:</strong> A clear proposal by one party to another, indicating a willingness to enter into a contract on certain terms.</li>
+                            <li><strong>Acceptance:</strong> An unqualified and clear agreement to the terms of the offer.</li>
+                            <li><strong>Consideration:</strong> Something of value exchanged between the parties (the "price" paid for the promise).</li>
+                            <li><strong>Intention to Create Legal Relations:</strong> The parties must intend for their agreement to be legally enforceable.</li>
+                        </ul>
+                        <p>Other factors affecting validity include the legal capacity of the parties and the legality of the contract's purpose.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>一份具有法律约束力的合同，通常需要以下要素：</p>
+                        <ul class="feature-list">
+                            <li><strong>要约 (Offer)：</strong> 一方向另一方提出的明确提议，表明愿意按特定条款订立合同。</li>
+                            <li><strong>承诺 (Acceptance)：</strong> 对要约条款的无条件明确同意。</li>
+                            <li><strong>对价 (Consideration)：</strong> 双方之间交换的有价值的东西（为承诺支付的"价格"）。</li>
+                            <li><strong>建立法律关系的意图 (Intention to Create Legal Relations)：</strong> 各方必须打算使其协议具有法律强制执行力。</li>
+                        </ul>
+                        <p>影响有效性的其他因素包括当事人的法律行为能力和合同目的的合法性。</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h5><span class="bilingual-inline"><span>Why Contract Law Matters</span><span class="chinese">合同法为何重要</span></span></h5>
+                    <p><span class="bilingual-inline"><span>Every day we enter into contracts - buying coffee, purchasing online, signing employment agreements. Understanding contract law helps you know your rights and obligations in these everyday transactions.</span><span class="chinese">我们每天都在订立合同——买咖啡、网购、签署雇佣协议。了解合同法有助于您在这些日常交易中了解自己的权利和义务。</span></span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="formation" class="section">
+            <div class="section-header">                <div class="section-icon formation">
+                    <span class="material-symbols-outlined">handshake</span>
+                </div>
+                <div class="section-title">
+                    <h2><span class="bilingual-inline"><span>Formation: Offer &amp; Acceptance</span><span class="chinese">协议形成：要约与承诺</span></span></h2>
+                    <p class="subtitle"><span class="bilingual-inline"><span>The essential first steps in creating a contract.</span><span class="chinese">创建合同的首要步骤。</span></span></p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>The Offer (要约)</span><span class="chinese">要约</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>An <span class="tooltip">offer<span class="tooltiptext">An offer is a clear, unequivocal statement of the terms on which the offeror is prepared to be bound. It must be communicated to the offeree and can be accepted to form a contract.<span class="chinese-tooltip">要约是要约人准备受其约束的条款的清晰、明确的声明。它必须传达给受要约人，并且可以通过接受来形成合同。</span></span></span> is a definite promise to be bound, provided that certain specified terms are accepted. It must be distinguished from an <span class="tooltip">invitation to treat<span class="tooltiptext">An invitation to treat is an indication that a person is prepared to negotiate but is not yet willing to make a binding offer. Examples include advertisements, display of goods, and price lists.<span class="chinese-tooltip">要约邀请是一方准备谈判的表示，但尚不愿意发出有约束力的要约。例如广告、商品陈列和价目表。</span></span></span>, which is merely an invitation for others to make offers.</p>
+                        <p>Key rules for an offer:</p>
+                        <ul class="feature-list">
+                            <li>Must be clear and certain in its terms.</li>
+                            <li>Must be communicated to the offeree.</li>
+                            <li>Can be made to an individual, a group, or the world at large (e.g., unilateral contracts like in *Carlill v Carbolic Smoke Ball Co.*).</li>
+                            <li>An offer can be terminated by <span class="tooltip">revocation<span class="tooltiptext">Revocation of an offer is the withdrawal of the offer by the offeror before it has been accepted. The revocation must be communicated to the offeree to be effective.<span class="chinese-tooltip">撤销要约是要约人在要约被接受前撤回要约。撤销必须传达给受要约人才能生效。</span></span></span> by the offeror before acceptance, <span class="tooltip">rejection<span class="tooltiptext">Rejection of an offer occurs when the offeree declines the terms proposed by the offeror. Once an offer is rejected, it cannot be later accepted unless it is renewed by the offeror.<span class="chinese-tooltip">拒绝要约是指受要约人拒绝要约人提出的条款。要约一旦被拒绝，除非要约人重新提出，否则以后不能再接受。</span></span></span> by the offeree, lapse of time, or failure of a condition.</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>要约是一方作出的、若特定条款被接受即受其约束的明确承诺。它必须与要约邀请区分开来，后者仅仅是邀请他人发出要约。</p>
+                        <p>要约的关键规则：</p>
+                        <ul class="feature-list">
+                            <li>条款必须清晰确定。</li>
+                            <li>必须传达给受要约人。</li>
+                            <li>可以向个人、群体或全世界发出（例如，单边合同，如 *Carlill v Carbolic Smoke Ball Co.* 案）。</li>
+                            <li>要约可以在承诺前被要约人撤销，被受要约人拒绝，因时间流逝而失效，或因条件未能满足而终止。</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="case-grid">
+                    <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>📰 Partridge v Crittenden</span><span class="chinese">📰 Partridge v Crittenden</span></span> <span class="case-year">(1968)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Partridge advertised "Bramblefinch cocks, hens, 25s each".</span><span class="chinese">Partridge登广告称"Bramblefinch公鸡、母鸡，每只25先令"。</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>Advertisements are generally invitations to treat, not offers.</span><span class="chinese">广告通常是要约邀请，而非要约。</span></span></p></div>
+                    </div>
+                    <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>🏪 Pharmaceutical Society v Boots</span><span class="chinese">🏪 Pharmaceutical Society v Boots</span></span> <span class="case-year">(1953)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Self-service pharmacy; issue of when sale of restricted drugs occurred.</span><span class="chinese">自助药房；管制药品销售时间点问题。</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>Goods on display are invitations to treat; customer offers to buy at checkout.</span><span class="chinese">陈列商品为要约邀请；顾客在收银台提出购买要约。</span></span></p></div>
+                    </div>
+                    <div class="case-card">
+                         <h4><span class="bilingual-inline"><span>💊 Carlill v Carbolic Smoke Ball Co</span><span class="chinese">💊 Carlill v Carbolic Smoke Ball Co</span></span> <span class="case-year">(1893)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Ad promised £100 reward for using smoke ball and catching flu; £1000 deposited to show sincerity.</span><span class="chinese">广告承诺使用烟丸后若患流感则奖励100英镑；存入1000英镑以示诚意。</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>An advertisement can be a unilateral offer to the world if intention and certainty are clear. Acceptance is by performance of conditions.</span><span class="chinese">如果意图和确定性明确，广告可以是向全世界发出的单边要约。通过履行条件构成承诺。</span></span></p></div>
+                    </div>
+                     <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>💬 Harvey v Facey</span><span class="chinese">💬 Harvey v Facey</span></span> <span class="case-year">(1893)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Telegram: "Lowest price for Bumper Hall Pen £900." Response: "We agree to buy...for £900."</span><span class="chinese">电报："Bumper Hall Pen最低价900英镑。"回复："我们同意以你方要求的900英镑购买。"</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>A statement of the lowest price is merely supplying information, not an offer.</span><span class="chinese">声明最低价格仅为提供信息，并非要约。</span></span></p></div>
+                    </div>
+                     <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>📦 Grainger & Son v Gough</span><span class="chinese">📦 Grainger & Son v Gough</span></span> <span class="case-year">(1896)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Wine merchant circulated a catalogue with a price list. Customer ordered from catalogue.</span><span class="chinese">酒商散发了包含价格表的商品目录。顾客根据目录订购。</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>Catalogues and price lists are generally invitations to treat.</span><span class="chinese">商品目录和价目表通常是要约邀请。</span></span></p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>The Acceptance (承诺)</span><span class="chinese">承诺</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p><span class="tooltip">Acceptance<span class="tooltiptext">Acceptance is an unqualified agreement to the terms of an offer. It must be communicated to the offeror and must mirror the terms of the offer without modification.<span class="chinese-tooltip">承诺是对要约条款的无条件同意。它必须传达给要约人，并且必须不加修改地反映要约的条款。</span></span></span> is a final and unqualified assent to the terms of the offer.</p>
+                        <p>Key rules for acceptance:</p>
+                        <ul class="feature-list">
+                            <li>Must be in response to the offer (offeree must be aware of the offer, *R v Clarke*).</li>
+                            <li>Must be unqualified (mirror image rule); any variation constitutes a <span class="tooltip">counter-offer<span class="tooltiptext">A counter-offer is a response to an offer in which the terms of the original offer are changed. This constitutes a rejection of the original offer and puts forward new terms for agreement.<span class="chinese-tooltip">反要约是对要约的回应，其中原要约的条款被更改。这构成对原要约的拒绝，并提出新的协议条款。</span></span></span>, destroying the original offer (*Hyde v Wrench*).</li>
+                            <li>Must generally be communicated to the offeror (exceptions: postal rule, unilateral contracts where performance is acceptance).</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>承诺是对要约条款的最终且无条件的同意。</p>
+                        <p>承诺的关键规则：</p>
+                        <ul class="feature-list">
+                            <li>必须是针对要约作出的（受要约人必须知晓该要约，*R v Clarke* 案）。</li>
+                            <li>必须是无条件的（镜像规则）；任何变更都构成反要约，从而终止原要约 (*Hyde v Wrench* 案）。</li>
+                            <li>通常必须传达给要约人（例外：邮政规则、单边合同中履行为承诺的情况）。</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="case-grid">
+                    <div class="case-card">
+                         <h4><span class="bilingual-inline"><span>🏠 Hyde v Wrench</span><span class="chinese">🏠 Hyde v Wrench</span></span> <span class="case-year">(1840)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Wrench offered farm for £1000. Hyde counter-offered £950. Wrench rejected. Hyde then tried to accept £1000.</span><span class="chinese">Wrench要约以1000英镑出售农场。Hyde反要约950英镑。Wrench拒绝。Hyde随后试图接受1000英镑。</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>A counter-offer destroys the original offer.</span><span class="chinese">反要约终止原要约。</span></span></p></div>
+                    </div>
+                     <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>🔍 R v Clarke</span><span class="chinese">🔍 R v Clarke</span></span> <span class="case-year">(1927)</span></h4>
+                        <div class="case-facts"><h5><span class="bilingual-inline"><span>Facts</span><span class="chinese">事实</span></span></h5><p><span class="bilingual-inline"><span>Clarke gave info to clear his name, unaware of reward offer. Later claimed reward.</span><span class="chinese">Clarke为洗清罪名提供信息，当时不知有悬赏。后索要奖金。</span></span></p></div>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>Acceptance must be made in reliance on the offer; cannot accept an unknown offer.</span><span class="chinese">承诺必须基于要约作出；不能接受未知的要约。</span></span></p></div>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="content-card">
+                 <h3><span class="bilingual-inline"><span>Types of Contracts (Based on Formation)</span><span class="chinese">合同类型（基于形成方式）</span></span></h3>
+                 <div class="bilingual-text">
+                    <div class="english">
+                        <p>The way an offer is accepted often determines the type of contract:</p>
+                        <ul class="feature-list">
+                            <li><strong><span class="tooltip">Bilateral Contract<span class="tooltiptext">A bilateral contract is an agreement where both parties exchange mutual promises. Each party is both a promisor and a promisee. Most business contracts are bilateral.<span class="chinese-tooltip">双边合同是双方交换相互承诺的协议。每一方既是许诺人也是受诺人。大多数商业合同都是双边的。</span></span></span>:</strong> Arises from an exchange of promises. Both parties have outstanding obligations at the time of formation (e.g., a contract to buy a car, where one promises to pay and the other to deliver the car).</li>
+                            <li><strong><span class="tooltip">Unilateral Contract<span class="tooltiptext">A unilateral contract is a promise in exchange for a specific act. The offeror promises to pay after the occurrence of a specific act by the offeree. An example is a reward contract.<span class="chinese-tooltip">单边合同是以一个特定行为交换一个承诺。要约人在受要约人完成特定行为后承诺付款。一个例子是悬赏合同。</span></span></span>:</strong> Arises when an offer is accepted by performing an act. Only one party is under an obligation at the time of formation (e.g., offering a reward for finding a lost dog; the contract is formed when the dog is found and returned). *Carlill v Carbolic Smoke Ball Co.* is a classic example.</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>要约被接受的方式通常决定了合同的类型：</p>
+                        <ul class="feature-list">
+                            <li><strong>双边合同 (Bilateral Contract)：</strong> 因交换承诺而产生。在合同成立时，双方都有未履行的义务（例如，购买汽车的合同，一方承诺付款，另一方承诺交付汽车）。</li>
+                            <li><strong>单边合同 (Unilateral Contract)：</strong> 当要约通过履行行为而被接受时产生。在合同成立时，只有一方负有义务（例如，悬赏寻找丢失的狗；当狗被找到并归还时合同成立）。*Carlill v Carbolic Smoke Ball Co.* 案是典型例子。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="consideration-intention" class="section">
+            <div class="section-header">                <div class="section-icon consideration-intention">
+                    <span class="material-symbols-outlined">balance</span>
+                </div>
+                <div class="section-title">
+                    <h2><span class="bilingual-inline"><span>Consideration & Intention</span><span class="chinese">对价与意图</span></span></h2>
+                    <p class="subtitle"><span class="bilingual-inline"><span>The 'value' exchanged and the mindset for a binding agreement.</span><span class="chinese">交换的"价值"与达成有约束力协议的心态。</span></span></p>
+                </div>
+            </div>
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>Consideration (对价)</span><span class="chinese">对价</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p><span class="tooltip">Consideration<span class="tooltiptext">Consideration is the price paid for a promise. It is what each contracting party bargains with and gives in exchange for the return promise or performance of the other party.<span class="chinese-tooltip">对价是为承诺支付的代价。它是每一缔约方为换取另一方的对待承诺或对待履行而进行磋商并付出的东西。</span></span></span> is essentially the 'price' paid for a promise in a contract. It must be something of legal value.</p>
+                        <p>Types and Rules of Consideration:</p>
+                        <ul class="feature-list">
+                            <li><strong><span class="tooltip">Executed Consideration<span class="tooltiptext">An act for a promise. One person does something NOW, the other person promises to do something LATER.<span class="chinese-tooltip">行为换取承诺。一方现在做某事，另一方承诺以后做某事。</span></span></span>:</strong> An act for a promise (an act already performed in return for a promise).</li>
+                            <li><strong><span class="tooltip">Executory Consideration<span class="tooltiptext">A promise for a promise. Both people make promises to do something in the future.<span class="chinese-tooltip">承诺换取承诺。双方都承诺在未来做某事。</span></span></span>:</strong> A promise for a promise (promises are exchanged for future performance).</li>
+                            <li><strong><span class="tooltip">Past Consideration<span class="tooltiptext">A promise for an act that has been done. Generally, past consideration is not valid consideration (*Roscorla v Thomas*).<span class="chinese-tooltip">为已经完成的行为作出的承诺。通常，过去的对价不是有效的对价 (*Roscorla v Thomas* 案)。</span></span></span>:</strong> An act done before a promise is given is generally not good consideration (e.g., *Roscorla v Thomas*).</li>
+                            <li><strong>Consideration must be <span class="tooltip">Sufficient<span class="tooltiptext">Consideration of some legal value. Courts don't require consideration to be of equal value, just that it has some legal worth.<span class="chinese-tooltip">具有某种法律价值的对价。法院不要求对价具有同等价值，只要具有一些法律价值即可。</span></span></span> but need not be <span class="tooltip">Adequate<span class="tooltiptext">Consideration of equal value. Courts generally do not inquire into the adequacy of consideration - parties can make their own bargains.<span class="chinese-tooltip">同等价值的对价。法院通常不询问对价的相当性 - 当事人可以自己作出交易。</span></span></span>:</strong> It must have some legal value, but not necessarily be of equal market value.</li>
+                            <li>Performing an existing contractual duty is generally not good consideration for a new promise from the other party (*Stilk v Myrick*).</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>对价本质上是合同中为承诺支付的"价格"。它必须是具有法律价值的东西。</p>
+                        <p>对价的类型和规则：</p>
+                        <ul class="feature-list">
+                            <li><strong>已履行的对价 (Executed Consideration)：</strong> 行为换承诺（为换取承诺而已履行的行为）。</li>
+                            <li><strong>待履行的对价 (Executory Consideration)：</strong> 承诺换承诺（为将来履行而交换的承诺）。</li>
+                            <li><strong>过去的对价 (Past Consideration)：</strong> 在承诺作出前已完成的行为通常不是有效的对价（例如 *Roscorla v Thomas* 案）。</li>
+                            <li><strong>对价必须是充分的但不必是相当的：</strong> 它必须具有一定的法律价值，但不一定等同于市场价值。</li>
+                            <li>履行已有的合同义务通常不能作为对方新承诺的有效对价 (*Stilk v Myrick* 案）。</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="case-grid">
+                    <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>🐴 Roscorla v Thomas</span><span class="chinese">🐴 Roscorla v Thomas</span></span> <span class="case-year">(1842)</span></h4>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>Past consideration is not valid consideration. A promise made after a contract is completed (e.g., a warranty for a horse given after its sale) is unenforceable without new consideration.</span><span class="chinese">过去的对价不是有效对价。合同完成后作出的承诺（例如，马匹出售后提供的保证）若无新对价则不可强制执行。</span></span></p></div>
+                    </div>
+                    <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>⚓ Stilk v Myrick</span><span class="chinese">⚓ Stilk v Myrick</span></span> <span class="case-year">(1809)</span></h4>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>Performing a pre-existing contractual duty is not sufficient consideration for a new promise (e.g., sailors promised extra wages for work they were already bound to do).</span><span class="chinese">履行已有的合同义务不足以构成新承诺的充分对价（例如，船员因其本已负有义务的工作而被承诺额外工资）。</span></span></p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>Intention to Create Legal Relations (建立法律关系的意图)</span><span class="chinese">建立法律关系的意图</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>For an agreement to be a binding contract, the parties must have intended their agreement to have legal consequences. Courts apply presumptions based on the context:</p>
+                        <ul class="feature-list">
+                            <li><strong>Social/Domestic Agreements:</strong> Presumed NOT to have an intention to create legal relations (e.g., agreements between family members, *Balfour v Balfour*). This presumption can be rebutted if there are serious consequences or evidence of contrary intent (e.g., *Merritt v Merritt*, *Wakeling v Ripley*).</li>
+                            <li><strong>Commercial/Business Agreements:</strong> Presumed TO HAVE an intention to create legal relations. This can be rebutted by clear words stating otherwise (e.g., "honour clauses").</li>
+                        </ul>
+                        <p>The court ultimately takes an <span class="tooltip">objective approach<span class="tooltiptext">Courts look at all available evidence (conduct of parties, context, surrounding circumstances) to determine whether a reasonable person would conclude that the parties intended to create a contract.<span class="chinese-tooltip">法院会审视所有可获得的证据（当事人的行为、协议背景、周围环境），以判断一个理性的人是否会认为当事人有意订立合同。</span></span></span>, considering all circumstances.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>要使协议成为有约束力的合同，各方必须意图使其协议产生法律后果。法院根据协议的背景适用推定：</p>
+                        <ul class="feature-list">
+                            <li><strong>社交/家庭协议：</strong> 推定没有建立法律关系的意图（例如，家庭成员之间的协议，*Balfour v Balfour* 案）。如果存在严重后果或相反意图的证据，该推定可被推翻（例如，*Merritt v Merritt* 案，*Wakeling v Ripley* 案）。</li>
+                            <li><strong>商业协议：</strong> 推定有建立法律关系的意图。这可以通过明确的相反声明（例如"君子协定"条款）来推翻。</li>
+                        </ul>
+                        <p>法院最终采取客观方法，考虑所有情况。</p>
+                    </div>
+                </div>
+                 <div class="case-grid">
+                    <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>💑 Balfour v Balfour</span><span class="chinese">💑 Balfour v Balfour</span></span> <span class="case-year">[1919]</span></h4>
+                         <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>In domestic agreements (e.g., between spouses living amicably), there is a presumption that parties do not intend to create legally binding relations.</span><span class="chinese">在家庭协议中（例如，和睦相处的配偶之间），推定当事人不打算建立具有法律约束力的关系。</span></span></p></div>
+                    </div>
+                     <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>💔 Merritt v Merritt</span><span class="chinese">💔 Merritt v Merritt</span></span> <span class="case-year">[1970]</span></h4>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>The presumption against intention in domestic agreements can be rebutted when spouses are separated and put their agreement in writing, indicating they intend it to be binding.</span><span class="chinese">当配偶分居并将其协议书面化时，可以推翻家庭协议中不具约束力意图的推定，表明他们打算使其具有约束力。</span></span></p></div>
+                    </div>
+                    <div class="case-card">
+                        <h4><span class="bilingual-inline"><span>✈️ Wakeling v Ripley</span><span class="chinese">✈️ Wakeling v Ripley</span></span> <span class="case-year">(1951)</span></h4>
+                        <div class="case-principle"><h5><span class="bilingual-inline"><span>Principle</span><span class="chinese">原则</span></span></h5><p><span class="bilingual-inline"><span>The domestic presumption can be rebutted if the consequences of the agreement are very serious for one party (e.g., giving up a job and home to move countries based on a promise).</span><span class="chinese">如果协议的后果对一方非常严重（例如，基于承诺放弃工作和家园移居他国），则可以推翻家庭协议的推定。</span></span></p></div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="terms-breach-remedies" class="section">
+            <div class="section-header">                <div class="section-icon terms-breach-remedies">
+                    <span class="material-symbols-outlined">gavel</span>
+                </div>
+                <div class="section-title">
+                    <h2><span class="bilingual-inline"><span>Terms, Breach & Remedies</span><span class="chinese">条款、违约与救济</span></span></h2>
+                    <p class="subtitle"><span class="bilingual-inline"><span>Understanding the content of contracts and consequences of non-performance.</span><span class="chinese">理解合同内容及不履行的后果。</span></span></p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>Terms of a Contract (合同条款)</span><span class="chinese">合同条款</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p><span class="tooltip">Terms<span class="tooltiptext">Terms are provisions or stipulations in a contract that specify the rights and obligations of the parties involved.<span class="chinese-tooltip">条款是合同中规定相关各方权利和义务的条文或规定。</span></span></span> are the promises and stipulations that form the content of a contract. They can be:</p>
+                        <ul class="feature-list">
+                            <li><strong><span class="tooltip">Express Terms<span class="tooltiptext">Express terms are terms that are explicitly stated and agreed upon by the parties either in writing or orally.<span class="chinese-tooltip">明示条款是当事人明确说明并同意的条款，可以是书面或口头形式。</span></span></span>:</strong> Terms that are explicitly stated and agreed upon by the parties, either orally or in writing.</li>
+                            <li><strong><span class="tooltip">Implied Terms<span class="tooltiptext">Implied terms are not expressly stated but are assumed to be included in the contract by law, custom, or the nature of the agreement. They must be consistent with express terms.<span class="chinese-tooltip">默示条款虽未明确说明，但根据法律、惯例或协议性质被假定包含在合同中。它们必须与明示条款一致。</span></span></span>:</strong> Terms not expressly stated but are incorporated into the contract by law, custom/trade usage, or to give the contract business efficacy.</li>
+                        </ul>
+                        <p>Terms can also be classified by their importance:</p>
+                        <ul class="feature-list">
+                            <li><strong><span class="tooltip">Conditions<span class="tooltiptext">Conditions are fundamental terms of a contract that, if breached, entitle the innocent party to terminate the contract and claim damages.<span class="chinese-tooltip">条件是合同的基本条款。如果违反，受害方有权终止合同并要求赔偿损失。</span></span></span>:</strong> Essential terms going to the root of the contract. Breach allows the innocent party to terminate the contract and/or claim damages.</li>
+                            <li><strong><span class="tooltip">Warranties<span class="tooltiptext">Warranties are minor terms of a contract that, if breached, entitle the innocent party to claim damages but not to terminate the contract.<span class="chinese-tooltip">保证是合同的次要条款。如果违反，受害方可以要求赔偿损失，但无权终止合同。</span></span></span>:</strong> Less important terms. Breach only allows the innocent party to claim damages.</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>合同条款是构成合同内容的承诺和规定。它们可以是：</p>
+                        <ul class="feature-list">
+                            <li><strong>明示条款 (Express Terms)：</strong> 当事人明确陈述并同意的条款，可以是口头或书面形式。</li>
+                            <li><strong>默示条款 (Implied Terms)：</strong> 未明确说明但根据法律、惯例/行业惯例或为赋予合同商业效力而纳入合同的条款。</li>
+                        </ul>
+                        <p>条款也可以按其重要性分类：</p>
+                        <ul class="feature-list">
+                            <li><strong>条件 (Conditions)：</strong> 合同的根本性重要条款。违反条件允许无辜方终止合同和/或要求损害赔偿。</li>
+                            <li><strong>保证 (Warranties)：</strong> 次要条款。违反保证仅允许无辜方要求损害赔偿。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>Breach of Contract (违约)</span><span class="chinese">违约</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>A <span class="tooltip">breach of contract<span class="tooltiptext">Breach of Contract is the failure to perform any term of a contract without a legitimate legal excuse.<span class="chinese-tooltip">违约是指在没有合法法律借口的情况下未能履行合同的任何条款。</span></span></span> occurs when a party fails to perform their obligations under the contract without a lawful excuse.</p>
+                        <p>Types of Breach:</p>
+                        <ul class="feature-list">
+                            <li><strong>Actual Breach:</strong> Failure to perform when performance is due.</li>
+                            <li><strong><span class="tooltip">Repudiation<span class="tooltiptext">Repudiation (or anticipatory breach) occurs when a party indicates they will not perform their obligations before performance is due, or their actual performance is completely different from what was agreed, or they make no effort to perform.<span class="chinese-tooltip">拒绝履行（或预期违约）指一方在履行到期前表示不履行义务，或其实际履行与约定完全不同，或其不努力履行合同条款。</span></span></span> (Anticipatory Breach):</strong> When one party indicates, before performance is due, that they will not perform their obligations. This can occur if a party makes no effort to perform, performance is completely different, or they clearly indicate non-performance before the due time.</li>
+                            <li><strong>Partial Performance with Breach:</strong> Occurs when a party complies with some terms but breaches other terms.</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>违约是指一方当事人在没有合法理由的情况下未能履行其合同义务。</p>
+                        <p>违约类型：</p>
+                        <ul class="feature-list">
+                            <li><strong>实际违约 (Actual Breach)：</strong> 在履行到期时未能履行。</li>
+                            <li><strong>拒绝履行 (Repudiation) (预期违约 Anticipatory Breach)：</strong> 一方在履行到期前表示将不履行其义务。这可能发生在一方未努力履行、履行与约定完全不同，或在到期前明确表示不履行的情况下。</li>
+                            <li><strong>部分履行伴随违约 (Partial Performance with Breach)：</strong> 指一方遵守了合同的部分条款，但违反了其他条款。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                 <h3><span class="bilingual-inline"><span>Remedies for Breach of Contract (违约的救济措施)</span><span class="chinese">违约的救济措施</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                        <p>When a contract is breached, the innocent party is entitled to remedies. The primary common law remedy is damages. Equitable remedies may be available if damages are inadequate.</p>
+                        <p>Common Remedies:</p>
+                        <ul class="feature-list">
+                            <li><strong><span class="tooltip">Damages<span class="tooltiptext">Damages are monetary compensation awarded to the injured party for the loss suffered due to the breach of contract. The aim is to compensate the innocent party, not to punish the defendant. Loss must not be too remote (*Hadley v Baxendale*).<span class="chinese-tooltip">损害赔偿是判给受害方以弥补因违约所遭受损失的金钱补偿。其目的在于补偿无辜方，而非惩罚被告。损失不得过于间接 (*Hadley v Baxendale* 案)。</span></span></span>:</strong> Monetary compensation to put the innocent party in the position they would have been if the contract had been performed. The loss must not be too remote (see *Hadley v Baxendale* for rules on remoteness of damage). Damages aim to compensate, not punish.</li>
+                            <li><strong><span class="tooltip">Rescission<span class="tooltiptext">Rescission is the cancellation of a contract, returning the parties to their positions before the contract was made. It is the right to rescind the contract.<span class="chinese-tooltip">撤销是指取消合同，使双方恢复到订立合同之前的状态。这是撤销合同的权利。</span></span></span>:</strong> Setting the contract aside and restoring parties to their pre-contractual positions.</li>
+                            <li><strong><span class="tooltip">Specific Performance<span class="tooltiptext">Specific performance is a court order requiring a party to perform their obligations under the contract. It's typically used when damages are inadequate, such as for unique goods (e.g., land, rare art).<span class="chinese-tooltip">特定履行是法院命令一方履行其合同义务。通常在损害赔偿不足以弥补损失时使用，例如针对独一无二的物品（如土地、稀有艺术品）。</span></span></span>:</strong> A court order compelling a party to perform their contractual obligations. Usually granted when the subject matter is unique and damages are not an adequate remedy.</li>
+                            <li><strong><span class="tooltip">Injunction<span class="tooltiptext">An injunction is a court order requiring a party to do or refrain from doing a specific act. It can be prohibitive (stop an action) or mandatory (compel an action).<span class="chinese-tooltip">禁令是法院命令一方执行或禁止执行特定行为。它可以是禁止性的（停止某一行为）或强制性的（强制执行某一行为）。</span></span></span>:</strong> A court order restraining a party from doing something (prohibitory injunction) or compelling them to do something (mandatory injunction).</li>
+                        </ul>
+                        <p>Common law damages are awarded as of <span class="tooltip">right<span class="tooltiptext">This means the innocent party is entitled to damages once breach and loss are proven.<span class="chinese-tooltip">这意味着一旦证明违约和损失，无辜方就有权获得损害赔偿。</span></span></span>. Equitable remedies like specific performance and injunction are <span class="tooltip">discretionary<span class="tooltiptext">The court decides whether to grant these remedies based on fairness and justice; they are not automatic.<span class="chinese-tooltip">法院根据公平和正义决定是否授予这些救济措施；它们不是自动的。</span></span></span> and awarded when common law remedies are inadequate.</p>
+                    </div>
+                    <div class="chinese">
+                        <p>当合同被违反时，无辜方有权获得救济。主要的普通法救济是损害赔偿。如果损害赔偿不足，衡平法上的救济措施可能适用。</p>
+                        <p>常见救济措施：</p>
+                        <ul class="feature-list">
+                            <li><strong>损害赔偿 (Damages)：</strong> 金钱补偿，旨在使无辜方处于合同如期履行情况下的状态。损失不得过于间接（参见 *Hadley v Baxendale* 案关于损失间接性的规则）。损害赔偿旨在补偿，而非惩罚。</li>
+                            <li><strong>撤销 (Rescission)：</strong> 取消合同，使双方恢复到订立合同前的状态。</li>
+                            <li><strong>特定履行 (Specific Performance)：</strong> 法院命令强制一方履行其合同义务。通常在标的物独特且损害赔偿不足时授予。</li>
+                            <li><strong>禁令 (Injunction)：</strong> 法院命令禁止一方做某事（禁止性禁令）或强制其做某事（强制性禁令）。</li>
+                        </ul>
+                        <p>普通法上的损害赔偿是依法享有的权利。而像特定履行和禁令这样的衡平法救济是酌情决定的，在普通法救济不足时为在当事人之间实现正义而授予。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="scenarios" class="section">
+            <div class="section-header">                <div class="section-icon scenarios">
+                    <span class="material-symbols-outlined">groups</span>
+                </div>
+                <div class="section-title">
+                    <h2><span class="bilingual-inline"><span>Practice Scenarios &amp; IPAC Analysis</span><span class="chinese">案例练习与IPAC分析</span></span></h2>
+                    <p class="subtitle"><span class="bilingual-inline"><span>Applying legal principles to hypothetical situations.</span><span class="chinese">将法律原则应用于假设情境。</span></span></p>
+                </div>
+            </div>
+             <div class="content-card">
+                <h3><span class="bilingual-inline"><span>IPAC Method Explained</span><span class="chinese">IPAC方法解释</span></span></h3>
+                <div class="bilingual-text">
+                    <div class="english">
+                         <p>The IPAC method is a structured way to answer legal problem questions:</p>
+                        <ul class="feature-list">
+                            <li><strong>I</strong>ssue: Identify the key legal question(s) the parties are arguing about.</li>
+                            <li><strong>P</strong>rinciple: State the relevant legal principle(s) and authority (statute/case law) applicable to the facts.</li>
+                            <li><strong>A</strong>pplication: Apply the legal principles to the facts of the problem. Explain how and why the law applies. Consider arguments for both sides if applicable.</li>
+                            <li><strong>C</strong>onclusion: State your reasoned answer to the issue(s), linking facts and legal principles.</li>
+                        </ul>
+                    </div>
+                    <div class="chinese">
+                        <p>IPAC方法是回答法律问题的一种结构化方式：</p>
+                        <ul class="feature-list">
+                            <li><strong>I (Issue - 争议点)：</strong> 确定各方争论的关键法律问题。</li>
+                            <li><strong>P (Principle - 原则)：</strong> 陈述适用于事实的相关法律原则和依据（法规/判例法）。</li>
+                            <li><strong>A (Application - 适用)：</strong> 将法律原则应用于问题的事实。解释法律如何以及为何适用。如适用，考虑双方的论点。</li>
+                            <li><strong>C (Conclusion - 结论)：</strong> 对问题给出合理的答案，将事实与法律原则联系起来。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ipac-container">
+                <div class="ipac-scenario">
+                    <h4><span class="bilingual-inline"><span>Scenario 1: The Scooter Sale (Revocation)</span><span class="chinese">场景1：摩托车销售（撤销）</span></span></h4>
+                    <p><strong><span class="bilingual-inline"><span>Issue:</span><span class="chinese">争议点：</span></span></strong> <span class="bilingual-inline"><span>Is there an agreement between X and Y for the sale of the scooter?</span><span class="chinese">X和Y之间是否就摩托车销售达成协议？</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Principle:</span><span class="chinese">原则：</span></span></strong> <span class="bilingual-inline"><span>An offer may be revoked prior to acceptance. Acceptance must be made within the time prescribed and communicated to the offeror.</span><span class="chinese">要约可以在承诺前撤销。承诺必须在规定时间内作出并传达给要约人。</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Application:</span><span class="chinese">适用：</span></span></strong> <span class="bilingual-inline"><span>X made an offer to sell his scooter to Y for $2,000. X stated Y had a week to think about it. Y had been planning to accept but did not communicate her acceptance. X revoked his offer before acceptance by Y.</span><span class="chinese">X向Y发出以2000澳元出售摩托车的要约。X声明Y有一周时间考虑。Y计划接受要约但没有传达她的承诺。X在Y承诺前撤回其要约。</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Conclusion:</span><span class="chinese">结论：</span></span></strong> <span class="bilingual-inline"><span>There is no agreement between X and Y as the offer was revoked before acceptance.</span><span class="chinese">由于要约在承诺前被撤回，X和Y之间没有达成协议。</span></span></p>
+                    </div>
+                </div>
+                <div class="ipac-scenario">
+                    <h4><span class="bilingual-inline"><span>Scenario 2: The Bicycle Sale (Counter-Offer)</span><span class="chinese">场景2：自行车销售（反要约）</span></span></h4>
+                    <p><strong><span class="bilingual-inline"><span>Facts:</span><span class="chinese">事实：</span></span></strong> <span class="bilingual-inline"><span>X offers to sell his bicycle to Y for $100. Y tells X that he will only pay $90. X does not respond. Y then tells X that he now accepts the price of $100.</span><span class="chinese">X提出以100美元的价格将其自行车卖给Y。 Y告诉X他只愿意支付90美元。X没有回应。 Y随后告诉X他现在接受100美元的价格。</span></span></p>
+                     <div class="ipac-section-box">
+                        <p><strong><span class="bilingual-inline"><span>Issue:</span><span class="chinese">争议点：</span></span></strong> <span class="bilingual-inline"><span>Is there an agreement between X and Y for the sale of the bicycle?</span><span class="chinese">X和Y之间就自行车销售是否达成了协议？</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Principle:</span><span class="chinese">原则：</span></span></strong> <span class="bilingual-inline"><span>An offer may be accepted or rejected. A counter-offer occurs when the offeree puts an alternative proposition, contradicting the original offer's terms. A counter-offer destroys the previous offer and it cannot be revived (*Hyde v Wrench*).</span><span class="chinese">要约可以被接受或拒绝。 当受要约人提出与原要约条款相抵触的替代性建议时，即构成反要约。 反要约会终止原要约，且原要约不能恢复 (*Hyde v Wrench* 案)。</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Application:</span><span class="chinese">适用：</span></span></strong> <span class="bilingual-inline"><span>X offered to sell for $100. Y's statement of paying $90 was a counter-offer, rejecting X's $100 offer and making a new $90 offer. Y became the offeror, X the offeree. X did not accept Y's $90 counter-offer. Y's later attempt to accept the original $100 offer is invalid because that offer was destroyed by Y's counter-offer.</span><span class="chinese">X提出以100美元出售。 Y声称只支付90美元是反要约，拒绝了X的100美元要约，并提出了新的90美元要约。 Y成为了新的要约人，X是被要约人。X没有接受Y的90美元反要约。 Y后来试图接受最初的100美元要约是无效的，因为该要约已被Y的反要约终止。</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Conclusion:</span><span class="chinese">结论：</span></span></strong> <span class="bilingual-inline"><span>There is no agreement because Y's counter-offer was not accepted, and the original offer was destroyed.</span><span class="chinese">双方未达成协议，因为Y的反要约未被接受，且原始要约已被终止。</span></span></p>
+                    </div>
+                </div>
+                <div class="ipac-scenario">
+                    <h4><span class="bilingual-inline"><span>Scenario 3: Mr Lee & Mrs Smith Negotiation</span><span class="chinese">场景3：李先生与史密斯太太的谈判</span></span></h4>
+                    <p><strong><span class="bilingual-inline"><span>Scenario:</span><span class="chinese">情景：</span></span></strong> <span class="bilingual-inline"><span>Mr Lee advertised a bicycle for sale. Mrs Smith saw the ad and contacted Mr Lee. Dialogue: Mrs S: "How much?" Mr L: "$200, but will consider reasonable offers." Mrs S: "$180?" Mr L: "How about $190?" Mrs S: "Okay, that's good. It's a deal."</span><span class="chinese">李先生登广告出售自行车。史密斯太太看到广告后联系了李先生。对话：史密斯太太："多少钱？"李先生："200元，但可考虑合理还价。"史密斯太太："180元可以吗？"李先生："190元怎么样？"史密斯太太："好的，成交。"</span></span></p>
+                    <div class="ipac-section-box">
+                        <p><strong><span class="bilingual-inline"><span>Issue:</span><span class="chinese">争议点：</span></span></strong> <span class="bilingual-inline"><span>Has an agreement been reached?</span><span class="chinese">是否达成了协议？</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Principles:</span><span class="chinese">原则：</span></span></strong> <span class="bilingual-inline"><span>Advertisement is an ITT (*Partridge v Crittenden*). Supplying info is not an offer (*Harvey v Facey*). Offer contains clear terms. Counter-offer destroys original offer (*Hyde v Wrench*). Acceptance must be absolute and unqualified.</span><span class="chinese">广告是要约邀请 (*Partridge v Crittenden*)。提供信息并非要约 (*Harvey v Facey*)。要约包含明确条款。反要约终止原要约 (*Hyde v Wrench*)。承诺必须是绝对和无条件的。</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Application:</span><span class="chinese">适用：</span></span></strong> <span class="bilingual-inline"><span>Ad is ITT. Mrs S's price query is request for info; Mr L's reply is supply of info. Mrs S's "$180?" is an offer. Mr L's "$190?" is a counter-offer, destroying Mrs S's offer. Mrs S's "Okay, that's good. It's a deal" is acceptance of Mr L's $190 counter-offer.</span><span class="chinese">广告是要约邀请。史密斯太太询问价格是信息请求；李先生的回复是提供信息。史密斯太太的"180元可以吗？"是要约。李先生的"190元怎么样？"是反要约，终止了史密斯太太的要约。史密斯太太的"好的，成交"是对李先生190元反要约的承诺。</span></span></p>
+                        <p><strong><span class="bilingual-inline"><span>Conclusion:</span><span class="chinese">结论：</span></span></strong> <span class="bilingual-inline"><span>An agreement has been reached for $190.</span><span class="chinese">双方以190元的价格达成了协议。</span></span></p>
+                    </div>
+                </div>
+                 </div>
+        </section>        <section id="quiz" class="section">
+            <div class="section-header">                <div class="section-icon quiz">
+                    <span class="material-symbols-outlined">quiz</span>
+                </div>
+                <div class="section-title">
+                    <h2><span class="bilingual-inline"><span>Interactive Quiz & Knowledge Tests</span><span class="chinese">互动测验与知识测试</span></span></h2>
+                    <p class="subtitle"><span class="bilingual-inline"><span>Test your understanding of Contract Law.</span><span class="chinese">检验您对合同法的理解程度。</span></span></p>
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <h3><span class="bilingual-inline"><span>Unit 4.1: Offer and Acceptance Questions</span><span class="chinese">单元4.1：要约与承诺问题</span></span></h3>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>1. What is a contract?</span><span class="chinese">1. 什么是合同？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>A casual agreement between friends.</span><span class="chinese">朋友间的随意协议。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>A legally enforceable agreement between two or more parties.</span><span class="chinese">双方或多方之间具有法律约束力的协议。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>A promise made in a social context.</span><span class="chinese">在社交场合许下的承诺。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>A non-binding statement of intent.</span><span class="chinese">不具约束力的意向声明。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: A contract is a legally enforceable agreement between two or more parties that creates mutual obligations.</span><span class="chinese">解释：合同是双方或多方之间具有法律约束力的协议，产生相互义务。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>2. Which of the following best describes an offer?</span><span class="chinese">2. 以下哪项最能描述要约？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>An advertisement in a newspaper.</span><span class="chinese">报纸上的广告。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>A clear, unequivocal statement of the terms on which the offeror is prepared to be bound.</span><span class="chinese">要约人准备受其约束的条款的清晰、明确的声明。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>A display of goods in a shop.</span><span class="chinese">商店里的商品陈列。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>A negotiation between two parties.</span><span class="chinese">双方之间的谈判。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: An offer must be a clear and unequivocal statement of terms, distinguishing it from invitations to treat.</span><span class="chinese">解释：要约必须是条款的清晰明确的声明，以区别于要约邀请。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>3. What constitutes a rejection of an offer?</span><span class="chinese">3. 什么构成对要约的拒绝？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>An inquiry about the terms.</span><span class="chinese">对条款的询问。</span></span></li>
+                            <li data-correct="false">B) <span class="bilingual-inline"><span>Acceptance of the terms as they are.</span><span class="chinese">按原样接受条款。</span></span></li>
+                            <li data-correct="true">C) <span class="bilingual-inline"><span>A counter-offer.</span><span class="chinese">反要约。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Revocation by the offeror.</span><span class="chinese">要约人的撤销。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: C</span><span class="chinese">答案：C</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: A counter-offer constitutes a rejection of the original offer and creates a new offer.</span><span class="chinese">解释：反要约构成对原要约的拒绝并创建新的要约。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>4. When is an offer considered revoked?</span><span class="chinese">4. 何时认为要约被撤销？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>When the offeree rejects it.</span><span class="chinese">当受要约人拒绝它时。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>When the offeror decides to withdraw it before acceptance.</span><span class="chinese">当要约人决定在承诺前撤回它时。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>When the offeree accepts it.</span><span class="chinese">当受要约人接受它时。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>When the offeree requests more information.</span><span class="chinese">当受要约人要求更多信息时。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: An offer can be revoked by the offeror at any time before acceptance, provided the revocation is communicated.</span><span class="chinese">解释：要约可以在承诺前的任何时候被要约人撤销，前提是撤销已被传达。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>5. Which of the following is an invitation to treat?</span><span class="chinese">5. 以下哪项是要约邀请？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>A signed contract.</span><span class="chinese">签署的合同。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>An advertisement in a newspaper.</span><span class="chinese">报纸上的广告。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>A verbal agreement.</span><span class="chinese">口头协议。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>A written offer.</span><span class="chinese">书面要约。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Generally, advertisements are invitations to treat, not offers (Partridge v Crittenden).</span><span class="chinese">解释：通常，广告是要约邀请，而不是要约（Partridge v Crittenden案）。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>6. What is required for acceptance of an offer to be valid?</span><span class="chinese">6. 要约的承诺有效需要什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="true">A) <span class="bilingual-inline"><span>It must be communicated to the offeror.</span><span class="chinese">必须传达给要约人。</span></span></li>
+                            <li data-correct="false">B) <span class="bilingual-inline"><span>It must be in writing.</span><span class="chinese">必须是书面的。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>It must include a counter-offer.</span><span class="chinese">必须包括反要约。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>It must be conditional.</span><span class="chinese">必须是有条件的。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: A</span><span class="chinese">答案：A</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Acceptance must be communicated to the offeror (with exceptions like postal rule and unilateral contracts).</span><span class="chinese">解释：承诺必须传达给要约人（除了邮政规则和单边合同等例外）。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>7. What is a counter-offer?</span><span class="chinese">7. 什么是反要约？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>An inquiry about the offer.</span><span class="chinese">对要约的询问。</span></span></li>
+                            <li data-correct="false">B) <span class="bilingual-inline"><span>An unconditional acceptance of the original offer.</span><span class="chinese">对原始要约的无条件接受。</span></span></li>
+                            <li data-correct="true">C) <span class="bilingual-inline"><span>A new offer that changes the terms of the original offer.</span><span class="chinese">改变原始要约条款的新要约。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>A request for more time to consider the offer.</span><span class="chinese">要求更多时间考虑要约的请求。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: C</span><span class="chinese">答案：C</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: A counter-offer changes the terms and destroys the original offer (Hyde v Wrench).</span><span class="chinese">解释：反要约改变条款并终止原始要约（Hyde v Wrench案）。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>8. Which type of contract involves a promise in exchange for a specific act?</span><span class="chinese">8. 哪种类型的合同涉及用承诺交换特定行为？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Bilateral contract.</span><span class="chinese">双边合同。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Unilateral contract.</span><span class="chinese">单边合同。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Formal contract.</span><span class="chinese">正式合同。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Informal contract.</span><span class="chinese">非正式合同。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: A unilateral contract involves a promise in exchange for performing a specific act (e.g., reward contracts).</span><span class="chinese">解释：单边合同涉及用承诺交换履行特定行为（例如，悬赏合同）。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>9. What is the main feature of a bilateral contract?</span><span class="chinese">9. 双边合同的主要特征是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Only one party makes a promise.</span><span class="chinese">只有一方作出承诺。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Both parties exchange mutual promises.</span><span class="chinese">双方交换相互承诺。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>The contract must be in writing.</span><span class="chinese">合同必须是书面的。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>The contract is non-binding.</span><span class="chinese">合同不具约束力。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: In a bilateral contract, both parties exchange promises and both have obligations.</span><span class="chinese">解释：在双边合同中，双方交换承诺，都有义务。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>10. In the case of Harvey v Facey, what was the main legal principle established?</span><span class="chinese">10. 在Harvey v Facey案中，确立的主要法律原则是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Acceptance must be communicated to the offeror.</span><span class="chinese">承诺必须传达给要约人。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Supplying information when requested is not an offer.</span><span class="chinese">应要求提供信息不是要约。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Advertisements are invitations to treat.</span><span class="chinese">广告是要约邀请。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Acceptance must be absolute and unqualified.</span><span class="chinese">承诺必须是绝对和无条件的。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: In Harvey v Facey, stating the lowest price was merely supplying information, not making an offer.</span><span class="chinese">解释：在Harvey v Facey案中，说明最低价格仅是提供信息，而不是发出要约。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3><span class="bilingual-inline"><span>Unit 4.2: Consideration & Intention Questions</span><span class="chinese">单元4.2：对价与意图问题</span></span></h3>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>1. What is consideration in contract law?</span><span class="chinese">1. 合同法中的对价是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>A casual promise between friends.</span><span class="chinese">朋友间的随意承诺。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>The price paid for a promise.</span><span class="chinese">为承诺支付的代价。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>An informal agreement.</span><span class="chinese">非正式协议。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>A non-binding statement of intent.</span><span class="chinese">不具约束力的意向声明。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Consideration is the value given in return for a promise, essentially making the promise part of a bargain.</span><span class="chinese">解释：对价是为换取承诺而付出的价值，实质上使承诺成为交易的一部分。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>2. Which of the following best describes executed consideration?</span><span class="chinese">2. 以下哪项最能描述已履行的对价？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>A promise for a promise.</span><span class="chinese">一个承诺换取另一个承诺。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>An act for a promise.</span><span class="chinese">一个行为换取一个承诺。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>A promise for an act that has been done.</span><span class="chinese">为一个已经完成的行为作出的承诺。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Consideration of equal value.</span><span class="chinese">等值的对价。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Executed consideration is where one party performs an act in exchange for the other party's promise.</span><span class="chinese">解释：已履行的对价是指一方履行一项行为以换取另一方的承诺。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>3. In which case was the presumption established that parties to a domestic arrangement do not intend to create legal relations?</span><span class="chinese">3. 在哪个案件中确立了家庭安排的当事人不打算建立法律关系的推定？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Merritt v Merritt</span><span class="chinese">Merritt v Merritt</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Balfour v Balfour</span><span class="chinese">Balfour v Balfour</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Wakeling v Ripley</span><span class="chinese">Wakeling v Ripley</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Carlill v Carbolic Smoke Ball Co.</span><span class="chinese">Carlill v Carbolic Smoke Ball Co.</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Balfour v Balfour established the presumption that domestic/social agreements lack intention to create legal relations.</span><span class="chinese">解释：Balfour v Balfour确立了家庭/社交协议缺乏建立法律关系意图的推定。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>4. Which case is associated with the principle that past consideration is not valid consideration?</span><span class="chinese">4. 哪个案件与过去的对价不是有效对价的原则相关？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Stilk v Myrick</span><span class="chinese">Stilk v Myrick</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Roscorla v Thomas</span><span class="chinese">Roscorla v Thomas</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Balfour v Balfour</span><span class="chinese">Balfour v Balfour</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Merritt v Merritt</span><span class="chinese">Merritt v Merritt</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Roscorla v Thomas established that past consideration (acts done before a promise) is not valid consideration.</span><span class="chinese">解释：Roscorla v Thomas确立了过去的对价（在承诺之前完成的行为）不是有效的对价。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>5. In which case was it established that doing what one is already contractually bound to do is not sufficient consideration?</span><span class="chinese">5. 在哪个案件中确立了履行已有合同义务不是充分对价？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Roscorla v Thomas</span><span class="chinese">Roscorla v Thomas</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Stilk v Myrick</span><span class="chinese">Stilk v Myrick</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Wakeling v Ripley</span><span class="chinese">Wakeling v Ripley</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Balfour v Balfour</span><span class="chinese">Balfour v Balfour</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Stilk v Myrick established that performing an existing contractual duty is not sufficient consideration.</span><span class="chinese">解释：Stilk v Myrick确立了履行现有合同义务不是充分对价。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3><span class="bilingual-inline"><span>Unit 4.3: Terms, Breach & Remedies Questions</span><span class="chinese">单元4.3：条款、违约与救济问题</span></span></h3>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>1. What are express terms in a contract?</span><span class="chinese">1. 合同中的明示条款是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Terms that are implied by law.</span><span class="chinese">法律默示的条款。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Terms that are explicitly stated and agreed upon by the parties.</span><span class="chinese">当事人明确陈述并同意的条款。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Terms that are assumed to be included.</span><span class="chinese">假定包含的条款。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Terms that are ambiguous.</span><span class="chinese">含糊不清的条款。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Express terms are those explicitly stated and agreed upon by the parties, either orally or in writing.</span><span class="chinese">解释：明示条款是当事人明确陈述并同意的条款，可以是口头或书面形式。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>2. What is a condition in a contract?</span><span class="chinese">2. 合同中的条件是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>A minor term that, if breached, allows for damages but not termination.</span><span class="chinese">一个次要条款，如果违反，允许损害赔偿但不能终止。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>A fundamental term that, if breached, entitles the innocent party to terminate the contract and claim damages.</span><span class="chinese">一个基本条款，如果违反，赋予无辜方终止合同并要求损害赔偿的权利。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>A term that is not essential to the contract.</span><span class="chinese">对合同不是必要的条款。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>A term that has no legal effect.</span><span class="chinese">没有法律效力的条款。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Conditions are essential terms; their breach allows termination and damages.</span><span class="chinese">解释：条件是基本条款；违反条件允许终止合同和损害赔偿。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>3. What does breach of contract mean?</span><span class="chinese">3. 违约是什么意思？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Fulfilling all terms of a contract.</span><span class="chinese">履行合同的所有条款。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Failing to perform any term of a contract without a legitimate legal excuse.</span><span class="chinese">在没有合法法律借口的情况下未能履行合同的任何条款。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Amending the terms of a contract.</span><span class="chinese">修改合同条款。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>Negotiating new terms of a contract.</span><span class="chinese">谈判合同的新条款。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Breach of contract occurs when a party fails to perform their contractual obligations without lawful excuse.</span><span class="chinese">解释：当一方在没有合法理由的情况下未能履行其合同义务时，就发生了违约。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>4. What are damages in the context of contract law?</span><span class="chinese">4. 在合同法背景下，损害赔偿是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Punitive measures against the breaching party.</span><span class="chinese">对违约方的惩罚性措施。</span></span></li>
+                            <li data-correct="true">B) <span class="bilingual-inline"><span>Monetary compensation awarded to the injured party for the loss suffered due to the breach of contract.</span><span class="chinese">判给受害方以弥补因违约所遭受损失的金钱补偿。</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>The cancellation of a contract.</span><span class="chinese">合同的取消。</span></span></li>
+                            <li data-correct="false">D) <span class="bilingual-inline"><span>An order to perform specific duties.</span><span class="chinese">履行特定职责的命令。</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: B</span><span class="chinese">答案：B</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Damages are monetary compensation to put the innocent party in the position they would have been if the contract had been performed.</span><span class="chinese">解释：损害赔偿是金钱补偿，旨在使无辜方处于合同如期履行情况下的状态。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4><span class="bilingual-inline"><span>5. What remedy is most appropriate when the subject matter of a contract is unique and damages are inadequate?</span><span class="chinese">5. 当合同标的物独特且损害赔偿不足时，最合适的救济是什么？</span></span></h4>
+                        <ul class="quiz-options">
+                            <li data-correct="false">A) <span class="bilingual-inline"><span>Damages</span><span class="chinese">损害赔偿</span></span></li>
+                            <li data-correct="false">B) <span class="bilingual-inline"><span>Rescission</span><span class="chinese">撤销</span></span></li>
+                            <li data-correct="false">C) <span class="bilingual-inline"><span>Injunction</span><span class="chinese">禁令</span></span></li>
+                            <li data-correct="true">D) <span class="bilingual-inline"><span>Specific performance</span><span class="chinese">特定履行</span></span></li>
+                        </ul>
+                        <div class="quiz-answer-reveal"><button>Show Answer / 显示答案</button>
+                        <div class="quiz-explanation">
+                            <p><strong><span class="bilingual-inline"><span>Answer: D</span><span class="chinese">答案：D</span></span></strong></p>
+                            <p><span class="bilingual-inline"><span>Explanation: Specific performance is appropriate for unique subject matter where damages would be inadequate (e.g., rare art, land).</span><span class="chinese">解释：特定履行适用于独特的标的物，当损害赔偿不足时（例如，稀有艺术品、土地）。</span></span></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>    <div id="funFactModal" class="modal hidden">
+    <div id="modal-overlay" class="hidden"></div>
+    <div class="modal-content">
+        <span class="modal-close-btn">&times;</span>
+        <h3 id="funFactModalTitle"><span class="bilingual-inline">
+            <span>Fun Fact</span>
+            <span class="chinese">法律趣闻</span>
+        </span></h3>
+        <p id="funFactModalTextEn"></p>
+        <p id="funFactModalTextCn"></p>
+    </div>
+</div>
+
+<style>
+    #scrollToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            border: none;
+            outline: none;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        #scrollToTopBtn svg {
+            width: 24px;
+            height: 24px;
+        }
+</style>    <button id="scrollToTopBtn" title="Go to top / 回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06l-6.22-6.22V21a.75.75 0 01-1.5 0V4.81l-6.22 6.22a.75.75 0 11-1.06-1.06l7.5-7.5z" clip-rule="evenodd" />
+            </svg>
+    </button>        <script>
+document.addEventListener('DOMContentLoaded', function () {
+    /* Setup Fun Facts feature */
+    const funFacts = [
+        { 
+            en: "Did you know? The Carlill v Carbolic Smoke Ball Co. case involved a flu remedy during the 1889-1890 flu pandemic!",
+            cn: "你知道吗？Carlill v Carbolic Smoke Ball Co. 案件涉及1889-1890年流感大流行期间的一种流感治疗药物！"
+        },
+        {
+            en: "Fun fact: The 'snail in the bottle' case (Donoghue v Stevenson), famous in tort law, was settled out of court, and the snail's existence was never proven in court!",
+            cn: "法律趣闻：在著名的侵权法案例\"瓶中蜗牛案\"（Donoghue v Stevenson）中，案件庭外和解，瓶中是否真的有蜗牛从未在法庭上得到证实！"
+        },
+        { 
+            en: "Legal fun fact: In Hyde v Wrench (1840), the farm in dispute was worth £1000. That would be over £100,000 (around AU$190,000) in today's money!",  
+            cn: "法律趣闻：在Hyde v Wrench (1840)案中，争议的农场价值1000英镑。按今天的币值计算，那将超过10万英镑（约合19万澳元）！" 
+        },
+        { 
+            en: "Did you know? The Boots case (Pharmaceutical Society v Boots) was crucial for the legality of self-service shopping as we know it today.",
+            cn: "你知道吗？Pharmaceutical Society v Boots 案对我们今天所知的自助购物的合法性至关重要。" 
+        }
+    ];
+
+    // Create and set up the Fun Facts button
+    const funFactBtn = document.createElement('button');
+    funFactBtn.innerHTML = `<span class="funfact-button-span">
+        <span class="bilingual-inline">
+            <span>💡 Fun Fact</span>
+            <span class="chinese">趣闻</span>
+        </span>
+    </span>`;
+    funFactBtn.classList.add('fun-fact-button');
+
+    // Add click event listener to Fun Facts button
+    funFactBtn.addEventListener('click', () => {
+        const modal = document.getElementById('funFactModal');
+        const overlay = document.getElementById('modal-overlay');
+        const textEn = document.getElementById('funFactModalTextEn');
+        const textCn = document.getElementById('funFactModalTextCn');
+        const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
         
-        // Animation keyframes
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
-        `);
-        
-        // Initialize header animation when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            setupHeaderAnimation();
+        if(textEn && textCn && modal && overlay) {
+            textEn.textContent = fact.en;
+            textCn.textContent = fact.cn;
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+    });
+
+    if(document.body) {
+        document.body.appendChild(funFactBtn);
+    }
+
+    /* Setup Intersection Observer */
+    const observerOptions = { threshold: 0.03, rootMargin: '-80px 0px -20% 0px' }; 
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
         });
-    </script>
+    }, observerOptions);
+    
+    document.querySelectorAll('.section').forEach(section => {
+        sectionObserver.observe(section);
+    });
+    
+    /* Setup card hover effects */
+    document.querySelectorAll('.card, .case-card, .concept-card').forEach(card => {
+        card.addEventListener('mouseenter', function() { 
+            this.style.transform = 'translateY(-5px) scale(1.01)'; 
+        });
+        card.addEventListener('mouseleave', function() { 
+            this.style.transform = 'translateY(0) scale(1)'; 
+        });
+    });
+    
+    /* Navigation Setup */
+    const navButtons = document.querySelectorAll('.nav-button');
+    
+    function setActiveNavButton() {
+        const scrollPosition = window.scrollY;
+        let activeSection = null;
+        
+        document.querySelectorAll('.section').forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                activeSection = section.id;
+            }
+        });
+        
+        if (activeSection) {
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-target') === activeSection) {
+                    button.classList.add('active');
+                }
+            });
+        }
+    }
+    
+    function activateSectionFromHash() {
+        const hash = window.location.hash.slice(1);
+        if (hash) {
+            navButtons.forEach(button => button.classList.remove('active'));
+            const targetButton = document.querySelector(`.nav-button[data-target="${hash}"]`);
+            if (targetButton) {
+                targetButton.classList.add('active');
+                setTimeout(() => {
+                    const section = document.getElementById(hash);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
+            } else if (navButtons.length > 0) {
+                navButtons[0].classList.add('active');
+            }
+        } else if (navButtons.length > 0) {
+            navButtons[0].classList.add('active');
+        }
+        setActiveNavButton();
+    }
+    
+    activateSectionFromHash();
+    window.addEventListener('hashchange', activateSectionFromHash);
+    window.addEventListener('scroll', setActiveNavButton);
+    
+    /* Setup nav button click handlers */
+    navButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = button.getAttribute('data-target');
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                window.location.hash = targetId;
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+    /* Setup header animation */
+    const headerBg = document.getElementById('header-animation');
+    if (headerBg) {
+        const symbols = ['§', '⚖️', '↩️', '🔨', '✒️', '📋'];
+        for (let i = 0; i < 20; i++) {
+            const symbol = document.createElement('span');
+            symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            symbol.style.position = 'absolute';
+            symbol.style.left = `${Math.random() * 100}%`;
+            symbol.style.top = `${Math.random() * 100}%`;
+            symbol.style.opacity = '0.3';
+            symbol.style.animation = 'float 6s infinite';
+            symbol.style.animationDelay = `${Math.random() * 4}s`;
+            symbol.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 0.5 + 0.8})`;
+            headerBg.appendChild(symbol);
+        }
+    }
+
+    /* Quiz functionality */
+    document.querySelectorAll('.quiz-answer-reveal button').forEach(button => {
+        button.addEventListener('click', function() {
+            const questionDiv = this.closest('.quiz-question');
+            const explanation = questionDiv.querySelector('.quiz-explanation');
+            const options = questionDiv.querySelectorAll('.quiz-options li');
+            
+            if (explanation) {
+                explanation.style.display = explanation.style.display === 'block' ? 'none' : 'block';
+            }
+            
+            options.forEach(option => {
+                if (option.dataset.correct === 'true') {
+                    option.classList.add('correct');
+                } else if (option.classList.contains('selected')) {
+                    option.classList.add('incorrect');
+                }
+            });
+        });
+    });
+    
+    document.querySelectorAll('.quiz-options li').forEach(option => {
+        option.addEventListener('click', function() {
+            if (!this.closest('.quiz-question').querySelector('.quiz-explanation').style.display) {
+                const options = this.closest('.quiz-options').querySelectorAll('li');
+                options.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            }
+        });
+    });
+
+    /* Scroll to top functionality */
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (scrollToTopBtn) {
+        window.addEventListener('scroll', function() {
+            if (document.documentElement.scrollTop > 500) {
+                scrollToTopBtn.style.display = 'flex';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    /* Setup Modal close functionality */
+    const modal = document.getElementById('funFactModal');
+    const overlay = document.getElementById('modal-overlay');
+    const closeBtn = document.querySelector('.modal-close-btn');
+
+    if (closeBtn && modal && overlay) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        overlay.addEventListener('click', () => {
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    }
+});
+</script>
 </body>
 </html>
