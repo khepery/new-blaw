@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CORPORATE ESCAPE // NexCorp Tower</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,18 +103,21 @@ html, body {
 
 .hud-logo {
   font-family: 'Orbitron', monospace;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 4px;
   color: rgba(0,255,255,0.5);
   text-transform: uppercase;
 }
 .hud-left, .hud-right {
-  display: flex; align-items: center; gap: 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.hud-center {
+  flex: 1; display: flex; align-items: center; justify-content: center;
 }
 .hud-floor {
   font-family: 'Orbitron', monospace;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 3px;
   color: #0ff;
@@ -126,7 +129,7 @@ html, body {
 }
 .hud-battery-wrap {
   display: flex; align-items: center; gap: 6px;
-  font-size: 0.55rem; color: #0f9; letter-spacing: 2px;
+  font-size: 0.7rem; color: #0f9; letter-spacing: 2px;
 }
 .battery-bar {
   display: flex; gap: 2px; align-items: center;
@@ -150,7 +153,7 @@ html, body {
 }
 .hud-rec {
   display: flex; align-items: center; gap: 5px;
-  font-size: 0.6rem; color: #f55; letter-spacing: 3px;
+  font-size: 0.75rem; color: #f55; letter-spacing: 3px;
 }
 .rec-dot {
   width: 7px; height: 7px;
@@ -175,10 +178,16 @@ html, body {
 @keyframes slideIn  { from{ transform:translateX(60px);opacity:0 } to{ transform:translateX(0);opacity:1 } }
 @keyframes slideOut { from{ transform:translateX(0);opacity:1 } to{ transform:translateX(-60px);opacity:0 } }
 
+@keyframes dataWipeIn {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 0.3; }
+  100% { clip-path: inset(0 0% 0 0);   opacity: 1; }
+}
+.screen.data-wipe-in { animation: dataWipeIn 0.5s cubic-bezier(0.77,0,0.175,1) forwards; }
+
 /* ===== GLITCH EFFECT ===== */
 .glitch {
   position: relative;
-  animation: glitch-main 4s infinite;
+  animation: glitch-main 2.5s infinite;
 }
 .glitch::before, .glitch::after {
   content: attr(data-text);
@@ -187,31 +196,35 @@ html, body {
 }
 .glitch::before {
   color: #0ff; clip-path: polygon(0 15%,100% 15%,100% 30%,0 30%);
-  animation: glitch-top 4s infinite; opacity: 0.8;
+  animation: glitch-top 2.5s infinite; opacity: 0.8;
 }
 .glitch::after {
   color: #f0f; clip-path: polygon(0 65%,100% 65%,100% 80%,0 80%);
-  animation: glitch-bot 4s infinite; opacity: 0.8;
+  animation: glitch-bot 2.5s infinite; opacity: 0.8;
 }
 @keyframes glitch-main {
-  0%,90%,100%{ transform:none } 92%{ transform:skewX(-2deg) } 94%{ transform:skewX(2deg) }
+  0%,82%,100%{transform:none}
+  84%{transform:skewX(-3deg) scaleX(1.01)}
+  86%{transform:skewX(3deg)}
+  88%{transform:skewX(-1deg)}
+  90%{transform:none}
 }
 @keyframes glitch-top {
-  0%,89%,100%{ transform:none;opacity:0 }
-  90%{ transform:translate(-3px,1px);opacity:0.7 }
-  92%{ transform:translate(3px,-1px);opacity:0.7 }
-  94%{ transform:none;opacity:0 }
+  0%,81%,100%{transform:none;opacity:0}
+  82%{transform:translate(-4px,2px);opacity:0.8;color:#f0f}
+  84%{transform:translate(4px,-2px);opacity:0.8;color:#0ff}
+  86%{transform:none;opacity:0}
 }
 @keyframes glitch-bot {
-  0%,88%,100%{ transform:none;opacity:0 }
-  89%{ transform:translate(3px,1px);opacity:0.7 }
-  91%{ transform:translate(-3px,-1px);opacity:0.7 }
-  93%{ transform:none;opacity:0 }
+  0%,80%,100%{transform:none;opacity:0}
+  81%{transform:translate(4px,2px);opacity:0.8;color:#ff0}
+  83%{transform:translate(-4px,-2px);opacity:0.8;color:#f0f}
+  85%{transform:none;opacity:0}
 }
 
 /* ===== BOOT SCREEN ===== */
 #screen-boot {
-  gap: 18px;
+  gap: 12px;
   background: radial-gradient(ellipse 80% 60% at 50% 60%, #050d1a 0%, #000 100%);
 }
 .boot-logo-wrap {
@@ -233,19 +246,19 @@ html, body {
   text-shadow: 0 0 20px #0ff, 0 0 40px #0ff8, 0 0 80px #0ff4;
 }
 .boot-subtitle {
-  font-size: clamp(0.5rem, 1.5vw, 0.8rem);
+  font-size: clamp(0.7rem, 1.8vw, 1rem);
   color: rgba(0,255,255,0.6);
   letter-spacing: 6px;
   text-transform: uppercase;
 }
 .boot-version {
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   color: rgba(0,255,255,0.3);
   letter-spacing: 3px;
   margin-top: 4px;
 }
 .boot-prompt {
-  font-size: clamp(0.5rem,1.2vw,0.7rem);
+  font-size: clamp(0.65rem,1.4vw,0.85rem);
   color: #0ff;
   letter-spacing: 4px;
   animation: blink 1s step-end infinite;
@@ -255,7 +268,7 @@ html, body {
 /* ===== GENERIC BUTTONS ===== */
 .btn {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(0.5rem, 1.2vw, 0.7rem);
+  font-size: clamp(0.65rem, 1.4vw, 0.85rem);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #0ff;
@@ -288,6 +301,10 @@ html, body {
   backdrop-filter: blur(6px);
   padding: clamp(16px,2.5vw,28px);
   max-width: 700px; width: 90%;
+  box-shadow:
+    0 0 0 1px rgba(0,255,255,0.08),
+    0 0 40px rgba(0,255,255,0.06),
+    inset 0 0 20px rgba(0,10,30,0.5);
 }
 .content-panel::before {
   content: '';
@@ -300,7 +317,7 @@ html, body {
 /* ===== FLOOR HEADER ===== */
 .floor-header {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(0.5rem,1.2vw,0.7rem);
+  font-size: clamp(0.7rem,1.5vw,0.95rem);
   letter-spacing: 5px;
   color: #0ff;
   text-align: center;
@@ -310,11 +327,11 @@ html, body {
 .floor-header span { color: rgba(0,255,255,0.5); }
 
 .question-box {
-  font-size: clamp(0.6rem,1.4vw,0.82rem);
+  font-size: clamp(0.85rem,1.8vw,1.1rem);
   color: #b8d8f8;
   line-height: 1.7;
   text-align: center;
-  padding: 12px;
+  padding: 16px;
   border: 1px solid rgba(0,255,255,0.1);
   background: rgba(0,255,255,0.03);
   margin-bottom: 14px;
@@ -328,12 +345,12 @@ html, body {
 }
 .answer-btn {
   font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(0.5rem,1.1vw,0.65rem);
+  font-size: clamp(0.7rem,1.4vw,0.9rem);
   line-height: 1.4;
   color: #7ac;
   background: rgba(0,20,40,0.6);
   border: 1px solid rgba(0,180,255,0.25);
-  padding: 9px 12px;
+  padding: 10px 14px;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;
@@ -357,7 +374,7 @@ html, body {
   border-color: #0f8 !important;
   color: #0f8 !important;
   background: rgba(0,200,100,0.1) !important;
-  box-shadow: 0 0 12px rgba(0,200,80,0.4);
+  box-shadow: 0 0 12px rgba(0,200,80,0.4), 0 0 20px rgba(240,0,240,0.1);
 }
 .answer-btn.wrong {
   border-color: #f44 !important;
@@ -376,7 +393,7 @@ html, body {
   margin-top: 12px; min-height: 28px;
 }
 .feedback-msg {
-  font-size: clamp(0.5rem,1.1vw,0.65rem);
+  font-size: clamp(0.65rem,1.2vw,0.8rem);
   letter-spacing: 2px;
   padding: 4px 12px;
   border: 1px solid;
@@ -396,12 +413,19 @@ html, body {
   padding: 10px 16px;
   gap: 14px;
   z-index: 60;
-  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 #dialogue-box.hidden {
   transform: translateY(100%);
   opacity: 0;
   pointer-events: none;
+}
+#dialogue-box:not(.hidden) {
+  animation: materialize 0.4s ease forwards;
+}
+@keyframes materialize {
+  0%   { transform: translateY(20px) scaleY(0.8); opacity: 0; filter: blur(4px); }
+  60%  { transform: translateY(-3px) scaleY(1.02); opacity: 0.9; filter: blur(0); }
+  100% { transform: translateY(0) scaleY(1); opacity: 1; filter: blur(0); }
 }
 #dialogue-box::before {
   content: '';
@@ -431,20 +455,20 @@ html, body {
 .dialogue-content { flex: 1; min-width: 0; }
 #dialogue-speaker {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(0.45rem,1vw,0.62rem);
+  font-size: clamp(0.6rem,1.1vw,0.75rem);
   letter-spacing: 4px;
   color: #0ff;
   text-shadow: 0 0 8px #0ff;
   margin-bottom: 5px;
 }
 #dialogue-text {
-  font-size: clamp(0.5rem,1.1vw,0.7rem);
+  font-size: clamp(0.7rem,1.3vw,0.9rem);
   color: #d0e8ff;
   line-height: 1.55;
   min-height: 2.5em;
 }
 #dialogue-continue {
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   color: rgba(0,255,255,0.55);
   letter-spacing: 2px;
   margin-top: 5px;
@@ -465,7 +489,7 @@ html, body {
 .dnd-col { flex: 1; min-width: 0; }
 .dnd-col-label {
   font-family: 'Orbitron', monospace;
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   letter-spacing: 3px;
   color: rgba(0,180,255,0.6);
   text-align: center;
@@ -482,7 +506,7 @@ html, body {
   padding: 7px 10px;
   margin-bottom: 5px;
   cursor: grab;
-  font-size: clamp(0.45rem,1vw,0.6rem);
+  font-size: clamp(0.62rem,1.1vw,0.78rem);
   color: #7ce0ff;
   transition: all 0.2s;
   user-select: none;
@@ -510,7 +534,7 @@ html, body {
   min-height: 38px;
   padding: 5px 10px;
   margin-bottom: 5px;
-  font-size: clamp(0.45rem,1vw,0.58rem);
+  font-size: clamp(0.62rem,1.1vw,0.76rem);
   color: rgba(0,180,80,0.5);
   transition: all 0.2s;
   position: relative;
@@ -531,6 +555,12 @@ html, body {
   border-color: #0f8 !important;
   background: rgba(0,200,80,0.1) !important;
   box-shadow: 0 0 14px rgba(0,200,80,0.3) !important;
+  animation: slot-accept 0.5s ease;
+}
+@keyframes slot-accept {
+  0%   { transform: scaleX(1); }
+  50%  { transform: scaleX(1.03); box-shadow: 0 0 20px rgba(0,255,128,0.6); }
+  100% { transform: scaleX(1); }
 }
 .server-slot.wrong-slot {
   border-color: #f44 !important;
@@ -543,12 +573,12 @@ html, body {
 }
 .slot-num {
   font-family: 'Orbitron', monospace;
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   color: rgba(0,180,80,0.5);
   flex-shrink: 0; width: 16px;
 }
 .slot-content { flex: 1; line-height: 1.3; }
-.slot-empty-label { font-style: italic; opacity: 0.5; font-size: 0.5rem; }
+.slot-empty-label { font-style: italic; opacity: 0.5; font-size: 0.65rem; }
 .remove-btn {
   font-size: 0.7rem; cursor: pointer;
   color: rgba(255,100,100,0.5); flex-shrink: 0;
@@ -586,13 +616,13 @@ html, body {
   to{ transform:translate(-50%,-50%) rotate(360deg) }
 }
 .win-sub {
-  font-size: clamp(0.5rem,1.2vw,0.7rem);
+  font-size: clamp(0.65rem,1.4vw,0.85rem);
   color: rgba(0,255,128,0.6);
   letter-spacing: 4px;
   text-align: center;
 }
 .win-stats {
-  font-size: clamp(0.45rem,1vw,0.6rem);
+  font-size: clamp(0.6rem,1.1vw,0.75rem);
   color: rgba(0,255,128,0.45);
   letter-spacing: 2px;
   text-align: center;
@@ -603,6 +633,142 @@ html, body {
 .mt-12 { margin-top: 12px; }
 .tc    { text-align: center; }
 .hidden { display: none !important; }
+
+/* ===== HUD TICKER & CLOCK ===== */
+.hud-ticker-wrap {
+  overflow: hidden; width: clamp(80px,20vw,200px); height: 20px;
+}
+.hud-ticker {
+  display: inline-block; white-space: nowrap;
+  font-size: 0.5rem; color: rgba(0,255,255,0.35);
+  letter-spacing: 1px;
+  animation: ticker-scroll 18s linear infinite;
+}
+@keyframes ticker-scroll { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+.hud-clock {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  color: rgba(0,255,255,0.6);
+  letter-spacing: 2px;
+}
+
+/* ===== HEX GRID OVERLAY ===== */
+.bg-hex-grid {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V18L28 2l28 16v32L28 66zm0 0v34' fill='none' stroke='rgba(0,255,255,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 100px;
+}
+
+/* ===== BOOT TERMINAL ===== */
+.boot-terminal {
+  font-size: clamp(0.5rem, 1.1vw, 0.65rem);
+  color: rgba(0,255,255,0.5);
+  letter-spacing: 1px;
+  line-height: 1.8;
+  text-align: left;
+  width: clamp(200px,55vw,480px);
+  min-height: 4em;
+  margin-bottom: 2px;
+}
+.boot-terminal .bt-line { opacity: 0; animation: bt-appear 0.1s forwards; }
+@keyframes bt-appear { to { opacity: 1; } }
+
+/* ===== FLOOR TRANSITION OVERLAY ===== */
+.floor-transition {
+  position: absolute; inset: 0;
+  background: rgba(0,2,10,0.95);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 200; gap: 16px;
+}
+.ft-hex {
+  font-size: clamp(2rem,6vw,4rem);
+  color: #0ff;
+  animation: ft-spin 1s linear infinite;
+  text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+}
+@keyframes ft-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.ft-text {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(0.8rem,2vw,1.2rem);
+  color: #0ff; letter-spacing: 6px;
+  text-shadow: 0 0 12px #0ff;
+}
+.ft-cn {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: clamp(0.65rem,1.5vw,0.9rem);
+  color: rgba(100,220,255,0.65);
+  letter-spacing: 2px;
+}
+.ft-bar-wrap {
+  width: clamp(160px,35vw,280px); height: 4px;
+  background: rgba(0,255,255,0.15);
+  border: 1px solid rgba(0,255,255,0.3);
+}
+.ft-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #0ff, #0f8);
+  box-shadow: 0 0 8px #0ff;
+  transition: width 0.6s ease;
+}
+
+/* ===== CORRECT/WRONG OVERLAYS ===== */
+.correct-overlay {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0,255,128,0.15) 0%, transparent 70%);
+  z-index: 150; pointer-events: none;
+  animation: correct-pulse 0.8s ease-out forwards;
+}
+@keyframes correct-pulse {
+  0%   { opacity: 0; transform: scale(0.8); }
+  30%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+.wrong-overlay {
+  position: absolute; inset: 0;
+  background: rgba(255,30,30,0.18);
+  z-index: 150; pointer-events: none;
+  animation: wrong-flash 0.5s ease-out forwards;
+}
+@keyframes wrong-flash {
+  0%,50% { opacity: 1; }
+  100%   { opacity: 0; }
+}
+@keyframes screen-shake {
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-5px)}
+  40%,80%{transform:translateX(5px)}
+}
+#game-wrapper.shake { animation: screen-shake 0.4s ease; }
+
+/* ===== WIN HELICOPTER ===== */
+.win-helicopter {
+  position: absolute; bottom: 15%; font-size: clamp(1rem,3vw,2rem);
+  opacity: 0;
+  animation: heli-rise 3s ease-out 0.5s forwards;
+  filter: drop-shadow(0 0 8px rgba(0,255,128,0.8));
+  left: 50%; transform: translateX(-50%);
+  z-index: 6;
+}
+@keyframes heli-rise {
+  0%   { bottom: 5%; opacity: 0; }
+  30%  { opacity: 0.8; }
+  100% { bottom: 70%; opacity: 0; }
+}
+
+/* ===== BILINGUAL ===== */
+.cn-text {
+  display: block;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 0.85em;
+  color: rgba(100, 220, 255, 0.65);
+  margin-top: 3px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* ===== TYPEWRITER CURSOR ===== */
+.type-cursor { animation: blink 0.6s step-end infinite; color: #0ff; }
 </style>
 </head>
 <body>
@@ -611,6 +777,7 @@ html, body {
 
   <!-- ===== BACKGROUND ===== -->
   <div class="bg-grid"></div>
+  <div class="bg-hex-grid"></div>
 
   <!-- City skyline SVG -->
   <div class="bg-city">
@@ -707,12 +874,18 @@ html, body {
   <div class="bg-glow"></div>
   <div class="bg-scanlines"></div>
 
+  <!-- Particles canvas -->
+  <canvas id="particles-canvas" style="position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0.35;"></canvas>
+
   <!-- ===== HUD ===== -->
   <div id="hud">
     <div class="hud-left">
       <div class="hud-logo">NexCorp Sec</div>
       <div class="hud-divider"></div>
       <div class="hud-floor" id="hud-floor">FLOOR 0/5</div>
+    </div>
+    <div class="hud-center">
+      <div class="hud-ticker-wrap"><div class="hud-ticker" id="hud-ticker">NEXCORP SEC SYS v2.7 // BREACH ALERT // KNOWLEDGE VERIFICATION PROTOCOL ACTIVE // 安全验证协议 // AEGIS ONLINE //</div></div>
     </div>
     <div class="hud-right">
       <div class="hud-battery-wrap">
@@ -728,6 +901,8 @@ html, body {
       </div>
       <div class="hud-divider"></div>
       <div class="hud-rec"><div class="rec-dot"></div>REC</div>
+      <div class="hud-divider"></div>
+      <div class="hud-clock" id="hud-clock">00:00:00</div>
     </div>
   </div>
 
@@ -761,7 +936,9 @@ html, body {
     </div>
     <h1 class="boot-title glitch" data-text="CORPORATE ESCAPE">CORPORATE ESCAPE</h1>
     <p class="boot-subtitle">NexCorp Tower &nbsp;//&nbsp; Security Breach Protocol</p>
+    <p class="cn-text" style="text-align:center;font-size:clamp(0.6rem,1.5vw,0.85rem);letter-spacing:3px;color:rgba(0,255,255,0.45);">企业逃脱 // 奈克斯科普大厦入侵协议</p>
     <p class="boot-version">SYSTEM v2.7.1 &nbsp;|&nbsp; CLASSIFIED: TOP SECRET</p>
+    <div id="boot-terminal" class="boot-terminal"></div>
     <p class="boot-prompt" id="boot-prompt">▶ PRESS ANY KEY TO BEGIN ◀</p>
   </div>
 
@@ -770,6 +947,7 @@ html, body {
     <div class="content-panel">
       <div class="floor-header">
         <span>◈</span>&nbsp; FLOOR 01 &nbsp;// LOBBY TERMINAL &nbsp;<span>◈</span>
+        <span class="cn-text">大厅终端</span>
       </div>
       <div class="question-box" id="q1-text">
         SECURITY QUERY 01 — Loading…
@@ -784,6 +962,7 @@ html, body {
     <div class="content-panel">
       <div class="floor-header">
         <span>◈</span>&nbsp; FLOOR 02 &nbsp;// ARCHIVE VAULT &nbsp;<span>◈</span>
+        <span class="cn-text">档案保险库</span>
       </div>
       <div class="question-box" id="q2-text">
         SECURITY QUERY 02 — Loading…
@@ -798,6 +977,7 @@ html, body {
     <div class="content-panel">
       <div class="floor-header">
         <span>◈</span>&nbsp; FLOOR 03 &nbsp;// LAW MAINFRAME &nbsp;<span>◈</span>
+        <span class="cn-text">法律主机</span>
       </div>
       <div class="question-box" id="q3-text">
         SECURITY QUERY 03 — Loading…
@@ -812,6 +992,7 @@ html, body {
     <div class="content-panel">
       <div class="floor-header">
         <span>◈</span>&nbsp; FLOOR 04 &nbsp;// EXECUTIVE LEVEL &nbsp;<span>◈</span>
+        <span class="cn-text">行政层</span>
       </div>
       <div class="question-box" id="q4-text">
         SECURITY QUERY 04 — Loading…
@@ -826,26 +1007,28 @@ html, body {
     <div class="content-panel" style="max-width:840px;width:94%;">
       <div class="floor-header">
         <span>◈</span>&nbsp; FLOOR 05 &nbsp;// MAINFRAME CORE — FINAL LOCK &nbsp;<span>◈</span>
+        <span class="cn-text">主机核心 — 最终锁定</span>
       </div>
-      <div class="question-box" style="font-size:clamp(0.48rem,1vw,0.62rem);margin-bottom:10px;">
+      <div class="question-box" style="font-size:clamp(0.7rem,1.2vw,0.85rem);margin-bottom:10px;">
         Arrange the Australian Court Hierarchy into the server slots — slot 1 = HIGHEST authority, slot 5 = LOWEST.
         Drag each data drive and drop it into the correct slot to unlock the exit.
+        <span class="cn-text">将澳大利亚法院层级排列到服务器插槽中——插槽1=最高权威，插槽5=最低。将每个数据驱动器拖放到正确的插槽中以解锁出口。</span>
       </div>
       <div class="dnd-wrapper">
         <!-- Source column -->
         <div class="dnd-col" id="drives-col">
-          <div class="dnd-col-label">◄ DATA DRIVES ►</div>
+          <div class="dnd-col-label">◄ DATA DRIVES ► <span style="font-family:'Noto Sans SC',sans-serif;font-size:0.8em;color:rgba(100,220,255,0.6);">数据驱动器</span></div>
           <div id="drives-container"></div>
         </div>
         <!-- Target column -->
         <div class="dnd-col" id="slots-col">
-          <div class="dnd-col-label">◄ SERVER SLOTS ►</div>
+          <div class="dnd-col-label">◄ SERVER SLOTS ► <span style="font-family:'Noto Sans SC',sans-serif;font-size:0.8em;color:rgba(100,220,255,0.6);">服务器插槽</span></div>
           <div id="slots-container"></div>
         </div>
       </div>
       <div class="dnd-actions">
-        <button class="btn" id="submit-btn">SUBMIT &nbsp;▶▶</button>
-        <button class="btn" id="reset-btn" style="border-color:rgba(255,100,100,0.4);color:rgba(255,150,150,0.8);">RESET</button>
+        <button class="btn" id="submit-btn">SUBMIT &nbsp;▶▶ <span style="font-family:'Noto Sans SC',sans-serif;font-size:0.75em;">提交</span></button>
+        <button class="btn" id="reset-btn" style="border-color:rgba(255,100,100,0.4);color:rgba(255,150,150,0.8);">RESET <span style="font-family:'Noto Sans SC',sans-serif;font-size:0.75em;">重置</span></button>
       </div>
       <div class="feedback-row mt-8"><div id="f5-feedback" class="feedback-msg hidden"></div></div>
     </div>
@@ -861,16 +1044,18 @@ html, body {
         animation:spin-rays 20s linear infinite;border-radius:50%;">
       </div>
     </div>
+    <div class="win-helicopter" id="win-heli">🚁</div>
     <div class="win-title glitch" data-text="ACCESS GRANTED" style="z-index:10;">ACCESS GRANTED</div>
-    <p class="win-sub" style="z-index:10;">ESCAPE SEQUENCE COMPLETE — NEXCORP TOWER UNLOCKED</p>
+    <p class="win-sub" style="z-index:10;">ESCAPE SEQUENCE COMPLETE — NEXCORP TOWER UNLOCKED<span class="cn-text" style="color:rgba(0,255,128,0.5);">逃脱序列完成 — 奈克斯科普大厦已解锁</span></p>
     <p class="win-stats" id="win-stats" style="z-index:10;margin-top:4px;"></p>
     <div style="z-index:10;margin-top:18px;">
       <button class="btn" id="replay-btn" style="border-color:rgba(0,255,128,0.5);color:#0f8;">
         ↺ &nbsp; PLAY AGAIN
       </button>
     </div>
-    <div style="z-index:10;margin-top:10px;font-size:0.55rem;color:rgba(0,255,128,0.4);letter-spacing:2px;">
+    <div style="z-index:10;margin-top:10px;font-size:0.7rem;color:rgba(0,255,128,0.4);letter-spacing:2px;text-align:center;">
       KNOWLEDGE IS THE KEY — WELL DONE, AGENT.
+      <span class="cn-text" style="color:rgba(0,255,128,0.35);">知识是钥匙 — 干得好，特工。</span>
     </div>
   </div>
 
@@ -884,6 +1069,10 @@ html, body {
       <circle cx="40" cy="40" r="31" fill="none" stroke="rgba(0,255,255,0.15)" stroke-width="1"
         stroke-dasharray="5 3">
         <animateTransform attributeName="transform" type="rotate" from="0 40 40" to="360 40 40" dur="8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Counter-rotating ring -->
+      <circle cx="40" cy="40" r="26" fill="none" stroke="rgba(240,0,240,0.1)" stroke-width="1" stroke-dasharray="3 5">
+        <animateTransform attributeName="transform" type="rotate" from="360 40 40" to="0 40 40" dur="5s" repeatCount="indefinite"/>
       </circle>
       <!-- Tech lines -->
       <line x1="9"  y1="40" x2="16" y2="40" stroke="#0ff" stroke-width="0.8" opacity="0.7"/>
@@ -913,6 +1102,18 @@ html, body {
     </div>
   </div>
 
+  <!-- Floor transition overlay -->
+  <div id="floor-transition" class="floor-transition hidden">
+    <div class="ft-hex">&#x2B21;</div>
+    <div class="ft-text" id="ft-text">ACCESSING FLOOR 01...</div>
+    <div class="ft-cn" id="ft-cn">正在访问第一层...</div>
+    <div class="ft-bar-wrap"><div class="ft-bar" id="ft-bar"></div></div>
+  </div>
+
+  <!-- Correct / Wrong overlays -->
+  <div id="correct-overlay" class="correct-overlay hidden"></div>
+  <div id="wrong-overlay" class="wrong-overlay hidden"></div>
+
 </div><!-- end #game-wrapper -->
 
 <script>
@@ -940,99 +1141,122 @@ const FLOORS = [
     id: 'floor1',
     title: 'FLOOR 01',
     question: 'SECURITY QUERY 01: What is the HIGHEST court in the Australian legal system?',
+    questionCN: '安全查询01：澳大利亚法律体系中最高等级的法院是什么？',
     options: [
-      { text: 'Federal Court of Australia',             correct: false },
-      { text: 'High Court of Australia',                correct: true  },
-      { text: 'Supreme Court of New South Wales',       correct: false },
-      { text: 'Full Federal Court',                     correct: false },
+      { text: 'Federal Court of Australia',             textCN: '澳大利亚联邦法院',      correct: false },
+      { text: 'High Court of Australia',                textCN: '澳大利亚高等法院',      correct: true  },
+      { text: 'Supreme Court of New South Wales',       textCN: '新南威尔士州最高法院',  correct: false },
+      { text: 'Full Federal Court',                     textCN: '联邦全席法院',          correct: false },
     ],
     introLines: [
-      'Agent, you have breached NexCorp Tower. I am AEGIS — Automated Executive Guardian Intelligence System.',
-      'To reach the roof and escape, you must pass through five security checkpoints.',
-      'Each checkpoint tests your knowledge of Australian Business Law. Answer correctly to proceed.',
-      'Floor 1 is active. Answer the security query to gain access.',
+      ['Agent, you have breached NexCorp Tower. I am AEGIS — Automated Executive Guardian Intelligence System.', '特工，你已入侵奈克斯科普大厦。我是AEGIS——自动化行政守护智能系统。'],
+      ['To reach the roof and escape, you must pass through five security checkpoints.', '要到达屋顶并逃脱，你必须通过五个安全检查点。'],
+      ['Each checkpoint tests your knowledge of Australian Business Law. Answer correctly to proceed.', '每个检查点都会测试你对澳大利亚商业法的了解。答对方可继续。'],
+      ['Floor 1 is active. Answer the security query to gain access.', '第一层已激活。回答安全查询以获得访问权限。'],
     ],
     correctLine: 'Correct. The High Court of Australia is the apex court — the final arbiter of all federal and constitutional matters.',
+    correctLineCN: '正确。澳大利亚高等法院是顶级法院——所有联邦和宪法事务的最终裁决者。',
     wrongLine: 'Incorrect. The High Court of Australia sits at the pinnacle of the Australian court system. Remember that.',
+    wrongLineCN: '不正确。澳大利亚高等法院位于澳大利亚法院体系的顶端。请记住这一点。',
   },
   {
     id: 'floor2',
     title: 'FLOOR 02',
     question: 'SECURITY QUERY 02: Which source of law is created by Parliament and carries the greatest authority?',
+    questionCN: '安全查询02：哪种法律来源由议会创制，并具有最高权威？',
     options: [
-      { text: 'Common Law (judge-made law)',            correct: false },
-      { text: 'Delegated legislation',                  correct: false },
-      { text: 'Statute law (Acts of Parliament)',       correct: true  },
-      { text: 'Equity',                                 correct: false },
+      { text: 'Common Law (judge-made law)',            textCN: '普通法（法官制定的法律）', correct: false },
+      { text: 'Delegated legislation',                  textCN: '授权立法',              correct: false },
+      { text: 'Statute law (Acts of Parliament)',       textCN: '成文法（议会法案）',      correct: true  },
+      { text: 'Equity',                                 textCN: '衡平法',               correct: false },
     ],
     introLines: [
-      'Floor 2 cleared. Moving to the Archive Vault.',
-      'Security Query 02 loaded. Australian law has multiple sources. Your knowledge will be tested.',
+      ['Floor 2 cleared. Moving to the Archive Vault.', '第二层已通过。前往档案保险库。'],
+      ['Security Query 02 loaded. Australian law has multiple sources. Your knowledge will be tested.', '安全查询02已加载。澳大利亚法律有多种来源。你的知识将接受测试。'],
     ],
     correctLine: 'Confirmed. Statute law — Acts passed by Parliament — is the supreme source of law in Australia, overriding judge-made common law where they conflict.',
+    correctLineCN: '已确认。成文法——由议会通过的法案——是澳大利亚最高法律来源，在冲突时优先于法官制定的普通法。',
     wrongLine: 'Incorrect. While common law and equity are important, an Act of Parliament holds supreme authority and overrides conflicting judge-made law.',
+    wrongLineCN: '不正确。虽然普通法和衡平法很重要，但议会法案具有最高权威，在冲突时优先于法官制定的法律。',
   },
   {
     id: 'floor3',
     title: 'FLOOR 03',
     question: 'SECURITY QUERY 03: Which term describes a court\'s power to HEAR A CASE FOR THE FIRST TIME (not on appeal)?',
+    questionCN: '安全查询03：哪个术语描述法院"首次审理案件"的权力（而非上诉）？',
     options: [
-      { text: 'Appellate jurisdiction',                 correct: false },
-      { text: 'Original jurisdiction',                  correct: true  },
-      { text: 'Exclusive jurisdiction',                 correct: false },
-      { text: 'Federal jurisdiction',                   correct: false },
+      { text: 'Appellate jurisdiction',                 textCN: '上诉管辖权',  correct: false },
+      { text: 'Original jurisdiction',                  textCN: '初审管辖权',  correct: true  },
+      { text: 'Exclusive jurisdiction',                 textCN: '专属管辖权',  correct: false },
+      { text: 'Federal jurisdiction',                   textCN: '联邦管辖权',  correct: false },
     ],
     introLines: [
-      'Law Mainframe unlocked. Almost halfway, Agent.',
-      'Security Query 03 incoming — this concerns court jurisdiction.',
+      ['Law Mainframe unlocked. Almost halfway, Agent.', '法律主机已解锁。快到一半了，特工。'],
+      ['Security Query 03 incoming — this concerns court jurisdiction.', '安全查询03即将到来——这涉及法院管辖权。'],
     ],
     correctLine: 'Correct. "Original jurisdiction" means a court has the power to hear a matter for the first time. "Appellate jurisdiction" refers to reviewing decisions made by lower courts.',
+    correctLineCN: '正确。"初审管辖权"意味着法院有权首次审理案件。"上诉管辖权"是指审查下级法院裁决的权力。',
     wrongLine: 'Wrong. "Original jurisdiction" is the power to hear a case for the first time. "Appellate jurisdiction" is the power to review decisions on appeal.',
+    wrongLineCN: '错误。"初审管辖权"是首次审理案件的权力。"上诉管辖权"是上诉审查裁决的权力。',
   },
   {
     id: 'floor4',
     title: 'FLOOR 04',
     question: 'SECURITY QUERY 04: In Australian business law, what is the primary purpose of "civil law"?',
+    questionCN: '安全查询04：在澳大利亚商业法中，"民法"的主要目的是什么？',
     options: [
-      { text: 'To punish criminal behaviour on behalf of the State',         correct: false },
-      { text: 'To resolve disputes between private parties and provide remedies', correct: true },
-      { text: 'To regulate government power and constitutional rights',      correct: false },
-      { text: 'To enforce international trade agreements',                   correct: false },
+      { text: 'To punish criminal behaviour on behalf of the State',         textCN: '代表国家惩罚犯罪行为',        correct: false },
+      { text: 'To resolve disputes between private parties and provide remedies', textCN: '解决私人之间的纠纷并提供救济', correct: true },
+      { text: 'To regulate government power and constitutional rights',      textCN: '规范政府权力和宪法权利',        correct: false },
+      { text: 'To enforce international trade agreements',                   textCN: '执行国际贸易协议',             correct: false },
     ],
     introLines: [
-      'Executive Level — you are close, Agent.',
-      'One final query before the Mainframe Core.',
+      ['Executive Level — you are close, Agent.', '行政层——你快到了，特工。'],
+      ['One final query before the Mainframe Core.', '进入主机核心前的最后一次查询。'],
     ],
     correctLine: 'Affirmative. Civil law governs disputes between individuals, companies, and organisations, with remedies such as damages or injunctions — not criminal punishment.',
+    correctLineCN: '确认。民法管辖个人、公司和组织之间的纠纷，提供损害赔偿或禁令等救济——而非刑事处罚。',
     wrongLine: 'Negative. Civil law resolves private disputes and provides remedies like damages. Criminal law punishes offences against the State.',
+    wrongLineCN: '否定。民法解决私人纠纷，提供损害赔偿等救济。刑法惩罚针对国家的犯罪行为。',
   },
 ];
 
 // ── Court Hierarchy Data (Floor 5) ──────────
 const COURTS = [
-  { id: 'c1', label: 'High Court of Australia',            rank: 1 },
-  { id: 'c2', label: 'Court of Appeal / Full Federal Court', rank: 2 },
-  { id: 'c3', label: 'Supreme Court (State/Territory)',    rank: 3 },
-  { id: 'c4', label: 'District Court / County Court',      rank: 4 },
-  { id: 'c5', label: 'Magistrates Court / Local Court',    rank: 5 },
+  { id: 'c1', label: 'High Court of Australia',             labelCN: '高等法院',                  rank: 1 },
+  { id: 'c2', label: 'Court of Appeal / Full Federal Court', labelCN: '上诉法院 / 联邦全席法院',   rank: 2 },
+  { id: 'c3', label: 'Supreme Court (State/Territory)',     labelCN: '最高法院（州/领地）',         rank: 3 },
+  { id: 'c4', label: 'District Court / County Court',       labelCN: '地区法院 / 郡法院',          rank: 4 },
+  { id: 'c5', label: 'Magistrates Court / Local Court',     labelCN: '裁判官法院 / 地方法院',      rank: 5 },
 ];
 const NUM_SLOTS = 5;
 
 // ── Dialogue Lines ──────────────────────────
 const BOOT_INTRO = [
-  'System boot complete. NexCorp Tower perimeter compromised.',
-  'Agent, this is your only chance to access the roof helipad before lockdown.',
-  'I am AEGIS. I will… assist you. Though my primary directive is corporate security.',
-  'Prove your knowledge of Australian Business Law to unlock each floor.',
-  'The final lock requires you to correctly sequence the Australian Court Hierarchy.',
-  'Time is running out. Let\'s begin.',
+  ['System boot complete. NexCorp Tower perimeter compromised.', '系统启动完成。奈克斯科普大厦周界已被入侵。'],
+  ['Agent, this is your only chance to access the roof helipad before lockdown.', '特工，这是锁定前访问屋顶直升机停机坪的唯一机会。'],
+  ['I am AEGIS. I will… assist you. Though my primary directive is corporate security.', '我是AEGIS。我将……协助你。尽管我的首要指令是企业安全。'],
+  ['Prove your knowledge of Australian Business Law to unlock each floor.', '证明你对澳大利亚商业法的了解，以解锁每一层。'],
+  ['The final lock requires you to correctly sequence the Australian Court Hierarchy.', '最终锁需要你正确排列澳大利亚法院层级。'],
+  ['Time is running out. Let\'s begin.', '时间不多了。让我们开始吧。'],
 ];
 
 const WIN_LINES = [
-  'Remarkable. All five security checkpoints defeated.',
-  'The roof is unlocked. The helicopter is ready.',
-  'Your knowledge of Australian law is… impressive, Agent.',
-  'Initiating emergency exit protocol. Godspeed.',
+  ['Remarkable. All five security checkpoints defeated.', '了不起。所有五个安全检查点均已通过。'],
+  ['The roof is unlocked. The helicopter is ready.', '屋顶已解锁。直升机已就位。'],
+  ['Your knowledge of Australian law is… impressive, Agent.', '你对澳大利亚法律的了解……令人印象深刻，特工。'],
+  ['Initiating emergency exit protocol. Godspeed.', '启动紧急出口协议。一路平安。'],
+];
+
+// ── Boot Terminal Lines ─────────────────────
+const BOOT_TERMINAL_LINES = [
+  'BIOS v4.2.1 ... OK',
+  'CPU CORE CHECK ... 12/12 OK',
+  'MEMORY ALLOCATION: 64TB ... OK',
+  'SECURITY PROTOCOLS LOADING ...',
+  'AEGIS SUBSYSTEM ... ONLINE',
+  'NEXCORP NET INTERFACE ... ACTIVE',
+  '> BREACH DETECTED. INITIATING LOCKDOWN ...',
 ];
 
 // ── Constants ───────────────────────────────
@@ -1084,27 +1308,32 @@ function hideDialogue() {
   $('dialogue-box').classList.add('hidden');
 }
 
-let typeIndex = 0;
+let typeIndex  = 0;
 let typeTarget = '';
-let typeCb = null;
+let typeCN     = null;
+let typeCb     = null;
 
-function typeText(text, cb) {
+function typeText(text, cnText, cb) {
   clearTimeout(state.typeTimer);
-  $('dialogue-text').textContent = '';
+  $('dialogue-text').innerHTML = '';
   $('dialogue-continue').style.display = 'none';
   $('aegis-svg').classList.add('talking');
   typeTarget = text;
-  typeIndex = 0;
-  typeCb = cb;
+  typeCN     = cnText;
+  typeIndex  = 0;
+  typeCb     = cb;
   typeNext();
 }
 
 function typeNext() {
   if (typeIndex <= typeTarget.length) {
-    $('dialogue-text').textContent = typeTarget.slice(0, typeIndex);
+    $('dialogue-text').innerHTML = typeTarget.slice(0, typeIndex) + '<span class="type-cursor">&#x25AE;</span>';
     typeIndex++;
     state.typeTimer = setTimeout(typeNext, TYPEWRITER_CHAR_DELAY_MS);
   } else {
+    let html = typeTarget;
+    if (typeCN) html += `<span class="cn-text">${typeCN}</span>`;
+    $('dialogue-text').innerHTML = html;
     $('aegis-svg').classList.remove('talking');
     $('dialogue-continue').style.display = 'block';
   }
@@ -1113,16 +1342,18 @@ function typeNext() {
 function skipType() {
   if (typeIndex <= typeTarget.length) {
     clearTimeout(state.typeTimer);
-    $('dialogue-text').textContent = typeTarget;
+    let html = typeTarget;
+    if (typeCN) html += `<span class="cn-text">${typeCN}</span>`;
+    $('dialogue-text').innerHTML = html;
     typeIndex = typeTarget.length + 1;
     $('aegis-svg').classList.remove('talking');
     $('dialogue-continue').style.display = 'block';
   }
 }
 
-// Queue of dialogue lines with a final callback
+// Queue — lines can be [enText, cnText] pairs or plain strings
 function runDialogueQueue(lines, cb) {
-  state.dialogueQueue = [...lines];
+  state.dialogueQueue    = lines.map(l => Array.isArray(l) ? l : [l, null]);
   state.dialogueCallback = cb;
   showDialogue();
   advanceDialogue();
@@ -1138,8 +1369,8 @@ function advanceDialogue() {
     }
     return;
   }
-  const line = state.dialogueQueue.shift();
-  typeText(line, null);
+  const [enText, cnText] = state.dialogueQueue.shift();
+  typeText(enText, cnText, null);
 }
 
 // Dialogue click/key handler
@@ -1160,7 +1391,6 @@ document.addEventListener('keydown', e => {
 // ── Boot Screen ──────────────────────────────
 function startGame() {
   $('boot-prompt').style.animation = 'none';
-  goToScreen('floor1');
   state.floor = 0;
   updateHUD();
   setTimeout(() => {
@@ -1172,38 +1402,58 @@ function bootKeyHandler(e) { startGame(); }
 document.addEventListener('keydown', bootKeyHandler, { once: true });
 $('screen-boot').addEventListener('click', startGame, { once: true });
 
+// ── Floor Transition ─────────────────────────
+function showFloorTransition(floorNum, cb) {
+  const overlay = $('floor-transition');
+  const ftText  = $('ft-text');
+  const ftCn    = $('ft-cn');
+  const ftBar   = $('ft-bar');
+  const floorNames = ['大厅终端', '档案保险库', '法律主机', '行政层', '主机核心'];
+  ftText.textContent = `ACCESSING FLOOR ${String(floorNum).padStart(2, '0')}...`;
+  ftCn.textContent   = `正在访问 ${floorNames[floorNum - 1] || ''}...`;
+  ftBar.style.width  = '0%';
+  overlay.classList.remove('hidden');
+  setTimeout(() => { ftBar.style.width = '100%'; }, 50);
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+    ftBar.style.width = '0%';
+    cb();
+  }, 900);
+}
+
 // ── MCQ Floors ───────────────────────────────
 function startFloor(floorIdx) {
   const fl = FLOORS[floorIdx];
   state.floor = floorIdx + 1;
   updateHUD();
 
-  goToScreen(`floor${floorIdx + 1}`);
+  showFloorTransition(floorIdx + 1, () => {
+    goToScreen(`floor${floorIdx + 1}`);
 
-  const qEl   = $(`q${floorIdx + 1}-text`);
-  const aEl   = $(`q${floorIdx + 1}-answers`);
-  const fbEl  = $(`q${floorIdx + 1}-feedback`);
+    const qEl  = $(`q${floorIdx + 1}-text`);
+    const aEl  = $(`q${floorIdx + 1}-answers`);
+    const fbEl = $(`q${floorIdx + 1}-feedback`);
 
-  qEl.textContent = fl.question;
-  aEl.innerHTML   = '';
-  fbEl.classList.add('hidden');
-  fbEl.textContent = '';
+    qEl.innerHTML  = fl.question + (fl.questionCN ? `<span class="cn-text">${fl.questionCN}</span>` : '');
+    aEl.innerHTML  = '';
+    fbEl.classList.add('hidden');
+    fbEl.innerHTML = '';
 
-  const shuffled = shuffle(fl.options.map((o, i) => ({ ...o, orig: i })));
-  const labels   = ['A', 'B', 'C', 'D'];
+    const shuffled = shuffle(fl.options.map((o, i) => ({ ...o, orig: i })));
+    const labels   = ['A', 'B', 'C', 'D'];
 
-  shuffled.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className   = 'answer-btn';
-    btn.textContent = `${labels[i]}. ${opt.text}`;
-    btn.addEventListener('click', () => handleAnswer(opt.correct, floorIdx, btn, aEl, fbEl));
-    aEl.appendChild(btn);
+    shuffled.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'answer-btn';
+      btn.innerHTML = `${labels[i]}. ${opt.text}${opt.textCN ? `<span class="cn-text">${opt.textCN}</span>` : ''}`;
+      btn.addEventListener('click', () => handleAnswer(opt.correct, floorIdx, btn, aEl, fbEl));
+      aEl.appendChild(btn);
+    });
+
+    if (fl.introLines && fl.introLines.length > 0) {
+      runDialogueQueue(fl.introLines, null);
+    }
   });
-
-  // Show intro lines if floor 1, else just quick tip
-  if (fl.introLines && fl.introLines.length > 0) {
-    runDialogueQueue(fl.introLines, null);
-  }
 }
 
 function handleAnswer(isCorrect, floorIdx, clickedBtn, aEl, fbEl) {
@@ -1212,30 +1462,45 @@ function handleAnswer(isCorrect, floorIdx, clickedBtn, aEl, fbEl) {
   clickedBtn.classList.add(isCorrect ? 'correct' : 'wrong');
 
   if (isCorrect) {
-    fbEl.textContent = '▶ ACCESS GRANTED';
+    fbEl.innerHTML = '&#x25BA; ACCESS GRANTED<span class="cn-text">访问已授权</span>';
     fbEl.className   = 'feedback-msg ok';
     fbEl.classList.remove('hidden');
     state.score++;
+
+    // Correct overlay flash
+    const co = $('correct-overlay');
+    co.classList.remove('hidden');
+    setTimeout(() => co.classList.add('hidden'), 800);
 
     const fl = FLOORS[floorIdx];
     setTimeout(() => {
       hideDialogue();
       if (fl.correctLine) {
-        runDialogueQueue([fl.correctLine], () => advanceToNextFloor(floorIdx));
+        runDialogueQueue([[fl.correctLine, fl.correctLineCN]], () => advanceToNextFloor(floorIdx));
       } else {
         advanceToNextFloor(floorIdx);
       }
     }, 600);
   } else {
-    fbEl.textContent = '✕ ACCESS DENIED — TRY AGAIN';
+    fbEl.innerHTML = '&#x2715; ACCESS DENIED &#x2014; TRY AGAIN<span class="cn-text">访问被拒绝 — 请重试</span>';
     fbEl.className   = 'feedback-msg err';
     fbEl.classList.remove('hidden');
+
+    // Wrong overlay flash + screen shake
+    const wo = $('wrong-overlay');
+    const gw = $('game-wrapper');
+    wo.classList.remove('hidden');
+    gw.classList.add('shake');
+    setTimeout(() => {
+      wo.classList.add('hidden');
+      gw.classList.remove('shake');
+    }, 400);
 
     const fl = FLOORS[floorIdx];
     setTimeout(() => {
       hideDialogue();
       if (fl.wrongLine) {
-        runDialogueQueue([fl.wrongLine], () => resetFloor(floorIdx));
+        runDialogueQueue([[fl.wrongLine, fl.wrongLineCN]], () => resetFloor(floorIdx));
       } else {
         resetFloor(floorIdx);
       }
@@ -1249,8 +1514,7 @@ function resetFloor(floorIdx) {
 
 function advanceToNextFloor(floorIdx) {
   if (floorIdx < FLOORS.length - 1) {
-    const nextFl = FLOORS[floorIdx + 1];
-    runDialogueQueue(nextFl.introLines, () => startFloor(floorIdx + 1));
+    startFloor(floorIdx + 1);
   } else {
     // All MCQ done, go to Floor 5
     initFloor5();
@@ -1261,65 +1525,68 @@ function advanceToNextFloor(floorIdx) {
 function initFloor5() {
   state.floor = 5;
   updateHUD();
-  goToScreen('floor5');
 
-  // Reset slot state
-  for (let i = 1; i <= NUM_SLOTS; i++) state.slots[i] = null;
+  showFloorTransition(5, () => {
+    goToScreen('floor5');
 
-  // Build drives (shuffled)
-  const drivesEl = $('drives-container');
-  drivesEl.innerHTML = '';
-  const shuffled = shuffle([...COURTS]);
-  shuffled.forEach(court => {
-    const el = document.createElement('div');
-    el.className   = 'data-drive';
-    el.id          = `drive-${court.id}`;
-    el.draggable   = true;
-    el.dataset.id  = court.id;
-    el.innerHTML   = `<span class="drive-icon">▣</span><span class="drive-label">${court.label}</span>`;
+    // Reset slot state
+    for (let i = 1; i <= NUM_SLOTS; i++) state.slots[i] = null;
 
-    // Desktop drag
-    el.addEventListener('dragstart', onDragStart);
-    el.addEventListener('dragend',   onDragEnd);
+    // Build drives (shuffled)
+    const drivesEl = $('drives-container');
+    drivesEl.innerHTML = '';
+    const shuffled = shuffle([...COURTS]);
+    shuffled.forEach(court => {
+      const el = document.createElement('div');
+      el.className   = 'data-drive';
+      el.id          = `drive-${court.id}`;
+      el.draggable   = true;
+      el.dataset.id  = court.id;
+      el.innerHTML   = `<span class="drive-icon">▣</span><span class="drive-label">${court.label}${court.labelCN ? `<span class="cn-text">${court.labelCN}</span>` : ''}</span>`;
 
-    // Touch drag
-    el.addEventListener('touchstart',  onTouchStart, { passive: false });
-    el.addEventListener('touchmove',   onTouchMove,  { passive: false });
-    el.addEventListener('touchend',    onTouchEnd);
+      // Desktop drag
+      el.addEventListener('dragstart', onDragStart);
+      el.addEventListener('dragend',   onDragEnd);
 
-    drivesEl.appendChild(el);
+      // Touch drag
+      el.addEventListener('touchstart',  onTouchStart, { passive: false });
+      el.addEventListener('touchmove',   onTouchMove,  { passive: false });
+      el.addEventListener('touchend',    onTouchEnd);
+
+      drivesEl.appendChild(el);
+    });
+
+    // Build slots
+    const slotsEl = $('slots-container');
+    slotsEl.innerHTML = '';
+    for (let i = 1; i <= NUM_SLOTS; i++) {
+      const slot = document.createElement('div');
+      slot.className  = 'server-slot';
+      slot.id         = `slot-${i}`;
+      slot.dataset.slot = i;
+      slot.innerHTML  = `<span class="slot-num">${i}</span><span class="slot-content"><span class="slot-empty-label">EMPTY SLOT</span></span>`;
+
+      slot.addEventListener('dragover',  onSlotDragOver);
+      slot.addEventListener('dragleave', onSlotDragLeave);
+      slot.addEventListener('drop',      onSlotDrop);
+
+      slotsEl.appendChild(slot);
+    }
+
+    $('submit-btn').onclick = submitFloor5;
+    $('reset-btn').onclick  = initFloor5;
+
+    const f5fb = $('f5-feedback');
+    f5fb.classList.add('hidden');
+    f5fb.innerHTML = '';
+
+    const f5intro = [
+      ['The final lock. The court hierarchy data drives are scrambled.', '最终锁定。法院层级数据驱动器已被打乱。'],
+      ['Slot 1 = Highest authority. Slot 5 = Lowest. Drag each drive to the correct slot.', '插槽1=最高权威。插槽5=最低。将每个驱动器拖到正确的插槽中。'],
+      ['Get this right, and the roof is yours.', '答对了，屋顶就是你的。'],
+    ];
+    runDialogueQueue(f5intro, null);
   });
-
-  // Build slots
-  const slotsEl = $('slots-container');
-  slotsEl.innerHTML = '';
-  for (let i = 1; i <= NUM_SLOTS; i++) {
-    const slot = document.createElement('div');
-    slot.className  = 'server-slot';
-    slot.id         = `slot-${i}`;
-    slot.dataset.slot = i;
-    slot.innerHTML  = `<span class="slot-num">${i}</span><span class="slot-content"><span class="slot-empty-label">EMPTY SLOT</span></span>`;
-
-    slot.addEventListener('dragover',  onSlotDragOver);
-    slot.addEventListener('dragleave', onSlotDragLeave);
-    slot.addEventListener('drop',      onSlotDrop);
-
-    slotsEl.appendChild(slot);
-  }
-
-  $('submit-btn').onclick = submitFloor5;
-  $('reset-btn').onclick  = initFloor5;
-
-  const f5fb = $('f5-feedback');
-  f5fb.classList.add('hidden');
-  f5fb.textContent = '';
-
-  const f5intro = [
-    'The final lock. The court hierarchy data drives are scrambled.',
-    'Slot 1 = Highest authority. Slot 5 = Lowest. Drag each drive to the correct slot.',
-    'Get this right, and the roof is yours.',
-  ];
-  runDialogueQueue(f5intro, null);
 }
 
 // ── Desktop Drag Events ──────────────────────
@@ -1364,7 +1631,8 @@ function onTouchStart(e) {
   clone.style.cssText = `
     position:fixed; opacity:0.85; pointer-events:none; z-index:999;
     width:${drive.offsetWidth}px; transform:scale(1.05);
-    transition:none; border-color:#0ff; box-shadow:0 0 16px rgba(0,255,255,0.5);
+    transition:none; border-color:#0ff;
+    box-shadow:0 0 20px rgba(0,255,255,0.6), 0 0 40px rgba(240,0,240,0.3);
   `;
   document.body.appendChild(clone);
   state.touchClone = clone;
@@ -1456,7 +1724,7 @@ function renderSlot(slotIndex) {
     slotEl.className = 'server-slot filled';
     slotEl.innerHTML = `
       <span class="slot-num">${slotIndex}</span>
-      <span class="slot-content">▣ ${court.label}</span>
+      <span class="slot-content">▣ ${court.label}${court.labelCN ? `<span class="cn-text">${court.labelCN}</span>` : ''}</span>
       <button class="remove-btn" data-slot="${slotIndex}" title="Remove">✕</button>
     `;
     slotEl.querySelector('.remove-btn').addEventListener('click', () => {
@@ -1487,7 +1755,7 @@ function submitFloor5() {
   // Check all slots filled
   for (let i = 1; i <= NUM_SLOTS; i++) {
     if (!state.slots[i]) {
-      fbEl.textContent = `✕ SLOT ${i} IS EMPTY — FILL ALL SLOTS`;
+      fbEl.innerHTML = `&#x2715; SLOT ${i} IS EMPTY &#x2014; FILL ALL SLOTS<span class="cn-text">插槽 ${i} 为空——请填满所有插槽</span>`;
       fbEl.className = 'feedback-msg err';
       fbEl.classList.remove('hidden');
       return;
@@ -1507,7 +1775,7 @@ function submitFloor5() {
   }
 
   if (allCorrect) {
-    fbEl.textContent = '▶ HIERARCHY CONFIRMED — MAINFRAME UNLOCKED';
+    fbEl.innerHTML = '&#x25BA; HIERARCHY CONFIRMED &#x2014; MAINFRAME UNLOCKED<span class="cn-text">▶ 层级已确认 — 主机已解锁</span>';
     fbEl.className = 'feedback-msg ok';
     fbEl.classList.remove('hidden');
     state.score++;
@@ -1515,10 +1783,12 @@ function submitFloor5() {
       runDialogueQueue(WIN_LINES, () => showWinScreen());
     }, 800);
   } else {
-    fbEl.textContent = '✕ INCORRECT SEQUENCE — Red slots are wrong. Reset and try again.';
+    fbEl.innerHTML = '&#x2715; INCORRECT SEQUENCE &#x2014; Red slots are wrong. Reset and try again.<span class="cn-text">✕ 序列错误 — 红色插槽有误。重置并重试。</span>';
     fbEl.className = 'feedback-msg err';
     fbEl.classList.remove('hidden');
-    runDialogueQueue(['Incorrect sequence detected. Red slots indicate errors. Reset and re-sequence the hierarchy.'], null);
+    runDialogueQueue([
+      ['Incorrect sequence detected. Red slots indicate errors. Reset and re-sequence the hierarchy.', '检测到错误序列。红色插槽表示错误。重置并重新排列层级。']
+    ], null);
   }
 }
 
@@ -1541,6 +1811,63 @@ $('replay-btn').addEventListener('click', () => {
   $('screen-boot').addEventListener('click', startGame, { once: true });
   document.addEventListener('keydown', bootKeyHandler, { once: true });
 });
+
+// ── HUD Clock ────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  const el = $('hud-clock');
+  if (el) el.textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Boot Terminal Sequence ────────────────────
+function initBootTerminal() {
+  const term = $('boot-terminal');
+  if (!term) return;
+  term.innerHTML = '';
+  BOOT_TERMINAL_LINES.forEach((line, i) => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'bt-line';
+      el.textContent = line;
+      term.appendChild(el);
+    }, i * 260);
+  });
+}
+initBootTerminal();
+
+// ── Particles Canvas ─────────────────────────
+(function initParticles() {
+  const canvas  = $('particles-canvas');
+  if (!canvas) return;
+  const ctx     = canvas.getContext('2d');
+  const wrapper = $('game-wrapper');
+  const W = wrapper.offsetWidth  || 1280;
+  const H = wrapper.offsetHeight || 720;
+  canvas.width  = W;
+  canvas.height = H;
+  const cols  = Math.floor(W / 18);
+  const drops = Array(cols).fill(0).map(() => Math.random() * H / 14);
+  const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ#$%&';
+  function draw() {
+    ctx.fillStyle = 'rgba(0,2,10,0.05)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = '12px Share Tech Mono, monospace';
+    drops.forEach((y, i) => {
+      const char  = chars[Math.floor(Math.random() * chars.length)];
+      const alpha = Math.random() * 0.5 + 0.1;
+      ctx.fillStyle = `rgba(0,255,255,${alpha})`;
+      ctx.fillText(char, i * 18, y * 14);
+      if (y * 14 > H && Math.random() > 0.975) drops[i] = 0;
+      else drops[i] += 0.5;
+    });
+  }
+  setInterval(draw, 60);
+})();
 
 // ── Init ──────────────────────────────────────
 updateHUD();
