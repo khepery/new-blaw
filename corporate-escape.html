@@ -24,8 +24,8 @@ html, body {
   position: relative;
   width: 100vw;
   height: calc(100vw * 9 / 16);
-  max-width: 1280px;
-  max-height: 720px;
+  max-width: 1600px;
+  max-height: 900px;
   background: #03080f;
   overflow: hidden;
   box-shadow: 0 0 80px rgba(0,255,255,0.15), 0 0 200px rgba(0,100,255,0.08);
@@ -117,11 +117,19 @@ html, body {
 }
 .hud-floor {
   font-family: 'Orbitron', monospace;
-  font-size: 0.85rem;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   font-weight: 700;
   letter-spacing: 3px;
   color: #0ff;
   text-shadow: 0 0 10px #0ff, 0 0 20px #0ff8;
+}
+.hud-score {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ff0;
+  text-shadow: 0 0 10px #ff0, 0 0 20px #ff08;
 }
 .hud-divider {
   width: 1px; height: 22px;
@@ -239,14 +247,14 @@ html, body {
 .boot-title {
   font-family: 'Orbitron', monospace;
   font-weight: 900;
-  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   color: #fff;
   letter-spacing: 8px;
   text-transform: uppercase;
   text-shadow: 0 0 20px #0ff, 0 0 40px #0ff8, 0 0 80px #0ff4;
 }
 .boot-subtitle {
-  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  font-size: clamp(0.9rem, 2.2vw, 1.3rem);
   color: rgba(0,255,255,0.6);
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -258,7 +266,7 @@ html, body {
   margin-top: 4px;
 }
 .boot-prompt {
-  font-size: clamp(0.65rem,1.4vw,0.85rem);
+  font-size: clamp(0.8rem, 1.8vw, 1.1rem);
   color: #0ff;
   letter-spacing: 4px;
   animation: blink 1s step-end infinite;
@@ -268,7 +276,7 @@ html, body {
 /* ===== GENERIC BUTTONS ===== */
 .btn {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #0ff;
@@ -317,7 +325,7 @@ html, body {
 /* ===== FLOOR HEADER ===== */
 .floor-header {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(0.7rem,1.5vw,0.95rem);
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
   letter-spacing: 5px;
   color: #0ff;
   text-align: center;
@@ -327,7 +335,7 @@ html, body {
 .floor-header span { color: rgba(0,255,255,0.5); }
 
 .question-box {
-  font-size: clamp(0.85rem,1.8vw,1.1rem);
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
   color: #b8d8f8;
   line-height: 1.7;
   text-align: center;
@@ -345,7 +353,7 @@ html, body {
 }
 .answer-btn {
   font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(0.7rem,1.4vw,0.9rem);
+  font-size: clamp(0.85rem,1.8vw,1.1rem);
   line-height: 1.4;
   color: #7ac;
   background: rgba(0,20,40,0.6);
@@ -393,7 +401,7 @@ html, body {
   margin-top: 12px; min-height: 28px;
 }
 .feedback-msg {
-  font-size: clamp(0.65rem,1.2vw,0.8rem);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
   letter-spacing: 2px;
   padding: 4px 12px;
   border: 1px solid;
@@ -462,7 +470,7 @@ html, body {
   margin-bottom: 5px;
 }
 #dialogue-text {
-  font-size: clamp(0.7rem,1.3vw,0.9rem);
+  font-size: clamp(0.85rem, 1.6vw, 1.1rem);
   color: #d0e8ff;
   line-height: 1.55;
   min-height: 2.5em;
@@ -477,7 +485,7 @@ html, body {
 }
 
 /* ===== FLOOR 5: DRAG AND DROP ===== */
-#screen-floor5 .content-panel {
+#screen-floordnd .content-panel {
   max-width: 840px;
   padding: clamp(10px,2vw,18px);
 }
@@ -506,7 +514,7 @@ html, body {
   padding: 7px 10px;
   margin-bottom: 5px;
   cursor: grab;
-  font-size: clamp(0.62rem,1.1vw,0.78rem);
+  font-size: clamp(0.75rem, 1.4vw, 0.95rem);
   color: #7ce0ff;
   transition: all 0.2s;
   user-select: none;
@@ -601,7 +609,7 @@ html, body {
 .win-title {
   font-family: 'Orbitron', monospace;
   font-weight: 900;
-  font-size: clamp(1.2rem,3.5vw,2.2rem);
+  font-size: clamp(1.6rem, 4.5vw, 3rem);
   color: #0f8;
   letter-spacing: 6px;
   text-shadow: 0 0 20px #0f8, 0 0 50px #0f84;
@@ -882,7 +890,9 @@ html, body {
     <div class="hud-left">
       <div class="hud-logo">NexCorp Sec</div>
       <div class="hud-divider"></div>
-      <div class="hud-floor" id="hud-floor">FLOOR 0/5</div>
+      <div class="hud-floor" id="hud-floor">FLOOR 0/6</div>
+      <div class="hud-divider"></div>
+      <div class="hud-score" id="hud-score">SCR 0</div>
     </div>
     <div class="hud-center">
       <div class="hud-ticker-wrap"><div class="hud-ticker" id="hud-ticker">NEXCORP SEC SYS v2.7 // BREACH ALERT // KNOWLEDGE VERIFICATION PROTOCOL ACTIVE // 安全验证协议 // AEGIS ONLINE //</div></div>
@@ -1002,11 +1012,41 @@ html, body {
     </div>
   </div>
 
-  <!-- ===== SCREEN: FLOOR 5 (DRAG-AND-DROP) ===== -->
+  <!-- ===== SCREEN: FLOOR 5 ===== -->
   <div id="screen-floor5" class="screen">
+    <div class="content-panel">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 05 &nbsp;// EXECUTIVE LEVEL &nbsp;<span>◈</span>
+        <span class="cn-text">行政层</span>
+      </div>
+      <div class="question-box" id="q5-text">
+        SECURITY QUERY 05 — Loading…
+      </div>
+      <div class="answers-grid" id="q5-answers"></div>
+      <div class="feedback-row"><div id="q5-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR 6 ===== -->
+  <div id="screen-floor6" class="screen">
+    <div class="content-panel">
+      <div class="floor-header">
+        <span>◈</span>&nbsp; FLOOR 06 &nbsp;// NEXCORP VAULT &nbsp;<span>◈</span>
+        <span class="cn-text">奈克斯科普保险库</span>
+      </div>
+      <div class="question-box" id="q6-text">
+        SECURITY QUERY 06 — Loading…
+      </div>
+      <div class="answers-grid" id="q6-answers"></div>
+      <div class="feedback-row"><div id="q6-feedback" class="feedback-msg hidden"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN: FLOOR DND (DRAG-AND-DROP) ===== -->
+  <div id="screen-floordnd" class="screen">
     <div class="content-panel" style="max-width:840px;width:94%;">
       <div class="floor-header">
-        <span>◈</span>&nbsp; FLOOR 05 &nbsp;// MAINFRAME CORE — FINAL LOCK &nbsp;<span>◈</span>
+        <span>◈</span>&nbsp; FLOOR 07 &nbsp;// MAINFRAME CORE — FINAL LOCK &nbsp;<span>◈</span>
         <span class="cn-text">主机核心 — 最终锁定</span>
       </div>
       <div class="question-box" style="font-size:clamp(0.7rem,1.2vw,0.85rem);margin-bottom:10px;">
@@ -1113,6 +1153,9 @@ html, body {
   <!-- Correct / Wrong overlays -->
   <div id="correct-overlay" class="correct-overlay hidden"></div>
   <div id="wrong-overlay" class="wrong-overlay hidden"></div>
+  <!-- Audio -->
+  <audio id="snd-correct" src="correct.mp3" preload="auto"></audio>
+  <audio id="snd-wrong" src="wrong.mp3" preload="auto"></audio>
 
 </div><!-- end #game-wrapper -->
 
@@ -1135,91 +1178,483 @@ const state = {
   touchClone: null,
 };
 
-// ── MCQ Data ──────────────────────────────
-const FLOORS = [
+// ── Question Bank (30 questions across Units 0-11) ─────────
+const QUESTION_BANK = [
+  // Unit 0 - Course Structure
   {
-    id: 'floor1',
-    title: 'FLOOR 01',
-    question: 'SECURITY QUERY 01: What is the HIGHEST court in the Australian legal system?',
-    questionCN: '安全查询01：澳大利亚法律体系中最高等级的法院是什么？',
+    question: 'QUERY: What does "CLO" stand for in the context of this course?',
+    questionCN: '查询："CLO"在本课程中代表什么？',
     options: [
-      { text: 'Federal Court of Australia',             textCN: '澳大利亚联邦法院',      correct: false },
-      { text: 'High Court of Australia',                textCN: '澳大利亚高等法院',      correct: true  },
-      { text: 'Supreme Court of New South Wales',       textCN: '新南威尔士州最高法院',  correct: false },
-      { text: 'Full Federal Court',                     textCN: '联邦全席法院',          correct: false },
+      { text: 'Course Licensing Obligation',   textCN: '课程许可义务',   correct: false },
+      { text: 'Course Learning Outcome',        textCN: '课程学习成果',   correct: true  },
+      { text: 'Corporate Law Overview',         textCN: '公司法概述',     correct: false },
+      { text: 'Curriculum Legal Objective',     textCN: '课程法律目标',   correct: false },
     ],
-    introLines: [
-      ['Agent, you have breached NexCorp Tower. I am AEGIS — Automated Executive Guardian Intelligence System.', '特工，你已入侵奈克斯科普大厦。我是AEGIS——自动化行政守护智能系统。'],
-      ['To reach the roof and escape, you must pass through five security checkpoints.', '要到达屋顶并逃脱，你必须通过五个安全检查点。'],
-      ['Each checkpoint tests your knowledge of Australian Business Law. Answer correctly to proceed.', '每个检查点都会测试你对澳大利亚商业法的了解。答对方可继续。'],
-      ['Floor 1 is active. Answer the security query to gain access.', '第一层已激活。回答安全查询以获得访问权限。'],
+    correctLine: 'Correct. CLO stands for Course Learning Outcome — the skills and knowledge you are expected to demonstrate by the end of the course.',
+    correctLineCN: '正确。CLO代表课程学习成果——是你在课程结束时应展示的技能和知识。',
+    wrongLine: 'Incorrect. CLO stands for Course Learning Outcome — the specific skills and knowledge outcomes assessed in this course.',
+    wrongLineCN: '不正确。CLO代表课程学习成果——本课程中评估的具体技能和知识成果。',
+  },
+  // Unit 1 - Australian Legal Foundations
+  {
+    question: 'QUERY: The "Rule of Law" in Australia means:',
+    questionCN: '查询：澳大利亚的"法治"是指：',
+    options: [
+      { text: 'The government can act above the law in emergencies', textCN: '政府在紧急情况下可以凌驾于法律之上', correct: false },
+      { text: 'Everyone, including the government, is subject to the law equally', textCN: '包括政府在内的所有人都平等受法律约束', correct: true  },
+      { text: 'Judges make all laws without parliamentary input',   textCN: '法官在没有议会参与的情况下制定所有法律', correct: false },
+      { text: 'Only Parliament can create binding legal rules',     textCN: '只有议会才能制定有约束力的法律规则', correct: false },
     ],
-    correctLine: 'Correct. The High Court of Australia is the apex court — the final arbiter of all federal and constitutional matters.',
-    correctLineCN: '正确。澳大利亚高等法院是顶级法院——所有联邦和宪法事务的最终裁决者。',
-    wrongLine: 'Incorrect. The High Court of Australia sits at the pinnacle of the Australian court system. Remember that.',
-    wrongLineCN: '不正确。澳大利亚高等法院位于澳大利亚法院体系的顶端。请记住这一点。',
+    correctLine: 'Correct. The Rule of Law means that no one is above the law — it applies equally to all persons, including the government and its officials.',
+    correctLineCN: '正确。法治意味着没有人凌驾于法律之上——法律平等适用于所有人，包括政府及其官员。',
+    wrongLine: 'Incorrect. The Rule of Law ensures everyone is subject to the same laws equally — no person, not even the government, is above the law.',
+    wrongLineCN: '不正确。法治确保每个人都平等受同样的法律约束——没有任何人，甚至政府，可以凌驾于法律之上。',
   },
   {
-    id: 'floor2',
-    title: 'FLOOR 02',
-    question: 'SECURITY QUERY 02: Which source of law is created by Parliament and carries the greatest authority?',
-    questionCN: '安全查询02：哪种法律来源由议会创制，并具有最高权威？',
+    question: 'QUERY: What are the THREE branches of government in Australia\'s separation of powers doctrine?',
+    questionCN: '查询：澳大利亚三权分立原则中的三个政府部门是什么？',
+    options: [
+      { text: 'Federal, State, and Local Government',                       textCN: '联邦、州和地方政府',           correct: false },
+      { text: 'Legislature, Executive, and Judiciary',                      textCN: '立法机构、行政机构和司法机构', correct: true  },
+      { text: 'Senate, House of Representatives, and High Court',           textCN: '参议院、众议院和高等法院',     correct: false },
+      { text: 'Parliament, Prime Minister\'s Office, and Police Force',     textCN: '议会、总理办公室和警察部队', correct: false },
+    ],
+    correctLine: 'Correct. The Legislature makes laws, the Executive implements them, and the Judiciary interprets and applies them. Keeping these separate protects against abuse of power.',
+    correctLineCN: '正确。立法机构制定法律，行政机构执行法律，司法机构解释和适用法律。保持这三者分离可防止权力滥用。',
+    wrongLine: 'Incorrect. The three branches are the Legislature (Parliament), the Executive (government ministers), and the Judiciary (courts/judges).',
+    wrongLineCN: '不正确。三个部门是立法机构（议会）、行政机构（政府部长）和司法机构（法院/法官）。',
+  },
+  // Unit 2 - Australian Legal System
+  {
+    question: 'QUERY: What is "ratio decidendi"?',
+    questionCN: '查询："ratio decidendi"是什么？',
+    options: [
+      { text: 'The judge\'s personal opinion in a case',                textCN: '法官在案件中的个人意见',         correct: false },
+      { text: 'The legal reasoning or principle on which a decision is based (binding)', textCN: '裁决所依据的法律推理或原则（具有约束力）', correct: true  },
+      { text: 'Statements made by a judge that are not necessary for the decision',     textCN: '法官在裁决中不必要的陈述', correct: false },
+      { text: 'The final order or remedy granted by the court',         textCN: '法院授予的最终命令或救济',       correct: false },
+    ],
+    correctLine: 'Correct. Ratio decidendi is the legal reasoning essential to the court\'s decision — it forms binding precedent under the doctrine of stare decisis.',
+    correctLineCN: '正确。Ratio decidendi是法院裁决的核心法律推理——它根据遵循先例原则形成具有约束力的先例。',
+    wrongLine: 'Incorrect. Ratio decidendi is the binding legal reasoning of a decision. Obiter dictum refers to non-binding additional comments made by the judge.',
+    wrongLineCN: '不正确。Ratio decidendi是裁决具有约束力的法律推理。Obiter dictum是指法官所作的不具约束力的附带评论。',
+  },
+  {
+    question: 'QUERY: Under the doctrine of precedent (stare decisis), a lower court is bound by decisions of:',
+    questionCN: '查询：根据遵循先例原则（stare decisis），下级法院受以下哪些法院裁决的约束？',
+    options: [
+      { text: 'Any court at the same level or below it',          textCN: '任何同级或下级法院',         correct: false },
+      { text: 'Higher courts in the same court hierarchy only',   textCN: '仅同一法院层级中的上级法院', correct: true  },
+      { text: 'Courts from other countries with similar legal systems', textCN: '其他具有类似法律制度的国家法院', correct: false },
+      { text: 'Only the High Court of Australia',                 textCN: '只有澳大利亚高等法院',       correct: false },
+    ],
+    correctLine: 'Correct. Stare decisis requires lower courts to follow binding decisions (precedents) from higher courts in the same hierarchy.',
+    correctLineCN: '正确。遵循先例原则要求下级法院遵循同一层级中上级法院的具有约束力的裁决（先例）。',
+    wrongLine: 'Incorrect. Under stare decisis, a court is bound by decisions from higher courts in the same hierarchy. Decisions from courts at the same level or overseas are merely persuasive.',
+    wrongLineCN: '不正确。根据遵循先例原则，法院受同一层级上级法院裁决的约束。同级或海外法院的裁决仅具有说服力。',
+  },
+  // Unit 2 - Sources of Law
+  {
+    question: 'QUERY: Which source of law is created by Parliament and carries the greatest authority?',
+    questionCN: '查询：哪种法律来源由议会创制，并具有最高权威？',
     options: [
       { text: 'Common Law (judge-made law)',            textCN: '普通法（法官制定的法律）', correct: false },
       { text: 'Delegated legislation',                  textCN: '授权立法',              correct: false },
       { text: 'Statute law (Acts of Parliament)',       textCN: '成文法（议会法案）',      correct: true  },
       { text: 'Equity',                                 textCN: '衡平法',               correct: false },
     ],
-    introLines: [
-      ['Floor 2 cleared. Moving to the Archive Vault.', '第二层已通过。前往档案保险库。'],
-      ['Security Query 02 loaded. Australian law has multiple sources. Your knowledge will be tested.', '安全查询02已加载。澳大利亚法律有多种来源。你的知识将接受测试。'],
-    ],
     correctLine: 'Confirmed. Statute law — Acts passed by Parliament — is the supreme source of law in Australia, overriding judge-made common law where they conflict.',
     correctLineCN: '已确认。成文法——由议会通过的法案——是澳大利亚最高法律来源，在冲突时优先于法官制定的普通法。',
     wrongLine: 'Incorrect. While common law and equity are important, an Act of Parliament holds supreme authority and overrides conflicting judge-made law.',
     wrongLineCN: '不正确。虽然普通法和衡平法很重要，但议会法案具有最高权威，在冲突时优先于法官制定的法律。',
   },
+  // Unit 2 - Court Hierarchy
   {
-    id: 'floor3',
-    title: 'FLOOR 03',
-    question: 'SECURITY QUERY 03: Which term describes a court\'s power to HEAR A CASE FOR THE FIRST TIME (not on appeal)?',
-    questionCN: '安全查询03：哪个术语描述法院"首次审理案件"的权力（而非上诉）？',
+    question: 'QUERY: Which term describes a court\'s power to HEAR A CASE FOR THE FIRST TIME (not on appeal)?',
+    questionCN: '查询：哪个术语描述法院"首次审理案件"的权力（而非上诉）？',
     options: [
-      { text: 'Appellate jurisdiction',                 textCN: '上诉管辖权',  correct: false },
-      { text: 'Original jurisdiction',                  textCN: '初审管辖权',  correct: true  },
-      { text: 'Exclusive jurisdiction',                 textCN: '专属管辖权',  correct: false },
-      { text: 'Federal jurisdiction',                   textCN: '联邦管辖权',  correct: false },
-    ],
-    introLines: [
-      ['Law Mainframe unlocked. Almost halfway, Agent.', '法律主机已解锁。快到一半了，特工。'],
-      ['Security Query 03 incoming — this concerns court jurisdiction.', '安全查询03即将到来——这涉及法院管辖权。'],
+      { text: 'Appellate jurisdiction',   textCN: '上诉管辖权',  correct: false },
+      { text: 'Original jurisdiction',    textCN: '初审管辖权',  correct: true  },
+      { text: 'Exclusive jurisdiction',   textCN: '专属管辖权',  correct: false },
+      { text: 'Federal jurisdiction',     textCN: '联邦管辖权',  correct: false },
     ],
     correctLine: 'Correct. "Original jurisdiction" means a court has the power to hear a matter for the first time. "Appellate jurisdiction" refers to reviewing decisions made by lower courts.',
     correctLineCN: '正确。"初审管辖权"意味着法院有权首次审理案件。"上诉管辖权"是指审查下级法院裁决的权力。',
     wrongLine: 'Wrong. "Original jurisdiction" is the power to hear a case for the first time. "Appellate jurisdiction" is the power to review decisions on appeal.',
     wrongLineCN: '错误。"初审管辖权"是首次审理案件的权力。"上诉管辖权"是上诉审查裁决的权力。',
   },
+  // Unit 2 - High Court
   {
-    id: 'floor4',
-    title: 'FLOOR 04',
-    question: 'SECURITY QUERY 04: In Australian business law, what is the primary purpose of "civil law"?',
-    questionCN: '安全查询04：在澳大利亚商业法中，"民法"的主要目的是什么？',
+    question: 'QUERY: What is the HIGHEST court in the Australian legal system?',
+    questionCN: '查询：澳大利亚法律体系中最高等级的法院是什么？',
+    options: [
+      { text: 'Federal Court of Australia',             textCN: '澳大利亚联邦法院',      correct: false },
+      { text: 'High Court of Australia',                textCN: '澳大利亚高等法院',      correct: true  },
+      { text: 'Supreme Court of New South Wales',       textCN: '新南威尔士州最高法院',  correct: false },
+      { text: 'Full Federal Court',                     textCN: '联邦全席法院',          correct: false },
+    ],
+    correctLine: 'Correct. The High Court of Australia is the apex court — the final arbiter of all federal and constitutional matters.',
+    correctLineCN: '正确。澳大利亚高等法院是顶级法院——所有联邦和宪法事务的最终裁决者。',
+    wrongLine: 'Incorrect. The High Court of Australia sits at the pinnacle of the Australian court system. Remember that.',
+    wrongLineCN: '不正确。澳大利亚高等法院位于澳大利亚法院体系的顶端。请记住这一点。',
+  },
+  // Unit 3 - Business Structures
+  {
+    question: 'QUERY: Which business structure has UNLIMITED personal liability for all business debts?',
+    questionCN: '查询：哪种商业结构对所有商业债务承担无限个人责任？',
+    options: [
+      { text: 'Proprietary limited company (Pty Ltd)',  textCN: '私人有限公司',     correct: false },
+      { text: 'Sole trader',                            textCN: '独资经营者',       correct: true  },
+      { text: 'Public company (Ltd)',                   textCN: '上市公司',         correct: false },
+      { text: 'Unit trust',                             textCN: '单位信托',         correct: false },
+    ],
+    correctLine: 'Correct. A sole trader has unlimited liability — their personal assets are at risk if the business incurs debts or liabilities.',
+    correctLineCN: '正确。独资经营者承担无限责任——如果企业产生债务或负债，其个人资产处于风险之中。',
+    wrongLine: 'Incorrect. A sole trader bears unlimited personal liability. In contrast, a company\'s shareholders are only liable up to their investment (limited liability).',
+    wrongLineCN: '不正确。独资经营者承担无限个人责任。相比之下，公司股东的责任仅限于其投资额（有限责任）。',
+  },
+  {
+    question: 'QUERY: A key legal feature of a company (as distinct from a partnership) is:',
+    questionCN: '查询：公司（区别于合伙企业）的关键法律特征是：',
+    options: [
+      { text: 'Partners share management duties equally',           textCN: '合伙人平等分担管理职责',     correct: false },
+      { text: 'The company is a separate legal entity from its owners', textCN: '公司是独立于其所有者的法律实体', correct: true  },
+      { text: 'No registration is required to operate',            textCN: '运营无需注册',               correct: false },
+      { text: 'All profits must be distributed to shareholders',   textCN: '所有利润必须分配给股东',     correct: false },
+    ],
+    correctLine: 'Correct. A company is a separate legal entity — it can own property, sue and be sued in its own name, separate from its shareholders and directors.',
+    correctLineCN: '正确。公司是独立的法律实体——它可以拥有财产，以自己的名义起诉和被起诉，与其股东和董事分离。',
+    wrongLine: 'Incorrect. The defining feature of a company is separate legal personality — it exists independently of its owners, with limited liability for shareholders.',
+    wrongLineCN: '不正确。公司的决定性特征是独立的法律人格——它独立于其所有者存在，股东承担有限责任。',
+  },
+  // Unit 4 - Contract Formation
+  {
+    question: 'QUERY: Which of the following is NOT a required element for a valid contract?',
+    questionCN: '查询：以下哪项不是有效合同的必要要素？',
+    options: [
+      { text: 'Offer and acceptance',                   textCN: '要约和承诺',     correct: false },
+      { text: 'Consideration',                          textCN: '对价',           correct: false },
+      { text: 'Written documentation',                  textCN: '书面文件',       correct: true  },
+      { text: 'Intention to create legal relations',    textCN: '创建法律关系的意图', correct: false },
+    ],
+    correctLine: 'Correct. Most contracts do not need to be in writing to be valid. The six elements are: offer, acceptance, consideration, intention, capacity, and legality.',
+    correctLineCN: '正确。大多数合同无需以书面形式订立即可有效。六个要素是：要约、承诺、对价、意图、缔约能力和合法性。',
+    wrongLine: 'Incorrect. Written documentation is NOT required for most contracts. The key elements are offer, acceptance, consideration, intention to create legal relations, capacity, and legality.',
+    wrongLineCN: '不正确。大多数合同不需要书面文件。关键要素是要约、承诺、对价、创建法律关系的意图、缔约能力和合法性。',
+  },
+  {
+    question: 'QUERY: In contract law, "consideration" means:',
+    questionCN: '查询：在合同法中，"对价"是指：',
+    options: [
+      { text: 'The mutual respect parties show each other',             textCN: '当事方之间相互表现的尊重',  correct: false },
+      { text: 'Something of value exchanged between the parties',       textCN: '当事方之间交换的有价值之物', correct: true  },
+      { text: 'The written terms of the agreement',                     textCN: '协议的书面条款',            correct: false },
+      { text: 'The signature on the contract',                          textCN: '合同上的签名',              correct: false },
+    ],
+    correctLine: 'Correct. Consideration is something of value (money, goods, services, or a promise) given by each party. "Past consideration is no consideration."',
+    correctLineCN: '正确。对价是每方当事人提供的有价值之物（金钱、货物、服务或承诺）。"过去的对价不是对价。"',
+    wrongLine: 'Incorrect. Consideration is the "price" paid for a promise — something of value exchanged by both parties. Without consideration, a contract is generally unenforceable.',
+    wrongLineCN: '不正确。对价是为承诺支付的"代价"——双方交换的有价值之物。没有对价，合同通常无法执行。',
+  },
+  // Unit 4 - Offer and Acceptance
+  {
+    question: 'QUERY: In Carlill v Carbolic Smoke Ball Co, the court held that the advertisement was:',
+    questionCN: '查询：在Carlill诉碳酸烟球公司案中，法院认定该广告是：',
+    options: [
+      { text: 'An invitation to treat, not a binding offer',    textCN: '要约邀请，而非有约束力的要约', correct: false },
+      { text: 'A unilateral offer capable of acceptance by performance', textCN: '可通过履行行为接受的单方面要约', correct: true  },
+      { text: 'A bilateral offer requiring written acceptance', textCN: '需要书面承诺的双方要约',       correct: false },
+      { text: 'An illegal contract under consumer law',        textCN: '消费者法下的非法合同',         correct: false },
+    ],
+    correctLine: 'Correct. The court found the advertisement was a unilateral offer — acceptance occurred by performing the specified conditions (using the smoke ball as directed).',
+    correctLineCN: '正确。法院认定该广告是单方面要约——通过履行指定条件（按指示使用烟球）即构成承诺。',
+    wrongLine: 'Incorrect. In Carlill, the advertisement was a unilateral offer. Mrs Carlill accepted it by performance (using the smoke ball), creating a binding contract.',
+    wrongLineCN: '不正确。在Carlill案中，广告是单方面要约。卡利尔夫人通过履行行为（使用烟球）接受了要约，从而形成了有约束力的合同。',
+  },
+  // Unit 5 - Contract Terms
+  {
+    question: 'QUERY: A "vitiating factor" in contract law refers to something that:',
+    questionCN: '查询：合同法中的"使合同无效的因素"是指：',
+    options: [
+      { text: 'Adds additional terms to the contract after signing',      textCN: '签署后向合同添加额外条款',  correct: false },
+      { text: 'Undermines free consent and may make the contract voidable', textCN: '破坏自由同意，可能使合同可撤销', correct: true  },
+      { text: 'Prevents the contract from being performed on time',       textCN: '妨碍合同按时履行',          correct: false },
+      { text: 'Automatically terminates the contract at completion',      textCN: '在完成时自动终止合同',       correct: false },
+    ],
+    correctLine: 'Correct. Vitiating factors — misrepresentation, duress, undue influence, unconscionability — undermine genuine consent and may allow a party to avoid the contract.',
+    correctLineCN: '正确。使合同无效的因素——虚假陈述、胁迫、不当影响、不公平行为——破坏真实同意，可能允许当事方撤销合同。',
+    wrongLine: 'Incorrect. Vitiating factors are things like misrepresentation, duress, or undue influence that undermine free consent, potentially making a contract voidable.',
+    wrongLineCN: '不正确。使合同无效的因素是虚假陈述、胁迫或不当影响等破坏自由同意的因素，可能使合同成为可撤销的。',
+  },
+  {
+    question: 'QUERY: Which remedy in contract law requires a party to perform their contractual obligations?',
+    questionCN: '查询：合同法中哪种救济要求一方履行其合同义务？',
+    options: [
+      { text: 'Damages',                    textCN: '损害赔偿',   correct: false },
+      { text: 'Specific performance',       textCN: '强制履行',   correct: true  },
+      { text: 'Rescission',                 textCN: '撤销',       correct: false },
+      { text: 'Injunction',                 textCN: '禁令',       correct: false },
+    ],
+    correctLine: 'Correct. Specific performance is an equitable remedy that compels a party to perform their contract, typically used where damages are inadequate (e.g., unique land or goods).',
+    correctLineCN: '正确。强制履行是一种衡平法救济，强制当事方履行其合同，通常在损害赔偿不足的情况下使用（例如，独特的土地或货物）。',
+    wrongLine: 'Incorrect. Specific performance compels a party to perform. Damages compensate financially. An injunction prevents certain actions. Rescission unwinds the contract.',
+    wrongLineCN: '不正确。强制履行迫使当事方履行。损害赔偿提供财务补偿。禁令阻止某些行为。撤销使合同归于无效。',
+  },
+  // Unit 6 - Negligence
+  {
+    question: 'QUERY: The "neighbour principle" establishing a duty of care was first stated in which landmark case?',
+    questionCN: '查询："邻人原则"确立了注意义务，首次出现在哪个里程碑式案例中？',
+    options: [
+      { text: 'Hedley Byrne v Heller (1964)',      textCN: '赫德利·伯恩诉赫勒案（1964年）',  correct: false },
+      { text: 'Donoghue v Stevenson (1932)',        textCN: '多诺霍诉史蒂文森案（1932年）',   correct: true  },
+      { text: 'Carlill v Carbolic Smoke Ball (1893)', textCN: '卡利尔诉碳酸烟球公司案（1893年）', correct: false },
+      { text: 'Caparo Industries v Dickman (1990)', textCN: '卡帕罗工业诉迪克曼案（1990年）', correct: false },
+    ],
+    correctLine: 'Correct. In Donoghue v Stevenson (1932), Lord Atkin established the "neighbour principle" — you owe a duty of care to those you can reasonably foresee being harmed by your actions.',
+    correctLineCN: '正确。在多诺霍诉史蒂文森案（1932年）中，阿特金勋爵确立了"邻人原则"——你对那些可以合理预见会因你的行为而受到伤害的人负有注意义务。',
+    wrongLine: 'Incorrect. The neighbour principle comes from Donoghue v Stevenson (1932) — Lord Atkin held that manufacturers owe a duty of care to end consumers they can reasonably foresee.',
+    wrongLineCN: '不正确。邻人原则来自多诺霍诉史蒂文森案（1932年）——阿特金勋爵认定制造商对其可以合理预见的最终消费者负有注意义务。',
+  },
+  {
+    question: 'QUERY: The "but for" test in negligence determines:',
+    questionCN: '查询：过失中的"如果没有"测试确定：',
+    options: [
+      { text: 'Whether the defendant owed a duty of care',               textCN: '被告是否负有注意义务',      correct: false },
+      { text: 'Whether the defendant\'s breach caused the plaintiff\'s loss', textCN: '被告的违反行为是否导致原告的损失', correct: true  },
+      { text: 'Whether the harm was too remote to be compensated',        textCN: '伤害是否过于间接而不予赔偿', correct: false },
+      { text: 'Whether a reasonable person would have acted differently', textCN: '合理人是否会采取不同行动',   correct: false },
+    ],
+    correctLine: 'Correct. "But for" the defendant\'s breach, would the plaintiff have suffered the loss? If yes — the breach caused the loss. This is the causation test.',
+    correctLineCN: '正确。"如果没有"被告的违反行为，原告会遭受损失吗？如果是——违反行为导致了损失。这是因果关系测试。',
+    wrongLine: 'Incorrect. The "but for" test checks causation: but for the defendant\'s breach, would the plaintiff have suffered loss? It is separate from the duty of care and remoteness analyses.',
+    wrongLineCN: '不正确。"如果没有"测试检查因果关系：如果没有被告的违反行为，原告会遭受损失吗？它与注意义务分析和间接性分析是分开的。',
+  },
+  {
+    question: 'QUERY: In negligence, the standard of care is measured against:',
+    questionCN: '查询：在过失中，注意标准是根据以下哪项衡量的？',
+    options: [
+      { text: 'The defendant\'s personal capabilities and experience',  textCN: '被告的个人能力和经验',         correct: false },
+      { text: 'A "reasonable person" in the defendant\'s position',     textCN: '处于被告位置的"合理人"',       correct: true  },
+      { text: 'What the plaintiff expected the defendant to do',         textCN: '原告期望被告做什么',           correct: false },
+      { text: 'The highest professional standard in the industry',      textCN: '行业中最高的专业标准',         correct: false },
+    ],
+    correctLine: 'Correct. The "reasonable person" test is an objective standard — what would a reasonable person in the same circumstances have done? Personal characteristics of the defendant are generally irrelevant.',
+    correctLineCN: '正确。"合理人"测试是一个客观标准——在相同情况下，合理人会怎么做？被告的个人特征通常不相关。',
+    wrongLine: 'Incorrect. The standard is objective: what would a reasonable person in the defendant\'s position have done? This is not based on the defendant\'s personal abilities or the plaintiff\'s expectations.',
+    wrongLineCN: '不正确。标准是客观的：处于被告位置的合理人会怎么做？这不是基于被告的个人能力或原告的期望。',
+  },
+  // Unit 7 - Negligent Misstatement
+  {
+    question: 'QUERY: Hedley Byrne v Heller (1964) established liability for:',
+    questionCN: '查询：赫德利·伯恩诉赫勒案（1964年）确立了以下哪方面的责任？',
+    options: [
+      { text: 'Physical injury caused by negligent acts',               textCN: '过失行为造成的人身伤害',     correct: false },
+      { text: 'Pure economic loss caused by negligent misstatement',    textCN: '过失虚假陈述造成的纯粹经济损失', correct: true  },
+      { text: 'Breach of consumer protection guarantees',               textCN: '违反消费者保护保证',         correct: false },
+      { text: 'Fraudulent misrepresentation in a contract',             textCN: '合同中的欺诈性虚假陈述',     correct: false },
+    ],
+    correctLine: 'Correct. Hedley Byrne v Heller recognised that a person who gives negligent advice in a "special relationship" (where the recipient reasonably relies) may be liable for pure economic loss.',
+    correctLineCN: '正确。赫德利·伯恩诉赫勒案认识到，在"特殊关系"中提供过失建议的人（受助人合理信赖）可能对纯粹经济损失承担责任。',
+    wrongLine: 'Incorrect. Hedley Byrne v Heller dealt with negligent misstatement causing pure economic loss — where a special relationship of reliance exists between the advice-giver and recipient.',
+    wrongLineCN: '不正确。赫德利·伯恩诉赫勒案涉及造成纯粹经济损失的过失虚假陈述——其中建议提供者和接受者之间存在依赖的特殊关系。',
+  },
+  {
+    question: 'QUERY: "Contributory negligence" as a defence in a negligence claim means:',
+    questionCN: '查询：过失索赔中作为抗辩的"与有过失"是指：',
+    options: [
+      { text: 'The defendant had no duty of care toward the plaintiff',  textCN: '被告对原告没有注意义务',     correct: false },
+      { text: 'The plaintiff\'s own negligence contributed to their loss, reducing the defendant\'s liability', textCN: '原告自身的过失造成其损失，减少被告的责任', correct: true  },
+      { text: 'The plaintiff voluntarily assumed the risk of injury',    textCN: '原告自愿承担伤害风险',       correct: false },
+      { text: 'The defendant was acting under orders from an employer',  textCN: '被告按照雇主的命令行事',     correct: false },
+    ],
+    correctLine: 'Correct. Contributory negligence means the plaintiff was also negligent, contributing to their own harm. This reduces — but does not eliminate — the defendant\'s liability proportionally.',
+    correctLineCN: '正确。与有过失意味着原告也存在过失，造成了自身的伤害。这按比例减少了被告的责任——但不能完全消除。',
+    wrongLine: 'Incorrect. Contributory negligence is where the plaintiff\'s own failure to take care contributed to their injury, resulting in a proportional reduction of the damages they can recover.',
+    wrongLineCN: '不正确。与有过失是指原告自身未能注意导致其受伤，从而按比例减少其可获得的损害赔偿。',
+  },
+  // Unit 8 - Australian Consumer Law
+  {
+    question: 'QUERY: Section 18 of the Australian Consumer Law (ACL) prohibits:',
+    questionCN: '查询：澳大利亚消费者法（ACL）第18条禁止：',
+    options: [
+      { text: 'Selling goods without a warranty',                       textCN: '无保修出售商品',             correct: false },
+      { text: 'Conduct in trade or commerce that is misleading or deceptive', textCN: '贸易或商业活动中的误导性或欺骗性行为', correct: true  },
+      { text: 'Contracts that are unfair to consumers',                 textCN: '对消费者不公平的合同',       correct: false },
+      { text: 'Pricing goods above their market value',                 textCN: '将商品定价高于市场价值',     correct: false },
+    ],
+    correctLine: 'Correct. Section 18 ACL prohibits misleading or deceptive conduct in trade or commerce. No intent to mislead is required — the conduct\'s effect on the consumer is what matters.',
+    correctLineCN: '正确。ACL第18条禁止贸易或商业活动中的误导性或欺骗性行为。不需要有误导意图——重要的是该行为对消费者的影响。',
+    wrongLine: 'Incorrect. Section 18 ACL targets misleading or deceptive conduct in trade or commerce — no proof of intent to deceive is needed, only that the conduct was objectively misleading.',
+    wrongLineCN: '不正确。ACL第18条针对贸易或商业活动中的误导性或欺骗性行为——不需要证明欺骗意图，只需该行为在客观上具有误导性。',
+  },
+  {
+    question: 'QUERY: Under the ACL, consumer guarantees apply automatically when:',
+    questionCN: '查询：根据ACL，消费者保证在以下情况下自动适用：',
+    options: [
+      { text: 'The consumer specifically requests them in writing',      textCN: '消费者以书面形式特别要求',   correct: false },
+      { text: 'Goods or services are supplied to a consumer in trade or commerce', textCN: '商品或服务在贸易或商业活动中提供给消费者', correct: true  },
+      { text: 'The purchase price exceeds $1000',                        textCN: '购买价格超过1000澳元',       correct: false },
+      { text: 'The seller has given an express warranty',                textCN: '卖家提供了明示保证',         correct: false },
+    ],
+    correctLine: 'Correct. ACL consumer guarantees are non-excludable statutory rights that apply automatically — they cannot be contracted out of and cannot be waived by the consumer.',
+    correctLineCN: '正确。ACL消费者保证是不可排除的法定权利，自动适用——不能通过合同排除，消费者也不能放弃。',
+    wrongLine: 'Incorrect. ACL consumer guarantees apply automatically by law when goods or services are supplied to a consumer — they are not dependent on the consumer requesting them or paying a threshold amount.',
+    wrongLineCN: '不正确。ACL消费者保证在商品或服务提供给消费者时自动依法适用——不取决于消费者是否要求或支付门槛金额。',
+  },
+  // Unit 9-11 - Sustainability / ESG
+  {
+    question: 'QUERY: What does "ESG" stand for in corporate and sustainability contexts?',
+    questionCN: '查询：在企业和可持续发展背景下，"ESG"代表什么？',
+    options: [
+      { text: 'Economic, Social, and Governance',          textCN: '经济、社会和治理',     correct: false },
+      { text: 'Environmental, Social, and Governance',     textCN: '环境、社会和治理',     correct: true  },
+      { text: 'Equity, Sustainability, and Growth',        textCN: '股权、可持续发展和增长', correct: false },
+      { text: 'Ethical Standards in Governance',           textCN: '治理中的道德标准',     correct: false },
+    ],
+    correctLine: 'Correct. ESG — Environmental, Social, and Governance — is a framework that assesses a company\'s sustainability practices and social impact beyond financial performance.',
+    correctLineCN: '正确。ESG——环境、社会和治理——是一个超越财务业绩，评估公司可持续发展实践和社会影响的框架。',
+    wrongLine: 'Incorrect. ESG stands for Environmental, Social, and Governance — the three pillars used to evaluate a company\'s non-financial impact and sustainability commitments.',
+    wrongLineCN: '不正确。ESG代表环境、社会和治理——用于评估公司非财务影响和可持续发展承诺的三个支柱。',
+  },
+  {
+    question: 'QUERY: The "Triple Bottom Line" concept in sustainability requires businesses to account for:',
+    questionCN: '查询：可持续发展中的"三重底线"概念要求企业考虑：',
+    options: [
+      { text: 'Revenue, costs, and profit margins',                   textCN: '收入、成本和利润率',           correct: false },
+      { text: 'People, Planet, and Profit',                           textCN: '人、地球和利润',               correct: true  },
+      { text: 'Legal compliance, financial reporting, and governance', textCN: '法律合规、财务报告和治理',    correct: false },
+      { text: 'Short-term, medium-term, and long-term financial goals', textCN: '短期、中期和长期财务目标',  correct: false },
+    ],
+    correctLine: 'Correct. The Triple Bottom Line (People, Planet, Profit) was popularised by John Elkington — businesses must account for social equity, environmental impact, AND financial performance.',
+    correctLineCN: '正确。三重底线（人、地球、利润）由约翰·埃尔金顿推广——企业必须考虑社会公平、环境影响和财务绩效。',
+    wrongLine: 'Incorrect. The Triple Bottom Line refers to People (social), Planet (environmental), and Profit (economic) — moving beyond pure financial metrics to sustainable business practices.',
+    wrongLineCN: '不正确。三重底线是指人（社会）、地球（环境）和利润（经济）——超越纯粹的财务指标，走向可持续商业实践。',
+  },
+  {
+    question: 'QUERY: Corporate Social Responsibility (CSR) refers to:',
+    questionCN: '查询：企业社会责任（CSR）是指：',
+    options: [
+      { text: 'A company\'s legal obligation to pay taxes',              textCN: '公司缴纳税款的法律义务',     correct: false },
+      { text: 'A company\'s voluntary commitment to operate ethically and contribute to societal well-being', textCN: '公司自愿承诺以道德方式经营并为社会福祉作出贡献', correct: true  },
+      { text: 'Government regulations requiring businesses to donate to charities', textCN: '要求企业向慈善机构捐款的政府法规', correct: false },
+      { text: 'A corporate governance code mandated by ASIC',           textCN: 'ASIC强制规定的公司治理准则', correct: false },
+    ],
+    correctLine: 'Correct. CSR is a voluntary framework through which businesses manage their impact on society and the environment, going beyond minimum legal requirements.',
+    correctLineCN: '正确。CSR是一个自愿框架，企业通过该框架管理其对社会和环境的影响，超越最低法律要求。',
+    wrongLine: 'Incorrect. CSR involves a company\'s voluntary commitment to ethical practices and contributing positively to society and the environment — beyond what is legally required.',
+    wrongLineCN: '不正确。CSR涉及公司自愿承诺道德实践，并积极为社会和环境作出贡献——超越法律要求的范围。',
+  },
+  {
+    question: 'QUERY: In Australian civil law, what is the PRIMARY purpose of civil law?',
+    questionCN: '查询：在澳大利亚民法中，民法的主要目的是什么？',
     options: [
       { text: 'To punish criminal behaviour on behalf of the State',         textCN: '代表国家惩罚犯罪行为',        correct: false },
       { text: 'To resolve disputes between private parties and provide remedies', textCN: '解决私人之间的纠纷并提供救济', correct: true },
       { text: 'To regulate government power and constitutional rights',      textCN: '规范政府权力和宪法权利',        correct: false },
       { text: 'To enforce international trade agreements',                   textCN: '执行国际贸易协议',             correct: false },
     ],
-    introLines: [
-      ['Executive Level — you are close, Agent.', '行政层——你快到了，特工。'],
-      ['One final query before the Mainframe Core.', '进入主机核心前的最后一次查询。'],
-    ],
     correctLine: 'Affirmative. Civil law governs disputes between individuals, companies, and organisations, with remedies such as damages or injunctions — not criminal punishment.',
     correctLineCN: '确认。民法管辖个人、公司和组织之间的纠纷，提供损害赔偿或禁令等救济——而非刑事处罚。',
     wrongLine: 'Negative. Civil law resolves private disputes and provides remedies like damages. Criminal law punishes offences against the State.',
     wrongLineCN: '否定。民法解决私人纠纷，提供损害赔偿等救济。刑法惩罚针对国家的犯罪行为。',
   },
+  {
+    question: 'QUERY: An "obiter dictum" in a court judgment is:',
+    questionCN: '查询：法院判决中的"附带意见"是指：',
+    options: [
+      { text: 'The binding legal reasoning forming the basis of the decision',    textCN: '构成裁决基础的具有约束力的法律推理', correct: false },
+      { text: 'A comment made "by the way" that is persuasive but not binding',  textCN: '顺便说说的评论，具有说服力但不具约束力', correct: true  },
+      { text: 'A formal dissenting opinion from a minority judge',                textCN: '少数法官的正式异议意见',   correct: false },
+      { text: 'The final order and remedies granted by the court',                textCN: '法院授予的最终命令和救济', correct: false },
+    ],
+    correctLine: 'Correct. Obiter dictum ("said by the way") are remarks in a judgment not essential to the decision. They may be persuasive in future cases but are not binding precedent.',
+    correctLineCN: '正确。附带意见（"顺便说说"）是判决中对裁决不必要的评论。它们在未来案件中可能具有说服力，但不具有约束力。',
+    wrongLine: 'Incorrect. Obiter dictum is a "by the way" comment in a judgment — influential but not binding. In contrast, ratio decidendi is the binding legal reasoning.',
+    wrongLineCN: '不正确。附带意见是判决中的"顺便说说"评论——有影响力但不具约束力。相比之下，判决理由是具有约束力的法律推理。',
+  },
+  {
+    question: 'QUERY: When can a contract be "discharged by frustration"?',
+    questionCN: '查询：什么时候合同可以被"受阻履行"解除？',
+    options: [
+      { text: 'When one party decides they no longer want to perform',         textCN: '当一方决定不再希望履行时',     correct: false },
+      { text: 'When an unforeseen event makes contractual performance impossible or radically different', textCN: '当不可预见的事件使合同履行不可能或根本不同时', correct: true  },
+      { text: 'When the parties mutually agree to end the contract',           textCN: '当双方相互同意终止合同时',     correct: false },
+      { text: 'When performance would be simply more expensive than expected', textCN: '当履行比预期更昂贵时',         correct: false },
+    ],
+    correctLine: 'Correct. Frustration occurs when, without fault of either party, an unforeseen event fundamentally changes the nature of the contract, making it impossible or radically different to perform.',
+    correctLineCN: '正确。受阻履行发生在双方无过错的情况下，不可预见的事件从根本上改变了合同的性质，使其不可能履行或根本不同。',
+    wrongLine: 'Incorrect. Frustration discharges a contract when an unexpected event (beyond the parties\' control) makes performance impossible or fundamentally different — not simply more difficult or costly.',
+    wrongLineCN: '不正确。当意外事件（超出当事方控制）使履行不可能或从根本上不同时，受阻履行解除合同——而不仅仅是更困难或成本更高。',
+  },
+  {
+    question: 'QUERY: An "unfair contract term" under ACL (for standard form consumer contracts) is one that:',
+    questionCN: '查询：ACL下标准格式消费者合同中的"不公平合同条款"是指：',
+    options: [
+      { text: 'Is written in complex legal language the consumer cannot understand', textCN: '以消费者无法理解的复杂法律语言书写', correct: false },
+      { text: 'Creates a significant imbalance between the rights of the parties to the detriment of the consumer', textCN: '在双方权利之间造成不利于消费者的重大失衡', correct: true  },
+      { text: 'Is longer than 50 pages',                                            textCN: '超过50页',               correct: false },
+      { text: 'Requires the consumer to pay a deposit',                             textCN: '要求消费者支付定金',     correct: false },
+    ],
+    correctLine: 'Correct. Under the ACL, a term in a standard form contract is unfair if it creates a significant imbalance in the parties\' rights, is not reasonably necessary, and causes detriment to the consumer.',
+    correctLineCN: '正确。根据ACL，标准格式合同中的条款如果在双方权利之间造成重大失衡、非合理必要且对消费者造成损害，则该条款不公平。',
+    wrongLine: 'Incorrect. Under the ACL, an unfair term is one that creates a significant imbalance in the parties\' rights, is not reasonably necessary to protect the supplier\'s legitimate interests, and causes detriment to the consumer.',
+    wrongLineCN: '不正确。根据ACL，不公平条款是指在双方权利之间造成重大失衡、非合理必要以保护供应商合法利益，且对消费者造成损害的条款。',
+  },
 ];
+
+// ── Number of MCQ questions per game ──────────
+const MCQ_PER_GAME = 6;
+
+// ── Intro lines per floor number ─────────────
+const FLOOR_INTROS = [
+  [ // Floor 1
+    ['Agent, you have breached NexCorp Tower. I am AEGIS — Automated Executive Guardian Intelligence System.', '特工，你已入侵奈克斯科普大厦。我是AEGIS——自动化行政守护智能系统。'],
+    ['To reach the roof and escape, you must pass through security checkpoints.', '要到达屋顶并逃脱，你必须通过安全检查点。'],
+    ['Each checkpoint tests your knowledge of Australian Business Law. Answer correctly to proceed.', '每个检查点都会测试你对澳大利亚商业法的了解。答对方可继续。'],
+  ],
+  [ // Floor 2
+    ['Floor 2 cleared. Moving to the Archive Vault.', '第二层已通过。前往档案保险库。'],
+    ['Security Query 02 loaded. Demonstrate your legal knowledge.', '安全查询02已加载。展示你的法律知识。'],
+  ],
+  [ // Floor 3
+    ['Law Mainframe unlocked. Almost halfway, Agent.', '法律主机已解锁。快到一半了，特工。'],
+    ['Security Query 03 incoming — stay focused.', '安全查询03即将到来——保持专注。'],
+  ],
+  [ // Floor 4
+    ['Level 4 protocols engaged. You are close, Agent.', '第四层协议已启动。你快到了，特工。'],
+    ['Answer correctly and the executive floor will open.', '答对了，行政层将会开放。'],
+  ],
+  [ // Floor 5
+    ['Executive Level — well done. Final MCQ checkpoint.', '行政层——干得好。最后一个选择题检查点。'],
+    ['One more query before the Mainframe Core.', '进入主机核心前还有一个查询。'],
+  ],
+  [ // Floor 6
+    ['Impressive. You have cleared all MCQ checkpoints.', '令人印象深刻。你已通过所有选择题检查点。'],
+    ['One final challenge remains before escape is possible.', '在逃脱之前还有最后一个挑战。'],
+  ],
+];
+
+// ── Build active FLOORS for this playthrough ─
+function buildFloors() {
+  const shuffled = shuffle(QUESTION_BANK);
+  const selected = shuffled.slice(0, MCQ_PER_GAME);
+  return selected.map((q, i) => ({
+    id: `floor${i + 1}`,
+    title: `FLOOR 0${i + 1}`,
+    question: `SECURITY QUERY 0${i + 1}: ${q.question}`,
+    questionCN: q.questionCN,
+    options: shuffle(q.options),
+    introLines: FLOOR_INTROS[i] || [
+      [`Floor ${i + 1} security checkpoint active.`, `第${i + 1}层安全检查点已激活。`],
+    ],
+    correctLine: q.correctLine,
+    correctLineCN: q.correctLineCN,
+    wrongLine: q.wrongLine,
+    wrongLineCN: q.wrongLineCN,
+  }));
+}
+
+let FLOORS = buildFloors();
 
 // ── Court Hierarchy Data (Floor 5) ──────────
 const COURTS = [
@@ -1277,10 +1712,12 @@ function shuffle(arr) {
 }
 
 function updateHUD() {
-  $('hud-floor').textContent = `FLOOR ${state.floor}/5`;
+  const totalFloors = FLOORS.length + 1; // MCQ floors + drag-and-drop floor
+  $('hud-floor').textContent = `FLOOR ${state.floor}/${totalFloors}`;
+  $('hud-score').textContent = `SCR ${state.score}`;
   const segs = document.querySelectorAll('.battery-seg');
   segs.forEach((s, i) => {
-    s.classList.toggle('empty', i >= (5 - state.floor));
+    s.classList.toggle('empty', i >= (totalFloors - state.floor));
   });
 }
 
@@ -1466,6 +1903,7 @@ function handleAnswer(isCorrect, floorIdx, clickedBtn, aEl, fbEl) {
     fbEl.className   = 'feedback-msg ok';
     fbEl.classList.remove('hidden');
     state.score++;
+    try { $('snd-correct').currentTime=0; $('snd-correct').play(); } catch(e){}
 
     // Correct overlay flash
     const co = $('correct-overlay');
@@ -1485,6 +1923,7 @@ function handleAnswer(isCorrect, floorIdx, clickedBtn, aEl, fbEl) {
     fbEl.innerHTML = '&#x2715; ACCESS DENIED &#x2014; TRY AGAIN<span class="cn-text">访问被拒绝 — 请重试</span>';
     fbEl.className   = 'feedback-msg err';
     fbEl.classList.remove('hidden');
+    try { $('snd-wrong').currentTime=0; $('snd-wrong').play(); } catch(e){}
 
     // Wrong overlay flash + screen shake
     const wo = $('wrong-overlay');
@@ -1523,11 +1962,11 @@ function advanceToNextFloor(floorIdx) {
 
 // ── Floor 5: Drag-and-Drop ───────────────────
 function initFloor5() {
-  state.floor = 5;
+  state.floor = FLOORS.length + 1;
   updateHUD();
 
-  showFloorTransition(5, () => {
-    goToScreen('floor5');
+  showFloorTransition(FLOORS.length + 1, () => {
+    goToScreen('floordnd');
 
     // Reset slot state
     for (let i = 1; i <= NUM_SLOTS; i++) state.slots[i] = null;
@@ -1779,6 +2218,7 @@ function submitFloor5() {
     fbEl.className = 'feedback-msg ok';
     fbEl.classList.remove('hidden');
     state.score++;
+    try { $('snd-correct').currentTime=0; $('snd-correct').play(); } catch(e){}
     setTimeout(() => {
       runDialogueQueue(WIN_LINES, () => showWinScreen());
     }, 800);
@@ -1786,6 +2226,7 @@ function submitFloor5() {
     fbEl.innerHTML = '&#x2715; INCORRECT SEQUENCE &#x2014; Red slots are wrong. Reset and try again.<span class="cn-text">✕ 序列错误 — 红色插槽有误。重置并重试。</span>';
     fbEl.className = 'feedback-msg err';
     fbEl.classList.remove('hidden');
+    try { $('snd-wrong').currentTime=0; $('snd-wrong').play(); } catch(e){}
     runDialogueQueue([
       ['Incorrect sequence detected. Red slots indicate errors. Reset and re-sequence the hierarchy.', '检测到错误序列。红色插槽表示错误。重置并重新排列层级。']
     ], null);
@@ -1794,17 +2235,18 @@ function submitFloor5() {
 
 // ── Win Screen ────────────────────────────────
 function showWinScreen() {
-  state.floor = 5;
+  state.floor = FLOORS.length + 1;
   updateHUD();
   goToScreen('win');
   $('win-stats').textContent =
-    `SCORE: ${state.score} / 5  •  AGENT STATUS: ESCAPED  •  NEXCORP BREACH: SUCCESS`;
+    `SCORE: ${state.score} / ${FLOORS.length + 1}  •  AGENT STATUS: ESCAPED  •  NEXCORP BREACH: SUCCESS`;
 }
 
 $('replay-btn').addEventListener('click', () => {
   state.score = 0;
   state.floor = 0;
   state.slots = {};
+  FLOORS = buildFloors();
   updateHUD();
   goToScreen('boot');
   // Re-add boot listeners using { once: true } to prevent stacking on repeated replays
