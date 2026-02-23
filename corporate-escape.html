@@ -2983,12 +2983,26 @@ function showMCQScreen(q, floorLabel) {
   unitTag.style.borderColor = color;
   header.innerHTML = `&#9672;&nbsp; ${floorLabel} &nbsp;&#9672;<span class="q-type-badge">${q.type.toUpperCase()}</span>`;
   
-  // Build question text
+  // Build question text — handle both inline [SCENARIO]...[QUESTION] and separate scenario/en fields
   let questionHTML = '';
   if (q.type === 'scenario') {
-    questionHTML += `<div class="scenario-box">${q.scenario}<span class="cn-text">${q.scenarioZh}</span></div>`;
+    let scenarioText = q.scenario, scenarioZhText = q.scenarioZh;
+    let questionText = q.en, questionZhText = q.zh;
+    if (!scenarioText && q.en && q.en.includes('[SCENARIO]')) {
+      const enParts  = q.en.split(/\[QUESTION\]/i);
+      const zhParts  = (q.zh || '').split(/\[问题\]|\[QUESTION\]/i);
+      const enScen   = enParts[0].replace(/\[SCENARIO\]/gi, '').trim();
+      const zhScen   = zhParts[0].replace(/\[场景\]|\[SCENARIO\]/gi, '').trim();
+      scenarioText   = enScen;
+      scenarioZhText = zhScen;
+      questionText   = (enParts[1] || '').trim();
+      questionZhText = (zhParts[1] || '').trim();
+    }
+    questionHTML += `<div class="scenario-box">${scenarioText}<span class="cn-text">${scenarioZhText || ''}</span></div>`;
+    questionHTML += questionText + `<span class="cn-text">${questionZhText || ''}</span>`;
+  } else {
+    questionHTML += q.en + `<span class="cn-text">${q.zh}</span>`;
   }
-  questionHTML += q.en + `<span class="cn-text">${q.zh}</span>`;
   qText.innerHTML = questionHTML;
 
   // Show MCQ, hide others
@@ -3067,7 +3081,9 @@ function showTFScreen(q, floorLabel) {
   unitTag.style.borderColor = color;
   header.innerHTML = `&#9672;&nbsp; ${floorLabel} — TRUE OR FALSE &nbsp;&#9672;`;
 
-  qText.innerHTML = `<em style="color:#ff0;font-size:0.8em;letter-spacing:2px;">TRUE OR FALSE? // 真或假？</em><br><br>${q.stmt}<span class="cn-text">${q.stmtZh}</span>`;
+  const tfStmt   = q.stmt   || q.en  || '';
+  const tfStmtZh = q.stmtZh || q.zh  || '';
+  qText.innerHTML = `<em style="color:#ff0;font-size:0.8em;letter-spacing:2px;">TRUE OR FALSE? // 真或假？</em><br><br>${tfStmt}<span class="cn-text">${tfStmtZh}</span>`;
 
   mcqGrid.classList.add('hidden');
   tfBtns.classList.remove('hidden');
@@ -3141,9 +3157,14 @@ function showFillScreen(q, floorLabel) {
   unitTag.style.borderColor = color;
   header.innerHTML = `&#9672;&nbsp; ${floorLabel} — FILL IN THE BLANK &nbsp;&#9672;`;
 
+  // Support both naming conventions: blank/blankZh/accepts (original) or en/zh/answers (newer)
+  const fillText   = q.blank   || q.en  || '';
+  const fillTextZh = q.blankZh || q.zh  || '';
+  const accepts    = q.accepts || q.answers || [];
+
   // Format blank with highlighted underline
-  const formatted = q.blank.replace('___', '<span class="fill-blank-highlight">___</span>');
-  qText.innerHTML = formatted + `<span class="cn-text">${q.blankZh}</span>`;
+  const formatted = fillText.replace('___', '<span class="fill-blank-highlight">___</span>');
+  qText.innerHTML = formatted + `<span class="cn-text">${fillTextZh}</span>`;
   fillHint.textContent = 'Type your answer and press SUBMIT or ENTER // 输入答案并按提交或回车';
 
   mcqGrid.classList.add('hidden');
@@ -3164,7 +3185,7 @@ function showFillScreen(q, floorLabel) {
     STATE.answered = true;
     fillInput.disabled = true;
     fillSubmit.disabled = true;
-    const correct = q.accepts.some(a => a.toLowerCase() === val);
+    const correct = accepts.some(a => a.toLowerCase() === val);
     if (correct) {
       fillInput.style.borderColor = '#0f8';
       feedback.className = 'feedback-msg ok';
@@ -3279,7 +3300,7 @@ function selectDef(el, defId) {
       const q = STATE.queue[STATE.floor];
       const fb = document.getElementById('match-feedback');
       fb.className = 'feedback-msg ok';
-      fb.innerHTML = `&#10003; ${q.okEn}<span class="cn-text">${q.okZh}</span>`;
+      fb.innerHTML = `&#10003; ${q.okEn || 'All pairs matched correctly!'}<span class="cn-text">${q.okZh || '所有配对正确！'}</span>`;
       fb.classList.remove('hidden');
       document.getElementById('match-continue').classList.remove('hidden');
       showCorrectOverlay();
