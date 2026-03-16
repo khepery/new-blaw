@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="description" content="IPAC Law Builder — interactive IPAC legal analysis practice with 20 scenarios covering Contract Law, Business Structures, Negligence, and Consumer Law.">
+<title>IPAC Law Builder</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --sky:#b8d4f0;--sky2:#cfe3f8;--card:#fff;
+  --fact-bg:#dceeff;--fact-bd:#5a9fd4;--fact-tx:#1a4a7a;
+  --rule-bg:#fff3d6;--rule-bd:#d4960a;--rule-tx:#6b4100;
+  --built-bg:#d6f0dd;
+  --bc:#f5a800;--bc-tx:#3d2600;
+  --ok-bg:#d6f0dd;--ok-bd:#3db85a;--ok-tx:#1a5c2a;
+  --no-bg:#fde0e0;--no-bd:#e05050;--no-tx:#7a1a1a;
+  --tx:#1a2035;--tx2:#5a6580;
+  --r:16px;--rsm:10px;
+  --f:'Nunito','Noto Sans SC',sans-serif;
+}
+body{font-family:var(--f);background:var(--sky);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:12px 10px 80px;color:var(--tx);}
+.back-to-site{display:flex;align-items:center;gap:7px;background:var(--card);border-radius:50px;padding:6px 14px 6px 10px;font-size:12px;font-weight:800;color:#1a4a8a;text-decoration:none;box-shadow:0 2px 0 rgba(0,0,80,.1);border:1.5px solid #c0cce8;transition:all .15s;width:fit-content;margin:0 auto 8px;}
+.back-to-site:hover{background:#dceeff;border-color:#5a9fd4;transform:translateY(-1px);}
+.back-to-site svg{width:14px;height:14px;flex-shrink:0;}
+.music-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(26,48,90,.92);backdrop-filter:blur(8px);padding:8px 14px;display:flex;align-items:center;gap:10px;z-index:500;border-top:1px solid rgba(255,255,255,.12);}
+.music-btn{font-family:var(--f);font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;cursor:pointer;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;transition:all .15s;white-space:nowrap;}
+.music-btn:hover{background:rgba(255,255,255,.22);}
+.music-btn.on{background:rgba(245,168,0,.35);border-color:#f5a800;color:#f5d68a;}
+.music-note{font-size:16px;line-height:1;}
+.music-label{font-size:10px;color:rgba(255,255,255,.65);font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.vol-slider{-webkit-appearance:none;appearance:none;width:70px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);outline:none;cursor:pointer;flex-shrink:0;}
+.vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#f5a800;cursor:pointer;}
+.vol-lbl{font-size:10px;color:rgba(255,255,255,.5);font-weight:700;flex-shrink:0;}
+.timer-bar{background:var(--card);border-radius:var(--r);padding:10px 14px;margin-bottom:10px;box-shadow:0 3px 0 rgba(0,0,80,.08);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.timer-display{font-size:26px;font-weight:900;color:var(--tx);font-variant-numeric:tabular-nums;min-width:72px;letter-spacing:1px;transition:color .3s;}
+.timer-display.yellow{color:#cc8800;}
+.timer-display.red{color:#cc2200;animation:tpulse .8s infinite;}
+@keyframes tpulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-presets{display:flex;gap:5px;flex-wrap:wrap;}
+.tpre{font-family:var(--f);font-size:10px;font-weight:800;padding:4px 9px;border-radius:14px;cursor:pointer;border:1.5px solid #c0cce8;background:var(--sky2);color:var(--tx2);transition:all .15s;}
+.tpre:hover{background:#a8c8f0;border-color:#5a8ad4;}
+.tpre.sel{background:var(--fact-bg);color:var(--fact-tx);border-color:var(--fact-bd);}
+.tbtn{font-family:var(--f);font-size:11px;font-weight:800;padding:5px 12px;border-radius:14px;cursor:pointer;border:1.5px solid;transition:all .15s;}
+.tbtn-go{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd);}
+.tbtn-stop{background:var(--no-bg);color:var(--no-tx);border-color:var(--no-bd);}
+.tbtn-reset{background:var(--sky2);color:var(--tx2);border-color:#b8c8e8;}
+.app{width:100%;max-width:820px;}
+.screen{display:none;}
+.screen.active{display:block;animation:si .2s ease;}
+@keyframes si{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hd{text-align:center;padding:14px 0 18px;}
+.logo-pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border-radius:50px;padding:8px 22px;margin-bottom:10px;box-shadow:0 3px 0 rgba(0,0,80,.12);}
+.ld{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;line-height:1;flex-shrink:0;}
+.home-title{font-size:clamp(20px,4vw,27px);font-weight:900;color:#1a3a6a;letter-spacing:-.5px;}
+.home-sub{font-size:11px;color:#3a6aaa;margin-top:3px;font-weight:700;}
+.home-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;}
+.chan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:0 2px;}
+@media(max-width:640px){.chan-grid{grid-template-columns:1fr 1fr;}}
+.chan{border-radius:18px;padding:15px 10px 13px;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:center;border:3px solid rgba(255,255,255,.6);box-shadow:0 4px 0 rgba(0,0,80,.1);user-select:none;}
+.chan:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 7px 0 rgba(0,0,80,.12);}
+.chan:active{transform:scale(.97);box-shadow:0 1px 0 rgba(0,0,80,.1);}
+.ch-u{font-size:26px;line-height:1;margin-bottom:5px;}
+.ch-n{font-size:13px;font-weight:800;margin-bottom:2px;}
+.ch-zh{font-size:10px;font-weight:600;opacity:.7;margin-bottom:6px;}
+.ch-c{display:inline-block;font-size:9px;font-weight:700;padding:2px 9px;border-radius:20px;background:rgba(255,255,255,.45);}
+.topbar{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;padding:9px 12px;margin-bottom:10px;box-shadow:0 3px 0 rgba(0,0,80,.08);}
+.bk{font-family:var(--f);font-size:12px;font-weight:800;padding:6px 12px;border-radius:20px;border:2px solid #c0cce8;background:var(--sky2);color:#2a4a8a;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.bk:hover{background:#a8c8f0;border-color:#5a8ad4;}
+.tb-inf{flex:1;min-width:0;}
+.tb-t{font-size:15px;font-weight:800;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-zh{font-size:10px;color:var(--tx2);font-weight:600;}
+.sc-card{background:var(--card);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:all .15s;margin-bottom:8px;box-shadow:0 3px 0 rgba(0,0,80,.08);border:2px solid transparent;}
+.sc-card:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,80,.1);border-color:#a0b8e0;}
+.sc-card:active{transform:scale(.98);}
+.sc-l{flex:1;min-width:0;}
+.sc-t{font-size:14px;font-weight:800;color:var(--tx);margin-bottom:1px;}
+.sc-zh{font-size:11px;color:var(--tx2);font-weight:600;margin-bottom:3px;}
+.sc-cs{font-size:10px;color:var(--tx2);font-style:italic;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.drow{display:flex;align-items:center;gap:3px;}
+.ddot{width:7px;height:7px;border-radius:50%;background:#c8d8f0;}
+.ddot.on{background:#3a7ad4;}
+.dlbl{font-size:9px;color:var(--tx2);margin-left:2px;font-weight:700;}
+.sc-go{font-family:var(--f);font-size:12px;font-weight:800;padding:8px 13px;border-radius:16px;border:none;cursor:pointer;transition:all .15s;white-space:nowrap;box-shadow:0 3px 0 rgba(0,0,80,.14);flex-shrink:0;}
+.sc-go:hover{transform:translateY(-2px);}
+.sc-go:active{transform:scale(.97);}
+.g-hd{background:var(--card);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;box-shadow:0 3px 0 rgba(0,0,80,.08);}
+.g-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;}
+.g-title{font-size:clamp(12px,3vw,15px);font-weight:800;color:var(--tx);}
+.g-zh{font-size:10px;color:var(--tx2);font-weight:600;}
+.iprog{display:flex;flex-direction:column;align-items:center;}
+.ipr-circles{display:flex;align-items:center;}
+.ps-c{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;border:3px solid;cursor:default;transition:all .2s;box-shadow:0 2px 0 rgba(0,0,80,.1);flex-shrink:0;}
+@media(max-width:400px){.ps-c{width:32px;height:32px;font-size:11px;}}
+.ps-ln{width:26px;height:3px;background:#c0cce8;flex-shrink:0;}
+.ipr-labels{display:flex;align-items:flex-start;margin-top:3px;}
+.ipr-lbl{width:38px;text-align:center;flex-shrink:0;font-size:8px;font-weight:700;color:var(--tx2);line-height:1.3;}
+@media(max-width:400px){.ipr-lbl{width:32px;font-size:7px;}}
+.ipr-sp{width:26px;flex-shrink:0;}
+.brief{background:var(--card);border-radius:var(--r);padding:12px 15px;margin-bottom:10px;box-shadow:0 3px 0 rgba(0,0,80,.06);}
+.brief-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--tx2);margin-bottom:5px;}
+.brief-tx{font-size:clamp(12px,2.5vw,13px);line-height:1.75;color:var(--tx);font-weight:500;}
+.brief-tog{font-size:11px;color:#5a8ad4;font-weight:700;cursor:pointer;margin-top:5px;display:inline-block;}
+.sp{display:none;}
+.sp.spa{display:block;animation:si .18s ease;}
+.sc2{background:var(--card);border-radius:var(--r);padding:15px 17px;box-shadow:0 3px 0 rgba(0,0,80,.08);margin-bottom:10px;}
+.sh{font-size:12px;color:var(--tx2);font-weight:600;margin-bottom:11px;padding-bottom:10px;border-bottom:2px solid #e8eef8;line-height:1.6;}
+.sh strong{color:var(--tx);font-weight:800;font-size:13px;}
+.sq{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:8px;}
+.qos{display:flex;flex-direction:column;gap:7px;margin:10px 0;}
+.qo{font-family:var(--f);padding:11px 13px;border-radius:var(--rsm);border:2.5px solid #d0daf0;cursor:pointer;font-size:clamp(11px,2.5vw,13px);font-weight:600;color:var(--tx);background:var(--sky2);transition:all .15s;text-align:left;line-height:1.5;box-shadow:0 2px 0 rgba(0,0,80,.07);}
+.qo:hover:not(.qd){background:#c8dcf8;border-color:#7aabf0;transform:translateY(-1px);}
+.qo.qok{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd);}
+.qo.qno{background:var(--no-bg);color:var(--no-tx);border-color:var(--no-bd);}
+.qo.qd{cursor:default;}
+.qfb{padding:10px 13px;border-radius:var(--rsm);font-size:12px;line-height:1.6;margin-top:7px;font-weight:600;border-left:4px solid;}
+.fbok{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd);}
+.fbno{background:var(--no-bg);color:var(--no-tx);border-color:var(--no-bd);}
+.ab-wrap{display:grid;grid-template-columns:1fr 52px 1fr;gap:7px;align-items:start;margin:10px 0 11px;}
+@media(max-width:500px){.ab-wrap{grid-template-columns:1fr 42px 1fr;gap:4px;}}
+.ab-col{display:flex;flex-direction:column;gap:5px;}
+.ab-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);text-align:center;margin-bottom:2px;}
+.at{padding:8px 10px;border-radius:var(--rsm);border:2.5px solid #d0daf0;cursor:pointer;font-size:clamp(10px,2.2vw,12px);font-weight:600;color:var(--tx);background:var(--sky2);transition:all .15s;line-height:1.5;box-shadow:0 2px 0 rgba(0,0,80,.07);}
+.at:hover:not(.atd){transform:translateY(-1px);border-color:#7aabf0;background:#c8dcf8;}
+.at.atsf{background:var(--fact-bg);border-color:var(--fact-bd);color:var(--fact-tx);transform:scale(1.02);}
+.at.atd{opacity:.22;cursor:default;transform:none;}
+.at.aterr{animation:shake .3s;background:var(--no-bg);border-color:var(--no-bd);}
+.bc-col{display:flex;align-items:center;justify-content:center;padding-top:14px;}
+.bcbtn{font-family:var(--f);padding:10px 5px;background:var(--bc);color:var(--bc-tx);border-radius:13px;font-size:11px;font-weight:900;cursor:pointer;border:3px solid var(--bc);transition:all .15s;width:48px;text-align:center;line-height:1.2;box-shadow:0 3px 0 rgba(160,100,0,.25);}
+.bcbtn.bcr{border-color:#8a5000;animation:bcp .9s infinite;}
+.bcbtn:disabled{opacity:.35;cursor:default;animation:none;border-color:var(--bc);box-shadow:none;}
+@keyframes bcp{0%,100%{box-shadow:0 3px 0 rgba(160,100,0,.25)}50%{box-shadow:0 0 0 5px rgba(245,168,0,.28)}}
+.absc{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--sky2);border-radius:var(--rsm);margin-bottom:8px;border:2px solid rgba(90,140,200,.2);}
+.absn{font-size:20px;font-weight:900;color:var(--tx);}
+.absl{font-size:11px;color:var(--tx2);font-weight:600;}
+.absh{font-size:10px;color:#5a8ad4;font-weight:700;text-align:right;}
+.blist{margin-bottom:8px;}
+.brow{display:flex;align-items:flex-start;gap:5px;padding:8px 11px;border-radius:var(--rsm);background:var(--built-bg);margin-bottom:4px;font-size:clamp(10px,2.2vw,12px);line-height:1.6;color:#1a5c2a;font-weight:600;animation:bi .2s ease;box-shadow:0 2px 0 rgba(0,80,30,.08);}
+@keyframes bi{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:translateX(0)}}
+.brn{font-weight:900;min-width:14px;flex-shrink:0;}
+.bctag{background:var(--bc);color:var(--bc-tx);border-radius:9px;padding:0 5px;font-size:9px;font-weight:800;white-space:nowrap;margin:1px 3px;}
+.nr{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
+.btn{font-family:var(--f);padding:8px 15px;font-size:12px;font-weight:800;border-radius:18px;cursor:pointer;transition:all .15s;border:2.5px solid;box-shadow:0 3px 0 rgba(0,0,80,.1);}
+.btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,80,.12);}
+.btn:active{transform:scale(.97);}
+.btn-n{background:var(--fact-bg);color:var(--fact-tx);border-color:var(--fact-bd);}
+.btn-g{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd);}
+.btn-s{background:var(--sky2);color:var(--tx2);border-color:#b8c8e8;}
+.btn-y{background:#fff3d6;color:#6b4100;border-color:#d4960a;}
+.rh{text-align:center;background:var(--card);border-radius:var(--r);padding:18px 15px;margin-bottom:10px;box-shadow:0 3px 0 rgba(0,0,80,.08);}
+.rst{font-size:32px;margin-bottom:5px;letter-spacing:3px;}
+.rt{font-size:19px;font-weight:900;color:var(--tx);}
+.rs{font-size:11px;color:var(--tx2);font-weight:600;margin-top:3px;}
+.rsrow{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:13px;}
+.sbg{text-align:center;padding:8px 11px;border-radius:var(--rsm);min-width:62px;border:2.5px solid;}
+.sbs{font-size:19px;font-weight:900;}
+.sbl{font-size:9px;font-weight:700;margin-top:1px;}
+.sbg.ok{background:var(--ok-bg);color:var(--ok-tx);border-color:var(--ok-bd);}
+.sbg.no{background:var(--no-bg);color:var(--no-tx);border-color:var(--no-bd);}
+.sbg.sk{background:var(--sky2);color:var(--tx2);border-color:#b8c8e8;}
+.rpc{background:var(--card);border-radius:var(--r);padding:13px 15px;margin-bottom:9px;box-shadow:0 3px 0 rgba(0,0,80,.06);}
+.rpl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--tx2);margin-bottom:7px;}
+.fp{font-size:12px;line-height:1.85;color:var(--tx);font-weight:500;}
+.fbc{background:var(--bc);color:var(--bc-tx);border-radius:8px;padding:0 5px;font-weight:800;font-size:11px;}
+.cm-hero{text-align:center;background:var(--card);border-radius:var(--r);padding:20px 16px;margin-bottom:12px;box-shadow:0 4px 0 rgba(0,0,80,.1);}
+.cm-title{font-size:20px;font-weight:900;color:#1a3a6a;margin-bottom:4px;}
+.cm-sub{font-size:12px;color:var(--tx2);font-weight:600;margin-bottom:16px;}
+.cm-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:480px){.cm-opts{grid-template-columns:1fr;}}
+.cm-opt{background:var(--card);border-radius:var(--r);padding:16px;cursor:pointer;border:2.5px solid #c8d8f0;text-align:center;transition:all .15s;box-shadow:0 3px 0 rgba(0,0,80,.08);}
+.cm-opt:hover{transform:translateY(-2px);border-color:#7aabf0;box-shadow:0 6px 0 rgba(0,0,80,.1);}
+.cm-opt-icon{font-size:28px;margin-bottom:6px;}
+.cm-opt-t{font-size:13px;font-weight:800;color:var(--tx);margin-bottom:3px;}
+.cm-opt-s{font-size:11px;color:var(--tx2);font-weight:600;}
+.cm-result{background:var(--card);border-radius:var(--r);padding:20px;margin-bottom:12px;box-shadow:0 3px 0 rgba(0,0,80,.08);text-align:center;}
+.cm-code{font-size:72px;font-weight:900;color:#1a3a6a;line-height:1;}
+.cm-sc-name{font-size:18px;font-weight:800;color:var(--tx);margin-top:6px;}
+.cm-sc-zh{font-size:13px;color:var(--tx2);font-weight:600;margin-top:2px;}
+.cm-sc-cases{font-size:11px;color:#5a8ad4;font-weight:700;margin-top:5px;font-style:italic;}
+.cm-inst{font-size:13px;color:var(--tx2);font-weight:600;margin-top:12px;padding-top:12px;border-top:2px solid #e8eef8;}
+.grp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+@media(max-width:400px){.grp-grid{grid-template-columns:1fr;}}
+.grp-card{border-radius:var(--r);padding:14px 15px;border:3px solid rgba(255,255,255,.5);box-shadow:0 3px 0 rgba(0,0,80,.1);}
+.grp-lbl{font-size:14px;font-weight:900;margin-bottom:4px;}
+.grp-code{font-size:28px;font-weight:900;margin-bottom:3px;}
+.grp-name{font-size:12px;font-weight:800;margin-bottom:2px;}
+.grp-cases{font-size:10px;font-weight:600;opacity:.75;}
+.code-entry{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:0 3px 0 rgba(0,0,80,.08);text-align:center;margin-bottom:12px;}
+.code-t{font-size:14px;font-weight:800;color:var(--tx);margin-bottom:4px;}
+.code-s{font-size:12px;color:var(--tx2);font-weight:600;margin-bottom:12px;}
+.code-inp{font-family:var(--f);font-size:32px;font-weight:900;width:90px;text-align:center;padding:8px;border:3px solid #c0cce8;border-radius:12px;color:var(--tx);background:var(--sky2);outline:none;}
+.code-inp:focus{border-color:#5a9fd4;}
+.code-go{font-family:var(--f);font-size:14px;font-weight:800;padding:10px 24px;border-radius:18px;border:2.5px solid var(--ok-bd);background:var(--ok-bg);color:var(--ok-tx);cursor:pointer;margin-left:8px;box-shadow:0 3px 0 rgba(0,80,30,.15);transition:all .15s;}
+.code-go:hover{transform:translateY(-2px);}
+.code-err{font-size:12px;color:var(--no-tx);font-weight:700;margin-top:8px;display:none;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}}
+.ft{text-align:center;padding:10px 0 2px;font-size:10px;color:#5a8aaa;font-weight:600;}
+</style>
+</head>
+<body>
+<a class="back-to-site" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+  Back to Course Site
+</a>
+<div class="app" id="app">
+  <div id="s-home" class="screen active"></div>
+  <div id="s-topic" class="screen"></div>
+  <div id="s-game" class="screen"></div>
+  <div id="s-results" class="screen"></div>
+  <div id="s-class" class="screen"></div>
+</div>
+<div class="music-bar">
+  <span class="music-note">🎵</span>
+  <button class="music-btn" id="m-tog" onclick="toggleMusic()">Play Lounge</button>
+  <span class="music-label" id="m-lbl">Study Lounge Music</span>
+  <span class="vol-lbl">Vol</span>
+  <input type="range" class="vol-slider" id="m-vol" min="0" max="100" value="35" oninput="setVol(this.value)" aria-label="Volume control">
+</div>
+<script>
+// ── CHANNELS ────────────────────────────────────────────────
+const CHANNELS=[
+  {id:0,icon:'📝',name:'Contract Law',zh:'合同法',color:'#dbeafe',border:'#3b82f6',tx:'#1e3a8a'},
+  {id:1,icon:'🏢',name:'Business Structures',zh:'商业结构',color:'#dcfce7',border:'#16a34a',tx:'#14532d'},
+  {id:2,icon:'⚠️',name:'Negligence',zh:'疏忽侵权',color:'#fee2e2',border:'#dc2626',tx:'#7f1d1d'},
+  {id:3,icon:'🛒',name:'Consumer Law',zh:'消费者法',color:'#fef9c3',border:'#ca8a04',tx:'#713f12'},
+];
+
+// ── SCENARIOS ───────────────────────────────────────────────
+const SC=[
+// ═══ CONTRACT LAW ══════════════════════════════════════════
+{code:'01',ch:0,name:'The Smoke Ball Offer',name_zh:'烟球要约',
+ cases:'Carlill v Carbolic Smoke Ball Co [1893]',diff:3,
+ brief:`GreenFit Co posts online: "Use our SlimShake powder for 30 days as directed — if you don't lose 5kg, we'll pay you $500!" Maya buys the powder, follows the instructions for the full 30 days, but doesn't lose 5kg. She claims her $500. GreenFit says the advertisement was just promotional puffery and not a binding offer.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the primary legal issue?",
+   opts:["Whether GreenFit's advertisement constitutes a binding unilateral offer","Whether Maya has standing to sue under consumer law","Whether GreenFit breached a statutory product guarantee","Whether Maya's claim is time-barred"],
+   ans:0,fb:"The key issue is whether a public advertisement can constitute a binding offer. Carlill v Carbolic Smoke Ball Co established that advertisements promising a reward upon performance CAN be binding unilateral offers to the world."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which legal principle most directly applies?",
+   opts:["An advertisement is always an invitation to treat, never an offer","A unilateral offer to the world is accepted by performance of the stated conditions (Carlill v Carbolic Smoke Ball Co)","Acceptance must be communicated to the offeror before it is valid","Consideration must be adequate to be legally sufficient"],
+   ans:1,fb:"In Carlill [1893], a public advertisement promising money upon performance is a unilateral offer accepted by performing the stated conditions — no prior communication of acceptance is needed."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the legal element it satisfies:",
+   facts:["GreenFit made a public advertisement promising $500","Maya purchased the powder (gave money)","Maya used the product for 30 days as directed","Maya did not achieve the advertised result"],
+   elems:["Valid unilateral offer made to the world","Consideration provided by offeree","Acceptance by performance of conditions","Conditions fulfilled — entitlement arises"],
+   fb:"All four elements of a valid unilateral contract are satisfied: offer to the world → consideration → acceptance by performance → conditions met → binding contract formed."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal conclusion?",
+   opts:["GreenFit must pay Maya $500 — a valid unilateral contract was formed and she performed the conditions","GreenFit is not liable — advertisements can never constitute binding offers","Maya must have notified GreenFit of her acceptance before using the product","The contract is void because $500 is insufficient consideration"],
+   ans:0,fb:"Applying Carlill: unilateral offer + consideration + performance of conditions = binding contract. GreenFit must pay $500. The claim it was 'puffery' fails because the language was specific and promissory."},
+ ]},
+{code:'02',ch:0,name:'The Family Promise',name_zh:'家庭承诺',
+ cases:'Balfour v Balfour [1919]',diff:2,
+ brief:`Jack (19) tells his father he will achieve a GPA of 3.5 this semester. His father says: "If you do that, I'll buy you a new car." Jack achieves a 3.8 GPA. When he asks his father for the car, his father says he was just being encouraging and never intended a legal agreement.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the central legal issue?",
+   opts:["Whether Jack provided sufficient consideration for the promise","Whether a legally enforceable contract was formed between family members","Whether Jack's father has capacity to contract","Whether the agreement satisfies the statute of frauds"],
+   ans:1,fb:"The central issue is intention to create legal relations. In domestic/family arrangements there is a presumption against legal enforceability (Balfour v Balfour)."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which principle applies to agreements made between family members?",
+   opts:["Family agreements are always legally binding if there is consideration","There is a presumption that domestic and social agreements are NOT intended to create legal relations (Balfour v Balfour)","A parent's promise to a child is enforceable once the child performs","Oral agreements between family members are always unenforceable"],
+   ans:1,fb:"Balfour v Balfour [1919]: agreements between family members are presumed NOT legally binding because the parties are presumed not to intend legal consequences. This is a rebuttable presumption."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the relevant legal element:",
+   facts:["Jack and his father are family members","The promise was made in a domestic informal setting","No formal terms, writing, or legal language was used","Jack's father said he was 'just being encouraging'"],
+   elems:["Domestic relationship — presumption against legal intent","Informal context supports no legal intent","Absence of formality confirms family/social nature","Evidence of no subjective intent to be bound"],
+   fb:"All factors point to the presumption not being rebutted: family context, informal setting, no formality, and the father's own stated intent. No binding contract exists."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal outcome?",
+   opts:["Jack can enforce the promise — consideration (achieving 3.8 GPA) was provided","Jack cannot enforce the promise — the domestic presumption against legal intent is not rebutted","The promise is binding because Jack relied on it to his detriment","Jack can claim in promissory estoppel for changing his study habits"],
+   ans:1,fb:"Applying Balfour: the presumption against legal intent in family arrangements is not rebutted — no evidence the parties intended legal consequences. Jack cannot enforce the promise in contract."},
+ ]},
+{code:'03',ch:0,name:'The Rejected Offer',name_zh:'被拒绝的要约',
+ cases:'Hyde v Wrench [1840]',diff:3,
+ brief:`Apex Pty Ltd emails Sofia on Monday: "We offer to buy your warehouse for $850,000 — open until Friday 5pm." On Thursday evening Sofia emails: "I'm not interested." On Friday morning Sofia changes her mind and emails: "I accept your offer of $850,000." Apex refuses to proceed, saying the offer no longer exists.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the primary legal issue?",
+   opts:["Whether Apex made a valid offer to Sofia","Whether Sofia's Friday acceptance is valid after her Thursday rejection","Whether $850,000 is adequate consideration for commercial property","Whether email contracts require written confirmation"],
+   ans:1,fb:"The key issue is whether Sofia's rejection on Thursday terminated the offer, making her Friday 'acceptance' legally ineffective."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which principle applies to Sofia's situation?",
+   opts:["An offer can be accepted any time before the stated deadline, regardless of intervening rejections","A rejection of an offer terminates it; a subsequent attempt to accept has no effect (Hyde v Wrench)","An enquiry about an offer constitutes a counter-offer that destroys the original offer","Offers made by email are not legally effective until printed and signed"],
+   ans:1,fb:"Hyde v Wrench [1840]: once an offer is rejected, the original offer is terminated and cannot later be 'accepted.' Sofia's Thursday rejection ended the offer — her Friday email cannot revive it."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["Apex's offer was open until Friday 5pm","Sofia emailed 'I'm not interested' on Thursday","Sofia emailed 'I accept' on Friday morning","Apex refuses to proceed with the sale"],
+   elems:["Valid offer with specified expiry","Rejection — terminates the offer immediately","Purported acceptance of a terminated offer (no effect)","Apex is lawfully not bound — no contract formed"],
+   fb:"Sequence: valid offer → rejection (terminates offer) → purported acceptance of dead offer = no contract. Apex is correct to refuse."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal conclusion?",
+   opts:["A binding contract exists because Sofia accepted before the Friday 5pm deadline","No contract was formed — Sofia's Thursday rejection terminated the offer before her Friday acceptance","Sofia can enforce the contract because email offers have special acceptance rules","Apex must proceed as Sofia's acceptance was within the stated time period"],
+   ans:1,fb:"Applying Hyde v Wrench: Sofia's rejection on Thursday terminated Apex's offer. Her Friday email is legally a new offer, not an acceptance. Apex is free to refuse — no contract exists."},
+ ]},
+{code:'04',ch:0,name:"The Minor's Motorbike",name_zh:'未成年人的摩托车',
+ cases:'Nash v Inman [1908]; Minors (Property and Contracts) Act 1970 (NSW)',diff:2,
+ brief:`Liam, aged 16, purchases a motorbike from SpeedMoto for $4,200 using money saved from his part-time job. He rides it for two months. He then decides he doesn't want it and demands a full refund. SpeedMoto argues the contract is binding because Liam paid with his own money and had full use of the bike.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the central legal issue?",
+   opts:["Whether Liam's payment with his own money makes the contract binding","Whether Liam, as a minor, can void the contract for the motorbike","Whether SpeedMoto was negligent in selling to a minor","Whether the contract requires parental consent to be enforceable"],
+   ans:1,fb:"The issue is contractual capacity. Minors generally lack full capacity to enter binding contracts. The key question is whether the contract is for 'necessaries' (binding) or non-necessaries (voidable by the minor)."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which principle applies to contracts with minors?",
+   opts:["A minor who pays with their own earned money is fully bound by any contract","Contracts with minors are voidable at the minor's option (except for necessaries and beneficial service contracts)","A minor's contract is automatically void from the start","Minors can only void contracts if they return the goods in original condition"],
+   ans:1,fb:"Contracts with minors are generally voidable at the minor's election. A motorbike is not a 'necessary' (unlike food, clothing, or medical care) — it is a non-essential item. Liam may void the contract."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["Liam is 16 years old","The motorbike costs $4,200","Liam used the bike for 2 months","Liam elects to void the contract"],
+   elems:["Minor — lacks full contractual capacity","Non-necessary good — minor can void","Use does not automatically prevent voiding","Minor exercises right to void the contract"],
+   fb:"Liam is a minor, a motorbike is not a necessary, use for 2 months does not prevent voiding (though he may need to account for benefit received), and he can elect to void."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal outcome?",
+   opts:["Liam can void the contract and receive a full $4,200 refund with no deductions","Liam can void the contract; however, SpeedMoto may be entitled to compensation for 2 months of use","The contract is fully binding on Liam because he used the bike and paid with his own money","SpeedMoto can enforce the full contract regardless of Liam's age"],
+   ans:1,fb:"Liam can void (motorbike is not a necessary). However, a court may require him to account for the benefit of 2 months' use. SpeedMoto cannot enforce the full contract against a minor."},
+ ]},
+{code:'05',ch:0,name:'The Hidden Damage',name_zh:'隐藏的损坏',
+ cases:"Edgington v Fitzmaurice [1885]; With v O'Flanagan [1936]",diff:3,
+ brief:`David sells his car to Priya for $18,000, stating it has "never been in an accident." Priya relies on this and buys the car. A mechanic later discovers major structural accident damage that was poorly repaired. The car is worth only $9,000. David knew about the prior accident.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the primary legal issue?",
+   opts:["Whether Priya should have inspected the car more carefully before buying","Whether David's statement about the accident history constitutes actionable misrepresentation","Whether the sale price of $18,000 was unconscionable","Whether Priya is entitled to a statutory guarantee under consumer law"],
+   ans:1,fb:"The key issue is misrepresentation. David made a false statement of fact ('never been in an accident') that induced Priya to enter the contract. This is actionable as fraudulent misrepresentation."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which legal principle most directly applies?",
+   opts:["Buyers must conduct their own due diligence — caveat emptor fully applies","A false statement of existing fact, made fraudulently, that induces the other party to contract is actionable misrepresentation","Silence about a defect can never constitute misrepresentation","Misrepresentation only applies to written pre-contractual statements"],
+   ans:1,fb:"For misrepresentation: (1) a false statement of existing fact; (2) made by the representor; (3) which induces entry into the contract. David knew about the accident and lied — this is fraudulent misrepresentation."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the legal element it establishes:",
+   facts:["David said the car 'never been in an accident'","David knew about the prior accident damage","Priya relied on the statement and paid $18,000","The car is actually worth $9,000"],
+   elems:["False statement of existing fact","Fraudulent intent — made knowingly false","Inducement — Priya entered contract because of the statement","Damage — financial loss suffered by Priya"],
+   fb:"All elements of fraudulent misrepresentation: false statement + known to be false + induced contract + caused loss. Priya can rescind the contract AND claim damages."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What remedy is Priya entitled to?",
+   opts:["Priya can only claim damages for the $9,000 difference in value","Priya can rescind the contract and/or sue for damages — David's fraudulent misrepresentation entitles her to both remedies","Priya has no remedy because she failed to get an independent inspection","Priya must keep the car but can sue for the $9,000 shortfall only"],
+   ans:1,fb:"For fraudulent misrepresentation, Priya may: (1) rescind the contract — return the car and get $18,000 back; AND/OR (2) claim damages (tort of deceit) for financial loss. She does not have to choose only one remedy."},
+ ]},
+{code:'06',ch:0,name:'Time Is of the Essence',name_zh:'时间是合同的核心',
+ cases:'Poussard v Spiers [1876]; Bettini v Gye [1876]',diff:3,
+ brief:`BuildFast Pty Ltd contracts with Metro Café to complete renovations by November 1st. The contract explicitly states "time is of the essence." BuildFast finishes on November 20th. Metro Café, having lost customers during the extended closure, wants to terminate the contract and pay nothing.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the primary legal issue?",
+   opts:["Whether Metro Café can terminate and withhold all payment for BuildFast's late completion","Whether BuildFast's delay was caused by unforeseeable circumstances (force majeure)","Whether Metro Café suffered sufficient damages to justify termination","Whether the 'time is of the essence' clause needs to be in bold print to be enforceable"],
+   ans:0,fb:"The issue is whether BuildFast's breach (late completion) entitles Metro Café to terminate. This depends on whether the deadline was a condition (essential term) or a warranty (minor term)."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What does 'time is of the essence' mean legally?",
+   opts:["It means the late party must pay a penalty but the contract continues","It makes timely completion a condition — breach entitles the innocent party to terminate and sue for damages","It is aspirational language only with no binding legal effect","It only applies where a specific financial penalty clause is set out"],
+   ans:1,fb:"'Time is of the essence' makes the completion date a condition (essential term). Breach of a condition allows the innocent party to: (1) terminate the contract, AND (2) sue for damages."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["'Time is of the essence' was expressly included in the contract","BuildFast completed work on November 20th, not November 1st","Metro Café lost customers during the extra 19-day closure","Metro Café wants to terminate and refuse to pay"],
+   elems:["Completion date is a condition (essential term)","Breach of the condition by BuildFast","Damages flowing from the breach (consequential loss)","Right to terminate for breach of condition"],
+   fb:"'Time is of the essence' → condition → breach on Nov 20 → Metro Café's losses → right to terminate and claim damages. Metro Café need not pay and can sue for its losses."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal outcome?",
+   opts:["Metro Café can terminate and claim damages for losses caused by the 19-day delay","Metro Café must pay in full because the work was eventually completed","Metro Café can only withhold payment proportional to the delay — not terminate","BuildFast can rely on frustration because construction always runs over time"],
+   ans:0,fb:"BuildFast breached a condition. Metro Café is entitled to: (1) terminate the contract; (2) withhold payment; AND (3) claim damages for losses (e.g., lost revenue during the 19-day extended closure)."},
+ ]},
+{code:'07',ch:0,name:'The Foreseeable Loss',name_zh:'可预见的损失',
+ cases:'Hadley v Baxendale [1854]',diff:4,
+ brief:`CoolBreeze repairs Sunrise Bakery's industrial oven negligently. The oven breaks down again two weeks later. The bakery is closed for 5 days while a part is sourced. Sunrise claims $2,000 for the repair cost PLUS $12,000 for lost profits during closure. CoolBreeze argues it cannot be responsible for lost business profits.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue regarding damages?",
+   opts:["Whether CoolBreeze is liable at all for the second breakdown","What categories of loss Sunrise Bakery can recover — is lost profit recoverable?","Whether Sunrise mitigated its losses by finding an alternative oven","Whether the original repair contract was validly formed"],
+   ans:1,fb:"The issue is the scope of recoverable damages. The principle in Hadley v Baxendale limits recovery to foreseeable losses. Were Sunrise's lost profits within the reasonable contemplation of the parties?"},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"The Hadley v Baxendale rule states that recoverable damages are:",
+   opts:["All losses the plaintiff suffers, regardless of foreseeability","Limited to losses arising naturally from the breach OR losses within the reasonable contemplation of both parties at the time of contracting","Only direct repair costs — never consequential economic losses","Losses that the defendant subjectively foresaw at the moment of breach"],
+   ans:1,fb:"Hadley v Baxendale [1854]: damages limited to: (1) losses arising naturally from the breach, OR (2) losses within the reasonable contemplation of both parties at contracting. Lost profits from a broken oven are 'natural' for a bakery."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each element to the relevant fact:",
+   facts:["CoolBreeze repaired an industrial oven for a bakery","The oven failed causing a 5-day closure","$2,000 repair cost was direct consequence of the breach","$12,000 lost profits were foreseeable for an oven-dependent business"],
+   elems:["CoolBreeze knew the context — oven critical to bakery operations","Breach causes natural consequence: oven breakdown","Direct (natural) loss — clearly recoverable under rule 1","Contemplated loss — recoverable under Hadley rule 2"],
+   fb:"CoolBreeze knew they repaired a commercial oven for a bakery. Both heads of damage are recoverable: direct repair costs + lost profits (foreseeable consequence of a bakery's oven failing)."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What can Sunrise Bakery recover?",
+   opts:["$2,000 repair cost only — lost profits are too remote","Both $2,000 repair cost AND $12,000 lost profits — both recoverable under Hadley v Baxendale","$12,000 lost profits only — the repair cost is the plaintiff's responsibility","Nothing — Sunrise should have had a backup oven"],
+   ans:1,fb:"Both heads recoverable: (1) $2,000 repair cost — direct/natural loss; (2) $12,000 lost profits — within reasonable contemplation (CoolBreeze repaired a commercial oven knowing the bakery depended on it). Total: $14,000."},
+ ]},
+// ═══ BUSINESS STRUCTURES ══════════════════════════════════
+{code:'08',ch:1,name:'Piercing the Corporate Veil',name_zh:'刺破公司面纱',
+ cases:"Salomon v Salomon & Co Ltd [1897]; Lee v Lee's Air Farming [1961]",diff:4,
+ brief:`Marcus is the sole director and shareholder of TechStar Pty Ltd. TechStar owes $200,000 to creditors. Investigation reveals Marcus regularly transferred company funds to his personal account, paid personal expenses from company funds, and never kept separate records. Creditors want to sue Marcus personally.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether TechStar Pty Ltd was properly incorporated under the Corporations Act","Whether Marcus can be held personally liable despite the company's separate legal personality","Whether the $200,000 debt is enforceable against the company","Whether Marcus breached his fiduciary duty as a director (a separate issue)"],
+   ans:1,fb:"The issue is whether creditors can pierce the corporate veil — hold Marcus personally liable — despite the Salomon principle. The key is whether Marcus's conduct justifies an exception."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which principle applies?",
+   opts:["Directors are always personally liable for company debts","A company is a separate legal entity from its members (Salomon); courts will pierce the veil where the company structure is used as a sham or to perpetrate fraud","The corporate veil can never be pierced in Australian law","Sole director/shareholders are treated as sole traders for liability purposes"],
+   ans:1,fb:"Salomon v Salomon [1897]: a company is a separate legal entity. However, courts will pierce the corporate veil where: (1) the company is used as a sham/facade; (2) fraud is involved; (3) the director uses the company to evade obligations."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["TechStar Pty Ltd is a registered corporation","Marcus transferred company funds to his personal account","Marcus paid personal expenses from company accounts with no separate records","Creditors seek to hold Marcus personally liable for $200,000"],
+   elems:["Separate legal entity — prima facie protection for Marcus","Fraud — using company to misappropriate funds","Commingling: company used as personal alter ego/facade","Grounds to pierce the corporate veil established"],
+   fb:"While Salomon gives prima facie protection, Marcus's conduct — commingling funds, using the company as his personal piggy bank — constitutes fraud/sham use of the corporate structure. This justifies piercing the veil."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the likely legal outcome?",
+   opts:["Marcus cannot be held personally liable — Salomon's principle is absolute","A court is likely to pierce the corporate veil and hold Marcus personally liable for $200,000 given his fraudulent conduct","Marcus is only liable for the exact amount he personally transferred to himself","Creditors must exhaust all remedies against TechStar before pursuing Marcus"],
+   ans:1,fb:"Applying Salomon + exceptions: Marcus's conduct (fraud, commingling, using company as a facade) satisfies grounds for piercing the veil. A court will likely hold him personally liable. Salomon protects legitimate incorporation — not fraud."},
+ ]},
+{code:'09',ch:1,name:'The Unauthorised Partner',name_zh:'未经授权的合伙人',
+ cases:'Mercantile Credit Co v Garrod [1962]; Partnership Act',diff:3,
+ brief:`Johnson & Smith run a car repair partnership. Their agreement restricts them to "repair of motor vehicles only — no buying or selling of cars." Without Smith's knowledge, Johnson agrees to buy luxury car parts worth $15,000 from AutoLux. AutoLux delivers the parts. Smith refuses to pay, saying Johnson had no authority.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the central legal issue?",
+   opts:["Whether the partnership agreement is valid without being in writing","Whether the partnership is liable to AutoLux for Johnson's unauthorised purchase","Whether AutoLux should have verified Johnson's authority before delivering","Whether Smith can dissolve the partnership because of Johnson's breach"],
+   ans:1,fb:"The issue is whether Johnson's act, though beyond his actual authority, binds the partnership because it was within the apparent (usual) scope of a car repair business."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Under partnership law, when does a partner's act bind the firm?",
+   opts:["Only when all partners have given express written consent","Each partner is an agent of the firm; acts done in the ordinary course of the firm's business (within apparent authority) bind the firm, even if the specific act exceeded actual authority","Partners are only personally liable, never jointly liable","A third party must check the partnership agreement before dealing with any partner"],
+   ans:1,fb:"Partnership Act: a partner acting in the usual course of the type of business carried on by the firm binds the firm. Buying car parts is within the usual course of a car repair business — AutoLux need not check the internal agreement."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["Johnson & Smith operate a car repair business","Johnson agreed to buy car parts from AutoLux","AutoLux had no knowledge of the internal restriction","Buying car parts is consistent with a car repair business"],
+   elems:["Type of firm — defines scope of usual business activities","Act of a partner — buying parts for car repair","Third party dealing in good faith without notice of restriction","Act within apparent scope — binds the partnership"],
+   fb:"The firm carries on car repair. Buying car parts is within the usual scope. AutoLux had no notice of the restriction. Johnson's act binds the firm under apparent authority."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the legal outcome?",
+   opts:["Only Johnson is liable — he exceeded his actual authority","The partnership (both Johnson and Smith) is liable to AutoLux for $15,000 — buying parts is within the apparent scope of a car repair business","AutoLux has no remedy because it failed to check Johnson's authority","The contract is void because Johnson lacked actual authority"],
+   ans:1,fb:"The partnership is liable. Buying car parts is within the apparent scope of a car repair business. AutoLux dealt in good faith without notice of the restriction. Smith's recourse is against Johnson for breach of the partnership agreement."},
+ ]},
+// ═══ NEGLIGENCE ════════════════════════════════════════════
+{code:'10',ch:2,name:'The Supermarket Slip',name_zh:'超市滑倒',
+ cases:'Donoghue v Stevenson [1932]; Wyong Shire Council v Shirt (1980)',diff:2,
+ brief:`Emma slips on a wet floor at FreshMart supermarket. An employee mopped the floor 10 minutes earlier but placed no warning signs. Emma suffers a fractured wrist requiring surgery and 6 weeks off work. FreshMart argues the floor was almost dry and Emma should have watched where she was walking.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What must Emma establish to succeed in negligence?",
+   opts:["That FreshMart intended to harm her","That FreshMart owed a duty of care, breached that duty, and the breach caused her injury","That FreshMart violated a specific statutory safety regulation","That FreshMart had been previously warned about wet floor incidents"],
+   ans:1,fb:"In negligence, the plaintiff must prove: (1) duty of care owed; (2) breach of that duty; (3) damage caused by the breach. The key dispute is whether FreshMart breached its duty (no warning signs after mopping)."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What standard applies to FreshMart's duty of care?",
+   opts:["An occupier only owes a duty to customers who are visibly at risk","An occupier/business owes a duty to take reasonable care to avoid foreseeable risks of injury to customers (Donoghue v Stevenson; Wyong Shire Council v Shirt)","FreshMart is strictly liable for any injury on its premises regardless of fault","The duty only applies if FreshMart was warned about the hazard in advance"],
+   ans:1,fb:"Donoghue v Stevenson: duty of care to those foreseeably affected by your acts. Wyong Shire: breach = failure to take precautions a reasonable person would take against a foreseeable risk. No warning signs after mopping = breach."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the element of negligence it satisfies:",
+   facts:["FreshMart is an occupier; Emma is a customer invited onto the premises","An employee mopped and left the floor wet with no warning signs","Emma slipped on the wet floor and fractured her wrist","Surgery and 6 weeks off work were required"],
+   elems:["Duty of care — FreshMart owes a duty to customers","Breach — failure to warn of a foreseeable wet floor hazard","Causation — the wet floor caused Emma's fall and injury","Damage — physical injury and consequential loss"],
+   fb:"All elements of negligence: duty (occupier to customer) + breach (no warning signs) + causation (slip from wet floor) + damage (fractured wrist). FreshMart is liable."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the likely outcome?",
+   opts:["FreshMart is not liable — Emma assumed the risk of shopping in a supermarket","FreshMart is liable in negligence — failure to place warning signs breached its duty of care and caused Emma's injury","FreshMart is liable but only for medical costs, not lost income","Emma is wholly responsible because she should have watched where she was walking"],
+   ans:1,fb:"FreshMart is liable. Risk of slipping on freshly mopped floor is foreseeable; the precaution (warning signs) is cheap and easy. Failure to warn = breach. Breach caused Emma's injury. She can recover all losses flowing from the breach."},
+ ]},
+{code:'11',ch:2,name:'The Unwarned Patient',name_zh:'未被告知风险的患者',
+ cases:'Rogers v Whitaker (1992) 175 CLR 479',diff:4,
+ brief:`Dr Chen performs hip replacement surgery on Robert, 68. She does not inform him of a 2% risk of nerve damage leading to possible permanent disability, considering it too small to mention. Robert suffers nerve damage and cannot walk properly. He says he would have refused surgery if he had known about the risk.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether Dr Chen performed the surgery incorrectly (negligent technique)","Whether Dr Chen breached her duty of care by failing to warn Robert of a material risk","Whether the 2% risk is statistically significant enough to ground a claim","Whether Robert's signed consent form bars his claim"],
+   ans:1,fb:"The issue is the duty to warn — specifically whether the 2% nerve damage risk was 'material' and should have been disclosed. Rogers v Whitaker established the Australian standard for medical risk disclosure."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Under Rogers v Whitaker, when must a doctor warn a patient of a risk?",
+   opts:["Only when a risk exceeds 10% probability — minor risks need not be disclosed","A doctor must warn of a risk if a reasonable patient in the patient's position would want to know about it, even if the risk is statistically small (Rogers v Whitaker — patient-centred standard)","The Bolam test applies — a doctor meets the standard if supported by a body of medical opinion","Doctors must only warn of risks above a threshold set by the Medical Board"],
+   ans:1,fb:"Rogers v Whitaker [1992]: Australia rejected the Bolam test for disclosure. The test is whether a reasonable patient in the patient's position would want to know about the risk. A 2% risk of permanent disability is significant enough that a reasonable patient would want to know."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the relevant legal element:",
+   facts:["Dr Chen did not warn Robert of the 2% nerve damage risk","A 2% risk of permanent disability is significant to a patient facing elective surgery","Robert states he would have refused surgery if warned","Robert suffered nerve damage and permanent disability"],
+   elems:["Breach of duty to warn — failed to disclose material risk","Materiality — reasonable patient would want to know this risk","Causation — had he been warned he would not have had surgery","Damage — nerve damage and permanent disability resulted"],
+   fb:"All elements: breach (no warning) + materiality (2% permanent disability risk is material) + causation (Robert would have refused surgery) + damage (nerve damage). Dr Chen is liable."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal outcome?",
+   opts:["Dr Chen is not liable — a 2% risk is too small for any reasonable doctor to mention","Dr Chen is liable — she breached her duty to warn of a material risk, and Robert would have declined surgery if warned","Dr Chen is only liable if she also performed the surgery negligently","Robert assumed the risk of surgery when he signed the consent form"],
+   ans:1,fb:"Dr Chen is liable under Rogers v Whitaker. The 2% risk of permanent nerve damage is material — a reasonable patient would want to know this before elective surgery. But for the failure to warn, Robert would not have had the surgery — causation established."},
+ ]},
+{code:'12',ch:2,name:'The Defective Foundations',name_zh:'有缺陷的地基',
+ cases:'March v Stramare (E & MH) Pty Ltd (1991) 171 CLR 506',diff:3,
+ brief:`HomeRight Pty Ltd builds a house for the Tran family using substandard concrete footings to cut costs. Two years later the footings crack, causing $85,000 in structural damage. HomeRight argues the Trans renovated the house 8 months earlier and claims their renovation caused the cracking — not the original footings.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the causation issue?",
+   opts:["Whether HomeRight owed a duty of care to the Tran family","Whether the defective footings caused the structural damage, or whether the renovation did","Whether $85,000 is an appropriate measure of damages","Whether the Trans contributed to the damage through the renovation"],
+   ans:1,fb:"The issue is causation — specifically factual causation (the 'but for' test): but for HomeRight's defective footings, would the damage have occurred? The renovation is a possible intervening cause."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"How is factual causation determined in Australian negligence law?",
+   opts:["Causation is established if the defendant's negligence is any contributing factor to the loss","The 'but for' test: but for the defendant's negligence, would the plaintiff have suffered the loss? (March v Stramare) — common sense judgment also applied","The plaintiff must prove causation beyond reasonable doubt","Causation is presumed once duty and breach are established"],
+   ans:1,fb:"March v Stramare (1991): primary test = 'but for' test. But for the defendant's act, would the damage have occurred? The court also applies common sense judgment to prevent unjust results where multiple causes exist."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its causation significance:",
+   facts:["HomeRight used substandard concrete footings","Structural engineers found the footings were defective and below standard","The Trans's internal renovation did not affect the structural footings","The footings cracked after 2 years, causing the structural damage"],
+   elems:["HomeRight's negligent act — use of substandard footings","Breach established — footings fell below required standard","Renovation did not break the causal chain","'But for' test satisfied — defective footings caused the damage"],
+   fb:"'But for' defective footings → damage would not have occurred. The internal renovation did not affect the structural footings so does not break the causal chain. Causation established against HomeRight."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the outcome?",
+   opts:["HomeRight is not liable — the Trans' renovation was an intervening cause that broke the causal chain","HomeRight is liable — but for the defective footings the structural damage would not have occurred; the renovation did not affect the footings","HomeRight is liable for 50% of the damage only because the renovation was a contributing factor","The Trans must prove causation beyond reasonable doubt before HomeRight is liable"],
+   ans:1,fb:"Causation established: but for HomeRight's defective footings, the damage would not have occurred. The internal renovation did not break the causal chain (it was unrelated to the structural footings). HomeRight is liable for the full $85,000."},
+ ]},
+{code:'13',ch:2,name:'The Jaywalker',name_zh:'乱穿马路',
+ cases:'Civil Liability Act 2002 (NSW) s 5R; Astley v Austrust Ltd (1999)',diff:3,
+ brief:`Tom runs across a busy road away from a pedestrian crossing. Cara, driving at 55km/h in a 60 zone, hits Tom who steps out suddenly. Tom suffers a broken leg and $20,000 in losses. The court finds Cara was negligent (insufficient reaction time) but Tom also contributed by jaywalking without checking for traffic.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether Tom can sue Cara at all given he was jaywalking","Whether Tom's damages should be reduced because of his own negligent conduct (contributory negligence)","Whether Cara was driving dangerously below the speed limit","Whether Tom voluntarily assumed the risk of crossing outside a pedestrian crossing"],
+   ans:1,fb:"The issue is contributory negligence — whether Tom's own failure to take reasonable care for his safety should reduce (not eliminate) his damages. Contributory negligence is an apportionment defence, not a complete bar."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What is the effect of contributory negligence on a plaintiff's damages?",
+   opts:["Contributory negligence is a complete defence — if the plaintiff is partly at fault they recover nothing","Contributory negligence reduces (apportions) the plaintiff's damages in proportion to their share of responsibility (Civil Liability Acts; Law Reform Acts)","Contributory negligence is only relevant if the plaintiff is more than 50% at fault","The defendant must prove 100% contributory negligence to avoid all liability"],
+   ans:1,fb:"Contributory negligence: if the plaintiff's own negligence contributed to the loss, their damages are reduced proportionally. E.g. if Tom is 40% responsible and Cara 60%, Tom's $20,000 damages are reduced to $12,000."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["Cara was driving at 55km/h — within limit but had insufficient reaction time","Tom jaywalked and did not check for traffic before crossing","The court apportions 40% fault to Tom and 60% to Cara","Tom's total losses are $20,000"],
+   elems:["Cara's negligent conduct — breach of duty of care","Tom's contributory negligence — failure to take care for his own safety","Apportionment of responsibility — each party's percentage of fault","Reduced damages — $20,000 × 60% = $12,000 recoverable"],
+   fb:"Cara: negligent (insufficient reaction time). Tom: contributorily negligent (jaywalking, not checking). At 40% fault, Tom's $20,000 is reduced by 40% → he recovers $12,000."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"How much can Tom recover?",
+   opts:["$20,000 — Tom can recover his full losses because Cara was also negligent","$12,000 — Tom's damages are reduced by his 40% contributory negligence ($20,000 × 60%)","$0 — contributory negligence by Tom is a complete bar to recovery","$10,000 — damages are split equally regardless of individual fault percentages"],
+   ans:1,fb:"Tom recovers $12,000 ($20,000 × 60%). His 40% contributory negligence (jaywalking, not checking for traffic) reduces his damages proportionally. Contributory negligence is not a complete bar — it is an apportionment mechanism."},
+ ]},
+{code:'14',ch:2,name:'The Dangerous Dog',name_zh:'危险的狗',
+ cases:'Companion Animals Act 1998 (NSW); scienter rule',diff:2,
+ brief:`Alex's dog has previously attacked and bitten two people — Alex knows this. When neighbours visit, Alex allows the dog to roam unleashed in the yard. The dog bites visiting child Leo, aged 7, on the arm, requiring stitches and leaving a permanent scar. Alex argues he couldn't have predicted Leo would get close to the dog.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the primary legal issue?",
+   opts:["Whether Leo's parents are responsible for supervising their child around the dog","Whether Alex is liable given his prior knowledge of the dog's dangerous propensity","Whether the dog was properly registered under the Companion Animals Act","Whether Leo assumed the risk by approaching the dog"],
+   ans:1,fb:"The issue is whether Alex's prior knowledge of the dog's dangerous nature creates liability. Under the scienter rule and negligence principles, an owner who knows their animal has dangerous propensities must take reasonable precautions."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What legal principle applies to owners of animals with known dangerous propensities?",
+   opts:["Dog owners are only liable if the dog was previously declared dangerous by a council","An owner who knows their animal has a propensity to cause injury owes a duty to prevent foreseeable harm from that propensity (scienter rule); strict liability may also apply under statute","Dog bites are always the victim's fault if they approached the animal","Owners are only liable for injuries caused to paying guests, not casual visitors"],
+   ans:1,fb:"Scienter rule: an owner with knowledge (scienter = 'having known') of an animal's dangerous propensity is liable for injury caused by that propensity. Alex knew the dog had bitten twice — the risk of biting a visiting child was clearly foreseeable."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to its legal significance:",
+   facts:["Alex's dog had previously bitten two people","Alex knew about the prior biting incidents","Alex let the dog roam unleashed when visitors were present","Leo, a 7-year-old child, was bitten and injured"],
+   elems:["Dog's dangerous propensity established","Alex has scienter — knowledge of dangerous propensity","Breach — failed to restrain known dangerous dog around visitors","Foreseeable harm materialised — causation and damage established"],
+   fb:"Scienter (2 prior bites + Alex knew) + foreseeable risk (child + unleashed dangerous dog) + failure to restrain = breach + Leo's injury = damage. Alex is liable."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal outcome?",
+   opts:["Alex is not liable — the dog was on his own property so there is no duty to visiting children","Alex is liable — he knew the dog was dangerous and failed to take the reasonable precaution of restraining it when visitors were present","Alex is only liable if the dog had been officially declared dangerous by the local council","Leo's parents bear responsibility as they should have supervised their child around the dog"],
+   ans:1,fb:"Alex is liable. He had scienter (prior knowledge of dangerous nature) and failed to take the reasonable precaution of restraining the dog when visitors — including a young child — were present. The injury was foreseeable and preventable."},
+ ]},
+{code:'15',ch:2,name:'The Wrong Tax Advice',name_zh:'错误的税务建议',
+ cases:"Hedley Byrne & Co v Heller [1964]; Shaddock v Parramatta City Council (1981)",diff:4,
+ brief:`Petra asks her accountant Sam for tax advice on a potential investment. Sam negligently tells Petra the investment is fully tax-deductible. Relying solely on Sam's advice, Petra invests $50,000. The investment is not deductible — Petra incurs a $15,000 tax penalty. Sam claims he cannot be liable for "mere advice."`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether Sam's advice was covered by a professional indemnity policy","Whether a professional adviser can be liable for negligent advice that causes purely financial loss","Whether Petra should have obtained a second opinion before investing $50,000","Whether the contract between Petra and Sam excludes liability for advice"],
+   ans:1,fb:"The issue is negligent misstatement — can Sam be liable in negligence for incorrect advice causing financial (not physical) loss? Hedley Byrne v Heller established that liability can arise for negligent advice causing pure economic loss in a 'special relationship.'"},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Under Hedley Byrne, when is an adviser liable for negligent advice?",
+   opts:["An adviser is never liable for advice — only for physical acts","A professional adviser who gives advice knowing it will be relied upon, in a situation where reliance is reasonable, owes a duty of care for pure economic loss (Hedley Byrne v Heller)","Liability for advice only arises if there is a signed written contract for the advice","Financial advisers have no duty of care unless they hold a specific licence"],
+   ans:1,fb:"Hedley Byrne v Heller [1964]: a 'special relationship' giving rise to a duty for negligent advice arises when: (1) the adviser has relevant skill/knowledge; (2) knows the advice will be relied upon; (3) reliance is reasonable. Sam — a professional accountant advising a client on tax — clearly creates this relationship."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the element it establishes:",
+   facts:["Sam is a professional accountant advising a client on tax matters","Sam gave incorrect tax advice negligently","Petra relied solely on Sam's advice to invest $50,000","Petra suffered a $15,000 tax penalty as a direct result"],
+   elems:["Special relationship — professional skill + client context (Hedley Byrne)","Breach — advice fell below standard of a competent accountant","Reasonable reliance — Petra acted on professional advice","Damage — pure economic loss caused by the negligent advice"],
+   fb:"All Hedley Byrne elements: special relationship (accountant–client) + negligent advice (breach) + reasonable reliance (client acting on professional advice) + economic loss ($15,000 penalty). Sam is liable."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"Is Sam liable?",
+   opts:["No — there is no duty of care for pure economic loss in Australian law","Yes — Sam is liable for the $15,000 loss: he owed a duty (special relationship), gave negligent advice (breach), Petra reasonably relied on it, and suffered economic loss","No — Petra assumed the risk by investing without independent verification","Yes, but only up to the value of Sam's professional fees, not the full loss"],
+   ans:1,fb:"Sam is liable for $15,000 under Hedley Byrne: duty (special relationship — accountant advising a client) + breach (negligent incorrect advice) + causation (Petra relied on advice and would not have invested otherwise) + damage. 'Mere advice' from a professional in a special relationship CAN create liability."},
+ ]},
+{code:'16',ch:2,name:'The Defective Helmet',name_zh:'有缺陷的头盔',
+ cases:'Donoghue v Stevenson [1932]; Grant v Australian Knitting Mills [1936]',diff:3,
+ brief:`CycleMax manufactures bicycle helmets. A manufacturing defect in one helmet causes it to crack in a minor collision on its first use. The rider Zoe suffers a serious head injury she would not have sustained had the helmet functioned correctly. CycleMax argues Zoe bought the helmet from a retailer — no contract exists between them.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether Zoe has a contractual claim against CycleMax for the defective helmet","Whether CycleMax as a manufacturer owes a duty of care in negligence to Zoe as the end consumer","Whether the retailer is liable for selling a defective product","Whether Zoe was wearing the helmet correctly when the collision occurred"],
+   ans:1,fb:"The issue is whether a manufacturer owes a duty of care in negligence to the ultimate consumer — regardless of a direct contractual relationship. Donoghue v Stevenson established that a manufacturer can owe a duty to consumers even without a contract."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What did Donoghue v Stevenson establish about manufacturers?",
+   opts:["Manufacturers only owe a duty to the immediate buyer, not end consumers","A manufacturer owes a duty of care in negligence to the ultimate consumer to ensure products are free from defects that could cause foreseeable harm (Donoghue v Stevenson [1932])","A consumer can only sue a manufacturer if they have a written warranty from that manufacturer","Product defect claims must be brought under consumer law, not negligence"],
+   ans:1,fb:"Donoghue v Stevenson [1932] (Lord Atkin's 'neighbour principle'): a manufacturer owes a duty of care to the ultimate consumer where the product reaches the consumer in the form it left the manufacturer, without reasonable opportunity for intermediate inspection, and a defect causes harm."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the element it establishes:",
+   facts:["CycleMax manufactured the helmet; Zoe is the end consumer","The helmet had a manufacturing defect (structural flaw from production)","The helmet was sold in sealed packaging — no opportunity for inspection","The defect caused the helmet to crack, injuring Zoe"],
+   elems:["Duty of care — manufacturer to ultimate consumer (Donoghue)","Breach — product left factory with a dangerous defect","No intermediate inspection — product reached consumer in original state","Causation and damage — defect directly caused Zoe's head injury"],
+   fb:"All Donoghue elements: manufacturer→consumer duty + breach (defective product) + no intermediate inspection + defect caused injury. CycleMax is liable in negligence despite no direct contract with Zoe."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"Can Zoe succeed against CycleMax?",
+   opts:["No — Zoe has no contract with CycleMax; negligence requires a contractual relationship","Yes — CycleMax owes Zoe a duty of care as the ultimate consumer under Donoghue v Stevenson; the manufacturing defect breached that duty and caused her injury","No — Zoe should sue the retailer only, not the manufacturer","Yes, but only under consumer law (ACL), not in negligence"],
+   ans:1,fb:"Zoe can sue CycleMax in negligence based on Donoghue v Stevenson. A contract is not required. CycleMax owed a duty as manufacturer, breached it by producing a defective helmet, the defect reached Zoe in original form, and caused her injury. She may also have an ACL claim."},
+ ]},
+// ═══ CONSUMER LAW ══════════════════════════════════════════
+{code:'17',ch:3,name:'The Fake Discount',name_zh:'虚假折扣',
+ cases:'ACCC v Harvey Norman Holdings Ltd [2021]; ACL ss 18, 29',diff:2,
+ brief:`HomeWorld runs a "50% OFF ALL FURNITURE!" campaign. Investigation reveals the "original" prices were inflated values HomeWorld never actually charged — items were always sold at the so-called "discounted" price. No consumer ever paid the inflated "original" price. HomeWorld claims it's standard marketing practice.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the primary legal issue?",
+   opts:["Whether HomeWorld's advertising budget was proportionate to its revenue","Whether HomeWorld's use of false original prices to create the appearance of a discount constitutes misleading or deceptive conduct","Whether consumers suffered measurable direct financial losses from the advertising","Whether HomeWorld's competitors use the same marketing practices"],
+   ans:1,fb:"The issue is misleading/deceptive conduct and false price representations under the ACL. Using inflated 'original' prices to create a false impression of a discount engages ACL ss 18 and 29."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Which ACL provisions apply to false price comparisons?",
+   opts:["Consumer protection laws only apply to physical defects in goods, not to advertising","ACL s 18 prohibits misleading/deceptive conduct in trade or commerce; ACL s 29(1)(i) specifically prohibits false representations about the price of goods","Only the ACCC can bring action for misleading advertising — individual consumers have no remedy","Advertising claims are protected as 'puffery' unless they make specific safety claims"],
+   ans:1,fb:"ACL s 18: no person in trade or commerce may engage in misleading or deceptive conduct. ACL s 29(1)(i): no false representation about the price of goods. Inflating 'original' prices to suggest a larger discount = false price representation + misleading conduct."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the relevant legal element:",
+   facts:["HomeWorld is a furniture retailer operating in trade or commerce","HomeWorld published 'original' prices that were never actually charged","The advertising created a false impression consumers were getting 50% off","Consumers were misled about the actual value of the discount"],
+   elems:["Conduct in trade or commerce — ACL applies","False representation — prices were fabricated and never charged","Misleading impression — consumers believed they were getting a large real discount","Breach of ACL s 18 and s 29(1)(i)"],
+   fb:"HomeWorld: in trade/commerce + false 'original' prices (never charged) + misleading impression (consumers believe real 50% saving) = breach of ACL s 18 (misleading conduct) and s 29(1)(i) (false price representation)."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the correct legal conclusion?",
+   opts:["HomeWorld has not breached the ACL — its conduct is standard marketing that consumers understand","HomeWorld has breached ACL ss 18 and 29 — using fictitious original prices to imply a discount is false and misleading; penalties, injunctions, and corrective advertising may be ordered","HomeWorld is only liable if the ACCC can prove individual consumers suffered measurable financial loss","HomeWorld's marketing is acceptable because the actual 'discounted' prices are genuine prices"],
+   ans:1,fb:"HomeWorld has breached ACL ss 18 and 29. Misleading conduct does not require proof that individual consumers lost money — creating a false impression is sufficient. Consequences: civil penalties (up to $50M for companies), injunctions, corrective advertising."},
+ ]},
+{code:'18',ch:3,name:'The Broken Laptop',name_zh:'损坏的笔记本电脑',
+ cases:'ACL ss 54, 64, 259; ACL s 259',diff:2,
+ brief:`Samira buys an $1,800 laptop from TechHub. After 4 months of normal use the screen completely fails. TechHub says "the 12-month manufacturer warranty has expired" (it hasn't) and offers only a paid repair. Samira wants a full refund. TechHub claims its warranty terms limit Samira's rights.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether the laptop was adequately insured by TechHub","Whether Samira is entitled to a remedy under statutory consumer guarantees that cannot be excluded by warranty terms","Whether TechHub correctly identified the cause of the screen failure","Whether Samira should have purchased an extended warranty"],
+   ans:1,fb:"The issue is the consumer guarantee of acceptable quality (ACL s 54) and whether a major failure remedy applies (ACL s 259). ACL s 64 makes it unlawful to exclude or restrict statutory consumer guarantees — TechHub's warranty terms cannot override Samira's ACL rights."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What does the ACL guarantee about goods' quality, and what remedy applies to a major failure?",
+   opts:["Consumer guarantees only apply to goods costing more than $5,000","Under ACL s 54, goods must be of acceptable quality (safe, durable, fit for purpose). If there is a major failure, the consumer can choose a refund or replacement (s 259). Guarantees cannot be excluded (s 64)","The manufacturer's warranty replaces ACL rights once the product is sold","Retailers are not liable for manufacturer defects — only the manufacturer is"],
+   ans:1,fb:"ACL s 54: goods must be of acceptable quality including durability. A screen failing after 4 months on an $1,800 laptop is a major failure. s 259: consumer's choice — refund or replacement for major failures. s 64: terms excluding ACL guarantees are VOID."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the relevant ACL provision:",
+   facts:["Samira bought an $1,800 laptop for personal use — a 'consumer'","The screen failed after 4 months with no fault by Samira","A screen failure on a 4-month-old $1,800 laptop is a major failure","TechHub's warranty terms attempt to limit Samira's remedies"],
+   elems:["Consumer — ACL s 54 guarantee of acceptable quality applies","Guarantee breach — acceptable quality includes durability","Major failure — Samira's choice: refund or replacement (s 259)","Warranty terms excluding ACL rights are void (s 64)"],
+   fb:"Samira is a consumer + 4-month screen failure = not acceptable quality = major failure (s 259) + choice of refund or replacement + TechHub's warranty terms are void (s 64). Samira is entitled to a full refund."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is Samira's entitlement?",
+   opts:["Samira has no remedy as the manufacturer's warranty has expired","Samira can choose a full refund or replacement under ACL s 259 — the screen failure after 4 months is a major failure; TechHub's warranty cannot override her statutory rights","Samira is only entitled to a repair under the ACL","Samira must sue the manufacturer directly, not the retailer TechHub"],
+   ans:1,fb:"Samira has a major failure remedy (ACL s 259): she can choose a full refund or replacement. TechHub's warranty terms are void to the extent they exclude ACL guarantees (s 64). Her statutory rights are against the retailer — she does not need to go to the manufacturer."},
+ ]},
+{code:'19',ch:3,name:'The Unfair Gym Clause',name_zh:'不公平的健身房条款',
+ cases:'ACL ss 23-28; ACCC v Chrisco Hampers Australia Ltd [2015]',diff:3,
+ brief:`FlexFit gym signs members to 12-month standard form contracts. The contract allows FlexFit to change class times, cancel services, or close locations at any time without notice. Members cannot cancel before 12 months without paying all remaining fees. Carlos signed up and wants to cancel after FlexFit moved his nearest gym 20km away.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What is the legal issue?",
+   opts:["Whether Carlos has sufficient grounds to cancel due to the gym relocation","Whether the one-sided cancellation clauses in the standard form consumer contract are unfair contract terms under the ACL","Whether FlexFit's standard form contract was properly disclosed to Carlos at sign-up","Whether Carlos can rely on frustration of contract as the gym moved location"],
+   ans:1,fb:"The issue is whether the clauses (FlexFit can change/cancel services but members cannot cancel without penalty) are 'unfair' under the ACL's unfair contract terms regime (ss 23-28), which applies to standard form consumer contracts."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"Under ACL ss 23-28, when is a contract term 'unfair'?",
+   opts:["Any term in a gym contract that is not standard industry practice is automatically unfair","A term is unfair if it: (1) creates significant imbalance; (2) is not reasonably necessary to protect a legitimate interest; (3) would cause detriment if relied upon (ACL s 24). Such terms are void (ACL s 23)","Unfair terms must be disclosed in writing in bold print to be void","Only terms relating to price and payment can be unfair under the ACL"],
+   ans:1,fb:"ACL s 24: a term is unfair if significant imbalance + not reasonably necessary + would cause detriment. Common example: terms allowing one party to unilaterally change or terminate the contract without the other party having the same right. ACL s 23: unfair terms are void."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the unfair terms analysis:",
+   facts:["The contract allows FlexFit to change services or cancel at will","The contract requires members to pay all remaining fees if they cancel early","FlexFit moved the gym 20km away — a fundamental change to the contracted service","Carlos signed a standard form contract with no ability to negotiate terms"],
+   elems:["Significant imbalance — FlexFit can change; members cannot cancel","Not reasonably necessary — no legitimate interest requires trapping members when service fundamentally changes","Detriment — Carlos must pay for a service he no longer receives as contracted","Standard form consumer contract — ACL unfair terms regime applies"],
+   fb:"Significant imbalance (FlexFit can do anything; Carlos cannot cancel) + not reasonably necessary + material detriment (pay 9 more months he cannot use as contracted) + standard form = unfair term. The cancellation clause is void under ACL s 23."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the legal outcome for Carlos?",
+   opts:["Carlos must pay all remaining fees — he signed a binding 12-month contract","The one-sided cancellation clause is an unfair contract term under ACL ss 23-24 and is void. Carlos can cancel without paying remaining fees, particularly given FlexFit materially changed the service","Carlos can only cancel without penalty if he can separately prove frustration of contract","Carlos must negotiate with FlexFit individually — the ACL has no remedy for individual gym members"],
+   ans:1,fb:"The clause is an unfair contract term — significant imbalance, not reasonably necessary, causes detriment. Under ACL s 23, it is void. Carlos can cancel without paying remaining fees, especially since FlexFit relocated the gym (a material change to the contracted service)."},
+ ]},
+{code:'20',ch:3,name:'The Unsafe Toy',name_zh:'不安全的玩具',
+ cases:'ACL ss 106, 109, 128; Glendale Chemical Products v ACCC (1998)',diff:3,
+ brief:`PopToy Pty Ltd imports and sells a toy containing small detachable parts — a known choking hazard for children under 3. The packaging features a smiling baby image suggesting it's for infants. A toddler chokes on a detached part and is seriously injured. The ACCC investigates under product safety provisions.`,
+ steps:[
+  {type:'quiz',hint:'STEP 1 — IDENTIFY THE ISSUE / 识别法律问题',
+   q:"What are the legal issues?",
+   opts:["Whether PopToy adequately trained its retail staff on safe product handling","Whether PopToy has breached ACL product safety obligations by supplying an unsafe toy, and whether misleading packaging compounds the breach","Whether the injury was caused by parental neglect rather than a product defect","Whether PopToy can rely on an importer exemption under the ACL"],
+   ans:1,fb:"Two issues: (1) product safety — did PopToy supply goods that contravene product safety standards? (ACL ss 106, 109); (2) misleading conduct — did baby-themed packaging mislead consumers about the suitable age range? (ACL s 18)."},
+  {type:'quiz',hint:'STEP 2 — IDENTIFY THE PRINCIPLE / 识别法律原则',
+   q:"What product safety obligations apply under the ACL?",
+   opts:["Product safety only applies to food and medicines — not toys","Under ACL ss 106 and 109: suppliers cannot supply goods that do not comply with mandatory safety standards or are subject to a ban. Under s 128, a manufacturer/importer is liable for loss caused by safety defects","Product safety is voluntary — it only becomes mandatory if the ACCC issues a specific recall notice","Product safety law only applies to products marketed directly to children under 12 months"],
+   ans:1,fb:"ACL s 106: mandatory safety standards — goods must comply. ACL s 109: banned goods cannot be supplied. ACL s 128: manufacturers (including importers) are liable for injuries caused by safety defects. Small detachable parts for under-3s breach established toy safety standards."},
+  {type:'apply',hint:'STEP 3 — APPLY THE LAW TO THE FACTS / 将法律适用于事实',
+   q:"Match each fact to the relevant legal provision:",
+   facts:["The toy contains small detachable parts — a known choking hazard","The packaging features a baby image suggesting suitability for infants","A toddler was seriously injured by choking on a detached part","PopToy is the importer of the toy into Australia"],
+   elems:["Breach of mandatory safety standard — choking hazard for under-3s (ACL s 106)","Misleading conduct — baby imagery suggests safe for infants (ACL s 18)","Liability for safety defect causing personal injury (ACL s 128)","Importer = manufacturer for ACL purposes — liable for safety defects"],
+   fb:"PopToy breached ACL s 106 (mandatory safety standards — small parts unsafe for toddlers) + s 18 (baby packaging = misleading) + s 128 (importer liable for injury from safety defect). Multiple ACL breaches."},
+  {type:'quiz',hint:'STEP 4 — REACH A CONCLUSION / 得出结论',
+   q:"What is the legal conclusion regarding PopToy?",
+   opts:["PopToy is not liable because it only imported the toy — the overseas manufacturer is responsible","PopToy has breached multiple ACL provisions: supplying unsafe goods (s 106), misleading packaging (s 18), and is liable for the injury caused (s 128). Penalties, recall, and compensation may all apply","PopToy is only liable if the toddler's parents can prove they read and relied on the packaging","PopToy bears no liability because toy safety is regulated by a separate government body, not the ACL"],
+   ans:1,fb:"PopToy faces: (1) ACL s 106 breach — small parts toy supplied in a market accessible to toddlers; (2) ACL s 18 breach — baby imagery misleads consumers; (3) ACL s 128 — importer = manufacturer, liable for personal injury from safety defect. Consequences: civil penalties, mandatory recall, compensation to injured child."},
+ ]},
+];// end SC array
+let ST={screen:'home',chIdx:null,scIdx:null,step:0,scores:{I:0,P:0,A:0,C:0},stepDone:[false,false,false,false],
+  applyState:{selFact:null,selElem:null,connected:[],shuffledElems:[]},briefExpanded:false};
+const STEP_KEYS=['I','P','A','C'];
+const STEP_LABELS=['Issue','Principle','Application','Conclusion'];
+const STEP_ZH=['识别问题','法律原则','适用事实','得出结论'];
+const STEP_COLORS=['#3b82f6','#8b5cf6','#f59e0b','#10b981'];
+
+// ── HELPERS ─────────────────────────────────────────────────
+function el(id){return document.getElementById(id);}
+function scr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));el(id).classList.add('active');window.scrollTo(0,0);}
+function shuffle(arr){let a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function diffDots(d){let h='<div class="drow">';for(let i=1;i<=5;i++)h+=`<div class="ddot${i<=d?' on':''}"></div>`;h+=`<span class="dlbl">${d<=2?'Beginner':d===3?'Intermediate':'Advanced'}</span></div>`;return h;}
+
+// ── MUSIC ENGINE (Web Audio API lounge) ─────────────────────
+let audioCtx=null,musicNodes=[],musicPlaying=false,masterGain=null;
+function initAudio(){
+  if(audioCtx)return;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  masterGain=audioCtx.createGain();
+  masterGain.gain.value=0.35;
+  masterGain.connect(audioCtx.destination);
+}
+function makeLounge(){
+  if(!audioCtx)return;
+  musicNodes.forEach(n=>{try{n.stop();}catch(e){}});
+  musicNodes=[];
+  const t=audioCtx.currentTime;
+  // Chord pad
+  const chords=[[261.63,329.63,392,493.88],[293.66,369.99,440,587.33],[246.94,311.13,392,493.88],[261.63,329.63,392,523.25]];
+  const cDur=2.5,cLen=chords.length;
+  for(let r=0;r<8;r++){
+    chords.forEach((chord,ci)=>{
+      chord.forEach(freq=>{
+        const osc=audioCtx.createOscillator();
+        const g=audioCtx.createGain();
+        osc.type='sine';osc.frequency.value=freq;
+        const st=t+r*cLen*cDur+ci*cDur;
+        g.gain.setValueAtTime(0,st);
+        g.gain.linearRampToValueAtTime(0.06,st+0.4);
+        g.gain.linearRampToValueAtTime(0.05,st+cDur-0.3);
+        g.gain.linearRampToValueAtTime(0,st+cDur);
+        osc.connect(g);g.connect(masterGain);
+        osc.start(st);osc.stop(st+cDur+0.1);
+        musicNodes.push(osc);
+      });
+    });
+  }
+  // Bass
+  const bassNotes=[65.41,73.42,61.74,65.41];
+  for(let r=0;r<8;r++){
+    bassNotes.forEach((freq,bi)=>{
+      const osc=audioCtx.createOscillator();
+      const g=audioCtx.createGain();
+      osc.type='triangle';osc.frequency.value=freq;
+      const st=t+r*cLen*cDur+bi*cDur;
+      g.gain.setValueAtTime(0,st);
+      g.gain.linearRampToValueAtTime(0.12,st+0.1);
+      g.gain.linearRampToValueAtTime(0.08,st+cDur-0.2);
+      g.gain.linearRampToValueAtTime(0,st+cDur);
+      osc.connect(g);g.connect(masterGain);
+      osc.start(st);osc.stop(st+cDur+0.1);
+      musicNodes.push(osc);
+    });
+  }
+  // Hi-hat rhythm
+  for(let i=0;i<64;i++){
+    const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.04,audioCtx.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let k=0;k<d.length;k++)d[k]=(Math.random()*2-1)*Math.exp(-k/(d.length*0.2));
+    const src=audioCtx.createBufferSource();
+    const g=audioCtx.createGain();
+    const bpf=audioCtx.createBiquadFilter();
+    bpf.type='highpass';bpf.frequency.value=8000;
+    src.buffer=buf;
+    g.gain.value=0.04;
+    src.connect(bpf);bpf.connect(g);g.connect(masterGain);
+    const st=t+i*0.5;
+    src.start(st);
+    musicNodes.push(src);
+  }
+}
+function toggleMusic(){
+  initAudio();
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  if(!musicPlaying){
+    musicPlaying=true;
+    makeLounge();
+    el('m-tog').textContent='⏹ Stop';el('m-tog').classList.add('on');
+    el('m-lbl').textContent='🎵 Study Lounge — Playing';
+    // restart loop
+    musicLoop();
+  } else {
+    musicPlaying=false;
+    musicNodes.forEach(n=>{try{n.stop();}catch(e){}});
+    musicNodes=[];
+    el('m-tog').textContent='Play Lounge';el('m-tog').classList.remove('on');
+    el('m-lbl').textContent='Study Lounge Music';
+  }
+}
+function musicLoop(){
+  if(!musicPlaying)return;
+  makeLounge();
+  setTimeout(musicLoop,20000);
+}
+function setVol(v){initAudio();if(masterGain)masterGain.gain.value=v/100;}
+
+// ── TIMER ────────────────────────────────────────────────────
+let timerInt=null,timerSec=0,timerPreset=0,timerRunning=false;
+function timerHTML(){
+  return`<div class="timer-bar">
+    <div class="timer-display" id="t-disp">00:00</div>
+    <div class="timer-presets">
+      ${[5,10,15,20].map(m=>`<button class="tpre" onclick="timerSet(${m})">${m}m</button>`).join('')}
+    </div>
+    <button class="tbtn tbtn-go" onclick="timerGo()">▶ Start</button>
+    <button class="tbtn tbtn-stop" onclick="timerStop()">⏸</button>
+    <button class="tbtn tbtn-reset" onclick="timerReset()">↺</button>
+  </div>`;
+}
+function timerSet(m){
+  timerStop();timerSec=m*60;timerPreset=m;
+  document.querySelectorAll('.tpre').forEach(b=>{b.classList.remove('sel');if(b.textContent===m+'m')b.classList.add('sel');});
+  updateTimerDisplay();
+}
+function timerGo(){
+  if(timerRunning)return;
+  if(timerSec<=0)return;
+  timerRunning=true;
+  timerInt=setInterval(()=>{timerSec--;updateTimerDisplay();if(timerSec<=0){clearInterval(timerInt);timerRunning=false;}},1000);
+}
+function timerStop(){if(timerInt)clearInterval(timerInt);timerRunning=false;}
+function timerReset(){timerStop();timerSec=timerPreset*60;updateTimerDisplay();}
+function updateTimerDisplay(){
+  const d=el('t-disp');if(!d)return;
+  const m=Math.floor(timerSec/60),s=timerSec%60;
+  d.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  d.className='timer-display'+(timerSec>0&&timerSec<=60?' red':timerSec>0&&timerSec<=120?' yellow':'');
+}
+
+// ── HOME SCREEN ──────────────────────────────────────────────
+function showHome(){
+  ST.screen='home';
+  const chCounts=CHANNELS.map((_,i)=>SC.filter(s=>s.ch===i).length);
+  let h=`<div class="hd">
+    <div class="logo-pill">
+      <div class="ld" style="background:#1a3a6a">⚖️</div>
+      <div><div class="home-title">IPAC Law Builder</div><div class="home-sub">法律分析练习工具 · v5</div></div>
+    </div>
+    <div class="home-btns">
+      <button class="btn btn-y" onclick="showClass()">🎓 Class Mode / 课堂模式</button>
+    </div>
+  </div>
+  ${timerHTML()}
+  <div class="chan-grid">`;
+  CHANNELS.forEach((c,i)=>{
+    h+=`<div class="chan" style="background:${c.color};border-color:${c.border}" onclick="showTopic(${i})">
+      <div class="ch-u">${c.icon}</div>
+      <div class="ch-n" style="color:${c.tx}">${c.name}</div>
+      <div class="ch-zh" style="color:${c.tx}">${c.zh}</div>
+      <div class="ch-c" style="color:${c.tx}">${chCounts[i]} scenarios</div>
+    </div>`;
+  });
+  h+=`</div><div class="ft">20 scenarios · Contract Law · Business Structures · Negligence · Consumer Law</div>`;
+  el('s-home').innerHTML=h;
+  scr('s-home');
+}
+
+// ── TOPIC SCREEN ─────────────────────────────────────────────
+function showTopic(chIdx){
+  ST.chIdx=chIdx;const ch=CHANNELS[chIdx];
+  const scenarios=SC.filter(s=>s.ch===chIdx);
+  let h=`<div class="topbar">
+    <button class="bk" onclick="showHome()">← Home</button>
+    <div class="tb-inf"><div class="tb-t">${ch.icon} ${ch.name}</div><div class="tb-zh">${ch.zh}</div></div>
+  </div>
+  ${timerHTML()}`;
+  scenarios.forEach(sc=>{
+    const scIdx=SC.indexOf(sc);
+    h+=`<div class="sc-card" onclick="startGame(${scIdx})">
+      <div class="sc-l">
+        <div class="sc-t">${sc.code}. ${esc(sc.name)}</div>
+        <div class="sc-zh">${esc(sc.name_zh)}</div>
+        <div class="sc-cs">${esc(sc.cases)}</div>
+        ${diffDots(sc.diff)}
+      </div>
+      <button class="sc-go" style="background:${ch.color};color:${ch.tx};border:2px solid ${ch.border}" onclick="event.stopPropagation();startGame(${scIdx})">Play →</button>
+    </div>`;
+  });
+  el('s-topic').innerHTML=h;
+  scr('s-topic');
+}
+
+// ── GAME ─────────────────────────────────────────────────────
+function startGame(scIdx){
+  ST.scIdx=scIdx;ST.step=0;ST.scores={I:0,P:0,A:0,C:0};ST.stepDone=[false,false,false,false];ST.briefExpanded=false;
+  renderGame();
+}
+function renderGame(){
+  const sc=SC[ST.scIdx];const ch=CHANNELS[sc.ch];
+  let h=`<div class="topbar">
+    <button class="bk" onclick="showTopic(${sc.ch})">← Back</button>
+    <div class="tb-inf"><div class="tb-t">${sc.code}. ${esc(sc.name)}</div><div class="tb-zh">${esc(sc.name_zh)}</div></div>
+  </div>
+  <div class="g-hd">
+    <div class="g-row1">
+      <div><div class="g-title">${esc(sc.name)}</div><div class="g-zh">${esc(sc.cases)}</div></div>
+      ${renderIProg()}
+    </div>
+  </div>
+  <div class="brief">
+    <div class="brief-lbl">📋 Scenario / 案例情景</div>
+    <div class="brief-tx" id="brief-txt">${esc(sc.brief)}</div>
+  </div>`;
+  // Render steps
+  sc.steps.forEach((s,i)=>{
+    h+=`<div class="sp${i===ST.step?' spa':''}" id="sp-${i}">${renderStep(sc,i)}</div>`;
+  });
+  el('s-game').innerHTML=h;
+  scr('s-game');
+  if(ST.step===2)initApply();
+}
+function renderIProg(){
+  const colors=STEP_COLORS;
+  let h=`<div class="iprog"><div class="ipr-circles">`;
+  STEP_LABELS.forEach((lbl,i)=>{
+    const done=ST.stepDone[i];const active=i===ST.step;
+    const bg=done?colors[i]:active?colors[i]:'#e0e8f8';
+    const tc=done||active?'#fff':'#aab8d8';
+    const border=done||active?colors[i]:'#c0cce8';
+    h+=`<div class="ps-c" style="background:${bg};border-color:${border};color:${tc}">${done?'✓':lbl[0]}</div>`;
+    if(i<3)h+=`<div class="ps-ln"></div>`;
+  });
+  h+=`</div><div class="ipr-labels">`;
+  STEP_LABELS.forEach((lbl,i)=>{
+    h+=`<div class="ipr-lbl">${lbl}<br>${STEP_ZH[i]}</div>`;
+    if(i<3)h+=`<div class="ipr-sp"></div>`;
+  });
+  h+=`</div></div>`;
+  return h;
+}
+function renderStep(sc,i){
+  const s=sc.steps[i];const done=ST.stepDone[i];
+  let h=`<div class="sc2"><div class="sh"><strong>${esc(s.hint)}</strong></div>`;
+  if(s.type==='quiz')h+=renderQuiz(sc,i,done);
+  else if(s.type==='apply')h+=renderApply(sc,i,done);
+  if(done&&i<sc.steps.length-1)h+=`<div class="nr"><button class="btn btn-n" onclick="goStep(${i+1})">Next Step →</button></div>`;
+  if(done&&i===sc.steps.length-1)h+=`<div class="nr"><button class="btn btn-g" onclick="showResults()">See Results 🎉</button></div>`;
+  h+=`</div>`;
+  return h;
+}
+function renderQuiz(sc,i,done){
+  const s=sc.steps[i];
+  let h=`<div class="sq">${esc(s.q)}</div><div class="qos">`;
+  s.opts.forEach((o,oi)=>{
+    let cls='qo';
+    if(done){cls+=' qd';if(oi===s.ans)cls+=' qok';}
+    h+=`<button class="${cls}" onclick="answerQuiz(${ST.scIdx},${i},${oi})">${esc(o)}</button>`;
+  });
+  h+=`</div>`;
+  if(done)h+=`<div class="qfb fbok">✅ ${esc(s.fb)}</div>`;
+  return h;
+}
+function answerQuiz(scIdx,stepIdx,chosen){
+  if(ST.stepDone[stepIdx])return;
+  const s=SC[scIdx].steps[stepIdx];
+  const correct=chosen===s.ans;
+  if(correct){
+    ST.stepDone[stepIdx]=true;
+    ST.scores[STEP_KEYS[stepIdx]]=1;
+    renderGame();
+  } else {
+    // Shake wrong option
+    const opts=document.querySelectorAll(`#sp-${stepIdx} .qo`);
+    if(opts[chosen]){opts[chosen].classList.add('qno');setTimeout(()=>opts[chosen].classList.remove('qno'),600);}
+  }
+}
+function renderApply(sc,i,done){
+  const s=sc.steps[i];
+  if(done){
+    let h=`<div class="sq">${esc(s.q)}</div><div class="blist">`;
+    s.facts.forEach((f,fi)=>{
+      h+=`<div class="brow"><span class="brn">${fi+1}.</span><span>${esc(f)} <span class="bctag">↔</span> ${esc(s.elems[fi])}</span></div>`;
+    });
+    h+=`</div><div class="qfb fbok">✅ ${esc(s.fb)}</div>`;
+    return h;
+  }
+  // Build apply UI
+  const state=ST.applyState;
+  const connected=state.connected;
+  const connFacts=connected.map(p=>p[0]);
+  const connElems=connected.map(p=>p[1]);
+  const remaining=s.facts.length-connected.length;
+  let h=`<div class="sq">${esc(s.q)}</div>
+  <div class="absc"><span class="absn">${connected.length}/${s.facts.length}</span><span class="absl">pairs connected</span><span class="absh">Click a FACT → ELEMENT → CONNECT</span></div>
+  <div class="blist" id="blist-${i}">`;
+  connected.forEach((p,pi)=>{
+    h+=`<div class="brow"><span class="brn">${pi+1}.</span><span>${esc(s.facts[p[0]])} <span class="bctag">↔</span> ${esc(s.elems[p[1]])}</span></div>`;
+  });
+  h+=`</div>
+  <div class="ab-wrap">
+    <div class="ab-col"><div class="ab-lbl">📋 Facts from Scenario</div>`;
+  s.facts.forEach((f,fi)=>{
+    const used=connFacts.includes(fi);
+    const sel=state.selFact===fi;
+    let cls='at'+(used?' atd':sel?' atsf':'');
+    h+=`<div class="${cls}" id="fact-${fi}" onclick="selFact(${fi})">${esc(f)}</div>`;
+  });
+  h+=`</div><div class="bc-col"><button class="bcbtn${state.selFact!==null&&state.selElem!==null?' bcr':''}" id="bcbtn" onclick="connectPair(${i})" ${state.selFact===null||state.selElem===null?'disabled':''}>IPAC<br>→</button></div>
+  <div class="ab-col"><div class="ab-lbl">⚖️ Law Elements</div>`;
+  state.shuffledElems.forEach((e,si)=>{
+    const origIdx=e.orig;
+    const used=connElems.includes(origIdx);
+    const sel=state.selElem===origIdx;
+    let cls='at'+(used?' atd':sel?' atsf':'');
+    h+=`<div class="${cls}" id="elem-${origIdx}" onclick="selElem(${origIdx})">${esc(e.text)}</div>`;
+  });
+  h+=`</div></div>`;
+  return h;
+}
+function initApply(){
+  const s=SC[ST.scIdx].steps[2];
+  ST.applyState={selFact:null,selElem:null,connected:[],shuffledElems:shuffle(s.elems.map((t,i)=>({text:t,orig:i})))};
+}
+function selFact(fi){
+  if(ST.stepDone[2])return;
+  const connected=ST.applyState.connected;
+  if(connected.map(p=>p[0]).includes(fi))return;
+  ST.applyState.selFact=ST.applyState.selFact===fi?null:fi;
+  refreshApply();
+}
+function selElem(ei){
+  if(ST.stepDone[2])return;
+  const connected=ST.applyState.connected;
+  if(connected.map(p=>p[1]).includes(ei))return;
+  ST.applyState.selElem=ST.applyState.selElem===ei?null:ei;
+  refreshApply();
+}
+function refreshApply(){
+  const sc=SC[ST.scIdx];const i=2;const s=sc.steps[i];const state=ST.applyState;
+  const connected=state.connected;const connFacts=connected.map(p=>p[0]);const connElems=connected.map(p=>p[1]);
+  const remaining=s.facts.length-connected.length;
+  // Update blist
+  const bl=el(`blist-${i}`);
+  if(bl){let bh='';connected.forEach((p,pi)=>{bh+=`<div class="brow"><span class="brn">${pi+1}.</span><span>${esc(s.facts[p[0]])} <span class="bctag">↔</span> ${esc(s.elems[p[1]])}</span></div>`;});bl.innerHTML=bh;}
+  // Update score display
+  document.querySelectorAll('.absn')[0]&&(document.querySelectorAll('.absn')[0].textContent=`${connected.length}/${s.facts.length}`);
+  // Update fact tiles
+  s.facts.forEach((_,fi)=>{
+    const d=el(`fact-${fi}`);if(!d)return;
+    const used=connFacts.includes(fi);const sel=state.selFact===fi;
+    d.className='at'+(used?' atd':sel?' atsf':'');
+  });
+  // Update elem tiles
+  state.shuffledElems.forEach(e=>{
+    const d=el(`elem-${e.orig}`);if(!d)return;
+    const used=connElems.includes(e.orig);const sel=state.selElem===e.orig;
+    d.className='at'+(used?' atd':sel?' atsf':'');
+  });
+  // Update connect button
+  const btn=el('bcbtn');
+  if(btn){
+    btn.disabled=(state.selFact===null||state.selElem===null);
+    btn.className='bcbtn'+(state.selFact!==null&&state.selElem!==null?' bcr':'');
+  }
+}
+function connectPair(stepIdx){
+  const state=ST.applyState;const sc=SC[ST.scIdx];const s=sc.steps[2];
+  if(state.selFact===null||state.selElem===null)return;
+  const fi=state.selFact,ei=state.selElem;
+  // Check: correct pair is fact[i] matches elems[i]
+  if(fi===ei){
+    state.connected.push([fi,ei]);
+    state.selFact=null;state.selElem=null;
+    refreshApply();
+    // Check if all done
+    if(state.connected.length===s.facts.length){
+      ST.stepDone[2]=true;ST.scores['A']=1;
+      setTimeout(()=>renderGame(),400);
+    }
+  } else {
+    // Wrong pair - shake
+    const fd=el(`fact-${fi}`);const ed=el(`elem-${ei}`);
+    if(fd){fd.classList.add('aterr');setTimeout(()=>{fd.classList.remove('aterr');fd.className='at atsf';},400);}
+    if(ed){ed.classList.add('aterr');setTimeout(()=>{ed.classList.remove('aterr');ed.className='at atsf';},400);}
+  }
+}
+function goStep(i){
+  ST.step=i;
+  renderGame();
+  if(i===2)initApply();
+}
+
+// ── RESULTS ──────────────────────────────────────────────────
+function showResults(){
+  const sc=SC[ST.scIdx];const ch=CHANNELS[sc.ch];
+  const total=Object.values(ST.scores).reduce((a,b)=>a+b,0);
+  const pct=Math.round(total/4*100);
+  const emoji=pct===100?'🏆':pct>=75?'⭐':pct>=50?'📚':'💪';
+  const msg=pct===100?'Perfect IPAC!':pct>=75?'Great analysis!':pct>=50?'Good effort — review the steps below':' Keep practising — read the feedback carefully';
+  let h=`<div class="topbar"><button class="bk" onclick="showTopic(${sc.ch})">← Topic</button><div class="tb-inf"><div class="tb-t">Results — ${esc(sc.name)}</div></div></div>
+  <div class="rh">
+    <div class="rst">${emoji}</div>
+    <div class="rt">${msg}</div>
+    <div class="rs">${esc(sc.cases)}</div>
+    <div class="rsrow">
+      ${STEP_KEYS.map((k,i)=>`<div class="sbg ${ST.scores[k]?'ok':'no'}"><div class="sbs">${ST.scores[k]?'✓':'✗'}</div><div class="sbl">${STEP_LABELS[i]}</div></div>`).join('')}
+      <div class="sbg sk"><div class="sbs">${total}/4</div><div class="sbl">Score</div></div>
+    </div>
+  </div>`;
+  // Full IPAC summary
+  h+=`<div class="rpc"><div class="rpl">📖 Full IPAC Analysis / 完整分析</div><div class="fp">`;
+  sc.steps.forEach((s,i)=>{
+    h+=`<strong style="color:${STEP_COLORS[i]}">${STEP_LABELS[i]} (${STEP_ZH[i]}):</strong> ${esc(s.fb)}<br><br>`;
+  });
+  h+=`</div></div>
+  <div class="nr">
+    <button class="btn btn-g" onclick="startGame(${ST.scIdx})">↺ Try Again</button>
+    <button class="btn btn-n" onclick="showTopic(${sc.ch})">← Back to ${esc(ch.name)}</button>
+    <button class="btn btn-s" onclick="showHome()">🏠 Home</button>
+  </div>`;
+  el('s-results').innerHTML=h;
+  scr('s-results');
+}
+
+// ── CLASS MODE ───────────────────────────────────────────────
+function showClass(){
+  let h=`<div class="topbar"><button class="bk" onclick="showHome()">← Home</button><div class="tb-inf"><div class="tb-t">🎓 Class Mode</div><div class="tb-zh">课堂模式</div></div></div>
+  <div class="cm-hero">
+    <div class="cm-title">🎓 Class Mode / 课堂模式</div>
+    <div class="cm-sub">Three ways to use IPAC Law Builder in class</div>
+    <div class="cm-opts">
+      <div class="cm-opt" onclick="classWholeClass()">
+        <div class="cm-opt-icon">🎲</div>
+        <div class="cm-opt-t">Random Scenario</div>
+        <div class="cm-opt-s">Pick a random scenario to display for the whole class</div>
+      </div>
+      <div class="cm-opt" onclick="classGroups()">
+        <div class="cm-opt-icon">👥</div>
+        <div class="cm-opt-t">Group Allocation</div>
+        <div class="cm-opt-s">Assign different scenarios to 4 groups simultaneously</div>
+      </div>
+      <div class="cm-opt" onclick="classCodeMode()">
+        <div class="cm-opt-icon">🔢</div>
+        <div class="cm-opt-t">Enter Scenario Code</div>
+        <div class="cm-opt-s">Students type in the scenario code (01–20) to start</div>
+      </div>
+      <div class="cm-opt" onclick="showHome()">
+        <div class="cm-opt-icon">📋</div>
+        <div class="cm-opt-t">Browse All Scenarios</div>
+        <div class="cm-opt-s">Go to home screen to browse by topic and pick any scenario</div>
+      </div>
+    </div>
+  </div>
+  ${timerHTML()}`;
+  el('s-class').innerHTML=h;
+  scr('s-class');
+}
+function classWholeClass(){
+  const sc=SC[Math.floor(Math.random()*SC.length)];
+  const ch=CHANNELS[sc.ch];
+  const existing=el('s-class');
+  let h=`<div class="topbar"><button class="bk" onclick="showClass()">← Class Mode</button><div class="tb-inf"><div class="tb-t">🎲 Random Scenario</div></div></div>
+  <div class="cm-result">
+    <div class="cm-code">${sc.code}</div>
+    <div class="cm-sc-name">${esc(sc.name)}</div>
+    <div class="cm-sc-zh">${esc(sc.name_zh)}</div>
+    <div class="cm-sc-cases" style="color:${ch.border}">${esc(sc.cases)}</div>
+    <div class="cm-inst">Ask students to enter code <strong>${sc.code}</strong> — or click below to start this scenario</div>
+  </div>
+  ${timerHTML()}
+  <div class="nr">
+    <button class="btn btn-g" onclick="startGame(${SC.indexOf(sc)})">▶ Start This Scenario</button>
+    <button class="btn btn-y" onclick="classWholeClass()">🎲 New Random</button>
+    <button class="btn btn-s" onclick="showClass()">← Back</button>
+  </div>`;
+  el('s-class').innerHTML=h;
+}
+function classGroups(){
+  let pool=[...SC];
+  const grpColors=[
+    {bg:'#dbeafe',bd:'#3b82f6',tx:'#1e3a8a',lbl:'Group A'},
+    {bg:'#dcfce7',bd:'#16a34a',tx:'#14532d',lbl:'Group B'},
+    {bg:'#fee2e2',bd:'#dc2626',tx:'#7f1d1d',lbl:'Group C'},
+    {bg:'#fef9c3',bd:'#ca8a04',tx:'#713f12',lbl:'Group D'},
+  ];
+  const picks=[];
+  for(let i=0;i<4;i++){
+    const idx=Math.floor(Math.random()*pool.length);
+    picks.push(pool.splice(idx,1)[0]);
+  }
+  let h=`<div class="topbar"><button class="bk" onclick="showClass()">← Class Mode</button><div class="tb-inf"><div class="tb-t">👥 Group Allocation</div></div></div>
+  <div class="grp-grid">`;
+  picks.forEach((sc,i)=>{
+    const g=grpColors[i];
+    h+=`<div class="grp-card" style="background:${g.bg};border-color:${g.bd}">
+      <div class="grp-lbl" style="color:${g.tx}">${g.lbl}</div>
+      <div class="grp-code" style="color:${g.tx}">${sc.code}</div>
+      <div class="grp-name" style="color:${g.tx}">${esc(sc.name)}</div>
+      <div class="grp-cases" style="color:${g.tx}">${esc(sc.cases)}</div>
+    </div>`;
+  });
+  h+=`</div>
+  ${timerHTML()}
+  <div class="nr">
+    <button class="btn btn-y" onclick="classGroups()">🎲 New Groups</button>
+    <button class="btn btn-s" onclick="showClass()">← Back</button>
+  </div>`;
+  el('s-class').innerHTML=h;
+}
+function classCodeMode(){
+  let h=`<div class="topbar"><button class="bk" onclick="showClass()">← Class Mode</button><div class="tb-inf"><div class="tb-t">🔢 Enter Scenario Code</div></div></div>
+  <div class="code-entry">
+    <div class="code-t">Enter Scenario Code / 输入场景代码</div>
+    <div class="code-s">Codes 01 – 20 · Type the two-digit code and press Go</div>
+    <input type="text" class="code-inp" id="code-inp" maxlength="2" placeholder="01" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    <button class="code-go" onclick="goByCode()">Go →</button>
+    <div class="code-err" id="code-err">Invalid code — please enter a number between 01 and 20</div>
+  </div>
+  <div style="background:var(--card);border-radius:var(--r);padding:12px 15px;box-shadow:0 3px 0 rgba(0,0,80,.06);">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--tx2);margin-bottom:8px;">All Scenarios / 所有场景</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      ${SC.map(s=>`<button class="btn btn-s" style="padding:5px 10px;font-size:11px;" onclick="document.getElementById('code-inp').value='${s.code}';goByCode()">${s.code}</button>`).join('')}
+    </div>
+  </div>`;
+  el('s-class').innerHTML=h;
+}
+function goByCode(){
+  const v=(el('code-inp').value||'').trim().padStart(2,'0');
+  const sc=SC.find(s=>s.code===v);
+  const errEl=el('code-err');
+  if(sc){errEl.style.display='none';startGame(SC.indexOf(sc));}
+  else{errEl.style.display='block';}
+}
+
+// ── CHECK FOR CLASS MODE HASH ────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  if(window.location.hash==='#class')showClass();
+  else showHome();
+});
+</script>
+</body>
+</html>
