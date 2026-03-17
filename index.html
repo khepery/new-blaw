@@ -52,6 +52,12 @@
             --ipac-tool-light: #e0f2f1;
             --ipac-tool-accent: #004d40;
 
+            /* IPAC Law Builder Colors */
+            --builder-color: #1a3a6a;
+            --builder-light: #dceeff;
+            --builder-accent: #0d2247;
+            --builder-gold: #f5a800;
+
             /* Corporate Escape Game Colors */
             --game-color: #0a1628;
             --game-accent: #00ffff;
@@ -154,6 +160,15 @@
         .tool-content p { color: var(--med-text); margin-bottom: 1rem; font-size: 0.95rem; }
         .tool-link { display: inline-block; background-color: var(--ipac-tool-color); color: white; padding: 0.7rem 1.2rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; }
         .tool-link:hover { background-color: var(--ipac-tool-accent); }
+        .tool-tile-builder { background-color: var(--builder-light); border-left: 5px solid var(--builder-color); border-radius: 8px; padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 1.2rem; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .tool-tile-builder:hover { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); transform: translateY(-3px); }
+        .tool-icon-builder { background-color: var(--builder-color); color: white; min-width: 60px; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.6rem; }
+        .tool-content-builder h3 { color: var(--builder-color); font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .tool-content-builder .bilingual { display: flex; flex-direction: column; gap: 0.2rem; }
+        .tool-content-builder .bilingual .chinese { font-size: 0.85rem; color: var(--med-text); font-weight: normal; }
+        .tool-content-builder p { color: var(--med-text); margin-bottom: 1rem; font-size: 0.95rem; }
+        .tool-link-builder { display: inline-block; background-color: var(--builder-color); color: white; padding: 0.7rem 1.2rem; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; margin-right: 0.5rem; }
+        .tool-link-builder:hover { background-color: var(--builder-accent); }
 
         /* Game Section Styles */
         .game-section { background-color: var(--game-color); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow), 0 0 20px rgba(0, 255, 255, 0.15); border: 1px solid rgba(0, 255, 255, 0.3); }
@@ -316,6 +331,18 @@
                             Conclusion) method to legal problem-solving. Features include scaffold selection, legal
                             principle lookup, and answer generation.</p>
                         <a href="ipac app revised.html" class="tool-link">Launch IPAC Tool</a>
+                    </div>
+                </div>
+                <div class="tool-tile-builder">
+                    <div class="tool-icon-builder">⚖️</div>
+                    <div class="tool-content-builder">
+                        <h3 class="bilingual">
+                            <span>IPAC Law Builder</span>
+                            <span class="chinese">IPAC 法律建构工具 v5</span>
+                        </h3>
+                        <p>Practice the IPAC method with 20 guided scenarios covering Contract Law, Business Structures, Negligence, and Consumer Law. Features timer, class mode, and lounge music for study sessions.</p>
+                        <a href="ipac_builder_v5.html" class="tool-link-builder">Launch Law Builder →</a>
+                        <a href="ipac_builder_v5.html#class" class="tool-link-builder" style="background:var(--builder-gold);color:#3d2600;">Class Mode / 课堂模式</a>
                     </div>
                 </div>
             </section>
